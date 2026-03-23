@@ -1,0 +1,7 @@
+{
+  "job_id": "job_test_001",
+  "error": {
+    "code": "PIPELINE_EXECUTION_ERROR",
+    "message": "chatgpt playwright step failed"
+  }
+}
