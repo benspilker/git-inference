@@ -90,6 +90,19 @@ jobs:
             fi
           done <<< "$CHANGED"
 
+      - name: Upload Playwright diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-diagnostics-${{ github.run_id }}
+          path: |
+            chatgpt_playwright_error.png
+            chatgpt_playwright_error.html
+            chatgpt_network.log
+            tmp/*.out.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Commit and push artifacts
         run: |
           set -euo pipefail
