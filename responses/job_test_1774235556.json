@@ -1,0 +1,9 @@
+{
+  "job_id": "job_test_1774235556",
+  "message": {
+    "role": "assistant",
+    "content": "OK"
+  },
+  "done": true,
+  "completed_at": "2026-03-23T03:14:16Z"
+}
