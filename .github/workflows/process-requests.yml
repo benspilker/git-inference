@@ -1,0 +1,98 @@
+name: Process Inference Requests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "requests/job_*.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  process:
+    runs-on: ubuntu-latest # self-hosted is often more reliable for browser login automation
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PIPELINE_PUSH_PAT || github.token }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Process request files
+        env:
+          CHATGPT_EMAIL: ${{ secrets.CHATGPT_EMAIL }}
+          MS_PASSWORD_B64: ${{ secrets.MS_PASSWORD_B64 }}
+        run: |
+          set -euo pipefail
+          mkdir -p tmp responses errors
+
+          CHANGED=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'requests/job_*.json' || true)
+          [ -z "$CHANGED" ] && { echo "No new request files."; exit 0; }
+
+          for req in $CHANGED; do
+            job_id=$(basename "$req" .json)
+            prompt_file="tmp/${job_id}.prompt.txt"
+            out_file="tmp/${job_id}.out.txt"
+
+            python - "$req" "$prompt_file" << 'PY'
+import json,sys
+req_path,prompt_path=sys.argv[1],sys.argv[2]
+d=json.load(open(req_path,"r",encoding="utf-8"))
+sys_prompt=(d.get("system_prompt") or "").strip()
+user_prompt=(d.get("user_prompt") or "").strip()
+text=(f"{sys_prompt}\n\n{user_prompt}" if sys_prompt else user_prompt).strip()
+open(prompt_path,"w",encoding="utf-8").write(text)
+PY
+
+            if python chatgpt_file_playwright_anonymous_ci.py \
+              --input-file "$prompt_file" \
+              --output-file "$out_file" \
+              --email "$CHATGPT_EMAIL" \
+              --headless \
+              --force-login \
+              --incognito \
+              --wait-seconds 90 \
+              --timeout-ms 120000
+            then
+              python - "$job_id" "$out_file" << 'PY'
+import json,sys
+from datetime import datetime,timezone
+job_id,out_file=sys.argv[1],sys.argv[2]
+content=open(out_file,"r",encoding="utf-8").read().strip()
+payload={
+  "job_id": job_id,
+  "message": {"role":"assistant","content": content},
+  "done": True,
+  "completed_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z")
+}
+open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload,indent=2)+"\n")
+PY
+            else
+              python - "$job_id" << 'PY'
+import json,sys
+job_id=sys.argv[1]
+payload={"job_id":job_id,"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}
+open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload,indent=2)+"\n")
+PY
+            fi
+          done
+
+      - name: Commit and push artifacts
+        run: |
+          git config user.name "git-inference-pipeline"
+          git config user.email "git-inference-pipeline@users.noreply.github.com"
+          git add responses errors
+          git diff --cached --quiet && exit 0
+          git commit -m "pipeline: add responses/errors [skip ci]"
+          git push origin HEAD:main
