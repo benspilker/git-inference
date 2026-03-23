@@ -78,7 +78,7 @@ jobs:
             prompt_file="tmp/${job_id}.prompt.txt"
             out_file="tmp/${job_id}.out.txt"
 
-            printf "Reply back exactly with the word 'OK'" > "$prompt_file"
+            printf "Tell me a joke?" > "$prompt_file"
 
             if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
               python chatgpt_file_playwright_anonymous_ci.py \
