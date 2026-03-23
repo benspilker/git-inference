@@ -33,6 +33,10 @@ jobs:
       - name: Install Playwright
         run: |
           set -euo pipefail
+          if ! command -v xvfb-run >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y xvfb
+          fi
           python -m pip install --upgrade pip
           pip install playwright
           python -m playwright install --with-deps chromium
@@ -76,10 +80,10 @@ jobs:
 
             printf "Reply back exactly with the word 'OK'" > "$prompt_file"
 
-            if python chatgpt_file_playwright_anonymous_ci.py \
+            if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
+              python chatgpt_file_playwright_anonymous_ci.py \
               --input-file "$prompt_file" \
               --output-file "$out_file" \
-              --headless \
               --incognito \
               --wait-seconds 60 \
               --timeout-ms 120000
