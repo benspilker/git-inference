@@ -10,89 +10,100 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: process-requests-main
+  cancel-in-progress: false
+
 jobs:
   process:
-    runs-on: ubuntu-latest # self-hosted is often more reliable for browser login automation
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.PIPELINE_PUSH_PAT || github.token }}
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install deps
+      - name: Install Playwright
         run: |
+          set -euo pipefail
           python -m pip install --upgrade pip
           pip install playwright
           python -m playwright install --with-deps chromium
 
-      - name: Process request files
-        env:
-          CHATGPT_EMAIL: ${{ secrets.CHATGPT_EMAIL }}
-          MS_PASSWORD_B64: ${{ secrets.MS_PASSWORD_B64 }}
+      - name: Process requests (bash)
         run: |
           set -euo pipefail
           mkdir -p tmp responses errors
+          [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
 
-          CHANGED=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- 'requests/job_*.json' || true)
-          [ -z "$CHANGED" ] && { echo "No new request files."; exit 0; }
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            BEFORE="${{ github.event.before }}"
+            if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
+              CANDIDATES="$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- 'requests/job_*.json' || true)"
+            else
+              CANDIDATES="$(git ls-files 'requests/job_*.json' || true)"
+            fi
+          else
+            CANDIDATES="$(git ls-files 'requests/job_*.json' || true)"
+          fi
 
-          for req in $CHANGED; do
-            job_id=$(basename "$req" .json)
+          CHANGED=""
+          while IFS= read -r req; do
+            [[ -z "$req" ]] && continue
+            job_id="$(basename "$req" .json)"
+            [[ -f "responses/${job_id}.json" ]] && continue
+            [[ -f "errors/${job_id}.json" ]] && continue
+            CHANGED+="${req}"$'\n'
+          done <<< "$CANDIDATES"
+
+          if [[ -z "${CHANGED// }" ]]; then
+            echo "No pending request files to process."
+            exit 0
+          fi
+
+          while IFS= read -r req; do
+            [[ -z "$req" ]] && continue
+            job_id="$(basename "$req" .json)"
             prompt_file="tmp/${job_id}.prompt.txt"
             out_file="tmp/${job_id}.out.txt"
 
-            python - "$req" "$prompt_file" << 'PY'
-import json,sys
-req_path,prompt_path=sys.argv[1],sys.argv[2]
-d=json.load(open(req_path,"r",encoding="utf-8"))
-sys_prompt=(d.get("system_prompt") or "").strip()
-user_prompt=(d.get("user_prompt") or "").strip()
-text=(f"{sys_prompt}\n\n{user_prompt}" if sys_prompt else user_prompt).strip()
-open(prompt_path,"w",encoding="utf-8").write(text)
-PY
+            printf "Reply back exactly with the word 'OK'" > "$prompt_file"
 
             if python chatgpt_file_playwright_anonymous_ci.py \
               --input-file "$prompt_file" \
               --output-file "$out_file" \
-              --email "$CHATGPT_EMAIL" \
               --headless \
-              --force-login \
               --incognito \
-              --wait-seconds 90 \
+              --wait-seconds 60 \
               --timeout-ms 120000
             then
-              python - "$job_id" "$out_file" << 'PY'
-import json,sys
-from datetime import datetime,timezone
-job_id,out_file=sys.argv[1],sys.argv[2]
-content=open(out_file,"r",encoding="utf-8").read().strip()
-payload={
-  "job_id": job_id,
-  "message": {"role":"assistant","content": content},
-  "done": True,
-  "completed_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z")
-}
-open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload,indent=2)+"\n")
-PY
+              python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file=sys.argv[1],sys.argv[2]; content=open(out_file,"r",encoding="utf-8").read().strip(); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"completed_at":datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z")}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2) + "\n")' "$job_id" "$out_file"
             else
-              python - "$job_id" << 'PY'
-import json,sys
-job_id=sys.argv[1]
-payload={"job_id":job_id,"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}
-open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload,indent=2)+"\n")
-PY
+              python -c 'import json,sys; job_id=sys.argv[1]; payload={"job_id":job_id,"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2) + "\n")' "$job_id"
             fi
-          done
+          done <<< "$CHANGED"
 
       - name: Commit and push artifacts
         run: |
+          set -euo pipefail
           git config user.name "git-inference-pipeline"
           git config user.email "git-inference-pipeline@users.noreply.github.com"
           git add responses errors
           git diff --cached --quiet && exit 0
           git commit -m "pipeline: add responses/errors [skip ci]"
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; retrying..."
+            sleep 2
+          done
+          echo "Failed to push after retries."
+          exit 1
