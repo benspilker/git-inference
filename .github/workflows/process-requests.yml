@@ -51,13 +51,14 @@ jobs:
           PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
         run: |
           set -euo pipefail
-          mkdir -p tmp responses errors input/processed
+          mkdir -p tmp responses errors responses_readable input/processed
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
 
           process_prompt() {
             local job_id="$1"
             local prompt_file="$2"
             local out_file="$3"
+            local input_committed_at="$4"
 
             if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
               python chatgpt_file_playwright_anonymous_ci.py \
@@ -67,9 +68,10 @@ jobs:
               --wait-seconds 60 \
               --timeout-ms 120000
             then
-              python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file=sys.argv[1],sys.argv[2]; content=open(out_file,"r",encoding="utf-8").read().strip(); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"completed_at":datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z")}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2) + "\n")' "$job_id" "$out_file"
+              python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at=sys.argv[1],sys.argv[2],sys.argv[3]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); input_dt=(datetime.fromisoformat(ts.replace("Z","+00:00")) if ts else None); input_dt=(input_dt.replace(tzinfo=timezone.utc) if (input_dt is not None and input_dt.tzinfo is None) else input_dt); elapsed_seconds=(max(0,int((completed_dt-input_dt.astimezone(timezone.utc)).total_seconds())) if input_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at"
+              cp "$out_file" "responses_readable/${job_id}.md"
             else
-              python -c 'import json,sys; job_id=sys.argv[1]; payload={"job_id":job_id,"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2) + "\n")' "$job_id"
+              python -c 'import json,sys; job_id,input_committed_at=sys.argv[1],sys.argv[2]; ts=(input_committed_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at"
             fi
           }
 
@@ -80,7 +82,7 @@ jobs:
             out_file="tmp/${job_id}.out.txt"
             printf '%s' "$PROMPT_TEXT" > "$prompt_file"
             echo "Processing workflow_dispatch prompt_text as ${job_id}"
-            process_prompt "$job_id" "$prompt_file" "$out_file"
+            process_prompt "$job_id" "$prompt_file" "$out_file" ""
             exit 0
           fi
 
@@ -117,10 +119,11 @@ jobs:
             job_id="job_${safe_stem}"
             prompt_file="tmp/${job_id}.prompt.txt"
             out_file="tmp/${job_id}.out.txt"
+            input_committed_at="$(git log -1 --format=%cI -- "$req" 2>/dev/null || true)"
 
             cp "$req" "$prompt_file"
             echo "Processing ${req} as ${job_id}"
-            process_prompt "$job_id" "$prompt_file" "$out_file"
+            process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at"
 
             target="input/processed/${base_name}"
             if [[ -e "$target" ]]; then
@@ -140,6 +143,7 @@ jobs:
             chatgpt_playwright_error.html
             chatgpt_network.log
             tmp/*.out.txt
+            responses_readable/*.md
           if-no-files-found: ignore
           retention-days: 7
 
@@ -148,7 +152,7 @@ jobs:
           set -euo pipefail
           git config user.name "git-inference-pipeline"
           git config user.email "git-inference-pipeline@users.noreply.github.com"
-          git add input responses errors
+          git add input responses errors responses_readable
           git diff --cached --quiet && exit 0
           git commit -m "pipeline: process prompts and archive inputs [skip ci]"
           for attempt in 1 2 3; do
