@@ -4,8 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "requests/job_*.json"
+      - "input/*.txt"
   workflow_dispatch:
+    inputs:
+      prompt_text:
+        description: "Prompt text to process immediately (optional)"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -41,44 +46,18 @@ jobs:
           pip install playwright
           python -m playwright install --with-deps chromium
 
-      - name: Process requests (bash)
+      - name: Process prompts (bash)
+        env:
+          PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
         run: |
           set -euo pipefail
-          mkdir -p tmp responses errors
+          mkdir -p tmp responses errors input/processed
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
 
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            BEFORE="${{ github.event.before }}"
-            if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
-              CANDIDATES="$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- 'requests/job_*.json' || true)"
-            else
-              CANDIDATES="$(git ls-files 'requests/job_*.json' || true)"
-            fi
-          else
-            CANDIDATES="$(git ls-files 'requests/job_*.json' || true)"
-          fi
-
-          CHANGED=""
-          while IFS= read -r req; do
-            [[ -z "$req" ]] && continue
-            job_id="$(basename "$req" .json)"
-            [[ -f "responses/${job_id}.json" ]] && continue
-            [[ -f "errors/${job_id}.json" ]] && continue
-            CHANGED+="${req}"$'\n'
-          done <<< "$CANDIDATES"
-
-          if [[ -z "${CHANGED// }" ]]; then
-            echo "No pending request files to process."
-            exit 0
-          fi
-
-          while IFS= read -r req; do
-            [[ -z "$req" ]] && continue
-            job_id="$(basename "$req" .json)"
-            prompt_file="tmp/${job_id}.prompt.txt"
-            out_file="tmp/${job_id}.out.txt"
-
-            printf "Tell me a joke?" > "$prompt_file"
+          process_prompt() {
+            local job_id="$1"
+            local prompt_file="$2"
+            local out_file="$3"
 
             if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
               python chatgpt_file_playwright_anonymous_ci.py \
@@ -92,6 +71,63 @@ jobs:
             else
               python -c 'import json,sys; job_id=sys.argv[1]; payload={"job_id":job_id,"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2) + "\n")' "$job_id"
             fi
+          }
+
+          PROMPT_TEXT="${PROMPT_TEXT_INPUT:-}"
+          if [[ -n "${PROMPT_TEXT// }" ]]; then
+            job_id="job_dispatch_${GITHUB_RUN_ID}_${GITHUB_RUN_ATTEMPT}"
+            prompt_file="tmp/${job_id}.prompt.txt"
+            out_file="tmp/${job_id}.out.txt"
+            printf '%s' "$PROMPT_TEXT" > "$prompt_file"
+            echo "Processing workflow_dispatch prompt_text as ${job_id}"
+            process_prompt "$job_id" "$prompt_file" "$out_file"
+            exit 0
+          fi
+
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            BEFORE="${{ github.event.before }}"
+            if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
+              CANDIDATES="$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- 'input/*.txt' || true)"
+            else
+              CANDIDATES="$(git ls-files 'input/*.txt' || true)"
+            fi
+          else
+            CANDIDATES="$(git ls-files 'input/*.txt' || true)"
+          fi
+
+          CHANGED=""
+          while IFS= read -r req; do
+            [[ -z "$req" ]] && continue
+            [[ "$req" == input/processed/* ]] && continue
+            [[ -f "$req" ]] || continue
+            CHANGED+="${req}"$'\n'
+          done <<< "$CANDIDATES"
+
+          if [[ -z "${CHANGED// }" ]]; then
+            echo "No pending input text files to process."
+            exit 0
+          fi
+
+          while IFS= read -r req; do
+            [[ -z "$req" ]] && continue
+            [[ -f "$req" ]] || continue
+            base_name="$(basename "$req")"
+            stem="${base_name%.txt}"
+            safe_stem="$(printf '%s' "$stem" | tr -cs 'A-Za-z0-9._-' '_')"
+            job_id="job_${safe_stem}"
+            prompt_file="tmp/${job_id}.prompt.txt"
+            out_file="tmp/${job_id}.out.txt"
+
+            cp "$req" "$prompt_file"
+            echo "Processing ${req} as ${job_id}"
+            process_prompt "$job_id" "$prompt_file" "$out_file"
+
+            target="input/processed/${base_name}"
+            if [[ -e "$target" ]]; then
+              ts="$(date -u +%Y%m%dT%H%M%SZ)"
+              target="input/processed/${stem}_${ts}.txt"
+            fi
+            mv "$req" "$target"
           done <<< "$CHANGED"
 
       - name: Upload Playwright diagnostics
@@ -112,9 +148,9 @@ jobs:
           set -euo pipefail
           git config user.name "git-inference-pipeline"
           git config user.email "git-inference-pipeline@users.noreply.github.com"
-          git add responses errors
+          git add input responses errors
           git diff --cached --quiet && exit 0
-          git commit -m "pipeline: add responses/errors [skip ci]"
+          git commit -m "pipeline: process prompts and archive inputs [skip ci]"
           for attempt in 1 2 3; do
             if git pull --rebase origin main && git push origin HEAD:main; then
               exit 0
