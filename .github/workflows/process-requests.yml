@@ -52,8 +52,18 @@ jobs:
           PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
         run: |
           set -euo pipefail
+          CHUNK_WORDS=1500
+          MAX_CHUNKS=3
+          MAX_WORDS=$((CHUNK_WORDS * MAX_CHUNKS))
           mkdir -p tmp responses errors responses_readable input/processed
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
+          default_instructions_file="tmp/pipeline.instructions.txt"
+          python -c 'from pathlib import Path; import sys; Path(sys.argv[1]).write_text("You are a retrieval-first assistant.\n\nRules:\n1. For time-sensitive or dynamic requests (weather, stocks, prices, sports, news, schedules, \"today\", \"now\", \"current\"), you must use web search before answering.\n2. If web search is unavailable in this session, respond exactly with:\nWEB_SEARCH_UNAVAILABLE\n3. If web search is available, include concrete, current facts in the answer.\n4. Do not claim uncertainty for time-sensitive requests when web search is available.\n", encoding="utf-8")' "$default_instructions_file"
+
+          calculate_chunk_count() {
+            local prompt_file="$1"
+            python -c 'import math,re,sys; text=open(sys.argv[1],"r",encoding="utf-8").read(); chunk_words=int(sys.argv[2]); max_chunks=int(sys.argv[3]); max_words=chunk_words*max_chunks; word_count=len(re.findall(r"\S+", text)); print(f"ERR:{word_count}:{max_words}" if word_count>max_words else max(1, math.ceil(word_count/chunk_words)))' "$prompt_file" "$CHUNK_WORDS" "$MAX_CHUNKS"
+          }
 
           process_prompt() {
             local job_id="$1"
@@ -61,17 +71,36 @@ jobs:
             local out_file="$3"
             local input_committed_at="$4"
             local started_at="$5"
+            local chunk_count="${6:-1}"
+            local instructions_file="${7:-$default_instructions_file}"
+            local -a chunk_args=()
+            local -a instruction_args=()
+
+            if [[ "${chunk_count}" -gt 1 ]]; then
+              chunk_args+=(--chunks "$chunk_count" --finalize-on-last-chunk --no-map-reduce)
+              echo "Auto-chunk enabled for ${job_id}: ${chunk_count} chunks (${CHUNK_WORDS} words/chunk max)"
+            fi
+            if [[ -f "$instructions_file" ]]; then
+              instruction_args+=(--instructions-file "$instructions_file")
+            fi
 
             if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
               python chatgpt_file_playwright_anonymous_ci.py \
               --input-file "$prompt_file" \
+              "${instruction_args[@]}" \
               --output-file "$out_file" \
               --incognito \
               --wait-seconds 60 \
-              --timeout-ms 120000
+              --timeout-ms 120000 \
+              "${chunk_args[@]}"
             then
-              python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
-              cp "$out_file" "responses_readable/${job_id}.md"
+              if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                cp "$out_file" "responses_readable/${job_id}.md"
+              else
+                python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                cp "$out_file" "responses_readable/${job_id}.md"
+              fi
             else
               python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
             fi
@@ -84,8 +113,15 @@ jobs:
             out_file="tmp/${job_id}.out.txt"
             started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
             printf '%s' "$PROMPT_TEXT" > "$prompt_file"
+            chunk_count="$(calculate_chunk_count "$prompt_file")"
+            if [[ "$chunk_count" == ERR:* ]]; then
+              IFS=':' read -r _ word_count max_words <<< "$chunk_count"
+              python -c 'import json,sys; job_id,word_count,max_words,started_at=sys.argv[1],int(sys.argv[2]),int(sys.argv[3]),sys.argv[4]; payload={"job_id":job_id,"input_committed_at":None,"started_at":started_at,"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":1500,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$word_count" "$max_words" "$started_at"
+              echo "Dispatch prompt too large (${word_count} > ${max_words}). Error artifact written."
+              exit 0
+            fi
             echo "Processing workflow_dispatch prompt_text as ${job_id}"
-            process_prompt "$job_id" "$prompt_file" "$out_file" "" "$started_at"
+            process_prompt "$job_id" "$prompt_file" "$out_file" "" "$started_at" "$chunk_count"
             exit 0
           fi
 
@@ -129,9 +165,16 @@ jobs:
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
               python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); parts=[x for x in (system_prompt, user_prompt) if x]; nested=payload.get("request"); messages=nested.get("messages", []) if isinstance(nested, dict) else []; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt="\n\n".join(parts).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8")' "$req" "$prompt_file"
+              chunk_count="$(calculate_chunk_count "$prompt_file")"
+              if [[ "$chunk_count" == ERR:* ]]; then
+                IFS=':' read -r _ word_count max_words <<< "$chunk_count"
+                python -c 'import json,sys; job_id,input_committed_at,started_at,word_count,max_words=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":1500,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$word_count" "$max_words"
+                echo "Skipping ${req}: prompt too large (${word_count} > ${max_words})"
+                continue
+              fi
 
               echo "Processing ${req} as ${job_id}"
-              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at"
+              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count"
             else
               base_name="$(basename "$req")"
               stem="${base_name%.txt}"
@@ -143,8 +186,15 @@ jobs:
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
               cp "$req" "$prompt_file"
-              echo "Processing ${req} as ${job_id}"
-              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at"
+              chunk_count="$(calculate_chunk_count "$prompt_file")"
+              if [[ "$chunk_count" == ERR:* ]]; then
+                IFS=':' read -r _ word_count max_words <<< "$chunk_count"
+                python -c 'import json,sys; job_id,input_committed_at,started_at,word_count,max_words=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":1500,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$word_count" "$max_words"
+                echo "Skipping ${req}: prompt too large (${word_count} > ${max_words})"
+              else
+                echo "Processing ${req} as ${job_id}"
+                process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count"
+              fi
 
               target="input/processed/${base_name}"
               if [[ -e "$target" ]]; then
@@ -186,3 +236,4 @@ jobs:
           done
           echo "Failed to push after retries."
           exit 1
+
