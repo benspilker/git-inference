@@ -1,0 +1,12 @@
+{
+  "job_id": "job_4584ae06f1d94615",
+  "message": {
+    "role": "assistant",
+    "content": "I don't have access to real-time data like current weather conditions. However, you can easily check the weather in Indianapolis, IN, by looking it up on a weather website or using an app like Google Weather, The Weather Channel, or AccuWeather!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-24T14:38:22-04:00",
+  "started_at": "2026-03-24T18:39:02Z",
+  "elapsed_seconds": 68,
+  "completed_at": "2026-03-24T18:39:30Z"
+}
