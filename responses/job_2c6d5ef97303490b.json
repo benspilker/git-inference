@@ -1,0 +1,12 @@
+{
+  "job_id": "job_2c6d5ef97303490b",
+  "message": {
+    "role": "assistant",
+    "content": "ChatGPT said:\n\nTo use Python in ChatGPT, you need to be logged in. However, I can give you the code to run yourself if you prefer:\n\nPython\nRun\nfrom datetime import datetime\n\n# Defining the year the modern internet is considered to have started (1990 for World Wide Web)\nstart_year = 1990\ncurrent_year = datetime.now().year\n\n# Calculating the age of the modern internet\nage_of_internet = current_year - start_year\nprint(age_of_internet)\n\nJust run this in your local Python environment, and it will calculate the age of the modern internet. If you log in, I can also run it for you!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-24T16:01:45-04:00",
+  "started_at": "2026-03-24T20:02:17Z",
+  "elapsed_seconds": 72,
+  "completed_at": "2026-03-24T20:02:57Z"
+}
