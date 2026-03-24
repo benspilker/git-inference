@@ -1,0 +1,12 @@
+{
+  "job_id": "job_c45e090358544100",
+  "message": {
+    "role": "assistant",
+    "content": "Sure! Here's one for you:\n\nWhy don't skeletons fight each other?\n\nThey don't have the guts! 😄"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-24T00:14:53-04:00",
+  "started_at": "2026-03-24T04:15:23Z",
+  "elapsed_seconds": 56,
+  "completed_at": "2026-03-24T04:15:49Z"
+}
