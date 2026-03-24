@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 8
+  },
+  "created_at": "2026-03-24T18:38:22Z",
+  "job_id": "job_4584ae06f1d94615",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 8
+    },
+    "messages": [
+      {
+        "content": "Tell me the current weather in Indianapolis, IN?",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": false,
+    "user_prompt": "Tell me the current weather in Indianapolis, IN?",
+    "user_prompt_chunks": [
+      "Tell me the current weather in Indianapolis, IN?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Tell me the current weather in Indianapolis, IN?",
+  "user_prompt_chunks": [
+    "Tell me the current weather in Indianapolis, IN?"
+  ]
+}
