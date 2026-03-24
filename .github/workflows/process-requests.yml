@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "input/*.txt"
+      - "requests/job_*.json"
   workflow_dispatch:
     inputs:
       prompt_text:
@@ -91,12 +92,12 @@ jobs:
           if [[ "${{ github.event_name }}" == "push" ]]; then
             BEFORE="${{ github.event.before }}"
             if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
-              CANDIDATES="$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- 'input/*.txt' || true)"
+              CANDIDATES="$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- 'input/*.txt' 'requests/job_*.json' || true)"
             else
-              CANDIDATES="$(git ls-files 'input/*.txt' || true)"
+              CANDIDATES="$( { git ls-files 'input/*.txt' || true; git ls-files 'requests/job_*.json' || true; } | sort -u )"
             fi
           else
-            CANDIDATES="$(git ls-files 'input/*.txt' || true)"
+            CANDIDATES="$( { git ls-files 'input/*.txt' || true; git ls-files 'requests/job_*.json' || true; } | sort -u )"
           fi
 
           CHANGED=""
@@ -104,36 +105,54 @@ jobs:
             [[ -z "$req" ]] && continue
             [[ "$req" == input/processed/* ]] && continue
             [[ -f "$req" ]] || continue
+            if [[ "$req" == requests/job_*.json ]]; then
+              job_id="$(basename "$req" .json)"
+              [[ -f "responses/${job_id}.json" ]] && continue
+              [[ -f "errors/${job_id}.json" ]] && continue
+            fi
             CHANGED+="${req}"$'\n'
           done <<< "$CANDIDATES"
 
           if [[ -z "${CHANGED// }" ]]; then
-            echo "No pending input text files to process."
+            echo "No pending input/request files to process."
             exit 0
           fi
 
           while IFS= read -r req; do
             [[ -z "$req" ]] && continue
             [[ -f "$req" ]] || continue
-            base_name="$(basename "$req")"
-            stem="${base_name%.txt}"
-            safe_stem="$(printf '%s' "$stem" | tr -cs 'A-Za-z0-9._-' '_')"
-            job_id="job_${safe_stem}"
-            prompt_file="tmp/${job_id}.prompt.txt"
-            out_file="tmp/${job_id}.out.txt"
-            input_committed_at="$(git log -1 --format=%cI -- "$req" 2>/dev/null || true)"
-            started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            if [[ "$req" == requests/job_*.json ]]; then
+              job_id="$(basename "$req" .json)"
+              prompt_file="tmp/${job_id}.prompt.txt"
+              out_file="tmp/${job_id}.out.txt"
+              input_committed_at="$(git log -1 --format=%cI -- "$req" 2>/dev/null || true)"
+              started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
-            cp "$req" "$prompt_file"
-            echo "Processing ${req} as ${job_id}"
-            process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at"
+              python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); parts=[x for x in (system_prompt, user_prompt) if x]; nested=payload.get("request"); messages=nested.get("messages", []) if isinstance(nested, dict) else []; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt="\n\n".join(parts).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8")' "$req" "$prompt_file"
 
-            target="input/processed/${base_name}"
-            if [[ -e "$target" ]]; then
-              ts="$(date -u +%Y%m%dT%H%M%SZ)"
-              target="input/processed/${stem}_${ts}.txt"
+              echo "Processing ${req} as ${job_id}"
+              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at"
+            else
+              base_name="$(basename "$req")"
+              stem="${base_name%.txt}"
+              safe_stem="$(printf '%s' "$stem" | tr -cs 'A-Za-z0-9._-' '_')"
+              job_id="job_${safe_stem}"
+              prompt_file="tmp/${job_id}.prompt.txt"
+              out_file="tmp/${job_id}.out.txt"
+              input_committed_at="$(git log -1 --format=%cI -- "$req" 2>/dev/null || true)"
+              started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+              cp "$req" "$prompt_file"
+              echo "Processing ${req} as ${job_id}"
+              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at"
+
+              target="input/processed/${base_name}"
+              if [[ -e "$target" ]]; then
+                ts="$(date -u +%Y%m%dT%H%M%SZ)"
+                target="input/processed/${stem}_${ts}.txt"
+              fi
+              mv "$req" "$target"
             fi
-            mv "$req" "$target"
           done <<< "$CHANGED"
 
       - name: Upload Playwright diagnostics
