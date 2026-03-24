@@ -1,0 +1,12 @@
+{
+  "job_id": "job_bcea994e76fa4cc9",
+  "message": {
+    "role": "assistant",
+    "content": "Here's a basic pizza recipe for you!\n\nIngredients:\n\nPizza Dough (store-bought or homemade)\n\n2 1/4 cups all-purpose flour\n\n1 tsp salt\n\n1 tbsp sugar\n\n1 tbsp active dry yeast\n\n1 cup warm water\n\n1 tbsp olive oil\n\nPizza Sauce:\n\n1 cup canned crushed tomatoes\n\n1 clove garlic (minced)\n\n1 tbsp olive oil\n\n1 tsp dried oregano\n\n1 tsp dried basil\n\nSalt & pepper to taste\n\nToppings:\n\n1 1/2 cups shredded mozzarella cheese\n\nPepperoni, mushrooms, olives, bell peppers, or any other toppings you like\n\nInstructions:\n1. Prepare the Dough:\n\nMix warm water, sugar, and yeast in a bowl. Let it sit for about 5 minutes until frothy.\n\nAdd the flour, salt, and olive oil, then stir until it forms a dough.\n\nKnead the dough on a floured surface for about 5-7 minutes until smooth and elastic.\n\nLet the dough rise in a warm place for about 1 hour, or until it doubles in size.\n\n2. Make the Sauce:\n\nHeat olive oil in a pan and sauté garlic for 1 minute.\n\nAdd crushed tomatoes, oregano, basil, salt, and pepper.\n\nSimmer for 10 minutes, stirring occasionally.\n\n3. Assemble the Pizza:\n\nPreheat your oven to 475°F (245°C).\n\nRoll the dough out to your desired thickness on a floured surface.\n\nSpread a thin layer of sauce over the dough.\n\nSprinkle mozzarella cheese and add your preferred toppings.\n\n4. Bake the Pizza:\n\nPlace the pizza on a baking sheet or pizza stone and bake for 12-15 minutes, or until the crust is golden and the cheese is bubbling.\n\n5. Serve:\n\nSlice and enjoy! You can garnish with fresh basil or a drizzle of olive oil if desired.\n\nLet me know if you need more details!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-24T15:59:12-04:00",
+  "started_at": "2026-03-24T19:59:42Z",
+  "elapsed_seconds": 56,
+  "completed_at": "2026-03-24T20:00:08Z"
+}
