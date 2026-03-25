@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 5
+  },
+  "created_at": "2026-03-25T02:41:41Z",
+  "job_id": "job_4569ad1c77f1462d",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 5
+    },
+    "messages": [
+      {
+        "content": "Write a powershell script that ",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Write a powershell script that ",
+    "user_prompt_chunks": [
+      "Write a powershell script that "
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Write a powershell script that ",
+  "user_prompt_chunks": [
+    "Write a powershell script that "
+  ]
+}
