@@ -89,7 +89,6 @@ jobs:
               --input-file "$prompt_file" \
               "${instruction_args[@]}" \
               --output-file "$out_file" \
-              --incognito \
               --wait-seconds 60 \
               --timeout-ms 120000 \
               "${chunk_args[@]}"
