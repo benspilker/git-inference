@@ -1,0 +1,43 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 11
+  },
+  "created_at": "2026-03-25T13:48:09Z",
+  "job_id": "job_6f7da85b217b4aa8",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 11
+    },
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.\n\nRules:\n1. For time-sensitive or dynamic requests (weather, stocks, prices, sports, news, schedules, \"today\", \"now\", \"current\"), you must use web search before answering.\n2. If web search is unavailable in this session, respond exactly with:\nWEB_SEARCH_UNAVAILABLE\n3. If web search is available, include concrete, current facts in the answer.\n4. Do not claim uncertainty for time-sensitive requests when web search is available.",
+        "role": "system"
+      },
+      {
+        "content": "Give me the top 5 candy bars sold in the US?",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": false,
+    "user_prompt": "Give me the top 5 candy bars sold in the US?",
+    "user_prompt_chunks": [
+      "Give me the top 5 candy bars sold in the US?"
+    ]
+  },
+  "system_prompt": "You are a retrieval-first assistant.\n\nRules:\n1. For time-sensitive or dynamic requests (weather, stocks, prices, sports, news, schedules, \"today\", \"now\", \"current\"), you must use web search before answering.\n2. If web search is unavailable in this session, respond exactly with:\nWEB_SEARCH_UNAVAILABLE\n3. If web search is available, include concrete, current facts in the answer.\n4. Do not claim uncertainty for time-sensitive requests when web search is available.",
+  "type": "chat",
+  "user_prompt": "Give me the top 5 candy bars sold in the US?",
+  "user_prompt_chunks": [
+    "Give me the top 5 candy bars sold in the US?"
+  ]
+}
