@@ -1,0 +1,12 @@
+{
+  "job_id": "job_5c8120cb603c4e22",
+  "message": {
+    "role": "assistant",
+    "content": "I don’t retain or have access to past conversations beyond what’s visible in this current chat.\n\nIn this session, the only prior message from you is your instruction about being a retrieval-first assistant and rules for using web search. There’s no earlier question to summarize.\n\nIf you meant a question from a previous chat, I don’t have visibility into those—feel free to paste it here and I’ll summarize it for you."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-24T22:23:13-04:00",
+  "started_at": "2026-03-25T02:23:51Z",
+  "elapsed_seconds": 67,
+  "completed_at": "2026-03-25T02:24:20Z"
+}
