@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 9
+  },
+  "created_at": "2026-03-25T02:27:49Z",
+  "job_id": "job_8e143c3765c34e82",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 9
+    },
+    "messages": [
+      {
+        "content": "What is the current weather forecast for Indianapolis, Indiana?",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "What is the current weather forecast for Indianapolis, Indiana?",
+    "user_prompt_chunks": [
+      "What is the current weather forecast for Indianapolis, Indiana?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "What is the current weather forecast for Indianapolis, Indiana?",
+  "user_prompt_chunks": [
+    "What is the current weather forecast for Indianapolis, Indiana?"
+  ]
+}
