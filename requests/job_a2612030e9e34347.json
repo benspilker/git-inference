@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 12
+  },
+  "created_at": "2026-03-25T03:21:12Z",
+  "job_id": "job_a2612030e9e34347",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 12
+    },
+    "messages": [
+      {
+        "content": "Generate a python script that can render images of fruits and vegetables?",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Generate a python script that can render images of fruits and vegetables?",
+    "user_prompt_chunks": [
+      "Generate a python script that can render images of fruits and vegetables?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Generate a python script that can render images of fruits and vegetables?",
+  "user_prompt_chunks": [
+    "Generate a python script that can render images of fruits and vegetables?"
+  ]
+}
