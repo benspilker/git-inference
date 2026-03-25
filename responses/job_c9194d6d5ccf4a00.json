@@ -1,0 +1,12 @@
+{
+  "job_id": "job_c9194d6d5ccf4a00",
+  "message": {
+    "role": "assistant",
+    "content": "I currently cannot generate images in this session because you are not logged in. You would need to log in to use image generation. Once you’re logged in, I can generate the dog image and provide it encoded in base64."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-24T22:48:49-04:00",
+  "started_at": "2026-03-25T02:49:21Z",
+  "elapsed_seconds": 59,
+  "completed_at": "2026-03-25T02:49:48Z"
+}
