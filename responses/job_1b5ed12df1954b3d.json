@@ -1,0 +1,12 @@
+{
+  "job_id": "job_1b5ed12df1954b3d",
+  "message": {
+    "role": "assistant",
+    "content": "Here are a few emoji-style ASCII artworks for you:\n\n1. Smiley Face\n\n😊😊😊😊😊\n😊      😊\n😊  😄  😊\n😊      😊\n😊😊😊😊😊\n\n2. Cat\n\n /\\_/\\  \n( 😺 ) \n > ^ <\n\n3. Heart\n\n  ❤️   ❤️\n ❤️❤️ ❤️❤️\n  ❤️❤️❤️\n   ❤️❤️\n    ❤️\n\n4. Little Tree\n\n   🌟\n  🌲🌲\n 🌲🌲🌲\n   🌳\n   🌳\n\n5. Fish\n\n><(((🐟>\n\nIf you want, I can make bigger or more detailed emoji art (animals, logos, characters, etc.)."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-25T20:49:16-04:00",
+  "started_at": "2026-03-26T00:49:50Z",
+  "elapsed_seconds": 64,
+  "completed_at": "2026-03-26T00:50:20Z"
+}
