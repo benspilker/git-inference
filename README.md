@@ -271,12 +271,6 @@ export DB_PATH=/tmp/git_inference_demo/jobs.db
 uvicorn app.main:app --reload --app-dir .
 ```
 
-In another shell, run the fake pipeline:
-
-```bash
-python tools/mock_pipeline.py /tmp/git_inference_demo/pipeline-workrepo main
-```
-
 Then send a request to `/api/chat`.
 
 
