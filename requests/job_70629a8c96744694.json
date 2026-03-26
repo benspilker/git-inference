@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 27
+  },
+  "created_at": "2026-03-26T01:00:34Z",
+  "job_id": "job_70629a8c96744694",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 27
+    },
+    "messages": [
+      {
+        "content": "Is there a way to commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Is there a way to commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?",
+    "user_prompt_chunks": [
+      "Is there a way to commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Is there a way to commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?",
+  "user_prompt_chunks": [
+    "Is there a way to commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?"
+  ]
+}
