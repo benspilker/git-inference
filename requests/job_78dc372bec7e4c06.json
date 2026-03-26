@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 30
+  },
+  "created_at": "2026-03-26T01:05:49Z",
+  "job_id": "job_78dc372bec7e4c06",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 30
+    },
+    "messages": [
+      {
+        "content": "Write me a bash script that would effectively commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Write me a bash script that would effectively commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?",
+    "user_prompt_chunks": [
+      "Write me a bash script that would effectively commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Write me a bash script that would effectively commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?",
+  "user_prompt_chunks": [
+    "Write me a bash script that would effectively commit to multiple branches in a git repo at once so the pipeline for github actions on each would be ran simultaneously?"
+  ]
+}
