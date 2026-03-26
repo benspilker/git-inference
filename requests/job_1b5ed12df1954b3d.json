@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 5
+  },
+  "created_at": "2026-03-26T00:49:16Z",
+  "job_id": "job_1b5ed12df1954b3d",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 5
+    },
+    "messages": [
+      {
+        "content": "Generate ASCII art using emojis ",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Generate ASCII art using emojis ",
+    "user_prompt_chunks": [
+      "Generate ASCII art using emojis "
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Generate ASCII art using emojis ",
+  "user_prompt_chunks": [
+    "Generate ASCII art using emojis "
+  ]
+}
