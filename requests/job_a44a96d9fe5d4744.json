@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 2
+  },
+  "created_at": "2026-03-27T23:32:36Z",
+  "job_id": "job_a44a96d9fe5d4744",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 2
+    },
+    "messages": [
+      {
+        "content": "How many",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "How many",
+    "user_prompt_chunks": [
+      "How many"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "How many",
+  "user_prompt_chunks": [
+    "How many"
+  ]
+}
