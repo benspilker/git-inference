@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 9
+  },
+  "created_at": "2026-03-27T23:33:51Z",
+  "job_id": "job_bc49a9a74ba2433d",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 9
+    },
+    "messages": [
+      {
+        "content": "How many miles is the circumference of the earth? ",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "How many miles is the circumference of the earth? ",
+    "user_prompt_chunks": [
+      "How many miles is the circumference of the earth? "
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "How many miles is the circumference of the earth? ",
+  "user_prompt_chunks": [
+    "How many miles is the circumference of the earth? "
+  ]
+}
