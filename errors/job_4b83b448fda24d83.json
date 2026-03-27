@@ -1,0 +1,9 @@
+{
+  "job_id": "job_4b83b448fda24d83",
+  "input_committed_at": "2026-03-27T19:31:11-04:00",
+  "started_at": "2026-03-27T23:31:47Z",
+  "error": {
+    "code": "WEB_SEARCH_UNAVAILABLE",
+    "message": "Live web search was required for this prompt but unavailable in the ChatGPT session."
+  }
+}
