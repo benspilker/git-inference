@@ -1,0 +1,12 @@
+{
+  "job_id": "job_a44a96d9fe5d4744",
+  "message": {
+    "role": "assistant",
+    "content": "Your question looks incomplete—what would you like to know “how many” of?"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-27T19:32:36-04:00",
+  "started_at": "2026-03-27T23:33:16Z",
+  "elapsed_seconds": 66,
+  "completed_at": "2026-03-27T23:33:42Z"
+}
