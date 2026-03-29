@@ -262,7 +262,9 @@ def build_success_response(
     response_type: Literal["chat", "generate"],
 ):
     response_json = job["response_json"] or {}
-    assistant_content = extract_assistant_content(response_json)
+    combined_payload = load_combined_payload(job["job_id"], response_json=response_json)
+    assistant_source = combined_payload if isinstance(combined_payload, dict) else response_json
+    assistant_content = extract_assistant_content(assistant_source)
     created_at = job["completed_at"] or db.utcnow_iso()
 
     if response_type == "chat":
@@ -272,6 +274,7 @@ def build_success_response(
             message={"role": "assistant", "content": assistant_content},
             done=True,
             job_id=job["job_id"],
+            combined=combined_payload,
         )
     else:
         payload = GenerateResponse(
@@ -280,6 +283,7 @@ def build_success_response(
             response=assistant_content,
             done=True,
             job_id=job["job_id"],
+            combined=combined_payload,
         )
 
     if stream:
@@ -305,6 +309,7 @@ def build_accepted_response(job: dict[str, Any]) -> AcceptedResponse:
 
 def build_job_status(job: dict[str, Any]) -> JobStatusResponse:
     result = job["response_json"] if job["status"] == "completed" else None
+    combined = load_combined_payload(job["job_id"], response_json=result) if job["status"] == "completed" else None
     error = job["error_json"] if job["status"] in {"failed", "expired"} else None
     return JobStatusResponse(
         job_id=job["job_id"],
@@ -317,6 +322,7 @@ def build_job_status(job: dict[str, Any]) -> JobStatusResponse:
         started_at=job["started_at"],
         completed_at=job["completed_at"],
         result=result,
+        combined=combined,
         error=error,
     )
 
@@ -358,10 +364,47 @@ def sha256_json(payload: dict[str, Any]) -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+def is_combined_payload(payload: dict[str, Any]) -> bool:
+    return isinstance(payload, dict) and "response" in payload and (
+        "evaluation" in payload or "score_summary" in payload
+    )
+
+
+def load_combined_payload(job_id: str, response_json: dict[str, Any] | None = None) -> dict[str, Any] | None:
+    if isinstance(response_json, dict) and is_combined_payload(response_json):
+        return response_json
+
+    combined_path = settings.repo_path / settings.combined_dir / f"{job_id}.json"
+    if not combined_path.exists():
+        return None
+
+    try:
+        payload = json.loads(combined_path.read_text(encoding="utf-8"))
+    except Exception:
+        logger.warning("combined artifact was not valid json", extra={"job_id": job_id, "path": str(combined_path)})
+        return None
+
+    return payload if isinstance(payload, dict) else None
+
+
 def extract_assistant_content(response_json: dict[str, Any]) -> str:
+    if is_combined_payload(response_json):
+        nested = response_json.get("response")
+        if isinstance(nested, dict):
+            return extract_assistant_content(nested)
+        if isinstance(nested, str):
+            return nested
+
     if "message" in response_json and isinstance(response_json["message"], dict):
         return str(response_json["message"].get("content", ""))
     if "response" in response_json:
+        if isinstance(response_json["response"], dict):
+            nested = response_json["response"]
+            if "message" in nested and isinstance(nested["message"], dict):
+                return str(nested["message"].get("content", ""))
+            if "content" in nested:
+                return str(nested["content"])
+            return json.dumps(nested)
         return str(response_json["response"])
     if "content" in response_json:
         return str(response_json["content"])

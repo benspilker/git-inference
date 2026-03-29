@@ -8,7 +8,7 @@ Usage:
 
 Options:
   --api-base-url URL           API base URL (default: http://127.0.0.1:8000)
-  --model NAME                 Model name (default: internal-model)
+  --model NAME                 Model name (default: git-chatgpt)
   --prompt TEXT                Prompt text (if omitted, prompted interactively)
   --system-prompt TEXT         System prompt text (default retrieval-first rules)
   --poll-interval-seconds N    Poll interval for /api/jobs (default: 10)
@@ -18,7 +18,7 @@ EOF
 }
 
 API_BASE_URL="http://127.0.0.1:8000"
-MODEL="internal-model"
+MODEL="git-chatgpt"
 PROMPT=""
 POLL_INTERVAL_SECONDS=10
 MAX_WAIT_SECONDS=600

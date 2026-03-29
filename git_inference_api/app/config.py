@@ -23,10 +23,11 @@ class Settings:
     responses_dir: str = os.getenv("RESPONSES_DIR", "responses")
     errors_dir: str = os.getenv("ERRORS_DIR", "errors")
     status_dir: str = os.getenv("STATUS_DIR", "status")
+    combined_dir: str = os.getenv("COMBINED_DIR", "combined")
     git_author_name: str = os.getenv("GIT_AUTHOR_NAME", "Git Inference API")
     git_author_email: str = os.getenv("GIT_AUTHOR_EMAIL", "git-inference-api@example.com")
     auto_init_repo: bool = os.getenv("AUTO_INIT_REPO", "false").lower() == "true"
-    available_models_csv: str = os.getenv("AVAILABLE_MODELS", "internal-model")
+    available_models_csv: str = os.getenv("AVAILABLE_MODELS", "git-chatgpt")
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))
     prompt_max_chunks: int = int(os.getenv("PROMPT_MAX_CHUNKS", "5"))
 

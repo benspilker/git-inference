@@ -39,6 +39,7 @@ class ChatResponse(BaseModel):
     message: ChatMessage
     done: bool = True
     job_id: str
+    combined: dict[str, Any] | None = None
 
 
 class GenerateRequest(BaseModel):
@@ -60,6 +61,7 @@ class GenerateResponse(BaseModel):
     response: str
     done: bool = True
     job_id: str
+    combined: dict[str, Any] | None = None
 
 
 class AcceptedResponse(BaseModel):
@@ -81,4 +83,5 @@ class JobStatusResponse(BaseModel):
     started_at: str | None = None
     completed_at: str | None = None
     result: dict | None = None
+    combined: dict[str, Any] | None = None
     error: dict | None = None

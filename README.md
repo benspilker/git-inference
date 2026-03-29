@@ -35,7 +35,7 @@ This is a V1 prototype for the architecture you described:
 
 ```json
 {
-  "model": "internal-model",
+  "model": "git-chatgpt",
   "messages": [
     { "role": "system", "content": "Be concise." },
     { "role": "user", "content": "Explain CI." }
@@ -52,7 +52,7 @@ This is a V1 prototype for the architecture you described:
 
 ```json
 {
-  "model": "internal-model",
+  "model": "git-chatgpt",
   "created_at": "2026-03-22T18:30:00Z",
   "message": {
     "role": "assistant",
@@ -87,7 +87,7 @@ The worker writes request artifacts like:
   "system_prompt": "Be concise.",
   "user_prompt": "Explain CI.",
   "request": {
-    "model": "internal-model",
+    "model": "git-chatgpt",
     "messages": [
       { "role": "system", "content": "Be concise." },
       { "role": "user", "content": "Explain CI." }
@@ -174,7 +174,7 @@ curl -X POST http://127.0.0.1:8000/api/chat \
   -H 'Content-Type: application/json' \
   -H 'Idempotency-Key: demo-001' \
   -d '{
-    "model": "internal-model",
+    "model": "git-chatgpt",
     "messages": [
       {"role": "system", "content": "Be concise."},
       {"role": "user", "content": "Explain CI."}
