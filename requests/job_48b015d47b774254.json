@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 9
+  },
+  "created_at": "2026-03-29T23:39:57Z",
+  "job_id": "job_48b015d47b774254",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 9
+    },
+    "messages": [
+      {
+        "content": "When approximately did the Renaissance period start and end?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "When approximately did the Renaissance period start and end?",
+    "user_prompt_chunks": [
+      "When approximately did the Renaissance period start and end?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "When approximately did the Renaissance period start and end?",
+  "user_prompt_chunks": [
+    "When approximately did the Renaissance period start and end?"
+  ]
+}
