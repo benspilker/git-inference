@@ -1,0 +1,33 @@
+{
+  "job_id": "job_6bc24b98a5434eea",
+  "status": "completed",
+  "created_at": "2026-03-29T23:59:44Z",
+  "response": {
+    "job_id": "job_6bc24b98a5434eea",
+    "message": {
+      "role": "assistant",
+      "content": "Cryptocurrency mining is best understood as a competition of computers solving math puzzles to secure a network and earn rewards. Here’s a clear, realistic breakdown—including how long it takes to earn something like $1 and why it gets harder over time.\n\n🧠 1. What “mining” actually is\n\nMost major cryptocurrencies (like Bitcoin) use something called Proof of Work.\n\nThe process looks like this:\n\nPeople send transactions (e.g., “Alice sends Bob crypto”).\n\nThese transactions go into a waiting pool.\n\nMiners collect them into a “block.”\n\nMiners race to solve a cryptographic puzzle (a hash).\n\nThe first miner to solve it:\n\nAdds the block to the blockchain\n\nGets rewarded with newly created coins + fees \nSmartAsset\n+1\n\n👉 Think of it like millions of computers guessing a password; whoever guesses first wins.\n\n⚙️ 2. What determines mining speed (and earnings)\nKey factors:\n\nHashrate = how fast your machine guesses solutions \nHeLa\n\nHardware = specialized machines (ASICs) dominate today\n\nElectricity cost = biggest expense\n\nNetwork difficulty = how hard the puzzle is\n\n👉 The higher your hashrate relative to everyone else, the more you earn.\n\n⏱️ 3. How long does it take to mine $1?\n\nThis is where most people get surprised:\n\n⚠️ There is NO fixed time\n\nMining rewards are probabilistic (like a lottery), and usually pooled.\n\nBut we can give realistic 2026-style estimates:\n\n🪙 Bitcoin (BTC)\n\nBlock time: ~10 minutes\n\nReward shared among massive global miners\n\nSolo mining: essentially impossible (odds like 1 in 100M+) \nTom's Hardware\n\n👉 Typical small miner:\n\nMight earn $0.10–$2 per day with decent hardware\n\nSo $1 could take hours to days\n\n👉 Large industrial miner:\n\n$1 is earned in seconds to minutes\n\n🪙 Ethereum (post-merge note)\n\nNo longer mined (uses Proof of Stake)\n\n🪙 Smaller coins (e.g., altcoins like Peercoin)\n\nExample: ~20 minutes per block under some conditions \nKoinX\n\nLower competition → easier entry\n\n👉 But:\n\nCoins are worth less\n\nYou might mine coins quickly but still only earn pennies\n\n💡 Reality check\n\nMining returns are usually expressed like:\n\nRevenue per day = (your hashrate / total network hashrate) × rewards\n\nSo earning $1 depends heavily on:\n\nYour hardware power\n\nCoin price\n\nElectricity costs\n\n📈 4. Does mining get harder over time?\n\nYes—by design.\n\nThis is one of the most important concepts.\n\n🔁 Automatic difficulty adjustment\n\nNetworks adjust difficulty based on total computing power\n\nExample: Bitcoin adjusts ~every 2 weeks \nNervos Network\n\nWhat happens:\n\nMore miners join → total power rises\n\nSystem increases difficulty\n\nRewards per miner decrease\n\n👉 Result:\n\nMining becomes progressively harder and less profitable per machine\n\n⚖️ 5. Why difficulty keeps increasing\n\nBecause of competition:\n\nMore miners = higher network hashrate\n\nHigher hashrate = harder puzzles\n\nHarder puzzles = same block time (~10 min) but more work required\n\nThis keeps the system stable but makes mining:\n\nMore expensive\n\nMore industrialized over time \nCrypto Mining\n\n🧾 6. Big-picture takeaway\n\nMining = computational competition to validate transactions\n\nYou earn crypto by contributing computing power\n\nEarning $1 can take minutes to days, depending on scale\n\nYes—it gets harder over time automatically as more miners join\n\n⚠️ Honest reality (important)\n\nToday (2026), mining is:\n\nDominated by large data centers\n\nOften unprofitable for individuals unless:\n\nYou have very cheap electricity\n\nOr you mine niche coins\n\nIf you want, I can estimate exactly how long it would take YOU to mine $1 based on your computer or GPU."
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T19:58:06-04:00",
+    "started_at": "2026-03-29T23:58:45Z",
+    "elapsed_seconds": 74,
+    "completed_at": "2026-03-29T23:59:20Z"
+  },
+  "evaluation": {
+    "error": "EVAL_CONTEXT_MISSING"
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": null,
+    "confidence_band": null,
+    "memory_eligible": null,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_6bc24b98a5434eea.json",
+    "evaluation": "evaluations/eval_job_6bc24b98a5434eea.json",
+    "error": "errors/job_6bc24b98a5434eea.json",
+    "combined": "combined/job_6bc24b98a5434eea.json"
+  }
+}
