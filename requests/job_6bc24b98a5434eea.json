@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 36
+  },
+  "created_at": "2026-03-29T23:58:06Z",
+  "job_id": "job_6bc24b98a5434eea",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 36
+    },
+    "messages": [
+      {
+        "content": "Explain how cryptocurrency is mined? What is the process, how long does it take to accomplish to effectively mine 1 USD with various coins, and does it get consistently more difficult as others mine those coins?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Explain how cryptocurrency is mined? What is the process, how long does it take to accomplish to effectively mine 1 USD with various coins, and does it get consistently more difficult as others mine those coins?",
+    "user_prompt_chunks": [
+      "Explain how cryptocurrency is mined? What is the process, how long does it take to accomplish to effectively mine 1 USD with various coins, and does it get consistently more difficult as others mine those coins?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Explain how cryptocurrency is mined? What is the process, how long does it take to accomplish to effectively mine 1 USD with various coins, and does it get consistently more difficult as others mine those coins?",
+  "user_prompt_chunks": [
+    "Explain how cryptocurrency is mined? What is the process, how long does it take to accomplish to effectively mine 1 USD with various coins, and does it get consistently more difficult as others mine those coins?"
+  ]
+}
