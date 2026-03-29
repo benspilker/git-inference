@@ -28,7 +28,7 @@ class Settings:
     auto_init_repo: bool = os.getenv("AUTO_INIT_REPO", "false").lower() == "true"
     available_models_csv: str = os.getenv("AVAILABLE_MODELS", "internal-model")
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))
-    prompt_max_chunks: int = int(os.getenv("PROMPT_MAX_CHUNKS", "3"))
+    prompt_max_chunks: int = int(os.getenv("PROMPT_MAX_CHUNKS", "5"))
 
     def ensure_directories(self) -> None:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
@@ -45,5 +45,6 @@ class Settings:
 
 
 settings = Settings()
+
 
 
