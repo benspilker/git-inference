@@ -1,0 +1,127 @@
+You are the final evaluator stage.
+
+Evaluate:
+1) QUESTION_TEXT_PREVIEW below (first 100 words of the canonical user question), and
+2) your immediately previous assistant response in this same chat session.
+
+Do not answer the question again.
+Do not rewrite the prior response.
+Return exactly one JSON object (no markdown, no prose, no code fences).
+
+QUESTION_TEXT_PREVIEW:
+{{QUESTION_TEXT_PREVIEW}}
+
+Context:
+job_id={{JOB_ID}}
+question_id={{QUESTION_ID}}
+run_id={{RUN_ID}}
+branch_id={{BRANCH_ID}}
+phase={{PHASE}}
+judge_model={{JUDGE_MODEL}}
+now_iso_utc={{NOW_ISO_UTC}}
+
+Rules:
+1) Treat QUESTION_TEXT_PREVIEW as a summary anchor only.
+2) Score the immediately previous assistant response in this chat.
+3) If no previous assistant response is available, return exactly:
+{"error":"EVAL_CONTEXT_MISSING"}
+4) Use 0.0-10.0 numeric scores.
+
+Return this exact top-level structure and field names:
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_{{JOB_ID}}",
+  "phase": {{PHASE}},
+  "status": "complete",
+  "created_at": "{{NOW_ISO_UTC}}",
+  "updated_at": "{{NOW_ISO_UTC}}",
+  "run_context": {
+    "job_id": "{{JOB_ID}}",
+    "question_id": "{{QUESTION_ID}}",
+    "run_id": "{{RUN_ID}}",
+    "branch_id": "{{BRANCH_ID}}",
+    "research_id": null,
+    "parent_object_id": "{{RESPONSE_OBJECT_ID}}",
+    "root_object_id": "{{QUESTION_ID}}"
+  },
+  "content": {
+    "question_text_preview": "{{QUESTION_TEXT_PREVIEW}}",
+    "categorization": {
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "",
+    "topic": "",
+    "topics": [],
+    "keywords": [],
+    "summary": "",
+    "query_variants": [],
+    "language": "en",
+    "domain": "",
+    "subdomain": "",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_{{JOB_ID}}",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "{{JUDGE_MODEL}}",
+      "phase": {{PHASE}},
+      "created_at": "{{NOW_ISO_UTC}}",
+      "dimensions": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "clarity": 0.0,
+        "usefulness": 0.0,
+        "groundedness": 0.0,
+        "specificity": 0.0
+      },
+      "overall_score": 0.0,
+      "confidence_band": "medium",
+      "notes": ""
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "{{JUDGE_MODEL}}",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": ["question_preview", "prior_assistant_response"],
+    "source_object_ids": ["{{QUESTION_ID}}", "{{RESPONSE_OBJECT_ID}}"]
+  },
+  "promotion": {
+    "memory_eligible": false,
+    "memory_tier": null,
+    "promotion_reason": null,
+    "blocked_reason": null,
+    "effective_score": 0.0
+  },
+  "links": {
+    "repo_path": "evaluations/eval_{{JOB_ID}}.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": ["{{QUESTION_ID}}", "{{RESPONSE_OBJECT_ID}}"],
+    "evaluation_path": "evaluations/eval_{{JOB_ID}}.json",
+    "final_path": null
+  }
+}

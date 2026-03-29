@@ -55,14 +55,32 @@ jobs:
           CHUNK_WORDS=2000
           MAX_CHUNKS=5
           MAX_WORDS=$((CHUNK_WORDS * MAX_CHUNKS))
-          mkdir -p tmp responses errors responses_readable input/processed
+          mkdir -p tmp responses errors responses_readable evaluations combined input/processed
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
           default_instructions_file="tmp/pipeline.instructions.txt"
-          python -c 'from pathlib import Path; import sys; Path(sys.argv[1]).write_text("You are a retrieval-first assistant.\n\nRules:\n1. For time-sensitive or dynamic requests (weather, stocks, prices, sports, news, schedules, \"today\", \"now\", \"current\"), you must use web search before answering.\n2. If web search is unavailable in this session, respond exactly with:\nWEB_SEARCH_UNAVAILABLE\n3. If web search is available, include concrete, current facts in the answer.\n4. Do not claim uncertainty for time-sensitive requests when web search is available.\n", encoding="utf-8")' "$default_instructions_file"
+          SYSTEM_PROMPT_FILE=".github/workflows/pipeline.system_prompt.txt"
+          EVAL_PROMPT_TEMPLATE_FILE=".github/workflows/pipeline.eval_prompt.template.txt"
+          [[ -f "$SYSTEM_PROMPT_FILE" ]] || { echo "Missing $SYSTEM_PROMPT_FILE"; exit 1; }
+          [[ -f "$EVAL_PROMPT_TEMPLATE_FILE" ]] || { echo "Missing $EVAL_PROMPT_TEMPLATE_FILE"; exit 1; }
+          cp "$SYSTEM_PROMPT_FILE" "$default_instructions_file"
 
           calculate_chunk_count() {
             local prompt_file="$1"
             python -c 'import math,re,sys; text=open(sys.argv[1],"r",encoding="utf-8").read(); chunk_words=int(sys.argv[2]); max_chunks=int(sys.argv[3]); max_words=chunk_words*max_chunks; word_count=len(re.findall(r"\S+", text)); print(f"ERR:{word_count}:{max_words}" if word_count>max_words else max(1, math.ceil(word_count/chunk_words)))' "$prompt_file" "$CHUNK_WORDS" "$MAX_CHUNKS"
+          }
+
+          first_100_words() {
+            local source_file="$1"
+            python -c 'import re,sys; text=open(sys.argv[1],"r",encoding="utf-8").read(); words=re.findall(r"\S+", text); print(" ".join(words[:100]).strip())' "$source_file"
+          }
+
+          render_eval_prompt() {
+            local template_file="$1"
+            local out_file="$2"
+            local question_preview="$3"
+            local job_id="$4"
+            local now_iso="$5"
+            python -c 'from pathlib import Path; import sys; template_path,out_path,question_preview,job_id,now_iso=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5]; text=Path(template_path).read_text(encoding="utf-8"); repl={"{{QUESTION_TEXT_PREVIEW}}":question_preview,"{{JOB_ID}}":job_id,"{{QUESTION_ID}}":f"q_{job_id}","{{RUN_ID}}":f"run_{job_id}","{{BRANCH_ID}}":"branch_01","{{RESPONSE_OBJECT_ID}}":f"resp_{job_id}","{{PHASE}}":"1","{{JUDGE_MODEL}}":"chatgpt-playwright","{{NOW_ISO_UTC}}":now_iso}; [text:=text.replace(k,v) for k,v in repl.items()]; Path(out_path).write_text(text, encoding="utf-8")' "$template_file" "$out_file" "$question_preview" "$job_id" "$now_iso"
           }
 
           process_prompt() {
@@ -73,6 +91,7 @@ jobs:
             local started_at="$5"
             local chunk_count="${6:-1}"
             local instructions_file="${7:-$default_instructions_file}"
+            local question_source_file="${8:-$prompt_file}"
             local -a chunk_args=()
             local -a instruction_args=()
 
@@ -99,10 +118,40 @@ jobs:
               else
                 python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
                 cp "$out_file" "responses_readable/${job_id}.md"
+
+                if [[ ! -f "$question_source_file" ]]; then
+                  question_source_file="$prompt_file"
+                fi
+                question_preview="$(first_100_words "$question_source_file")"
+                eval_prompt_file="tmp/${job_id}.eval.prompt.txt"
+                eval_out_file="tmp/${job_id}.eval.out.txt"
+                eval_json_file="evaluations/eval_${job_id}.json"
+                now_iso="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+                render_eval_prompt "$EVAL_PROMPT_TEMPLATE_FILE" "$eval_prompt_file" "$question_preview" "$job_id" "$now_iso"
+
+                if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
+                  python chatgpt_file_playwright_anonymous_ci.py \
+                  --input-file "$eval_prompt_file" \
+                  --output-file "$eval_out_file" \
+                  --wait-seconds 45 \
+                  --timeout-ms 120000
+                then
+                  if python -c 'import json,re,sys; raw=open(sys.argv[1],"r",encoding="utf-8").read().strip(); out_path=sys.argv[2]; m=re.search(r"\{.*\}", raw, re.S); candidate=(m.group(0) if m else raw); parsed=json.loads(candidate); open(out_path,"w",encoding="utf-8").write(json.dumps(parsed, indent=2, ensure_ascii=False)+"\n")' "$eval_out_file" "$eval_json_file"
+                  then
+                    :
+                  else
+                    python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev,raw_path=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); raw=open(raw_path,"r",encoding="utf-8").read().strip(); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_parse_failure","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"EVAL_INVALID_JSON","message":"Evaluation output was not valid JSON","raw_excerpt":raw[:1500]}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview" "$eval_out_file"
+                  fi
+                else
+                  python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev=sys.argv[1],sys.argv[2],sys.argv[3]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_step_failed","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"PIPELINE_EVALUATION_ERROR","message":"Evaluation playwright step failed"}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview"
+                fi
               fi
             else
               python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
             fi
+
+            python -c 'import json,sys; from datetime import datetime,timezone; from pathlib import Path; job_id,resp_path,err_path,eval_path,out_path=sys.argv[1:6]; load=lambda p: (json.load(open(p,"r",encoding="utf-8")) if Path(p).exists() else None); response=load(resp_path); error=load(err_path); evaluation=load(eval_path); scores=evaluation.get("scores") if isinstance(evaluation,dict) else None; first=(scores[0] if isinstance(scores,list) and scores and isinstance(scores[0],dict) else {}); promotion=evaluation.get("promotion") if isinstance(evaluation,dict) and isinstance(evaluation.get("promotion"),dict) else {}; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); status=("completed" if isinstance(response,dict) and not isinstance(error,dict) else "failed"); payload={"job_id":job_id,"status":status,"created_at":now,"response":response,"evaluation":evaluation,"error":error,"score_summary":{"overall_score":first.get("overall_score"),"confidence_band":first.get("confidence_band"),"memory_eligible":promotion.get("memory_eligible"),"memory_tier":promotion.get("memory_tier")},"paths":{"response":resp_path,"evaluation":eval_path,"error":err_path,"combined":out_path}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload,indent=2,ensure_ascii=False)+"\n")' "$job_id" "responses/${job_id}.json" "errors/${job_id}.json" "evaluations/eval_${job_id}.json" "combined/${job_id}.json"
           }
 
           PROMPT_TEXT="${PROMPT_TEXT_INPUT:-}"
@@ -110,8 +159,10 @@ jobs:
             job_id="job_dispatch_${GITHUB_RUN_ID}_${GITHUB_RUN_ATTEMPT}"
             prompt_file="tmp/${job_id}.prompt.txt"
             out_file="tmp/${job_id}.out.txt"
+            question_file="tmp/${job_id}.question.txt"
             started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
             printf '%s' "$PROMPT_TEXT" > "$prompt_file"
+            printf '%s' "$PROMPT_TEXT" > "$question_file"
             chunk_count="$(calculate_chunk_count "$prompt_file")"
             if [[ "$chunk_count" == ERR:* ]]; then
               IFS=':' read -r _ word_count max_words <<< "$chunk_count"
@@ -120,7 +171,7 @@ jobs:
               exit 0
             fi
             echo "Processing workflow_dispatch prompt_text as ${job_id}"
-            process_prompt "$job_id" "$prompt_file" "$out_file" "" "$started_at" "$chunk_count"
+            process_prompt "$job_id" "$prompt_file" "$out_file" "" "$started_at" "$chunk_count" "$default_instructions_file" "$question_file"
             exit 0
           fi
 
@@ -160,10 +211,11 @@ jobs:
               job_id="$(basename "$req" .json)"
               prompt_file="tmp/${job_id}.prompt.txt"
               out_file="tmp/${job_id}.out.txt"
+              question_file="tmp/${job_id}.question.txt"
               input_committed_at="$(git log -1 --format=%cI -- "$req" 2>/dev/null || true)"
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
-              python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); parts=[x for x in (system_prompt, user_prompt) if x]; nested=payload.get("request"); messages=nested.get("messages", []) if isinstance(nested, dict) else []; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt="\n\n".join(parts).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8")' "$req" "$prompt_file"
+              python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); question_path=Path(sys.argv[3]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); parts=[x for x in (system_prompt, user_prompt) if x]; nested=payload.get("request"); messages=nested.get("messages", []) if isinstance(nested, dict) else []; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt="\n\n".join(parts).strip(); question_text=(user_prompt or user_text or final_prompt).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8"); question_path.write_text(question_text, encoding="utf-8")' "$req" "$prompt_file" "$question_file"
               chunk_count="$(calculate_chunk_count "$prompt_file")"
               if [[ "$chunk_count" == ERR:* ]]; then
                 IFS=':' read -r _ word_count max_words <<< "$chunk_count"
@@ -173,7 +225,7 @@ jobs:
               fi
 
               echo "Processing ${req} as ${job_id}"
-              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count"
+              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count" "$default_instructions_file" "$question_file"
             else
               base_name="$(basename "$req")"
               stem="${base_name%.txt}"
@@ -185,6 +237,7 @@ jobs:
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
               cp "$req" "$prompt_file"
+              question_file="$prompt_file"
               chunk_count="$(calculate_chunk_count "$prompt_file")"
               if [[ "$chunk_count" == ERR:* ]]; then
                 IFS=':' read -r _ word_count max_words <<< "$chunk_count"
@@ -192,7 +245,7 @@ jobs:
                 echo "Skipping ${req}: prompt too large (${word_count} > ${max_words})"
               else
                 echo "Processing ${req} as ${job_id}"
-                process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count"
+                process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count" "$default_instructions_file" "$question_file"
               fi
 
               target="input/processed/${base_name}"
@@ -215,6 +268,8 @@ jobs:
             chatgpt_network.log
             tmp/*.out.txt
             responses_readable/*.md
+            evaluations/*.json
+            combined/*.json
           if-no-files-found: ignore
           retention-days: 7
 
@@ -223,7 +278,7 @@ jobs:
           set -euo pipefail
           git config user.name "git-inference-pipeline"
           git config user.email "git-inference-pipeline@users.noreply.github.com"
-          git add input responses errors responses_readable
+          git add input responses errors responses_readable evaluations combined
           git diff --cached --quiet && exit 0
           git commit -m "pipeline: process prompts and archive inputs [skip ci]"
           for attempt in 1 2 3; do
