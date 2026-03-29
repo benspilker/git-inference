@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 1500,
+    "enabled": false,
+    "max_chunks": 3,
+    "word_count": 7
+  },
+  "created_at": "2026-03-29T02:46:33Z",
+  "job_id": "job_12773f0eadcf4e90",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 1500,
+      "enabled": false,
+      "max_chunks": 3,
+      "word_count": 7
+    },
+    "messages": [
+      {
+        "content": "Summarize this and give me key findings",
+        "role": "user"
+      }
+    ],
+    "model": "internal-model",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Summarize this and give me key findings",
+    "user_prompt_chunks": [
+      "Summarize this and give me key findings"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Summarize this and give me key findings",
+  "user_prompt_chunks": [
+    "Summarize this and give me key findings"
+  ]
+}
