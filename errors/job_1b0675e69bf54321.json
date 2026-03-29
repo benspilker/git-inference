@@ -1,0 +1,9 @@
+{
+  "job_id": "job_1b0675e69bf54321",
+  "input_committed_at": "2026-03-28T23:03:57-04:00",
+  "started_at": "2026-03-29T03:04:39Z",
+  "error": {
+    "code": "PIPELINE_EXECUTION_ERROR",
+    "message": "chatgpt playwright step failed"
+  }
+}
