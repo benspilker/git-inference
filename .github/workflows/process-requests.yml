@@ -52,7 +52,7 @@ jobs:
           PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
         run: |
           set -euo pipefail
-          CHUNK_WORDS=2500
+          CHUNK_WORDS=2000
           MAX_CHUNKS=3
           MAX_WORDS=$((CHUNK_WORDS * MAX_CHUNKS))
           mkdir -p tmp responses errors responses_readable input/processed
@@ -115,7 +115,7 @@ jobs:
             chunk_count="$(calculate_chunk_count "$prompt_file")"
             if [[ "$chunk_count" == ERR:* ]]; then
               IFS=':' read -r _ word_count max_words <<< "$chunk_count"
-              python -c 'import json,sys; job_id,word_count,max_words,started_at=sys.argv[1],int(sys.argv[2]),int(sys.argv[3]),sys.argv[4]; payload={"job_id":job_id,"input_committed_at":None,"started_at":started_at,"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":2500,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$word_count" "$max_words" "$started_at"
+              python -c 'import json,sys; job_id,word_count,max_words,started_at=sys.argv[1],int(sys.argv[2]),int(sys.argv[3]),sys.argv[4]; payload={"job_id":job_id,"input_committed_at":None,"started_at":started_at,"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":2000,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$word_count" "$max_words" "$started_at"
               echo "Dispatch prompt too large (${word_count} > ${max_words}). Error artifact written."
               exit 0
             fi
@@ -167,7 +167,7 @@ jobs:
               chunk_count="$(calculate_chunk_count "$prompt_file")"
               if [[ "$chunk_count" == ERR:* ]]; then
                 IFS=':' read -r _ word_count max_words <<< "$chunk_count"
-                python -c 'import json,sys; job_id,input_committed_at,started_at,word_count,max_words=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":2500,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$word_count" "$max_words"
+                python -c 'import json,sys; job_id,input_committed_at,started_at,word_count,max_words=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":2000,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$word_count" "$max_words"
                 echo "Skipping ${req}: prompt too large (${word_count} > ${max_words})"
                 continue
               fi
@@ -188,7 +188,7 @@ jobs:
               chunk_count="$(calculate_chunk_count "$prompt_file")"
               if [[ "$chunk_count" == ERR:* ]]; then
                 IFS=':' read -r _ word_count max_words <<< "$chunk_count"
-                python -c 'import json,sys; job_id,input_committed_at,started_at,word_count,max_words=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":2500,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$word_count" "$max_words"
+                python -c 'import json,sys; job_id,input_committed_at,started_at,word_count,max_words=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PROMPT_TOO_LARGE","message":f"Prompt has {word_count} words and exceeds max {max_words} words.","limits":{"prompt_chunk_words":2000,"prompt_max_chunks":3,"prompt_max_words":max_words},"word_count":word_count}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$word_count" "$max_words"
                 echo "Skipping ${req}: prompt too large (${word_count} > ${max_words})"
               else
                 echo "Processing ${req} as ${job_id}"
@@ -235,5 +235,6 @@ jobs:
           done
           echo "Failed to push after retries."
           exit 1
+
 
 

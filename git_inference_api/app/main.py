@@ -9,8 +9,10 @@ import uuid
 from contextlib import asynccontextmanager
 from typing import Any, Literal
 
-from fastapi import FastAPI, Header, HTTPException, Query
+from fastapi import FastAPI, Header, HTTPException, Query, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, StreamingResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from . import db
 from .config import settings
@@ -41,6 +43,54 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
+
+def ollama_error_payload(detail: Any, status_code: int) -> dict[str, Any]:
+    if isinstance(detail, dict):
+        message = detail.get("message") or detail.get("error") or detail.get("detail") or f"HTTP {status_code} error"
+        payload: dict[str, Any] = {"error": str(message)}
+
+        code = detail.get("code")
+        if code is not None:
+            payload["code"] = str(code)
+
+        passthrough_keys = ("limits", "word_count", "chunk_count", "job_id", "status")
+        for key in passthrough_keys:
+            if key in detail:
+                payload[key] = detail[key]
+
+        extra_details = {
+            key: value
+            for key, value in detail.items()
+            if key not in {"message", "error", "detail", "code", *passthrough_keys}
+        }
+        if extra_details:
+            payload["details"] = extra_details
+        return payload
+
+    if isinstance(detail, str):
+        return {"error": detail}
+
+    if detail is None:
+        return {"error": f"HTTP {status_code} error"}
+
+    return {"error": f"HTTP {status_code} error", "details": detail}
+
+
+@app.exception_handler(StarletteHTTPException)
+async def ollama_http_exception_handler(_: Request, exc: StarletteHTTPException):
+    return JSONResponse(status_code=exc.status_code, content=ollama_error_payload(exc.detail, exc.status_code))
+
+
+@app.exception_handler(RequestValidationError)
+async def ollama_validation_exception_handler(_: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=400,
+        content={
+            "error": "Invalid request body",
+            "code": "INVALID_REQUEST",
+            "details": exc.errors(),
+        },
+    )
 
 
 @app.get("/health")
@@ -479,3 +529,4 @@ def split_text_by_word_limit(text: str, words_per_chunk: int) -> list[str]:
         chunks.append("".join(current).strip())
 
     return chunks
+
