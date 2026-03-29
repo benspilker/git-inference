@@ -1,0 +1,12 @@
+{
+  "job_id": "job_1c8fdc49a7384400",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s a consolidated overview of your orphaned resource cleanup and other related issues:\n\nOrphaned Resources (Medium Severity, Operations Category):\n\nThese resources are flagged for cleanup, and the issue lies with unused or non-functional configurations:\n\nXYL-AZURE-NORTH-CENTRAL-US-SecureWorks-vCTA-NSG\n\nXylem_Trusted_IP\n\nbasicNsgXYL-US-North_Central_SDWAN-RTR-ETH_2\n\nDefaultNSG (Multiple entries, appears multiple times)\n\nvmwsdwannwe1prdnsg803\n\nXYL-AZR-US-EAST-SDWAN-8K-RTR-nsg\n\nvmw-sdwan-use1-prd-nsg\n\nxyl-avdmadr-nsg\n\nbasicNsgUSXYINNTIIL01VCCE01-eth2-pri\n\nnsg-snet-usc-sdwanpri-001-prd (Multiple entries)\n\nAllow-All (Multiple entries)\n\nXYL-AVDPACN-105-nic-nsg\n\nXYL-AVDPACN-112-NSG\n\nXYL-AVDPACN-112-nic-nsg\n\nnsg-sql-connection\n\nThese resources are reported as orphaned, indicating they are no longer connected to active services or infrastructure and need to be cleaned up for better management.\n\nBasic SKU Public IPs (High Severity, Reliability Category):\n\nMicrosoft is retiring certain Basic SKU Public IPs, which may require attention for reliability:\n\nVNetGW1Storage - Retiring\n\nVMSecApp-ip - Retiring\n\npublicIp1 - Retiring\n\nThese public IPs should be reviewed and updated as Microsoft phases out the Basic SKU.\n\nUnderutilized Resources (Low Severity, Cost Category):\n\nThese resources are underutilized, and you may want to remove them to reduce costs:\n\nvnet-use2-avd-001-prd-ip\n\nVNetGW1Storage\n\nVMSecApp-ip\n\nXYL-AZR-US-EAST-PA-OUTSIDE-IP\n\nXYL-AZR-US-EAST-PaloAlto_Public_IP_Mgmt\n\nXYL-AZR-US-EAST-SDWAN-RTR-ip\n\nXYL-AZR-US-EAST-TRANSIT-VNET-RS-ip\n\npublicIp1\n\nTestDNS-ip\n\nYou may want to evaluate the usage of these resources and remove them if they are no longer needed to save on costs.\n\nIn summary, you have a variety of orphaned network security groups and public IP resources that need cleanup, along with some underutilized public IPs that could be removed to optimize costs. Addressing the Basic SKU Public IPs retirement is important for reliability."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-28T23:23:04-04:00",
+  "started_at": "2026-03-29T03:23:46Z",
+  "elapsed_seconds": 112,
+  "completed_at": "2026-03-29T03:24:56Z"
+}
