@@ -1,0 +1,148 @@
+{
+  "job_id": "job_01cd7f348dcd4ebb",
+  "status": "completed",
+  "created_at": "2026-03-30T01:39:28Z",
+  "response": {
+    "job_id": "job_01cd7f348dcd4ebb",
+    "message": {
+      "role": "assistant",
+      "content": "The mullet haircut first gained widespread popularity in the 1980s. It was often associated with rock stars, athletes, and pop culture figures during that time. The style was characterized by short hair on the front and sides, with longer hair in the back. It became a symbol of rebellion and a distinctive look for individuals who wanted to stand out.\n\nThe term \"mullet\" itself wasn't used to describe the hairstyle until the early 1990s, popularized by the Beastie Boys in their 1994 song \"Mullet Head.\" However, the style had already been a trend for years prior, particularly in the 1980s.\n\nIt also gained a resurgence in the early 2000s, and in recent years, there has been a \"mullet revival\" as younger generations embrace the style again for its nostalgic and unique aesthetic."
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T21:38:51-04:00",
+    "started_at": "2026-03-30T01:39:28Z",
+    "elapsed_seconds": 37,
+    "completed_at": "2026-03-30T01:39:28Z",
+    "memory_reuse": {
+      "enabled": true,
+      "source_job_id": "job_87171b57cd324c6e",
+      "source_path": "combined/job_87171b57cd324c6e.json",
+      "score": 8.8,
+      "similarity": 1.0
+    }
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_01cd7f348dcd4ebb",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T01:39:28Z",
+    "updated_at": "2026-03-30T01:39:28Z",
+    "run_context": {
+      "job_id": "job_01cd7f348dcd4ebb",
+      "question_id": "q_job_01cd7f348dcd4ebb",
+      "run_id": "run_job_01cd7f348dcd4ebb",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_01cd7f348dcd4ebb",
+      "root_object_id": "q_job_01cd7f348dcd4ebb"
+    },
+    "content": {
+      "question_text_preview": "When was the mullet haircut first popularized?",
+      "categorization": {
+        "topic_short": "",
+        "topic": "",
+        "topics": [],
+        "keywords": [],
+        "summary": "",
+        "language": "en",
+        "domain": "",
+        "subdomain": "",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "query_variants": [],
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_01cd7f348dcd4ebb",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "memory-reuse",
+        "phase": 1,
+        "created_at": "2026-03-30T01:39:28Z",
+        "dimensions": {
+          "correctness": 8.8,
+          "completeness": 8.8,
+          "clarity": 8.8,
+          "usefulness": 8.8,
+          "groundedness": 8.8,
+          "specificity": 8.8
+        },
+        "overall_score": 8.8,
+        "confidence_band": "high",
+        "notes": "Reused high-scoring prior response from job_87171b57cd324c6e (similarity=1.000)."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "memory-reuse",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "historical_combined"
+      ],
+      "source_object_ids": [
+        "q_job_01cd7f348dcd4ebb",
+        "resp_job_87171b57cd324c6e"
+      ],
+      "source_paths": [
+        "combined/job_87171b57cd324c6e.json"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": true,
+      "memory_tier": "silver",
+      "promotion_reason": "selected_by_memory_reuse",
+      "blocked_reason": null,
+      "effective_score": 8.8
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_01cd7f348dcd4ebb.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [
+        "combined/job_87171b57cd324c6e.json"
+      ],
+      "related_object_ids": [
+        "q_job_01cd7f348dcd4ebb",
+        "resp_job_87171b57cd324c6e"
+      ],
+      "evaluation_path": "evaluations/eval_job_01cd7f348dcd4ebb.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 8.8,
+    "confidence_band": "high",
+    "memory_eligible": true,
+    "memory_tier": "silver"
+  },
+  "paths": {
+    "response": "responses/job_01cd7f348dcd4ebb.json",
+    "evaluation": "evaluations/eval_job_01cd7f348dcd4ebb.json",
+    "error": "errors/job_01cd7f348dcd4ebb.json",
+    "combined": "combined/job_01cd7f348dcd4ebb.json"
+  }
+}

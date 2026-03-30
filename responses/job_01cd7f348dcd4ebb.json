@@ -1,0 +1,19 @@
+{
+  "job_id": "job_01cd7f348dcd4ebb",
+  "message": {
+    "role": "assistant",
+    "content": "The mullet haircut first gained widespread popularity in the 1980s. It was often associated with rock stars, athletes, and pop culture figures during that time. The style was characterized by short hair on the front and sides, with longer hair in the back. It became a symbol of rebellion and a distinctive look for individuals who wanted to stand out.\n\nThe term \"mullet\" itself wasn't used to describe the hairstyle until the early 1990s, popularized by the Beastie Boys in their 1994 song \"Mullet Head.\" However, the style had already been a trend for years prior, particularly in the 1980s.\n\nIt also gained a resurgence in the early 2000s, and in recent years, there has been a \"mullet revival\" as younger generations embrace the style again for its nostalgic and unique aesthetic."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-29T21:38:51-04:00",
+  "started_at": "2026-03-30T01:39:28Z",
+  "elapsed_seconds": 37,
+  "completed_at": "2026-03-30T01:39:28Z",
+  "memory_reuse": {
+    "enabled": true,
+    "source_job_id": "job_87171b57cd324c6e",
+    "source_path": "combined/job_87171b57cd324c6e.json",
+    "score": 8.8,
+    "similarity": 1.0
+  }
+}
