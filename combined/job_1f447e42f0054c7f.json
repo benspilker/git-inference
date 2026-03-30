@@ -1,0 +1,150 @@
+{
+  "job_id": "job_1f447e42f0054c7f",
+  "status": "completed",
+  "created_at": "2026-03-30T01:47:05Z",
+  "response": {
+    "job_id": "job_1f447e42f0054c7f",
+    "message": {
+      "role": "assistant",
+      "content": "Could you clarify what you mean by “the first e”? Are you asking about the first email, the first electric car, the first emoji, or something else that starts with “e”?"
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T21:45:25-04:00",
+    "started_at": "2026-03-30T01:46:11Z",
+    "elapsed_seconds": 100,
+    "completed_at": "2026-03-30T01:47:05Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_1f447e42f0054c7f",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T01:46:11Z",
+    "updated_at": "2026-03-30T01:46:11Z",
+    "run_context": {
+      "job_id": "job_1f447e42f0054c7f",
+      "question_id": "q_job_1f447e42f0054c7f",
+      "run_id": "run_job_1f447e42f0054c7f",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_1f447e42f0054c7f",
+      "root_object_id": "q_job_1f447e42f0054c7f"
+    },
+    "content": {
+      "question_text_preview": "When was the first e",
+      "categorization": {
+        "topic_short": "history",
+        "topic": "historical firsts",
+        "topics": [
+          "history",
+          "technology",
+          "milestones"
+        ],
+        "keywords": [
+          "first",
+          "e"
+        ],
+        "summary": "The user is asking about the first occurrence of something starting with 'e', possibly a technological or historical event.",
+        "language": "en",
+        "domain": "general knowledge",
+        "subdomain": "historical events",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": true,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "history",
+      "topic": "historical firsts",
+      "topics": [
+        "history",
+        "technology",
+        "milestones"
+      ],
+      "keywords": [
+        "first",
+        "e"
+      ],
+      "summary": "The user query is incomplete and ambiguous, asking about the first occurrence of something starting with 'e'.",
+      "query_variants": [],
+      "language": "en",
+      "domain": "general knowledge",
+      "subdomain": "historical events",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_1f447e42f0054c7f",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T01:46:11Z",
+        "dimensions": {
+          "correctness": 7.0,
+          "completeness": 6.0,
+          "clarity": 9.0,
+          "usefulness": 8.0,
+          "groundedness": 7.0,
+          "specificity": 5.0
+        },
+        "overall_score": 7.0,
+        "confidence_band": "high",
+        "notes": "The response appropriately requested clarification due to ambiguity in the question, showing careful handling of incomplete input."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_1f447e42f0054c7f",
+        "resp_job_1f447e42f0054c7f"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": null,
+      "effective_score": 7.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_1f447e42f0054c7f.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_1f447e42f0054c7f",
+        "resp_job_1f447e42f0054c7f"
+      ],
+      "evaluation_path": "evaluations/eval_job_1f447e42f0054c7f.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 7.0,
+    "confidence_band": "high",
+    "memory_eligible": false,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_1f447e42f0054c7f.json",
+    "evaluation": "evaluations/eval_job_1f447e42f0054c7f.json",
+    "error": "errors/job_1f447e42f0054c7f.json",
+    "combined": "combined/job_1f447e42f0054c7f.json"
+  }
+}
