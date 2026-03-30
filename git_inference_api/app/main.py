@@ -114,6 +114,7 @@ def chat(
         response_type="chat",
         async_mode=async_mode,
         idempotency_key=idempotency_key,
+        combined_in_message=wants_combined_in_message(request.options, request.format),
     )
 
 
@@ -171,6 +172,7 @@ def handle_submission(
     response_type: Literal["chat", "generate"],
     async_mode: bool,
     idempotency_key: str | None,
+    combined_in_message: bool = False,
 ):
     request_hash = sha256_json(normalized_request)
     resolved_idempotency_key = resolve_idempotency_key(idempotency_key, request_hash)
@@ -193,6 +195,7 @@ def handle_submission(
             stream=stream,
             response_type=response_type,
             async_mode=async_mode,
+            combined_in_message=combined_in_message,
         )
 
     job_id = db.create_job(
@@ -217,7 +220,13 @@ def handle_submission(
         return JSONResponse(status_code=202, content=accepted.model_dump())
 
     waited = wait_for_terminal_state(job_id, timeout_seconds=settings.api_wait_timeout_seconds)
-    return build_response_for_job(job=waited, model=model, stream=stream, response_type=response_type)
+    return build_response_for_job(
+        job=waited,
+        model=model,
+        stream=stream,
+        response_type=response_type,
+        combined_in_message=combined_in_message,
+    )
 
 
 def build_response_for_mode(
@@ -226,13 +235,26 @@ def build_response_for_mode(
     stream: bool,
     response_type: Literal["chat", "generate"],
     async_mode: bool,
+    combined_in_message: bool = False,
 ):
     status = job["status"]
     if async_mode or status in {"completed", "failed", "expired"}:
-        return build_response_for_job(job=job, model=model, stream=stream, response_type=response_type)
+        return build_response_for_job(
+            job=job,
+            model=model,
+            stream=stream,
+            response_type=response_type,
+            combined_in_message=combined_in_message,
+        )
 
     waited = wait_for_terminal_state(job["job_id"], timeout_seconds=settings.api_wait_timeout_seconds)
-    return build_response_for_job(job=waited, model=model, stream=stream, response_type=response_type)
+    return build_response_for_job(
+        job=waited,
+        model=model,
+        stream=stream,
+        response_type=response_type,
+        combined_in_message=combined_in_message,
+    )
 
 
 def build_response_for_job(
@@ -240,10 +262,17 @@ def build_response_for_job(
     model: str,
     stream: bool,
     response_type: Literal["chat", "generate"],
+    combined_in_message: bool = False,
 ):
     status = job["status"]
     if status == "completed":
-        return build_success_response(job=job, model=model, stream=stream, response_type=response_type)
+        return build_success_response(
+            job=job,
+            model=model,
+            stream=stream,
+            response_type=response_type,
+            combined_in_message=combined_in_message,
+        )
     if status in {"failed", "expired"}:
         error_payload = job.get("error_json") or {"message": f"job {status}"}
         raise HTTPException(
@@ -260,11 +289,14 @@ def build_success_response(
     model: str,
     stream: bool,
     response_type: Literal["chat", "generate"],
+    combined_in_message: bool = False,
 ):
     response_json = job["response_json"] or {}
     combined_payload = load_combined_payload(job["job_id"], response_json=response_json)
     assistant_source = combined_payload if isinstance(combined_payload, dict) else response_json
     assistant_content = extract_assistant_content(assistant_source)
+    if response_type == "chat" and combined_in_message and isinstance(combined_payload, dict):
+        assistant_content = serialize_combined_payload(combined_payload)
     created_at = job["completed_at"] or db.utcnow_iso()
 
     if response_type == "chat":
@@ -310,6 +342,9 @@ def build_accepted_response(job: dict[str, Any]) -> AcceptedResponse:
 def build_job_status(job: dict[str, Any]) -> JobStatusResponse:
     result = job["response_json"] if job["status"] == "completed" else None
     combined = load_combined_payload(job["job_id"], response_json=result) if job["status"] == "completed" else None
+    if job["status"] == "completed":
+        include_combined_in_message = request_wants_combined_in_message(job["request_json"])
+        result = merge_combined_into_result_payload(result, combined, include_combined_in_message)
     error = job["error_json"] if job["status"] in {"failed", "expired"} else None
     return JobStatusResponse(
         job_id=job["job_id"],
@@ -342,11 +377,12 @@ def normalize_chat_request(request: ChatRequest) -> dict[str, Any]:
         chunk_messages = [{"role": "user", "content": chunk} for chunk in chunked["chunks"]]
         messages = messages[:target_idx] + chunk_messages + messages[target_idx + 1 :]
 
-    return {
+    normalized = {
         "request_type": "chat",
         "model": request.model,
         "messages": messages,
         "stream": bool(request.stream),
+        "combined_in_message": wants_combined_in_message(request.options, request.format),
         "user_prompt": chunked["original"],
         "user_prompt_chunks": chunked["chunks"],
         "chunking": {
@@ -357,6 +393,11 @@ def normalize_chat_request(request: ChatRequest) -> dict[str, Any]:
             "chunk_count": chunked["chunk_count"],
         },
     }
+    if request.format is not None:
+        normalized["format"] = request.format
+    if request.options is not None:
+        normalized["options"] = request.options
+    return normalized
 
 
 def sha256_json(payload: dict[str, Any]) -> str:
@@ -409,6 +450,80 @@ def extract_assistant_content(response_json: dict[str, Any]) -> str:
     if "content" in response_json:
         return str(response_json["content"])
     return json.dumps(response_json)
+
+
+def as_bool_flag(value: Any) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, int):
+        return bool(value)
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"1", "true", "yes", "y", "on"}:
+            return True
+        if lowered in {"0", "false", "no", "n", "off"}:
+            return False
+    return None
+
+
+def wants_combined_in_message(options: dict[str, Any] | None, format_value: Any = None) -> bool:
+    if isinstance(options, dict):
+        for key in ("return_combined", "include_combined", "combined_in_message"):
+            flag = as_bool_flag(options.get(key))
+            if flag is not None:
+                return flag
+        mode = options.get("response_mode")
+        if isinstance(mode, str) and mode.strip().lower() in {"combined", "combined_json", "full_combined"}:
+            return True
+
+    if isinstance(format_value, str) and format_value.strip().lower() in {
+        "combined",
+        "combined_json",
+        "full_combined",
+    }:
+        return True
+    # Default behavior: return combined payload in message content unless caller opts out.
+    return True
+
+
+def request_wants_combined_in_message(request_json: dict[str, Any] | None) -> bool:
+    if not isinstance(request_json, dict):
+        return False
+    explicit = as_bool_flag(request_json.get("combined_in_message"))
+    if explicit is not None:
+        return explicit
+    options = request_json.get("options")
+    options_obj = options if isinstance(options, dict) else None
+    return wants_combined_in_message(options_obj, request_json.get("format"))
+
+
+def serialize_combined_payload(payload: dict[str, Any]) -> str:
+    return json.dumps(payload, ensure_ascii=False, indent=2)
+
+
+def merge_combined_into_result_payload(
+    result: dict[str, Any] | None,
+    combined: dict[str, Any] | None,
+    include_combined_in_message: bool,
+) -> dict[str, Any] | None:
+    if not isinstance(result, dict):
+        return result
+    if not include_combined_in_message or not isinstance(combined, dict):
+        return result
+
+    merged = dict(result)
+    combined_text = serialize_combined_payload(combined)
+    message = merged.get("message")
+    if isinstance(message, dict):
+        new_message = dict(message)
+        new_message["content"] = combined_text
+        merged["message"] = new_message
+    elif "response" in merged:
+        merged["response"] = combined_text
+    else:
+        merged["message"] = {"role": "assistant", "content": combined_text}
+    merged["combined"] = combined
+    return merged
 
 
 def normalize_generate_request(request: GenerateRequest) -> dict[str, Any]:

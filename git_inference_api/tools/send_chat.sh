@@ -11,6 +11,8 @@ Options:
   --model NAME                 Model name (default: git-chatgpt)
   --prompt TEXT                Prompt text (if omitted, prompted interactively)
   --system-prompt TEXT         System prompt text (default retrieval-first rules)
+  --show-combined              Print combined payload when present
+  --combined-in-message        Request combined JSON in message.content (options.return_combined=true)
   --poll-interval-seconds N    Poll interval for /api/jobs (default: 10)
   --max-wait-seconds N         Max wait for job completion (default: 600)
   -h, --help                   Show this help
@@ -20,6 +22,8 @@ EOF
 API_BASE_URL="http://127.0.0.1:8000"
 MODEL="git-chatgpt"
 PROMPT=""
+SHOW_COMBINED=0
+COMBINED_IN_MESSAGE=0
 POLL_INTERVAL_SECONDS=10
 MAX_WAIT_SECONDS=600
 SYSTEM_PROMPT=$'You are a retrieval-first assistant.\n\nRules:\n1. For time-sensitive or dynamic requests (weather, stocks, prices, sports, news, schedules, "today", "now", "current"), you must use web search before answering.\n2. If web search is unavailable in this session, respond exactly with:\nWEB_SEARCH_UNAVAILABLE\n3. If web search is available, include concrete, current facts in the answer.\n4. Do not claim uncertainty for time-sensitive requests when web search is available.'
@@ -41,6 +45,14 @@ while [[ $# -gt 0 ]]; do
     --system-prompt)
       SYSTEM_PROMPT="$2"
       shift 2
+      ;;
+    --show-combined)
+      SHOW_COMBINED=1
+      shift 1
+      ;;
+    --combined-in-message)
+      COMBINED_IN_MESSAGE=1
+      shift 1
       ;;
     --poll-interval-seconds)
       POLL_INTERVAL_SECONDS="$2"
@@ -83,18 +95,22 @@ id_part="$(python -c 'import uuid; print(uuid.uuid4().hex[:8])')"
 key="api-test-$(date -u +%s)-${id_part}"
 
 body="$(
-  python - "$MODEL" "$SYSTEM_PROMPT" "$PROMPT" <<'PY'
+  python - "$MODEL" "$SYSTEM_PROMPT" "$PROMPT" "$COMBINED_IN_MESSAGE" <<'PY'
 import json
 import sys
 
 model = sys.argv[1]
 system_prompt = sys.argv[2].strip()
 prompt = sys.argv[3]
+combined_in_message = sys.argv[4] == "1"
 messages = []
 if system_prompt:
     messages.append({"role": "system", "content": system_prompt})
 messages.append({"role": "user", "content": prompt})
-print(json.dumps({"model": model, "messages": messages, "stream": False}, separators=(",", ":")))
+payload = {"model": model, "messages": messages, "stream": False}
+if combined_in_message:
+    payload["options"] = {"return_combined": True, "response_mode": "combined_json"}
+print(json.dumps(payload, separators=(",", ":")))
 PY
 )"
 
@@ -118,12 +134,18 @@ echo "ACK: ${ack_json}"
 
 ack_done="$(printf '%s' "$ack_json" | python -c 'import json,sys; obj=json.load(sys.stdin); print(str(bool(obj.get("done", False))).lower())')"
 ack_content="$(printf '%s' "$ack_json" | python -c 'import json,sys; obj=json.load(sys.stdin); msg=obj.get("message") or {}; print(msg.get("content","") if isinstance(msg, dict) else "")')"
+ack_combined="$(printf '%s' "$ack_json" | python -c 'import json,sys; obj=json.load(sys.stdin); c=obj.get("combined"); print(json.dumps(c, ensure_ascii=False) if c is not None else "")')"
 ack_job_id="$(printf '%s' "$ack_json" | python -c 'import json,sys; obj=json.load(sys.stdin); print(obj.get("job_id","") or "")')"
 
 if [[ "$ack_done" == "true" && -n "${ack_content}" ]]; then
   echo
-  echo "Response:"
-  printf '%s\n' "$ack_content"
+  if [[ "$SHOW_COMBINED" == "1" && -n "${ack_combined}" ]]; then
+    echo "Combined:"
+    printf '%s\n' "$ack_combined" | python -m json.tool
+  else
+    echo "Response:"
+    printf '%s\n' "$ack_content"
+  fi
   exit 0
 fi
 
@@ -151,12 +173,18 @@ while [[ "$(date -u +%s)" -lt "$deadline" ]]; do
 
   if [[ "$status" == "completed" ]]; then
     content="$(printf '%s' "$job_json" | python -c 'import json,sys; obj=json.load(sys.stdin); result=obj.get("result") or {}; msg=result.get("message") if isinstance(result, dict) else None; print(msg.get("content","") if isinstance(msg, dict) else "")')"
+    combined="$(printf '%s' "$job_json" | python -c 'import json,sys; obj=json.load(sys.stdin); c=obj.get("combined"); print(json.dumps(c, ensure_ascii=False) if c is not None else "")')"
     echo
-    echo "Response:"
-    if [[ -n "$content" ]]; then
-      printf '%s\n' "$content"
+    if [[ "$SHOW_COMBINED" == "1" && -n "$combined" ]]; then
+      echo "Combined:"
+      printf '%s\n' "$combined" | python -m json.tool
     else
-      printf '%s\n' "$(printf '%s' "$job_json" | python -c 'import json,sys; obj=json.load(sys.stdin); print(json.dumps(obj.get("result"), ensure_ascii=False))')"
+      echo "Response:"
+      if [[ -n "$content" ]]; then
+        printf '%s\n' "$content"
+      else
+        printf '%s\n' "$(printf '%s' "$job_json" | python -c 'import json,sys; obj=json.load(sys.stdin); print(json.dumps(obj.get("result"), ensure_ascii=False))')"
+      fi
     fi
     exit 0
   fi

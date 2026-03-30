@@ -2,6 +2,8 @@ param(
     [string]$ApiBaseUrl = "http://127.0.0.1:8000",
     [string]$Model = "git-chatgpt",
     [string]$Prompt,
+    [switch]$ShowCombined,
+    [switch]$CombinedInMessage,
     [string]$SystemPrompt = @"
 You are a retrieval-first assistant.
 
@@ -53,6 +55,12 @@ $bodyObject = @{
     messages = $messages
     stream = $false
 }
+if ($CombinedInMessage) {
+    $bodyObject.options = @{
+        return_combined = $true
+        response_mode = "combined_json"
+    }
+}
 
 $body = $bodyObject | ConvertTo-Json -Depth 10 -Compress
 
@@ -66,7 +74,13 @@ $ack = Invoke-RestMethod -Method Post `
 Write-Host ("ACK: " + ($ack | ConvertTo-Json -Depth 10 -Compress))
 
 if ($ack.done -eq $true -and $null -ne $ack.message) {
-    if (-not [string]::IsNullOrWhiteSpace($ack.message.content)) {
+    if ($ShowCombined -and $null -ne $ack.combined) {
+        Write-Host ""
+        Write-Host "Combined:"
+        Write-Output ($ack.combined | ConvertTo-Json -Depth 50)
+        exit 0
+    }
+    elseif (-not [string]::IsNullOrWhiteSpace($ack.message.content)) {
         Write-Host ""
         Write-Host "Response:"
         Write-Output $ack.message.content
@@ -89,14 +103,20 @@ while ((Get-Date).ToUniversalTime() -lt $deadline) {
 
     if ($status -eq "completed") {
         Write-Host ""
-        Write-Host "Response:"
-        if ($null -ne $job.result -and $null -ne $job.result.message -and
-            -not [string]::IsNullOrWhiteSpace($job.result.message.content)) {
-            Write-Output $job.result.message.content
+        if ($ShowCombined -and $null -ne $job.combined) {
+            Write-Host "Combined:"
+            Write-Output ($job.combined | ConvertTo-Json -Depth 50)
         }
         else {
-            # Fallback for alternate successful payload shapes.
-            Write-Output ($job.result | ConvertTo-Json -Depth 20)
+            Write-Host "Response:"
+            if ($null -ne $job.result -and $null -ne $job.result.message -and
+                -not [string]::IsNullOrWhiteSpace($job.result.message.content)) {
+                Write-Output $job.result.message.content
+            }
+            else {
+                # Fallback for alternate successful payload shapes.
+                Write-Output ($job.result | ConvertTo-Json -Depth 20)
+            }
         }
         exit 0
     }

@@ -17,6 +17,8 @@ class ChatRequest(BaseModel):
     model: str = Field(min_length=1)
     messages: list[ChatMessage] = Field(min_length=1)
     stream: bool = False
+    format: Any | None = None
+    options: dict[str, Any] | None = None
 
     @property
     def system_prompt(self) -> Optional[str]:
