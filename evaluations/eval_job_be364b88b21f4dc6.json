@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_be364b88b21f4dc6",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T02:41:01Z",
+  "updated_at": "2026-03-30T02:41:01Z",
+  "run_context": {
+    "job_id": "job_be364b88b21f4dc6",
+    "question_id": "q_job_be364b88b21f4dc6",
+    "run_id": "run_job_be364b88b21f4dc6",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_be364b88b21f4dc6",
+    "root_object_id": "q_job_be364b88b21f4dc6"
+  },
+  "content": {
+    "question_text_preview": "How do I make a pizza?",
+    "categorization": {
+      "topic_short": "cooking",
+      "topic": "Cooking & Recipes",
+      "topics": [
+        "cooking",
+        "recipes",
+        "pizza"
+      ],
+      "keywords": [
+        "pizza",
+        "recipe",
+        "dough",
+        "sauce",
+        "toppings"
+      ],
+      "summary": "Step-by-step guide to making a homemade pizza, including dough, sauce, and toppings.",
+      "language": "en",
+      "domain": "culinary",
+      "subdomain": "recipes",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": "How to Make Pizza",
+    "topic_short": "cooking",
+    "topic": "Cooking & Recipes",
+    "topics": [
+      "cooking",
+      "recipes",
+      "pizza"
+    ],
+    "keywords": [
+      "pizza",
+      "dough",
+      "sauce",
+      "toppings"
+    ],
+    "summary": "Provides a detailed, step-by-step pizza recipe including dough preparation, sauce, and baking instructions.",
+    "query_variants": [
+      "homemade pizza recipe",
+      "how to cook pizza",
+      "making pizza from scratch"
+    ],
+    "language": "en",
+    "domain": "culinary",
+    "subdomain": "recipes",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_be364b88b21f4dc6",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-30T02:41:01Z",
+      "dimensions": {
+        "correctness": 10.0,
+        "completeness": 9.5,
+        "clarity": 10.0,
+        "usefulness": 9.5,
+        "groundedness": 10.0,
+        "specificity": 9.5
+      },
+      "overall_score": 9.8,
+      "confidence_band": "high",
+      "notes": "Thorough, accurate, and clear step-by-step recipe for making pizza, including optional tips for best results."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_be364b88b21f4dc6",
+      "resp_job_be364b88b21f4dc6"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "gold",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 9.8
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_be364b88b21f4dc6.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_be364b88b21f4dc6",
+      "resp_job_be364b88b21f4dc6"
+    ],
+    "evaluation_path": "evaluations/eval_job_be364b88b21f4dc6.json",
+    "final_path": null
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "job_id": "job_be364b88b21f4dc6",
+  "status": "completed",
+  "created_at": "2026-03-30T02:41:58Z",
+  "response": {
+    "job_id": "job_be364b88b21f4dc6",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a clear, step-by-step guide to making a classic homemade pizza from scratch:\n\nIngredients (for dough, sauce, and topping)\n\nDough (makes 1 medium pizza):\n\n2 ½ cups all-purpose flour\n\n1 tsp salt\n\n1 tsp sugar\n\n1 packet (2 ¼ tsp) active dry yeast\n\n1 cup warm water (~110°F / 43°C)\n\n2 tbsp olive oil\n\nSauce:\n\n1 cup canned tomato sauce or crushed tomatoes\n\n1 clove garlic, minced\n\n1 tsp dried oregano\n\n½ tsp salt\n\n½ tsp sugar (optional, balances acidity)\n\nToppings (suggested):\n\n1–2 cups shredded mozzarella\n\nPepperoni, vegetables, olives, mushrooms, or any favorite toppings\n\nFresh basil (optional, for garnish)\n\nInstructions\n\n1. Prepare the dough:\n\nIn a small bowl, dissolve yeast and sugar in warm water. Let sit 5–10 min until foamy.\n\nIn a large bowl, mix flour and salt.\n\nAdd yeast mixture and olive oil to flour. Mix until a dough forms.\n\nKnead on a floured surface for 8–10 min until smooth and elastic.\n\nPlace in a lightly oiled bowl, cover with a towel, and let rise 1–2 hours, until doubled in size.\n\n2. Make the sauce:\n\nCombine tomato sauce, garlic, oregano, salt, and sugar in a small saucepan.\n\nSimmer on low heat for 10–15 min, stirring occasionally. Set aside.\n\n3. Assemble the pizza:\n\nPreheat oven to 475°F (245°C). If using a pizza stone, place it in the oven while preheating.\n\nPunch down the dough and roll it out to your desired thickness. Transfer to a baking sheet or preheated stone.\n\nSpread sauce evenly over dough, leaving a small border around the edges.\n\nSprinkle cheese and add toppings.\n\n4. Bake:\n\nBake for 12–15 min, or until crust is golden and cheese is bubbly.\n\nOptional: Broil 1–2 min at the end for extra browning.\n\n5. Serve:\n\nLet the pizza cool for a few minutes, slice, and enjoy!\n\n💡 Tips for a great pizza:\n\nPreheat the oven thoroughly; a hot oven gives a crispier crust.\n\nUse a pizza stone or inverted baking sheet for better bottom crust.\n\nLess is more with toppings—overloading can make the pizza soggy.\n\nIf you want, I can also give a super quick 20-minute pizza recipe that skips the long dough rise but still tastes amazing.\n\nDo you want me to do that?"
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T22:40:18-04:00",
+    "started_at": "2026-03-30T02:41:01Z",
+    "elapsed_seconds": 100,
+    "completed_at": "2026-03-30T02:41:58Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_be364b88b21f4dc6",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T02:41:01Z",
+    "updated_at": "2026-03-30T02:41:01Z",
+    "run_context": {
+      "job_id": "job_be364b88b21f4dc6",
+      "question_id": "q_job_be364b88b21f4dc6",
+      "run_id": "run_job_be364b88b21f4dc6",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_be364b88b21f4dc6",
+      "root_object_id": "q_job_be364b88b21f4dc6"
+    },
+    "content": {
+      "question_text_preview": "How do I make a pizza?",
+      "categorization": {
+        "topic_short": "cooking",
+        "topic": "Cooking & Recipes",
+        "topics": [
+          "cooking",
+          "recipes",
+          "pizza"
+        ],
+        "keywords": [
+          "pizza",
+          "recipe",
+          "dough",
+          "sauce",
+          "toppings"
+        ],
+        "summary": "Step-by-step guide to making a homemade pizza, including dough, sauce, and toppings.",
+        "language": "en",
+        "domain": "culinary",
+        "subdomain": "recipes",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": "How to Make Pizza",
+      "topic_short": "cooking",
+      "topic": "Cooking & Recipes",
+      "topics": [
+        "cooking",
+        "recipes",
+        "pizza"
+      ],
+      "keywords": [
+        "pizza",
+        "dough",
+        "sauce",
+        "toppings"
+      ],
+      "summary": "Provides a detailed, step-by-step pizza recipe including dough preparation, sauce, and baking instructions.",
+      "query_variants": [
+        "homemade pizza recipe",
+        "how to cook pizza",
+        "making pizza from scratch"
+      ],
+      "language": "en",
+      "domain": "culinary",
+      "subdomain": "recipes",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_be364b88b21f4dc6",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T02:41:01Z",
+        "dimensions": {
+          "correctness": 10.0,
+          "completeness": 9.5,
+          "clarity": 10.0,
+          "usefulness": 9.5,
+          "groundedness": 10.0,
+          "specificity": 9.5
+        },
+        "overall_score": 9.8,
+        "confidence_band": "high",
+        "notes": "Thorough, accurate, and clear step-by-step recipe for making pizza, including optional tips for best results."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_be364b88b21f4dc6",
+        "resp_job_be364b88b21f4dc6"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": true,
+      "memory_tier": "gold",
+      "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+      "blocked_reason": null,
+      "effective_score": 9.8
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_be364b88b21f4dc6.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_be364b88b21f4dc6",
+        "resp_job_be364b88b21f4dc6"
+      ],
+      "evaluation_path": "evaluations/eval_job_be364b88b21f4dc6.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 9.8,
+    "confidence_band": "high",
+    "memory_eligible": true,
+    "memory_tier": "gold"
+  },
+  "paths": {
+    "response": "responses/job_be364b88b21f4dc6.json",
+    "evaluation": "evaluations/eval_job_be364b88b21f4dc6.json",
+    "error": "errors/job_be364b88b21f4dc6.json",
+    "combined": "combined/job_be364b88b21f4dc6.json"
+  }
+}
