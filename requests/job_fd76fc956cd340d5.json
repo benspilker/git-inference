@@ -1,0 +1,39 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 33
+  },
+  "created_at": "2026-03-30T00:17:33Z",
+  "job_id": "job_fd76fc956cd340d5",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 33
+    },
+    "messages": [
+      {
+        "content": "What are ways to generate revenue using AI technology? I want something that I can start small and scale up later. I would be happy with making $20 a month to start out",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "What are ways to generate revenue using AI technology? I want something that I can start small and scale up later. I would be happy with making $20 a month to start out",
+    "user_prompt_chunks": [
+      "What are ways to generate revenue using AI technology? I want something that I can start small and scale up later. I would be happy with making $20 a month to start out"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "What are ways to generate revenue using AI technology? I want something that I can start small and scale up later. I would be happy with making $20 a month to start out",
+  "user_prompt_chunks": [
+    "What are ways to generate revenue using AI technology? I want something that I can start small and scale up later. I would be happy with making $20 a month to start out"
+  ]
+}
