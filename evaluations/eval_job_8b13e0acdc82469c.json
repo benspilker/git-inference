@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_8b13e0acdc82469c",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T03:00:51Z",
+  "updated_at": "2026-03-30T03:00:51Z",
+  "run_context": {
+    "job_id": "job_8b13e0acdc82469c",
+    "question_id": "q_job_8b13e0acdc82469c",
+    "run_id": "run_job_8b13e0acdc82469c",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_8b13e0acdc82469c",
+    "root_object_id": "q_job_8b13e0acdc82469c"
+  },
+  "content": {
+    "question_text_preview": "Are there any AI models that provide API keys with a limited use for free?",
+    "categorization": {
+      "topic_short": "AI APIs",
+      "topic": "AI models offering API access",
+      "topics": [
+        "AI models",
+        "API access",
+        "Free tiers"
+      ],
+      "keywords": [
+        "AI",
+        "API key",
+        "free tier",
+        "limited use"
+      ],
+      "summary": "The user asked about AI models that offer limited free API access via keys.",
+      "language": "en",
+      "domain": "technology",
+      "subdomain": "AI services",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": "Evaluation of AI models with free API keys",
+    "topic_short": "AI APIs",
+    "topic": "AI models offering API access",
+    "topics": [
+      "AI models",
+      "API access",
+      "Free tiers"
+    ],
+    "keywords": [
+      "AI",
+      "API key",
+      "free tier",
+      "limited use"
+    ],
+    "summary": "Lists and explains AI providers that offer limited free API access.",
+    "query_variants": [],
+    "language": "en",
+    "domain": "technology",
+    "subdomain": "AI services",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_8b13e0acdc82469c",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-30T03:00:51Z",
+      "dimensions": {
+        "correctness": 9.5,
+        "completeness": 9.0,
+        "clarity": 9.5,
+        "usefulness": 9.5,
+        "groundedness": 9.0,
+        "specificity": 9.0
+      },
+      "overall_score": 9.3,
+      "confidence_band": "high",
+      "notes": "The response correctly lists multiple AI providers offering free API tiers, explains limitations, and offers an optional next step for a detailed comparison."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_8b13e0acdc82469c",
+      "resp_job_8b13e0acdc82469c"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "gold",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 9.3
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_8b13e0acdc82469c.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_8b13e0acdc82469c",
+      "resp_job_8b13e0acdc82469c"
+    ],
+    "evaluation_path": "evaluations/eval_job_8b13e0acdc82469c.json",
+    "final_path": null
+  }
+}
