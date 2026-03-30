@@ -1,0 +1,162 @@
+{
+  "job_id": "job_89928052f67245b9",
+  "status": "completed",
+  "created_at": "2026-03-30T02:01:31Z",
+  "response": {
+    "job_id": "job_89928052f67245b9",
+    "message": {
+      "role": "assistant",
+      "content": "ChatGPT said:\n\nYes — but with an important distinction:\n\n👉 There are higher-capacity discs than standard Blu-ray that you can burn at home\n👉 And there are much higher-capacity optical formats — but you usually can’t burn them with consumer drives\n\n🔵 1. Higher-capacity “burnable” Blu-ray (what you want)\n\nThese are called BDXL discs — basically an extension of Blu-ray.\n\nExample options:\nSony 128GB BDXL BD‑R XL Disc · $44.99 · \n4.9\nQuad-layer Blu‑ray disc with up to 128GB capacity for high-density data burning.\nVerbatim 100GB BD‑R XL Blu‑ray Disc · $27.32\nTriple-layer Blu‑ray disc offering 100GB storage on a single writable disc.\nCapacity tiers:\n\nStandard Blu-ray:\n\n25GB (single layer)\n\n50GB (dual layer)\n\nBDXL (what you’re asking about):\n\n100GB (triple layer)\n\n128GB (quad layer)\n\n✅ These work similarly to normal Blu-ray\n❗ You need a BDXL-compatible burner (older Blu-ray drives won’t work)\n\n🧱 2. “M-DISC” (same size, but more durable)\n\nYou’ll also see M-DISC BDXL versions:\n\nSame capacity (100GB–128GB)\n\nDesigned for long-term archival (decades–centuries)\n\nExample:\n\nVerbatim M-DISC BDXL (100GB)\n\n👉 Not higher capacity — just more durable\n\n🧪 3. Much higher capacity optical discs (NOT consumer-burnable)\n\nThese go way beyond Blu-ray, but come with a catch:\n\nExample:\nSony 5.5TB Optical Disc Archive Cartridge · $199.47\nProfessional multi-disc optical cartridge system with terabyte-scale storage capacity.\n\nThere are also:\n\n300GB, 600GB, 1.5TB cartridges\n\nMulti-disc systems inside one cartridge\n\n⚠️ Downsides:\n\nRequire special enterprise hardware\n\nNot compatible with normal Blu-ray drives\n\nUsed by studios, broadcasters, archives\n\n⚖️ Quick comparison\nType\tMax Capacity\tBurn at Home?\tNotes\nStandard Blu-ray\t50GB\t✅\tMost common\nBDXL\t128GB\t✅ (with BDXL drive)\tBest consumer option\nM-DISC BDXL\t100–128GB\t✅\tLonger lifespan\nOptical Disc Archive\t300GB–5.5TB+\t❌\tProfessional only\n🧠 Bottom line\n\n✅ Yes — BDXL discs (100GB–128GB) are the “bigger Blu-ray” you’re looking for\n\n❌ Anything significantly larger (TB-scale) exists but isn’t consumer-burnable\n\nIf you want, tell me what you’re trying to store (movies, backups, etc.), and I can suggest the best format — optical discs aren’t always the best option anymore depending on your use case."
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T22:00:01-04:00",
+    "started_at": "2026-03-30T02:00:36Z",
+    "elapsed_seconds": 90,
+    "completed_at": "2026-03-30T02:01:31Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_89928052f67245b9",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T02:00:36Z",
+    "updated_at": "2026-03-30T02:00:36Z",
+    "run_context": {
+      "job_id": "job_89928052f67245b9",
+      "question_id": "q_job_89928052f67245b9",
+      "run_id": "run_job_89928052f67245b9",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_89928052f67245b9",
+      "root_object_id": "q_job_89928052f67245b9"
+    },
+    "content": {
+      "question_text_preview": "Is there a higher capacity type disc that can be burned like a blueray but can hold more data?",
+      "categorization": {
+        "topic_short": "optical storage",
+        "topic": "high-capacity optical discs and Blu-ray alternatives",
+        "topics": [
+          "data storage",
+          "optical media",
+          "Blu-ray",
+          "BDXL",
+          "archival storage"
+        ],
+        "keywords": [
+          "Blu-ray",
+          "BDXL",
+          "optical discs",
+          "storage capacity",
+          "burnable media",
+          "M-DISC"
+        ],
+        "summary": "User asks whether higher-capacity burnable discs exist beyond standard Blu-ray.",
+        "language": "en",
+        "domain": "technology",
+        "subdomain": "storage media",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "optical storage",
+      "topic": "high-capacity optical discs and Blu-ray alternatives",
+      "topics": [
+        "data storage",
+        "optical media",
+        "Blu-ray",
+        "BDXL",
+        "archival storage"
+      ],
+      "keywords": [
+        "Blu-ray",
+        "BDXL",
+        "optical discs",
+        "storage capacity",
+        "burnable media",
+        "M-DISC"
+      ],
+      "summary": "User asks whether higher-capacity burnable discs exist beyond standard Blu-ray.",
+      "query_variants": [],
+      "language": "en",
+      "domain": "technology",
+      "subdomain": "storage media",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_89928052f67245b9",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T02:00:36Z",
+        "dimensions": {
+          "correctness": 9.0,
+          "completeness": 8.5,
+          "clarity": 9.0,
+          "usefulness": 9.0,
+          "groundedness": 8.5,
+          "specificity": 9.0
+        },
+        "overall_score": 8.8,
+        "confidence_band": "high",
+        "notes": "Accurate and well-structured explanation of BDXL and alternatives. Slightly overuses product UI and lacks citations, but content is correct, clear, and helpful."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_89928052f67245b9",
+        "resp_job_89928052f67245b9"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": null,
+      "effective_score": 0.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_89928052f67245b9.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_89928052f67245b9",
+        "resp_job_89928052f67245b9"
+      ],
+      "evaluation_path": "evaluations/eval_job_89928052f67245b9.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 8.8,
+    "confidence_band": "high",
+    "memory_eligible": false,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_89928052f67245b9.json",
+    "evaluation": "evaluations/eval_job_89928052f67245b9.json",
+    "error": "errors/job_89928052f67245b9.json",
+    "combined": "combined/job_89928052f67245b9.json"
+  }
+}

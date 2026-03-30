@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_89928052f67245b9",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T02:00:36Z",
+  "updated_at": "2026-03-30T02:00:36Z",
+  "run_context": {
+    "job_id": "job_89928052f67245b9",
+    "question_id": "q_job_89928052f67245b9",
+    "run_id": "run_job_89928052f67245b9",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_89928052f67245b9",
+    "root_object_id": "q_job_89928052f67245b9"
+  },
+  "content": {
+    "question_text_preview": "Is there a higher capacity type disc that can be burned like a blueray but can hold more data?",
+    "categorization": {
+      "topic_short": "optical storage",
+      "topic": "high-capacity optical discs and Blu-ray alternatives",
+      "topics": [
+        "data storage",
+        "optical media",
+        "Blu-ray",
+        "BDXL",
+        "archival storage"
+      ],
+      "keywords": [
+        "Blu-ray",
+        "BDXL",
+        "optical discs",
+        "storage capacity",
+        "burnable media",
+        "M-DISC"
+      ],
+      "summary": "User asks whether higher-capacity burnable discs exist beyond standard Blu-ray.",
+      "language": "en",
+      "domain": "technology",
+      "subdomain": "storage media",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "optical storage",
+    "topic": "high-capacity optical discs and Blu-ray alternatives",
+    "topics": [
+      "data storage",
+      "optical media",
+      "Blu-ray",
+      "BDXL",
+      "archival storage"
+    ],
+    "keywords": [
+      "Blu-ray",
+      "BDXL",
+      "optical discs",
+      "storage capacity",
+      "burnable media",
+      "M-DISC"
+    ],
+    "summary": "User asks whether higher-capacity burnable discs exist beyond standard Blu-ray.",
+    "query_variants": [],
+    "language": "en",
+    "domain": "technology",
+    "subdomain": "storage media",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_89928052f67245b9",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-30T02:00:36Z",
+      "dimensions": {
+        "correctness": 9.0,
+        "completeness": 8.5,
+        "clarity": 9.0,
+        "usefulness": 9.0,
+        "groundedness": 8.5,
+        "specificity": 9.0
+      },
+      "overall_score": 8.8,
+      "confidence_band": "high",
+      "notes": "Accurate and well-structured explanation of BDXL and alternatives. Slightly overuses product UI and lacks citations, but content is correct, clear, and helpful."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_89928052f67245b9",
+      "resp_job_89928052f67245b9"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": false,
+    "memory_tier": null,
+    "promotion_reason": null,
+    "blocked_reason": null,
+    "effective_score": 0.0
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_89928052f67245b9.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_89928052f67245b9",
+      "resp_job_89928052f67245b9"
+    ],
+    "evaluation_path": "evaluations/eval_job_89928052f67245b9.json",
+    "final_path": null
+  }
+}
