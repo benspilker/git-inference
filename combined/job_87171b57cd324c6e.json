@@ -1,0 +1,136 @@
+{
+  "job_id": "job_87171b57cd324c6e",
+  "status": "completed",
+  "created_at": "2026-03-30T01:23:45Z",
+  "response": {
+    "job_id": "job_87171b57cd324c6e",
+    "message": {
+      "role": "assistant",
+      "content": "The mullet haircut first gained widespread popularity in the 1980s. It was often associated with rock stars, athletes, and pop culture figures during that time. The style was characterized by short hair on the front and sides, with longer hair in the back. It became a symbol of rebellion and a distinctive look for individuals who wanted to stand out.\n\nThe term \"mullet\" itself wasn't used to describe the hairstyle until the early 1990s, popularized by the Beastie Boys in their 1994 song \"Mullet Head.\" However, the style had already been a trend for years prior, particularly in the 1980s.\n\nIt also gained a resurgence in the early 2000s, and in recent years, there has been a \"mullet revival\" as younger generations embrace the style again for its nostalgic and unique aesthetic."
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T21:22:15-04:00",
+    "started_at": "2026-03-30T01:22:58Z",
+    "elapsed_seconds": 90,
+    "completed_at": "2026-03-30T01:23:45Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_87171b57cd324c6e",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T01:22:58Z",
+    "updated_at": "2026-03-30T01:22:58Z",
+    "run_context": {
+      "job_id": "job_87171b57cd324c6e",
+      "question_id": "q_job_87171b57cd324c6e",
+      "run_id": "run_job_87171b57cd324c6e",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_87171b57cd324c6e",
+      "root_object_id": "q_job_87171b57cd324c6e"
+    },
+    "content": {
+      "question_text_preview": "When was the mullet haircut first popularized?",
+      "categorization": {
+        "topic_short": "",
+        "topic": "",
+        "topics": [],
+        "keywords": [],
+        "summary": "",
+        "language": "en",
+        "domain": "",
+        "subdomain": "",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "query_variants": [],
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_87171b57cd324c6e",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T01:22:58Z",
+        "dimensions": {
+          "correctness": 9.0,
+          "completeness": 9.0,
+          "clarity": 9.0,
+          "usefulness": 9.0,
+          "groundedness": 8.5,
+          "specificity": 8.5
+        },
+        "overall_score": 8.8,
+        "confidence_band": "high",
+        "notes": "The response is comprehensive, well-rounded, and offers detailed historical context, grounding the answer in specific time periods. Could have included direct sources or citations."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_87171b57cd324c6e",
+        "resp_job_87171b57cd324c6e"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": null,
+      "effective_score": 0.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_87171b57cd324c6e.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_87171b57cd324c6e",
+        "resp_job_87171b57cd324c6e"
+      ],
+      "evaluation_path": "evaluations/eval_job_87171b57cd324c6e.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 8.8,
+    "confidence_band": "high",
+    "memory_eligible": false,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_87171b57cd324c6e.json",
+    "evaluation": "evaluations/eval_job_87171b57cd324c6e.json",
+    "error": "errors/job_87171b57cd324c6e.json",
+    "combined": "combined/job_87171b57cd324c6e.json"
+  }
+}
