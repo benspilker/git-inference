@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 7
+  },
+  "created_at": "2026-03-30T03:48:57Z",
+  "job_id": "job_545363db29b0420f",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 7
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "explain the process making of pizza please?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "explain the process making of pizza please?",
+    "user_prompt_chunks": [
+      "explain the process making of pizza please?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "explain the process making of pizza please?",
+  "user_prompt_chunks": [
+    "explain the process making of pizza please?"
+  ]
+}
