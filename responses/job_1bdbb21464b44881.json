@@ -1,0 +1,12 @@
+{
+  "job_id": "job_1bdbb21464b44881",
+  "message": {
+    "role": "assistant",
+    "content": "For a free ChatGPT session that is not signed in, there is no official, published “exact” context window size. However, based on OpenAI documentation and community reports:\n\nSigned-in GPT-4 / GPT-4-turbo: typically has 8,192 tokens (some versions up to 128k tokens for pro users).\n\nFree, non-signed-in users are usually on GPT-3.5, which has a context window of roughly 4,096 tokens.\n\nSo on average, for a free session without signing in, you can expect ≈4,000 tokens as the practical context window. This includes both your input and the model’s responses.\n\nIf you want, I can also explain how token count roughly translates into words or characters, which helps estimate when you’re approaching the limit. Do you want me to do that?"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-30T11:48:39-04:00",
+  "started_at": "2026-03-30T15:48:47Z",
+  "elapsed_seconds": 90,
+  "completed_at": "2026-03-30T15:50:09Z"
+}
