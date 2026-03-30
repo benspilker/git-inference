@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 30
+  },
+  "created_at": "2026-03-30T00:39:34Z",
+  "job_id": "job_86cb16c2bc3a4d37",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 30
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "I want to go to bed by 11 PM. When is the latest time during the day that I should drink coffee and it not interfere with my sleep cycle?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "I want to go to bed by 11 PM. When is the latest time during the day that I should drink coffee and it not interfere with my sleep cycle?",
+    "user_prompt_chunks": [
+      "I want to go to bed by 11 PM. When is the latest time during the day that I should drink coffee and it not interfere with my sleep cycle?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "I want to go to bed by 11 PM. When is the latest time during the day that I should drink coffee and it not interfere with my sleep cycle?",
+  "user_prompt_chunks": [
+    "I want to go to bed by 11 PM. When is the latest time during the day that I should drink coffee and it not interfere with my sleep cycle?"
+  ]
+}
