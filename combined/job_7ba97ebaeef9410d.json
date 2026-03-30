@@ -1,0 +1,160 @@
+{
+  "job_id": "job_7ba97ebaeef9410d",
+  "status": "completed",
+  "created_at": "2026-03-30T02:18:13Z",
+  "response": {
+    "job_id": "job_7ba97ebaeef9410d",
+    "message": {
+      "role": "assistant",
+      "content": "Does gasoline start with crude oil?\n\nYes — gasoline is made from crude oil. Crude oil is a complex mixture of hydrocarbons formed over millions of years from ancient organic matter. On its own, it’s not directly usable as fuel — it must be refined.\n\nHow gasoline is produced (simplified process)\n\nThe production happens in large industrial facilities called oil refineries and involves several major steps:\n\n1. Distillation (separation)\n\nCrude oil is heated to very high temperatures (~350–400°C).\n\nIt enters a distillation column where components separate based on boiling point.\n\nLighter fractions (like gases and gasoline-range liquids) rise to the top; heavier ones stay lower.\n\nGasoline is initially obtained as a “straight-run” fraction here.\n\n2. Cracking (breaking molecules)\n\nHeavy hydrocarbons are broken into lighter ones using processes like:\n\nThermal cracking\n\nCatalytic cracking\n\nThis increases the yield of gasoline.\n\n3. Reforming & upgrading\n\nMolecules are rearranged to improve performance (especially octane rating).\n\nProcesses like catalytic reforming convert low-quality hydrocarbons into high-octane components.\n\n4. Blending\n\nDifferent streams are mixed together.\n\nAdditives are included for:\n\nEngine performance\n\nEmissions control\n\nStability and storage\n\nHow complicated is it as a DIY project?\n\nShort answer: extremely difficult, dangerous, and impractical.\n\nHere’s why:\n\n⚠️ 1. Temperature & pressure requirements\n\nRefining requires sustained high heat and controlled pressures.\n\nHousehold setups cannot safely replicate this.\n\n⚠️ 2. Specialized catalysts and chemistry\n\nProcesses like catalytic cracking depend on engineered catalysts and precise conditions.\n\nWithout them, you get poor yields and unstable products.\n\n⚠️ 3. Safety hazards\n\nFlammable vapors → explosion risk\n\nToxic compounds → serious health risks\n\nImproper handling can easily cause fires or release harmful fumes\n\n⚠️ 4. Legal and environmental issues\n\nRefining fuel without permits is illegal in many places.\n\nWaste byproducts can be hazardous pollutants.\n\n⚠️ 5. Product quality\n\nDIY attempts would produce inconsistent, low-quality fuel that could damage engines.\n\nCan anything similar be done at small scale?\n\nAt a very basic level, people can perform simple distillation experiments (e.g., separating liquids), but:\n\nThis is not true gasoline production\n\nIt won’t yield usable automotive fuel\n\nIt’s still risky if done improperly\n\nBottom line\n\nYes, gasoline starts from crude oil.\n\nIndustrial refining is a highly complex, multi-stage chemical engineering process.\n\nAs a DIY project, it’s not realistic or safe — far beyond hobby-level chemistry.\n\nIf you want, I can break down what each refining unit (like catalytic crackers or reformers) actually looks like inside, or compare gasoline production to alternatives like biofuels."
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T22:16:34-04:00",
+    "started_at": "2026-03-30T02:17:14Z",
+    "elapsed_seconds": 99,
+    "completed_at": "2026-03-30T02:18:13Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_7ba97ebaeef9410d",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T02:17:14Z",
+    "updated_at": "2026-03-30T02:17:14Z",
+    "run_context": {
+      "job_id": "job_7ba97ebaeef9410d",
+      "question_id": "q_job_7ba97ebaeef9410d",
+      "run_id": "run_job_7ba97ebaeef9410d",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_7ba97ebaeef9410d",
+      "root_object_id": "q_job_7ba97ebaeef9410d"
+    },
+    "content": {
+      "question_text_preview": "Explain the process of producing gasoline? Does it start with crude oil? How complicated is it to produce gasoline as a DIY project?",
+      "categorization": {
+        "topic_short": "gasoline production",
+        "topic": "petroleum refining process and feasibility",
+        "topics": [
+          "petroleum refining",
+          "chemical engineering",
+          "energy production",
+          "fuel processing"
+        ],
+        "keywords": [
+          "gasoline",
+          "crude oil",
+          "refining",
+          "distillation",
+          "cracking",
+          "DIY feasibility"
+        ],
+        "summary": "Explains how gasoline is produced from crude oil and evaluates the feasibility and risks of DIY production.",
+        "language": "en",
+        "domain": "energy",
+        "subdomain": "petroleum refining",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "gasoline production",
+      "topic": "petroleum refining process and feasibility",
+      "topics": [
+        "petroleum refining",
+        "chemical engineering",
+        "energy production",
+        "fuel processing"
+      ],
+      "keywords": [
+        "gasoline",
+        "crude oil",
+        "refining",
+        "distillation",
+        "cracking",
+        "DIY feasibility"
+      ],
+      "summary": "Explains how gasoline is produced from crude oil and evaluates the feasibility and risks of DIY production.",
+      "query_variants": [],
+      "language": "en",
+      "domain": "energy",
+      "subdomain": "petroleum refining",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_7ba97ebaeef9410d",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T02:17:14Z",
+        "dimensions": {
+          "correctness": 9.2,
+          "completeness": 9.0,
+          "clarity": 9.4,
+          "usefulness": 9.3,
+          "groundedness": 9.0,
+          "specificity": 8.8
+        },
+        "overall_score": 9.1,
+        "confidence_band": "high",
+        "notes": "Accurate, well-structured explanation of gasoline production and clear assessment of DIY impracticality. Minor lack of deeper technical detail and absence of citations, but appropriate for the question scope."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_7ba97ebaeef9410d",
+        "resp_job_7ba97ebaeef9410d"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": null,
+      "effective_score": 9.1
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_7ba97ebaeef9410d.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_7ba97ebaeef9410d",
+        "resp_job_7ba97ebaeef9410d"
+      ],
+      "evaluation_path": "evaluations/eval_job_7ba97ebaeef9410d.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 9.1,
+    "confidence_band": "high",
+    "memory_eligible": false,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_7ba97ebaeef9410d.json",
+    "evaluation": "evaluations/eval_job_7ba97ebaeef9410d.json",
+    "error": "errors/job_7ba97ebaeef9410d.json",
+    "combined": "combined/job_7ba97ebaeef9410d.json"
+  }
+}
