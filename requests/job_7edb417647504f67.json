@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 19
+  },
+  "created_at": "2026-03-30T01:49:43Z",
+  "job_id": "job_7edb417647504f67",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 19
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "Is there a higher capacity type disc that can be burned like a blueray but can hold more data?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Is there a higher capacity type disc that can be burned like a blueray but can hold more data?",
+    "user_prompt_chunks": [
+      "Is there a higher capacity type disc that can be burned like a blueray but can hold more data?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Is there a higher capacity type disc that can be burned like a blueray but can hold more data?",
+  "user_prompt_chunks": [
+    "Is there a higher capacity type disc that can be burned like a blueray but can hold more data?"
+  ]
+}
