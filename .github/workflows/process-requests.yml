@@ -103,12 +103,25 @@ jobs:
               instruction_args+=(--instructions-file "$instructions_file")
             fi
 
+            if [[ ! -f "$question_source_file" ]]; then
+              question_source_file="$prompt_file"
+            fi
+            question_preview="$(first_100_words "$question_source_file")"
+            eval_prompt_file="tmp/${job_id}.eval.prompt.txt"
+            eval_out_file="tmp/${job_id}.eval.out.txt"
+            eval_json_file="evaluations/eval_${job_id}.json"
+            now_iso="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            render_eval_prompt "$EVAL_PROMPT_TEMPLATE_FILE" "$eval_prompt_file" "$question_preview" "$job_id" "$now_iso"
+
             if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
               python chatgpt_file_playwright_anonymous_ci.py \
               --input-file "$prompt_file" \
               "${instruction_args[@]}" \
               --output-file "$out_file" \
+              --followup-input-file "$eval_prompt_file" \
+              --followup-output-file "$eval_out_file" \
               --wait-seconds 60 \
+              --followup-wait-seconds 45 \
               --timeout-ms 120000 \
               "${chunk_args[@]}"
             then
@@ -118,37 +131,26 @@ jobs:
               else
                 python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
                 cp "$out_file" "responses_readable/${job_id}.md"
-
-                if [[ ! -f "$question_source_file" ]]; then
-                  question_source_file="$prompt_file"
-                fi
-                question_preview="$(first_100_words "$question_source_file")"
-                eval_prompt_file="tmp/${job_id}.eval.prompt.txt"
-                eval_out_file="tmp/${job_id}.eval.out.txt"
-                eval_json_file="evaluations/eval_${job_id}.json"
-                now_iso="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-
-                render_eval_prompt "$EVAL_PROMPT_TEMPLATE_FILE" "$eval_prompt_file" "$question_preview" "$job_id" "$now_iso"
-
-                if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
-                  python chatgpt_file_playwright_anonymous_ci.py \
-                  --input-file "$eval_prompt_file" \
-                  --output-file "$eval_out_file" \
-                  --wait-seconds 45 \
-                  --timeout-ms 120000
+                if python -c 'import json,re,sys; raw=open(sys.argv[1],"r",encoding="utf-8").read().strip(); out_path=sys.argv[2]; m=re.search(r"\{.*\}", raw, re.S); candidate=(m.group(0) if m else raw); parsed=json.loads(candidate); open(out_path,"w",encoding="utf-8").write(json.dumps(parsed, indent=2, ensure_ascii=False)+"\n")' "$eval_out_file" "$eval_json_file"
                 then
-                  if python -c 'import json,re,sys; raw=open(sys.argv[1],"r",encoding="utf-8").read().strip(); out_path=sys.argv[2]; m=re.search(r"\{.*\}", raw, re.S); candidate=(m.group(0) if m else raw); parsed=json.loads(candidate); open(out_path,"w",encoding="utf-8").write(json.dumps(parsed, indent=2, ensure_ascii=False)+"\n")' "$eval_out_file" "$eval_json_file"
-                  then
-                    :
-                  else
-                    python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev,raw_path=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); raw=open(raw_path,"r",encoding="utf-8").read().strip(); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_parse_failure","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"EVAL_INVALID_JSON","message":"Evaluation output was not valid JSON","raw_excerpt":raw[:1500]}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview" "$eval_out_file"
-                  fi
+                  :
                 else
-                  python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev=sys.argv[1],sys.argv[2],sys.argv[3]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_step_failed","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"PIPELINE_EVALUATION_ERROR","message":"Evaluation playwright step failed"}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview"
+                  python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev,raw_path=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); raw=(open(raw_path,"r",encoding="utf-8").read().strip() if __import__("pathlib").Path(raw_path).exists() else ""); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_parse_failure","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"EVAL_INVALID_JSON","message":"Evaluation output was not valid JSON","raw_excerpt":raw[:1500]}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview" "$eval_out_file"
                 fi
               fi
             else
-              python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+              if [[ -s "$out_file" ]]; then
+                if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                  python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                  cp "$out_file" "responses_readable/${job_id}.md"
+                else
+                  python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                  cp "$out_file" "responses_readable/${job_id}.md"
+                  python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev=sys.argv[1],sys.argv[2],sys.argv[3]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_step_failed","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"PIPELINE_EVALUATION_ERROR","message":"Evaluation prompt step failed in shared session"}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview"
+                fi
+              else
+                python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+              fi
             fi
 
             python -c 'import json,sys; from datetime import datetime,timezone; from pathlib import Path; job_id,resp_path,err_path,eval_path,out_path=sys.argv[1:6]; load=lambda p: (json.load(open(p,"r",encoding="utf-8")) if Path(p).exists() else None); response=load(resp_path); error=load(err_path); evaluation=load(eval_path); scores=evaluation.get("scores") if isinstance(evaluation,dict) else None; first=(scores[0] if isinstance(scores,list) and scores and isinstance(scores[0],dict) else {}); promotion=evaluation.get("promotion") if isinstance(evaluation,dict) and isinstance(evaluation.get("promotion"),dict) else {}; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); status=("completed" if isinstance(response,dict) and not isinstance(error,dict) else "failed"); payload={"job_id":job_id,"status":status,"created_at":now,"response":response,"evaluation":evaluation,"error":error,"score_summary":{"overall_score":first.get("overall_score"),"confidence_band":first.get("confidence_band"),"memory_eligible":promotion.get("memory_eligible"),"memory_tier":promotion.get("memory_tier")},"paths":{"response":resp_path,"evaluation":eval_path,"error":err_path,"combined":out_path}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload,indent=2,ensure_ascii=False)+"\n")' "$job_id" "responses/${job_id}.json" "errors/${job_id}.json" "evaluations/eval_${job_id}.json" "combined/${job_id}.json"

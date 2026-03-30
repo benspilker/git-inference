@@ -1214,10 +1214,14 @@ def run(
     input_file: Path,
     instructions_file: Path | None,
     output_file: Path,
+    followup_input_file: Path | None,
+    followup_instructions_file: Path | None,
+    followup_output_file: Path | None,
     email: str | None,
     password: str | None,
     iterations: int,
     wait_seconds: int,
+    followup_wait_seconds: int | None,
     headless: bool,
     timeout_ms: int,
     user_data_dir: Path,
@@ -1247,10 +1251,23 @@ def run(
         instructions_file=instructions_file,
         omit_sections=omit_sections,
     )
+    followup_prompt_text: str | None = None
+    if followup_input_file is not None:
+        followup_input_text, followup_instructions_text = build_prompt_text(
+            followup_input_file,
+            instructions_file=followup_instructions_file,
+            omit_sections=[],
+        )
+        if followup_instructions_text:
+            followup_prompt_text = f"{followup_instructions_text}\n\n{followup_input_text}"
+        else:
+            followup_prompt_text = followup_input_text
     input_chunks = split_text_into_chunks(initial_input_text, chunks)
 
     user_data_dir.mkdir(parents=True, exist_ok=True)
     output_file.parent.mkdir(parents=True, exist_ok=True)
+    if followup_output_file is not None:
+        followup_output_file.parent.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
         browser = None
@@ -1494,6 +1511,25 @@ def run(
                     ]
                     output_text = "\n\n".join(formatted_parts)
             output_file.write_text(output_text + "\n", encoding="utf-8")
+            if followup_prompt_text and followup_output_file is not None:
+                composer = _find_chat_composer(page, timeout_ms=timeout_ms)
+                if composer is None:
+                    raise RuntimeError("Could not find composer for follow-up prompt.")
+                followup_text = _send_prompt_and_collect_response(
+                    page=page,
+                    composer=composer,
+                    assistant_messages=_assistant_turns(page),
+                    prompt_text=followup_prompt_text,
+                    chat_url=url,
+                    timeout_ms=timeout_ms,
+                    wait_seconds=followup_wait_seconds or wait_seconds,
+                    post_response_wait_seconds=post_response_wait_seconds,
+                    response_settle_seconds=response_settle_seconds,
+                    max_settle_wait_seconds=max_settle_wait_seconds,
+                    use_ctrl_v=use_ctrl_v,
+                    start_new_chat=False,
+                )
+                followup_output_file.write_text(followup_text + "\n", encoding="utf-8")
         except Exception:
             if error_screenshot is not None:
                 try:
@@ -1522,6 +1558,18 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--output-file", required=True, help="Path to output response text file.")
     parser.add_argument(
+        "--followup-input-file",
+        help="Optional second prompt file to send in the same chat session after the main prompt completes.",
+    )
+    parser.add_argument(
+        "--followup-instructions-file",
+        help="Optional instructions file to prepend to --followup-input-file.",
+    )
+    parser.add_argument(
+        "--followup-output-file",
+        help="Path to save response for --followup-input-file.",
+    )
+    parser.add_argument(
         "--email",
         help="Optional ChatGPT account email for login flow when session is not already authenticated.",
     )
@@ -1541,6 +1589,11 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=60,
         help="Seconds to wait after sending prompt before reading response (default: 60).",
+    )
+    parser.add_argument(
+        "--followup-wait-seconds",
+        type=int,
+        help="Override wait seconds for the follow-up prompt response.",
     )
     parser.add_argument(
         "--url",
@@ -1660,6 +1713,17 @@ def main() -> int:
     input_file = Path(args.input_file).expanduser().resolve()
     instructions_file = Path(args.instructions_file).expanduser().resolve() if args.instructions_file else None
     output_file = Path(args.output_file).expanduser().resolve()
+    followup_input_file = (
+        Path(args.followup_input_file).expanduser().resolve() if args.followup_input_file else None
+    )
+    followup_instructions_file = (
+        Path(args.followup_instructions_file).expanduser().resolve()
+        if args.followup_instructions_file
+        else None
+    )
+    followup_output_file = (
+        Path(args.followup_output_file).expanduser().resolve() if args.followup_output_file else None
+    )
     user_data_dir = Path(args.user_data_dir).expanduser().resolve()
     error_screenshot = Path(args.error_screenshot).expanduser().resolve() if args.error_screenshot else None
     network_log_file = Path(args.network_log_file).expanduser().resolve() if args.network_log_file else None
@@ -1669,6 +1733,24 @@ def main() -> int:
         return 1
     if instructions_file is not None and not instructions_file.exists():
         print(f"Instructions file does not exist: {instructions_file}", file=sys.stderr)
+        return 1
+    if (followup_input_file is None) != (followup_output_file is None):
+        print(
+            "--followup-input-file and --followup-output-file must be provided together",
+            file=sys.stderr,
+        )
+        return 1
+    if followup_input_file is not None and not followup_input_file.exists():
+        print(f"Follow-up input file does not exist: {followup_input_file}", file=sys.stderr)
+        return 1
+    if followup_instructions_file is not None and not followup_instructions_file.exists():
+        print(
+            f"Follow-up instructions file does not exist: {followup_instructions_file}",
+            file=sys.stderr,
+        )
+        return 1
+    if followup_instructions_file is not None and followup_input_file is None:
+        print("--followup-instructions-file requires --followup-input-file", file=sys.stderr)
         return 1
     if args.iterations < 1:
         print("--iterations must be at least 1", file=sys.stderr)
@@ -1687,6 +1769,9 @@ def main() -> int:
         return 1
     if args.max_settle_wait_seconds < 1:
         print("--max-settle-wait-seconds must be at least 1", file=sys.stderr)
+        return 1
+    if args.followup_wait_seconds is not None and args.followup_wait_seconds < 1:
+        print("--followup-wait-seconds must be at least 1", file=sys.stderr)
         return 1
     omit_sections = [s.strip() for s in args.omit_sections.split(",") if s.strip()]
 
@@ -1708,10 +1793,14 @@ def main() -> int:
             input_file=input_file,
             instructions_file=instructions_file,
             output_file=output_file,
+            followup_input_file=followup_input_file,
+            followup_instructions_file=followup_instructions_file,
+            followup_output_file=followup_output_file,
             email=args.email,
             password=password,
             iterations=args.iterations,
             wait_seconds=args.wait_seconds,
+            followup_wait_seconds=args.followup_wait_seconds,
             headless=args.headless,
             timeout_ms=args.timeout_ms,
             user_data_dir=user_data_dir,
@@ -1741,10 +1830,14 @@ def main() -> int:
                 input_file=input_file,
                 instructions_file=instructions_file,
                 output_file=output_file,
+                followup_input_file=followup_input_file,
+                followup_instructions_file=followup_instructions_file,
+                followup_output_file=followup_output_file,
                 email=args.email,
                 password=password,
                 iterations=args.iterations,
                 wait_seconds=args.wait_seconds,
+                followup_wait_seconds=args.followup_wait_seconds,
                 headless=args.headless,
                 timeout_ms=args.timeout_ms,
                 user_data_dir=user_data_dir,
@@ -1760,6 +1853,7 @@ def main() -> int:
                 chunks=args.chunks,
                 map_reduce=args.map_reduce,
                 finalize_on_last_chunk=args.finalize_on_last_chunk,
+                start_new_chat=args.start_new_chat,
                 omit_sections=omit_sections,
                 post_response_wait_seconds=args.post_response_wait_seconds,
                 response_settle_seconds=args.response_settle_seconds,
@@ -1770,6 +1864,8 @@ def main() -> int:
             return 1
 
     print(f"Saved assistant response to: {output_file}")
+    if followup_output_file is not None:
+        print(f"Saved follow-up response to: {followup_output_file}")
     return 0
 
 
