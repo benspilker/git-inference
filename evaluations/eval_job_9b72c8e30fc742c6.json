@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_9b72c8e30fc742c6",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T02:09:15Z",
+  "updated_at": "2026-03-30T02:09:15Z",
+  "run_context": {
+    "job_id": "job_9b72c8e30fc742c6",
+    "question_id": "q_job_9b72c8e30fc742c6",
+    "run_id": "run_job_9b72c8e30fc742c6",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_9b72c8e30fc742c6",
+    "root_object_id": "q_job_9b72c8e30fc742c6"
+  },
+  "content": {
+    "question_text_preview": "What",
+    "categorization": {
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "",
+    "topic": "",
+    "topics": [],
+    "keywords": [],
+    "summary": "",
+    "query_variants": [],
+    "language": "en",
+    "domain": "",
+    "subdomain": "",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_9b72c8e30fc742c6",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-30T02:09:15Z",
+      "dimensions": {
+        "correctness": 9.0,
+        "completeness": 9.0,
+        "clarity": 9.0,
+        "usefulness": 9.0,
+        "groundedness": 9.0,
+        "specificity": 8.5
+      },
+      "overall_score": 9.0,
+      "confidence_band": "high",
+      "notes": "The assistant correctly requested clarification without making assumptions and maintained clear, concise guidance about the next step."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_9b72c8e30fc742c6",
+      "resp_job_9b72c8e30fc742c6"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": false,
+    "memory_tier": null,
+    "promotion_reason": null,
+    "blocked_reason": null,
+    "effective_score": 9.0
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_9b72c8e30fc742c6.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_9b72c8e30fc742c6",
+      "resp_job_9b72c8e30fc742c6"
+    ],
+    "evaluation_path": "evaluations/eval_job_9b72c8e30fc742c6.json",
+    "final_path": null
+  }
+}
