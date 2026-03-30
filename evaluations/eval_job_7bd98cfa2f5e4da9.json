@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_7bd98cfa2f5e4da9",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T17:56:38Z",
+  "updated_at": "2026-03-30T17:56:38Z",
+  "run_context": {
+    "job_id": "job_7bd98cfa2f5e4da9",
+    "question_id": "q_job_7bd98cfa2f5e4da9",
+    "run_id": "run_job_7bd98cfa2f5e4da9",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_7bd98cfa2f5e4da9",
+    "root_object_id": "q_job_7bd98cfa2f5e4da9"
+  },
+  "content": {
+    "question_text_preview": "What is the standard context window size in tokens on average for a free chatgpt session that is not signed in? What I mean by that is how many subsequent chat messages can I send before the responses and inference become too degraded?",
+    "categorization": {
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "",
+    "topic": "",
+    "topics": [],
+    "keywords": [],
+    "summary": "",
+    "query_variants": [],
+    "language": "en",
+    "domain": "",
+    "subdomain": "",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_7bd98cfa2f5e4da9",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-30T17:56:38Z",
+      "dimensions": {
+        "correctness": 0.0,
+        "completeness": 0.0,
+        "clarity": 0.0,
+        "usefulness": 0.0,
+        "groundedness": 0.0,
+        "specificity": 0.0
+      },
+      "overall_score": 0.0,
+      "confidence_band": "medium",
+      "notes": ""
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_7bd98cfa2f5e4da9",
+      "resp_job_7bd98cfa2f5e4da9"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": false,
+    "memory_tier": null,
+    "promotion_reason": null,
+    "blocked_reason": "confidence_below_high",
+    "effective_score": 0.0
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_7bd98cfa2f5e4da9.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_7bd98cfa2f5e4da9",
+      "resp_job_7bd98cfa2f5e4da9"
+    ],
+    "evaluation_path": "evaluations/eval_job_7bd98cfa2f5e4da9.json",
+    "final_path": null
+  }
+}

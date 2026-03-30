@@ -1,0 +1,136 @@
+{
+  "job_id": "job_7bd98cfa2f5e4da9",
+  "status": "completed",
+  "created_at": "2026-03-30T17:58:00Z",
+  "response": {
+    "job_id": "job_7bd98cfa2f5e4da9",
+    "message": {
+      "role": "assistant",
+      "content": "The standard context window for a free, unsigned-in ChatGPT session is typically around 4096 tokens. This is a combined total of both the user's messages and the assistant's responses.\n\nHere’s what that means for your conversation:\n\nAs you send more messages and the assistant responds, the context window will \"fill up.\"\n\nEach message and response (including any system message or prior chat history) contributes to this token count.\n\nIf the token limit is reached, the assistant will lose earlier parts of the conversation, which can cause the responses to become less accurate or coherent as context degrades.\n\nIn general, depending on the length of your messages and the assistant’s replies, you can expect roughly 7-10 messages (for both sides combined) before the context starts to degrade, but this varies depending on the length and complexity of the content.\n\nWould you like more details about token usage or how to track this in your sessions?"
+    },
+    "done": true,
+    "input_committed_at": "2026-03-30T13:56:29-04:00",
+    "started_at": "2026-03-30T17:56:38Z",
+    "elapsed_seconds": 91,
+    "completed_at": "2026-03-30T17:58:00Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_7bd98cfa2f5e4da9",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T17:56:38Z",
+    "updated_at": "2026-03-30T17:56:38Z",
+    "run_context": {
+      "job_id": "job_7bd98cfa2f5e4da9",
+      "question_id": "q_job_7bd98cfa2f5e4da9",
+      "run_id": "run_job_7bd98cfa2f5e4da9",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_7bd98cfa2f5e4da9",
+      "root_object_id": "q_job_7bd98cfa2f5e4da9"
+    },
+    "content": {
+      "question_text_preview": "What is the standard context window size in tokens on average for a free chatgpt session that is not signed in? What I mean by that is how many subsequent chat messages can I send before the responses and inference become too degraded?",
+      "categorization": {
+        "topic_short": "",
+        "topic": "",
+        "topics": [],
+        "keywords": [],
+        "summary": "",
+        "language": "en",
+        "domain": "",
+        "subdomain": "",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "query_variants": [],
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_7bd98cfa2f5e4da9",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T17:56:38Z",
+        "dimensions": {
+          "correctness": 0.0,
+          "completeness": 0.0,
+          "clarity": 0.0,
+          "usefulness": 0.0,
+          "groundedness": 0.0,
+          "specificity": 0.0
+        },
+        "overall_score": 0.0,
+        "confidence_band": "medium",
+        "notes": ""
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_7bd98cfa2f5e4da9",
+        "resp_job_7bd98cfa2f5e4da9"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": "confidence_below_high",
+      "effective_score": 0.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_7bd98cfa2f5e4da9.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_7bd98cfa2f5e4da9",
+        "resp_job_7bd98cfa2f5e4da9"
+      ],
+      "evaluation_path": "evaluations/eval_job_7bd98cfa2f5e4da9.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 0.0,
+    "confidence_band": "medium",
+    "memory_eligible": false,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_7bd98cfa2f5e4da9.json",
+    "evaluation": "evaluations/eval_job_7bd98cfa2f5e4da9.json",
+    "error": "errors/job_7bd98cfa2f5e4da9.json",
+    "combined": "combined/job_7bd98cfa2f5e4da9.json"
+  }
+}
