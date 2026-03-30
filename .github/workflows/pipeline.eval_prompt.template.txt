@@ -26,6 +26,12 @@ Rules:
 3) If no previous assistant response is available, return exactly:
 {"error":"EVAL_CONTEXT_MISSING"}
 4) Use 0.0-10.0 numeric scores.
+5) Set promotion fields from score + confidence:
+   - memory_eligible=true only when overall_score >= 8.5 AND confidence_band == "high" AND quality_flags.needs_web_verification == false AND quality_flags.safety_or_policy_risk == false
+   - memory_tier: gold (>=9.0), silver (>=8.5), bronze (>=7.5), else null
+   - effective_score must equal overall_score
+   - when not eligible, set blocked_reason to a concrete reason (for example score_below_threshold, confidence_below_high, needs_web_verification, safety_or_policy_risk)
+6) Do not leave promotion fields at template defaults unless they are truly correct after applying rule 5.
 
 Return this exact top-level structure and field names:
 {

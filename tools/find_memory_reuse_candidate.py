@@ -58,6 +58,12 @@ def safe_float(value: Any) -> float | None:
         return None
 
 
+def confidence_rank(value: str | None) -> int:
+    band = str(value or "").strip().lower()
+    mapping = {"low": 1, "medium": 2, "high": 3}
+    return mapping.get(band, 0)
+
+
 def get_candidate_score(payload: dict[str, Any]) -> float | None:
     summary = payload.get("score_summary")
     if isinstance(summary, dict):
@@ -73,11 +79,29 @@ def get_candidate_score(payload: dict[str, Any]) -> float | None:
     return None
 
 
+def get_candidate_confidence(payload: dict[str, Any]) -> str | None:
+    summary = payload.get("score_summary")
+    if isinstance(summary, dict):
+        confidence = summary.get("confidence_band")
+        if isinstance(confidence, str) and confidence.strip():
+            return confidence.strip().lower()
+
+    evaluation = payload.get("evaluation")
+    if isinstance(evaluation, dict):
+        scores = evaluation.get("scores")
+        if isinstance(scores, list) and scores and isinstance(scores[0], dict):
+            confidence = scores[0].get("confidence_band")
+            if isinstance(confidence, str) and confidence.strip():
+                return confidence.strip().lower()
+    return None
+
+
 def find_best_candidate(
     question_text: str,
     current_job_id: str,
     min_score: float,
     min_similarity: float,
+    required_confidence: str,
     combined_dir: Path,
 ) -> dict[str, Any]:
     q_tokens = token_set(question_text)
@@ -125,6 +149,10 @@ def find_best_candidate(
         if score is None or score < min_score:
             continue
 
+        confidence = get_candidate_confidence(payload)
+        if confidence_rank(confidence) < confidence_rank(required_confidence):
+            continue
+
         source_tokens = token_set(source_question)
         if not source_tokens:
             continue
@@ -136,6 +164,7 @@ def find_best_candidate(
             "source_job_id": source_job_id,
             "source_path": candidate_path.as_posix(),
             "score": round(score, 3),
+            "confidence_band": confidence,
             "similarity": round(similarity, 4),
             "source_question_preview": source_question,
             "response_content": response_content,
@@ -152,6 +181,7 @@ def main() -> int:
     parser.add_argument("--current-job-id", required=True)
     parser.add_argument("--min-score", required=True, type=float)
     parser.add_argument("--min-similarity", required=True, type=float)
+    parser.add_argument("--required-confidence", required=False, default="high")
     parser.add_argument("--out-file", required=True)
     args = parser.parse_args()
 
@@ -163,6 +193,7 @@ def main() -> int:
         current_job_id=args.current_job_id,
         min_score=args.min_score,
         min_similarity=args.min_similarity,
+        required_confidence=args.required_confidence,
         combined_dir=Path("combined"),
     )
     out_path.write_text(json.dumps(candidate, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
