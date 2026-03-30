@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_4799d8a3ade44659",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T03:16:31Z",
+  "updated_at": "2026-03-30T03:16:31Z",
+  "run_context": {
+    "job_id": "job_4799d8a3ade44659",
+    "question_id": "q_job_4799d8a3ade44659",
+    "run_id": "run_job_4799d8a3ade44659",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_4799d8a3ade44659",
+    "root_object_id": "q_job_4799d8a3ade44659"
+  },
+  "content": {
+    "question_text_preview": "Please explain the process of making a pizza?",
+    "categorization": {
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "",
+    "topic": "",
+    "topics": [],
+    "keywords": [],
+    "summary": "",
+    "query_variants": [],
+    "language": "en",
+    "domain": "",
+    "subdomain": "",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_4799d8a3ade44659",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "memory-reuse",
+      "phase": 1,
+      "created_at": "2026-03-30T03:16:31Z",
+      "dimensions": {
+        "correctness": 9.9,
+        "completeness": 9.9,
+        "clarity": 9.9,
+        "usefulness": 9.9,
+        "groundedness": 9.9,
+        "specificity": 9.9
+      },
+      "overall_score": 9.9,
+      "confidence_band": "high",
+      "notes": "Reused high-scoring prior response from job_6b292b50e08d42a3 (similarity=0.800)."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "memory-reuse",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "historical_combined"
+    ],
+    "source_object_ids": [
+      "q_job_4799d8a3ade44659",
+      "resp_job_6b292b50e08d42a3"
+    ],
+    "source_paths": [
+      "combined/job_6b292b50e08d42a3.json"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "gold",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 9.9
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_4799d8a3ade44659.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [
+      "combined/job_6b292b50e08d42a3.json"
+    ],
+    "related_object_ids": [
+      "q_job_4799d8a3ade44659",
+      "resp_job_6b292b50e08d42a3"
+    ],
+    "evaluation_path": "evaluations/eval_job_4799d8a3ade44659.json",
+    "final_path": null
+  }
+}
