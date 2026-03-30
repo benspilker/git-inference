@@ -1,0 +1,12 @@
+{
+  "job_id": "job_86cb16c2bc3a4d37",
+  "message": {
+    "role": "assistant",
+    "content": "To avoid interfering with your sleep cycle, it's generally recommended to stop drinking coffee at least 6 hours before your planned bedtime. Since you want to go to bed by 11 PM, the latest time you should drink coffee would be 5 PM.\n\nThis is based on the fact that caffeine has a half-life of around 3–5 hours, meaning it can stay in your system for quite a while and impact your ability to fall asleep. Some people are more sensitive to caffeine, so if you're particularly sensitive, you might want to stop even earlier, like around 2 PM.\n\nLet me know if you want any tips on winding down for a good night's sleep!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-29T20:39:34-04:00",
+  "started_at": "2026-03-30T00:40:13Z",
+  "elapsed_seconds": 87,
+  "completed_at": "2026-03-30T00:41:01Z"
+}
