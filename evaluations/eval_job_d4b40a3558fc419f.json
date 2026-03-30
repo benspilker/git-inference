@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_d4b40a3558fc419f",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T02:45:40Z",
+  "updated_at": "2026-03-30T02:45:40Z",
+  "run_context": {
+    "job_id": "job_d4b40a3558fc419f",
+    "question_id": "q_job_d4b40a3558fc419f",
+    "run_id": "run_job_d4b40a3558fc419f",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_d4b40a3558fc419f",
+    "root_object_id": "q_job_d4b40a3558fc419f"
+  },
+  "content": {
+    "question_text_preview": "Explain what skills are needed to be a senior devops or devsec ops engineer? Do I need certifications? And what interview questions would I need to answer?",
+    "categorization": {
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "",
+    "topic": "",
+    "topics": [],
+    "keywords": [],
+    "summary": "",
+    "query_variants": [],
+    "language": "en",
+    "domain": "",
+    "subdomain": "",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_d4b40a3558fc419f",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-30T02:45:40Z",
+      "dimensions": {
+        "correctness": 9.5,
+        "completeness": 9.5,
+        "clarity": 9.5,
+        "usefulness": 9.5,
+        "groundedness": 9.0,
+        "specificity": 9.0
+      },
+      "overall_score": 9.3,
+      "confidence_band": "high",
+      "notes": "The response is detailed, accurate, and provides concrete advice on necessary skills, certifications, and interview questions for a senior DevOps or DevSecOps role."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_d4b40a3558fc419f",
+      "resp_job_d4b40a3558fc419f"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "gold",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 9.3
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_d4b40a3558fc419f.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_d4b40a3558fc419f",
+      "resp_job_d4b40a3558fc419f"
+    ],
+    "evaluation_path": "evaluations/eval_job_d4b40a3558fc419f.json",
+    "final_path": null
+  }
+}
