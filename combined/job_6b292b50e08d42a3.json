@@ -1,0 +1,136 @@
+{
+  "job_id": "job_6b292b50e08d42a3",
+  "status": "completed",
+  "created_at": "2026-03-30T03:04:18Z",
+  "response": {
+    "job_id": "job_6b292b50e08d42a3",
+    "message": {
+      "role": "assistant",
+      "content": "Making a pizza can be broken down into several simple steps. Here's a basic process:\n\n1. Prepare the Dough\n\nIngredients:\n\n2 ½ cups of all-purpose flour\n\n1 tsp of salt\n\n1 tsp of sugar\n\n1 packet of active dry yeast (about 2 ¼ tsp)\n\n1 cup warm water (about 110°F)\n\n1 tbsp of olive oil\n\nInstructions:\n\nDissolve the sugar in warm water, then sprinkle the yeast over it. Let it sit for about 5-10 minutes until frothy.\n\nIn a large bowl, mix the flour and salt. Make a well in the center and add the yeast mixture and olive oil.\n\nStir the ingredients together until a dough forms, then knead the dough on a floured surface for about 5-7 minutes until smooth.\n\nPlace the dough in a lightly oiled bowl, cover it with a damp cloth, and let it rise for about 1-2 hours, or until doubled in size.\n\n2. Prepare the Sauce\n\nIngredients:\n\n1 can (15 oz) of crushed tomatoes\n\n1-2 cloves garlic (minced)\n\n1 tsp of olive oil\n\nSalt, pepper, and dried oregano to taste\n\nInstructions:\n\nHeat olive oil in a saucepan over medium heat. Add garlic and sauté for about 1 minute.\n\nAdd crushed tomatoes and season with salt, pepper, and oregano. Simmer for 10-15 minutes, stirring occasionally.\n\n3. Prepare the Toppings\n\nIngredients:\n\nShredded mozzarella cheese (about 2 cups)\n\nAny additional toppings you like (pepperoni, mushrooms, bell peppers, onions, olives, etc.)\n\nInstructions:\n\nSlice and chop any vegetables or meats you want to add.\n\n4. Assemble the Pizza\n\nPreheat your oven to about 475°F (245°C).\n\nPunch down the risen dough and divide it into individual portions (for personal pizzas) or roll it into one large pizza.\n\nRoll the dough out on a floured surface to your desired thickness.\n\nTransfer the rolled dough onto a pizza stone or baking sheet.\n\nSpread a thin layer of sauce over the dough, leaving a small border around the edges for the crust.\n\nSprinkle a generous amount of mozzarella cheese over the sauce.\n\nAdd your desired toppings.\n\n5. Bake the Pizza\n\nPlace the pizza in the preheated oven on the middle rack for 10-15 minutes or until the crust is golden and the cheese is bubbly and slightly browned.\n\n6. Serve\n\nOnce the pizza is done, remove it from the oven and let it cool for a few minutes. Slice and enjoy!\n\nThis process can be adapted by experimenting with different toppings, sauces, and even types of cheese."
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T23:02:54-04:00",
+    "started_at": "2026-03-30T03:03:28Z",
+    "elapsed_seconds": 84,
+    "completed_at": "2026-03-30T03:04:18Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_6b292b50e08d42a3",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T03:03:28Z",
+    "updated_at": "2026-03-30T03:03:28Z",
+    "run_context": {
+      "job_id": "job_6b292b50e08d42a3",
+      "question_id": "q_job_6b292b50e08d42a3",
+      "run_id": "run_job_6b292b50e08d42a3",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_6b292b50e08d42a3",
+      "root_object_id": "q_job_6b292b50e08d42a3"
+    },
+    "content": {
+      "question_text_preview": "explain the process of making a pizza?",
+      "categorization": {
+        "topic_short": "",
+        "topic": "",
+        "topics": [],
+        "keywords": [],
+        "summary": "",
+        "language": "en",
+        "domain": "",
+        "subdomain": "",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "query_variants": [],
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_6b292b50e08d42a3",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T03:03:28Z",
+        "dimensions": {
+          "correctness": 10.0,
+          "completeness": 10.0,
+          "clarity": 10.0,
+          "usefulness": 10.0,
+          "groundedness": 10.0,
+          "specificity": 9.5
+        },
+        "overall_score": 9.9,
+        "confidence_band": "high",
+        "notes": "The assistant provided a well-rounded, comprehensive, and detailed answer, covering the entire pizza-making process from dough preparation to baking and serving. The response demonstrated clarity and specificity, effectively answering the user's request."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_6b292b50e08d42a3",
+        "resp_job_6b292b50e08d42a3"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": true,
+      "memory_tier": "gold",
+      "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+      "blocked_reason": null,
+      "effective_score": 9.9
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_6b292b50e08d42a3.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_6b292b50e08d42a3",
+        "resp_job_6b292b50e08d42a3"
+      ],
+      "evaluation_path": "evaluations/eval_job_6b292b50e08d42a3.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 9.9,
+    "confidence_band": "high",
+    "memory_eligible": true,
+    "memory_tier": "gold"
+  },
+  "paths": {
+    "response": "responses/job_6b292b50e08d42a3.json",
+    "evaluation": "evaluations/eval_job_6b292b50e08d42a3.json",
+    "error": "errors/job_6b292b50e08d42a3.json",
+    "combined": "combined/job_6b292b50e08d42a3.json"
+  }
+}

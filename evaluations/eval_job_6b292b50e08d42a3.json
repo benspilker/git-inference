@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_6b292b50e08d42a3",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-30T03:03:28Z",
+  "updated_at": "2026-03-30T03:03:28Z",
+  "run_context": {
+    "job_id": "job_6b292b50e08d42a3",
+    "question_id": "q_job_6b292b50e08d42a3",
+    "run_id": "run_job_6b292b50e08d42a3",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_6b292b50e08d42a3",
+    "root_object_id": "q_job_6b292b50e08d42a3"
+  },
+  "content": {
+    "question_text_preview": "explain the process of making a pizza?",
+    "categorization": {
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "",
+    "topic": "",
+    "topics": [],
+    "keywords": [],
+    "summary": "",
+    "query_variants": [],
+    "language": "en",
+    "domain": "",
+    "subdomain": "",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_6b292b50e08d42a3",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-30T03:03:28Z",
+      "dimensions": {
+        "correctness": 10.0,
+        "completeness": 10.0,
+        "clarity": 10.0,
+        "usefulness": 10.0,
+        "groundedness": 10.0,
+        "specificity": 9.5
+      },
+      "overall_score": 9.9,
+      "confidence_band": "high",
+      "notes": "The assistant provided a well-rounded, comprehensive, and detailed answer, covering the entire pizza-making process from dough preparation to baking and serving. The response demonstrated clarity and specificity, effectively answering the user's request."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_6b292b50e08d42a3",
+      "resp_job_6b292b50e08d42a3"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "gold",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 9.9
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_6b292b50e08d42a3.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_6b292b50e08d42a3",
+      "resp_job_6b292b50e08d42a3"
+    ],
+    "evaluation_path": "evaluations/eval_job_6b292b50e08d42a3.json",
+    "final_path": null
+  }
+}
