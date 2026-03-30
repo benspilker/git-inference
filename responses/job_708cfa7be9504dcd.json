@@ -1,0 +1,20 @@
+{
+  "job_id": "job_708cfa7be9504dcd",
+  "message": {
+    "role": "assistant",
+    "content": "Making a pizza can be broken down into several simple steps. Here's a basic process:\n\n1. Prepare the Dough\n\nIngredients:\n\n2 ½ cups of all-purpose flour\n\n1 tsp of salt\n\n1 tsp of sugar\n\n1 packet of active dry yeast (about 2 ¼ tsp)\n\n1 cup warm water (about 110°F)\n\n1 tbsp of olive oil\n\nInstructions:\n\nDissolve the sugar in warm water, then sprinkle the yeast over it. Let it sit for about 5-10 minutes until frothy.\n\nIn a large bowl, mix the flour and salt. Make a well in the center and add the yeast mixture and olive oil.\n\nStir the ingredients together until a dough forms, then knead the dough on a floured surface for about 5-7 minutes until smooth.\n\nPlace the dough in a lightly oiled bowl, cover it with a damp cloth, and let it rise for about 1-2 hours, or until doubled in size.\n\n2. Prepare the Sauce\n\nIngredients:\n\n1 can (15 oz) of crushed tomatoes\n\n1-2 cloves garlic (minced)\n\n1 tsp of olive oil\n\nSalt, pepper, and dried oregano to taste\n\nInstructions:\n\nHeat olive oil in a saucepan over medium heat. Add garlic and sauté for about 1 minute.\n\nAdd crushed tomatoes and season with salt, pepper, and oregano. Simmer for 10-15 minutes, stirring occasionally.\n\n3. Prepare the Toppings\n\nIngredients:\n\nShredded mozzarella cheese (about 2 cups)\n\nAny additional toppings you like (pepperoni, mushrooms, bell peppers, onions, olives, etc.)\n\nInstructions:\n\nSlice and chop any vegetables or meats you want to add.\n\n4. Assemble the Pizza\n\nPreheat your oven to about 475°F (245°C).\n\nPunch down the risen dough and divide it into individual portions (for personal pizzas) or roll it into one large pizza.\n\nRoll the dough out on a floured surface to your desired thickness.\n\nTransfer the rolled dough onto a pizza stone or baking sheet.\n\nSpread a thin layer of sauce over the dough, leaving a small border around the edges for the crust.\n\nSprinkle a generous amount of mozzarella cheese over the sauce.\n\nAdd your desired toppings.\n\n5. Bake the Pizza\n\nPlace the pizza in the preheated oven on the middle rack for 10-15 minutes or until the crust is golden and the cheese is bubbly and slightly browned.\n\n6. Serve\n\nOnce the pizza is done, remove it from the oven and let it cool for a few minutes. Slice and enjoy!\n\nThis process can be adapted by experimenting with different toppings, sauces, and even types of cheese."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-29T23:36:44-04:00",
+  "started_at": "2026-03-30T03:36:55Z",
+  "elapsed_seconds": 11,
+  "completed_at": "2026-03-30T03:36:55Z",
+  "memory_reuse": {
+    "enabled": true,
+    "source_job_id": "job_6b292b50e08d42a3",
+    "source_path": "combined/job_6b292b50e08d42a3.json",
+    "score": 9.9,
+    "confidence_band": "high",
+    "similarity": 1.0
+  }
+}
