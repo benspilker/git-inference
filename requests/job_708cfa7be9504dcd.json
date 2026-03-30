@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 7
+  },
+  "created_at": "2026-03-30T03:36:44Z",
+  "job_id": "job_708cfa7be9504dcd",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 7
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": " explain making a pizza as a process?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": " explain making a pizza as a process?",
+    "user_prompt_chunks": [
+      " explain making a pizza as a process?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": " explain making a pizza as a process?",
+  "user_prompt_chunks": [
+    " explain making a pizza as a process?"
+  ]
+}
