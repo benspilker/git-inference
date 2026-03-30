@@ -1,0 +1,12 @@
+{
+  "job_id": "job_91b22a95e9834311",
+  "message": {
+    "role": "assistant",
+    "content": "The youngest U.S. president was Theodore Roosevelt, who assumed office at the age of 42 after the assassination of William McKinley in 1901."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-29T22:19:28-04:00",
+  "started_at": "2026-03-30T02:20:04Z",
+  "elapsed_seconds": 82,
+  "completed_at": "2026-03-30T02:20:50Z"
+}

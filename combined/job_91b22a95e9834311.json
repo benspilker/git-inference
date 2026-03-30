@@ -1,0 +1,136 @@
+{
+  "job_id": "job_91b22a95e9834311",
+  "status": "completed",
+  "created_at": "2026-03-30T02:20:50Z",
+  "response": {
+    "job_id": "job_91b22a95e9834311",
+    "message": {
+      "role": "assistant",
+      "content": "The youngest U.S. president was Theodore Roosevelt, who assumed office at the age of 42 after the assassination of William McKinley in 1901."
+    },
+    "done": true,
+    "input_committed_at": "2026-03-29T22:19:28-04:00",
+    "started_at": "2026-03-30T02:20:04Z",
+    "elapsed_seconds": 82,
+    "completed_at": "2026-03-30T02:20:50Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_91b22a95e9834311",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-03-30T02:20:04Z",
+    "updated_at": "2026-03-30T02:20:04Z",
+    "run_context": {
+      "job_id": "job_91b22a95e9834311",
+      "question_id": "q_job_91b22a95e9834311",
+      "run_id": "run_job_91b22a95e9834311",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_91b22a95e9834311",
+      "root_object_id": "q_job_91b22a95e9834311"
+    },
+    "content": {
+      "question_text_preview": "Who was the youngest US president?",
+      "categorization": {
+        "topic_short": "",
+        "topic": "",
+        "topics": [],
+        "keywords": [],
+        "summary": "",
+        "language": "en",
+        "domain": "",
+        "subdomain": "",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "query_variants": [],
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_91b22a95e9834311",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-03-30T02:20:04Z",
+        "dimensions": {
+          "correctness": 10.0,
+          "completeness": 10.0,
+          "clarity": 10.0,
+          "usefulness": 10.0,
+          "groundedness": 10.0,
+          "specificity": 10.0
+        },
+        "overall_score": 10.0,
+        "confidence_band": "high",
+        "notes": ""
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_91b22a95e9834311",
+        "resp_job_91b22a95e9834311"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": null,
+      "effective_score": 10.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_91b22a95e9834311.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_91b22a95e9834311",
+        "resp_job_91b22a95e9834311"
+      ],
+      "evaluation_path": "evaluations/eval_job_91b22a95e9834311.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 10.0,
+    "confidence_band": "high",
+    "memory_eligible": false,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_91b22a95e9834311.json",
+    "evaluation": "evaluations/eval_job_91b22a95e9834311.json",
+    "error": "errors/job_91b22a95e9834311.json",
+    "combined": "combined/job_91b22a95e9834311.json"
+  }
+}
