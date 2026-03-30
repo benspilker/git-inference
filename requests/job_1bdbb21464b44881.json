@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 21
+  },
+  "created_at": "2026-03-30T15:48:39Z",
+  "job_id": "job_1bdbb21464b44881",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 21
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "What is the standard context window size in tokens on average for a free chatgpt session that is not signed in?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "What is the standard context window size in tokens on average for a free chatgpt session that is not signed in?",
+    "user_prompt_chunks": [
+      "What is the standard context window size in tokens on average for a free chatgpt session that is not signed in?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "What is the standard context window size in tokens on average for a free chatgpt session that is not signed in?",
+  "user_prompt_chunks": [
+    "What is the standard context window size in tokens on average for a free chatgpt session that is not signed in?"
+  ]
+}
