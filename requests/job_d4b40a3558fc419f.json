@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 27
+  },
+  "created_at": "2026-03-30T02:44:58Z",
+  "job_id": "job_d4b40a3558fc419f",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 27
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "Explain what skills are needed to be a senior devops or devsec ops engineer? Do I need certifications? And what interview questions would I need to answer?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "Explain what skills are needed to be a senior devops or devsec ops engineer? Do I need certifications? And what interview questions would I need to answer?",
+    "user_prompt_chunks": [
+      "Explain what skills are needed to be a senior devops or devsec ops engineer? Do I need certifications? And what interview questions would I need to answer?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "Explain what skills are needed to be a senior devops or devsec ops engineer? Do I need certifications? And what interview questions would I need to answer?",
+  "user_prompt_chunks": [
+    "Explain what skills are needed to be a senior devops or devsec ops engineer? Do I need certifications? And what interview questions would I need to answer?"
+  ]
+}
