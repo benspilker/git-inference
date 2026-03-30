@@ -36,17 +36,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Playwright
-        run: |
-          set -euo pipefail
-          if ! command -v xvfb-run >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install -y xvfb
-          fi
-          python -m pip install --upgrade pip
-          pip install playwright
-          python -m playwright install --with-deps chromium
-
       - name: Process prompts (bash)
         env:
           PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
@@ -63,6 +52,7 @@ jobs:
           MEMORY_MIN_SIMILARITY="${MEMORY_MIN_SIMILARITY:-0.72}"
           MEMORY_REQUIRED_CONFIDENCE="${MEMORY_REQUIRED_CONFIDENCE:-high}"
           MEMORY_PROMOTION_MIN_SCORE="${MEMORY_PROMOTION_MIN_SCORE:-$MEMORY_MIN_SCORE}"
+          PLAYWRIGHT_READY=0
           mkdir -p tmp responses errors responses_readable evaluations combined input/processed
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
           [[ -f tools/find_memory_reuse_candidate.py ]] || { echo "Missing tools/find_memory_reuse_candidate.py"; exit 1; }
@@ -114,6 +104,22 @@ jobs:
               --required-confidence "$MEMORY_REQUIRED_CONFIDENCE"
           }
 
+          ensure_playwright() {
+            if [[ "$PLAYWRIGHT_READY" == "1" ]]; then
+              return 0
+            fi
+            if ! command -v xvfb-run >/dev/null 2>&1; then
+              sudo apt-get update
+              sudo apt-get install -y xvfb
+            fi
+            if ! python -c 'import playwright' >/dev/null 2>&1; then
+              python -m pip install --upgrade pip
+              pip install playwright
+            fi
+            python -m playwright install --with-deps chromium
+            PLAYWRIGHT_READY=1
+          }
+
           process_prompt() {
             local job_id="$1"
             local prompt_file="$2"
@@ -156,7 +162,9 @@ jobs:
               python -c 'import json,sys; from datetime import datetime,timezone; cand_path,job_id,out_file,input_committed_at,started_at=sys.argv[1:6]; c=json.load(open(cand_path,"r",encoding="utf-8")); content=str(c.get("response_content") or "").strip(); open(out_file,"w",encoding="utf-8").write(content + ("\n" if content else "")); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at,"memory_reuse":{"enabled":True,"source_job_id":c.get("source_job_id"),"source_path":c.get("source_path"),"score":c.get("score"),"confidence_band":c.get("confidence_band"),"similarity":c.get("similarity")}}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$reuse_candidate_file" "$job_id" "$out_file" "$input_committed_at" "$started_at"
               cp "$out_file" "responses_readable/${job_id}.md"
               python -c 'import json,sys; from datetime import datetime,timezone; cand_path,out_path,job_id,qprev=sys.argv[1:5]; c=json.load(open(cand_path,"r",encoding="utf-8")); source_id=str(c.get("source_job_id") or "unknown"); now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); score=float(c.get("score") or 0.0); sim=float(c.get("similarity") or 0.0); confidence=str(c.get("confidence_band") or "high"); dims={k:score for k in ("correctness","completeness","clarity","usefulness","groundedness","specificity")}; payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"complete","created_at":now,"updated_at":now,"run_context":{"job_id":job_id,"question_id":f"q_{job_id}","run_id":f"run_{job_id}","branch_id":"branch_01","research_id":None,"parent_object_id":f"resp_{job_id}","root_object_id":f"q_{job_id}"},"content":{"question_text_preview":qprev,"categorization":{"topic_short":"","topic":"","topics":[],"keywords":[],"summary":"","language":"en","domain":"","subdomain":"","sensitivity":"public","recency_class":"stable"},"quality_flags":{"needs_web_verification":False,"missing_citations":False,"safety_or_policy_risk":False}},"metadata":{"title":None,"topic_short":"","topic":"","topics":[],"keywords":[],"summary":"","query_variants":[],"language":"en","domain":"","subdomain":"","sensitivity":"public","recency_class":"stable"},"scores":[{"score_event_id":f"score_evt_{job_id}","score_profile":"answer_score_profile","judge_type":"final_judge","judge_model":"memory-reuse","phase":1,"created_at":now,"dimensions":dims,"overall_score":score,"confidence_band":confidence,"notes":f"Reused high-scoring prior response from {source_id} (similarity={sim:.3f})."}],"judge":{"judge_type":"final_judge","judge_model":"memory-reuse","judge_version":"1.0"},"provenance":{"source_inputs":["question_preview","historical_combined"],"source_object_ids":[f"q_{job_id}",f"resp_{source_id}"],"source_paths":[c.get("source_path")]},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":None,"effective_score":score},"links":{"repo_path":f"evaluations/eval_{job_id}.json","index_path":"indexes/evaluations_index.jsonl","source_paths":[c.get("source_path")],"related_object_ids":[f"q_{job_id}",f"resp_{source_id}"],"evaluation_path":f"evaluations/eval_{job_id}.json","final_path":None}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$reuse_candidate_file" "$eval_json_file" "$job_id" "$question_preview"
-            elif xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
+            else
+              ensure_playwright
+              if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
               python chatgpt_file_playwright_anonymous_ci.py \
               --input-file "$prompt_file" \
               "${instruction_args[@]}" \
@@ -167,32 +175,33 @@ jobs:
               --followup-wait-seconds 45 \
               --timeout-ms 120000 \
               "${chunk_args[@]}"
-            then
-              if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
-                python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
-                cp "$out_file" "responses_readable/${job_id}.md"
-              else
-                python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
-                cp "$out_file" "responses_readable/${job_id}.md"
-                if python -c 'import json,re,sys; raw=open(sys.argv[1],"r",encoding="utf-8").read().strip(); out_path=sys.argv[2]; m=re.search(r"\{.*\}", raw, re.S); candidate=(m.group(0) if m else raw); parsed=json.loads(candidate); open(out_path,"w",encoding="utf-8").write(json.dumps(parsed, indent=2, ensure_ascii=False)+"\n")' "$eval_out_file" "$eval_json_file"
-                then
-                  :
-                else
-                  python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev,raw_path=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); raw=(open(raw_path,"r",encoding="utf-8").read().strip() if __import__("pathlib").Path(raw_path).exists() else ""); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_parse_failure","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"EVAL_INVALID_JSON","message":"Evaluation output was not valid JSON","raw_excerpt":raw[:1500]}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview" "$eval_out_file"
-                fi
-              fi
-            else
-              if [[ -s "$out_file" ]]; then
+              then
                 if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
                   python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
                   cp "$out_file" "responses_readable/${job_id}.md"
                 else
                   python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
                   cp "$out_file" "responses_readable/${job_id}.md"
-                  python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev=sys.argv[1],sys.argv[2],sys.argv[3]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_step_failed","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"PIPELINE_EVALUATION_ERROR","message":"Evaluation prompt step failed in shared session"}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview"
+                  if python -c 'import json,re,sys; raw=open(sys.argv[1],"r",encoding="utf-8").read().strip(); out_path=sys.argv[2]; m=re.search(r"\{.*\}", raw, re.S); candidate=(m.group(0) if m else raw); parsed=json.loads(candidate); open(out_path,"w",encoding="utf-8").write(json.dumps(parsed, indent=2, ensure_ascii=False)+"\n")' "$eval_out_file" "$eval_json_file"
+                  then
+                    :
+                  else
+                    python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev,raw_path=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); raw=(open(raw_path,"r",encoding="utf-8").read().strip() if __import__("pathlib").Path(raw_path).exists() else ""); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_parse_failure","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"EVAL_INVALID_JSON","message":"Evaluation output was not valid JSON","raw_excerpt":raw[:1500]}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview" "$eval_out_file"
+                  fi
                 fi
               else
-                python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                if [[ -s "$out_file" ]]; then
+                  if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                    python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                    cp "$out_file" "responses_readable/${job_id}.md"
+                  else
+                    python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                    cp "$out_file" "responses_readable/${job_id}.md"
+                    python -c 'import json,sys; from datetime import datetime,timezone; out_path,job_id,qprev=sys.argv[1],sys.argv[2],sys.argv[3]; now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"failed","created_at":now,"updated_at":now,"run_context":{"job_id":job_id},"content":{"question_text_preview":qprev},"metadata":{"language":"en"},"scores":[],"judge":{"judge_type":"final_judge","judge_model":"chatgpt-playwright"},"provenance":{},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":"evaluation_step_failed","effective_score":None},"links":{"repo_path":f"evaluations/eval_{job_id}.json"},"error":{"code":"PIPELINE_EVALUATION_ERROR","message":"Evaluation prompt step failed in shared session"}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False)+"\n")' "$eval_json_file" "$job_id" "$question_preview"
+                  fi
+                else
+                  python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                fi
               fi
             fi
 
