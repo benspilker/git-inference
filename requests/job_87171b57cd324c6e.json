@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 7
+  },
+  "created_at": "2026-03-30T01:12:51Z",
+  "job_id": "job_87171b57cd324c6e",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 7
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "When was the mullet haircut first popularized?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "When was the mullet haircut first popularized?",
+    "user_prompt_chunks": [
+      "When was the mullet haircut first popularized?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "When was the mullet haircut first popularized?",
+  "user_prompt_chunks": [
+    "When was the mullet haircut first popularized?"
+  ]
+}
