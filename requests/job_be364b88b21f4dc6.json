@@ -1,0 +1,41 @@
+{
+  "chunking": {
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "enabled": false,
+    "max_chunks": 5,
+    "word_count": 6
+  },
+  "created_at": "2026-03-30T02:40:18Z",
+  "job_id": "job_be364b88b21f4dc6",
+  "request": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 6
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "How do I make a pizza?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "options": {},
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "How do I make a pizza?",
+    "user_prompt_chunks": [
+      "How do I make a pizza?"
+    ]
+  },
+  "system_prompt": null,
+  "type": "chat",
+  "user_prompt": "How do I make a pizza?",
+  "user_prompt_chunks": [
+    "How do I make a pizza?"
+  ]
+}
