@@ -50,6 +50,9 @@ jobs:
       - name: Process prompts (bash)
         env:
           PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
+          GH_EVENT_NAME: ${{ github.event_name }}
+          GH_EVENT_BEFORE: ${{ github.event.before }}
+          GH_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
           CHUNK_WORDS=2000
@@ -205,10 +208,10 @@ jobs:
             exit 0
           fi
 
-          if [[ "${{ github.event_name }}" == "push" ]]; then
-            BEFORE="${{ github.event.before }}"
+          if [[ "$GH_EVENT_NAME" == "push" ]]; then
+            BEFORE="$GH_EVENT_BEFORE"
             if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
-              CANDIDATES="$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- 'input/*.txt' 'requests/job_*.json' || true)"
+              CANDIDATES="$(git diff --name-only "$BEFORE" "$GH_SHA" -- 'input/*.txt' 'requests/job_*.json' || true)"
             else
               CANDIDATES="$( { git ls-files 'input/*.txt' || true; git ls-files 'requests/job_*.json' || true; } | sort -u )"
             fi
