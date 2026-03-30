@@ -1,0 +1,28 @@
+{
+  "job_id": "job_7edb417647504f67",
+  "status": "failed",
+  "created_at": "2026-03-30T01:54:43Z",
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_7edb417647504f67",
+    "input_committed_at": "2026-03-29T21:49:43-04:00",
+    "started_at": "2026-03-30T01:50:26Z",
+    "error": {
+      "code": "PIPELINE_EXECUTION_ERROR",
+      "message": "chatgpt playwright step failed"
+    }
+  },
+  "score_summary": {
+    "overall_score": null,
+    "confidence_band": null,
+    "memory_eligible": null,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_7edb417647504f67.json",
+    "evaluation": "evaluations/eval_job_7edb417647504f67.json",
+    "error": "errors/job_7edb417647504f67.json",
+    "combined": "combined/job_7edb417647504f67.json"
+  }
+}
