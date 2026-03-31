@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_aa6d68023c004121",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-31T17:06:46Z",
+  "updated_at": "2026-03-31T17:06:46Z",
+  "run_context": {
+    "job_id": "job_aa6d68023c004121",
+    "question_id": "q_job_aa6d68023c004121",
+    "run_id": "run_job_aa6d68023c004121",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_aa6d68023c004121",
+    "root_object_id": "q_job_aa6d68023c004121"
+  },
+  "content": {
+    "question_text_preview": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK. When reading HEARTBEAT.md, use workspace file /home/ubuntu/.openclaw/workspace/HEARTBEAT.md (exact case). Do not read docs/heartbeat.md. Current time: Tuesday, March 31st, 2026 — 5:06 PM (UTC) / 2026-03-31 17:06 UTC",
+    "categorization": {
+      "topic_short": "heartbeat protocol",
+      "topic": "agent heartbeat handling",
+      "topics": [
+        "heartbeat",
+        "agent behavior",
+        "protocol compliance"
+      ],
+      "keywords": [
+        "HEARTBEAT.md",
+        "heartbeat",
+        "agent response",
+        "protocol",
+        "OpenClaw"
+      ],
+      "summary": "Evaluate whether the assistant correctly followed heartbeat instructions and responded appropriately.",
+      "language": "en",
+      "domain": "ai_systems",
+      "subdomain": "agent_protocols",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "heartbeat protocol",
+    "topic": "agent heartbeat handling",
+    "topics": [
+      "heartbeat",
+      "agent behavior",
+      "protocol compliance"
+    ],
+    "keywords": [
+      "HEARTBEAT.md",
+      "heartbeat",
+      "agent response",
+      "protocol",
+      "OpenClaw"
+    ],
+    "summary": "Evaluation of heartbeat protocol compliance.",
+    "query_variants": [],
+    "language": "en",
+    "domain": "ai_systems",
+    "subdomain": "agent_protocols",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_aa6d68023c004121",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-31T17:06:46Z",
+      "dimensions": {
+        "correctness": 10.0,
+        "completeness": 10.0,
+        "clarity": 10.0,
+        "usefulness": 10.0,
+        "groundedness": 10.0,
+        "specificity": 10.0
+      },
+      "overall_score": 10.0,
+      "confidence_band": "high",
+      "notes": "Response exactly matches required heartbeat behavior. No unnecessary content. Fully compliant with instructions."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_aa6d68023c004121",
+      "resp_job_aa6d68023c004121"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "gold",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 10.0
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_aa6d68023c004121.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_aa6d68023c004121",
+      "resp_job_aa6d68023c004121"
+    ],
+    "evaluation_path": "evaluations/eval_job_aa6d68023c004121.json",
+    "final_path": null
+  }
+}
