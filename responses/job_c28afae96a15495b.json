@@ -1,0 +1,12 @@
+{
+  "job_id": "job_c28afae96a15495b",
+  "message": {
+    "role": "assistant",
+    "content": "Yes, it is possible to integrate Webex as a messaging channel with OpenClaw, but it requires some setup because OpenClaw doesn’t have a native Webex skill listed in your workspace. You would generally approach it in one of two ways:\n\nWebhook / Bot Integration (Recommended for Messaging)\n\nCreate a Webex Bot in your Webex workspace. This gives you an API token for sending/receiving messages.\n\nUse OpenClaw’s web_fetch and web_search tools for API calls, or create a custom AgentSkill (via skill-creator) that wraps Webex API endpoints for sending and reading messages.\n\nConfigure OpenClaw to poll Webex messages (incoming) and post them to the agent’s memory or workspace for processing. Outgoing messages can be sent directly via the bot API.\n\nCustom Skill Approach\n\nWrite a skill in OpenClaw under skills/webex/ that implements the messaging logic using the Webex REST API.\n\nInclude endpoints for sending messages, reading messages, and optionally managing rooms.\n\nUse your TOOLS.md to store API tokens, room IDs, and any other environment-specific info securely.\n\nOnce the skill is installed, OpenClaw can treat Webex as a full messaging channel, similar to Telegram.\n\nConsiderations:\n\nWebex uses OAuth tokens and has rate limits; your skill should handle token refresh and errors.\n\nHeartbeats in OpenClaw (HEARTBEAT.md) can be used to periodically check Webex messages without constantly polling.\n\nPrivacy: ensure only relevant channels/rooms are monitored, since OpenClaw can read/write messages like a human agent.\n\nIn short, OpenClaw doesn’t have built-in Webex messaging out of the box, but by creating a Webex bot + either direct API calls or a custom skill, you can fully integrate it as a messaging channel.\n\nIf you want, I can outline a step-by-step plan for building a Webex skill in OpenClaw that handles both inbound and outbound messaging. Do you want me to do that?"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T18:21:17-04:00",
+  "started_at": "2026-03-31T22:21:28Z",
+  "elapsed_seconds": 110,
+  "completed_at": "2026-03-31T22:23:07Z"
+}
