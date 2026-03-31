@@ -1,0 +1,12 @@
+{
+  "job_id": "job_9278d12ffb44495f",
+  "message": {
+    "role": "assistant",
+    "content": "Got it! I’ve processed both chunks. Let me know what you’d like to do with them!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T14:27:24-04:00",
+  "started_at": "2026-03-31T18:27:35Z",
+  "elapsed_seconds": 91,
+  "completed_at": "2026-03-31T18:28:55Z"
+}
