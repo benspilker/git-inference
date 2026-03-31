@@ -1,0 +1,12 @@
+{
+  "job_id": "job_8393a87fbe94485d",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s the current weather for Indianapolis today (Mar 31, 2026):\n\n🌡️ High: around 75°F (24°C)\n\n🌡️ Low: around 59°F (15°C)\n\n🌧️ Conditions: Periods of rain, with heavier rain likely later today\n\n💨 Wind: Light early, becoming breezier from the south/southwest\n\n⚠️ Notable: Rain could be fairly steady at times, so expect wet conditions if you’re out and about \nWeather Forecast\n\nWhat it feels like:\nIt’s a relatively warm spring day, but kind of gloomy—more of a “grab a jacket and maybe an umbrella” situation than a sunny one.\n\nIf you want, I can break it down hour-by-hour or check if there are any weather alerts."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T14:32:59-04:00",
+  "started_at": "2026-03-31T18:33:10Z",
+  "elapsed_seconds": 111,
+  "completed_at": "2026-03-31T18:34:50Z"
+}
