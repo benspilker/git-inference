@@ -1,0 +1,12 @@
+{
+  "job_id": "job_296ae712a3d34070",
+  "message": {
+    "role": "assistant",
+    "content": "The current chat is running on GPT-5 mini."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T17:38:52-04:00",
+  "started_at": "2026-03-31T21:39:00Z",
+  "elapsed_seconds": 103,
+  "completed_at": "2026-03-31T21:40:35Z"
+}
