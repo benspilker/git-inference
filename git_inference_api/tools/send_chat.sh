@@ -8,7 +8,7 @@ Usage:
 
 Options:
   --api-base-url URL           API base URL (default: http://127.0.0.1:8000)
-  --model NAME                 Model name (default: git-chatgpt)
+  --model NAME                 Model name (default: git-chatgpt-json)
   --prompt TEXT                Prompt text (if omitted, prompted interactively)
   --system-prompt TEXT         System prompt text (default retrieval-first rules)
   --show-combined              Print combined payload when present
@@ -20,7 +20,7 @@ EOF
 }
 
 API_BASE_URL="http://127.0.0.1:8000"
-MODEL="git-chatgpt"
+MODEL="git-chatgpt-json"
 PROMPT=""
 SHOW_COMBINED=0
 COMBINED_IN_MESSAGE=0

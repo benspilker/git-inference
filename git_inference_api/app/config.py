@@ -27,7 +27,8 @@ class Settings:
     git_author_name: str = os.getenv("GIT_AUTHOR_NAME", "Git Inference API")
     git_author_email: str = os.getenv("GIT_AUTHOR_EMAIL", "git-inference-api@example.com")
     auto_init_repo: bool = os.getenv("AUTO_INIT_REPO", "false").lower() == "true"
-    available_models_csv: str = os.getenv("AVAILABLE_MODELS", "git-chatgpt")
+    available_models_csv: str = os.getenv("AVAILABLE_MODELS", "git-chatgpt-json,git-chatgpt")
+    openclaw_compat_models_csv: str = os.getenv("OPENCLAW_COMPAT_MODELS", "git-chatgpt")
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))
     prompt_max_chunks: int = int(os.getenv("PROMPT_MAX_CHUNKS", "5"))
 
@@ -38,6 +39,14 @@ class Settings:
 
     def available_models(self) -> list[str]:
         names = [name.strip() for name in self.available_models_csv.split(",")]
+        deduped: list[str] = []
+        for name in names:
+            if name and name not in deduped:
+                deduped.append(name)
+        return deduped
+
+    def openclaw_compat_models(self) -> list[str]:
+        names = [name.strip() for name in self.openclaw_compat_models_csv.split(",")]
         deduped: list[str] = []
         for name in names:
             if name and name not in deduped:

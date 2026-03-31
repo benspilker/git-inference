@@ -61,7 +61,7 @@ jobs:
           MEMORY_REQUIRED_CONFIDENCE="${MEMORY_REQUIRED_CONFIDENCE:-high}"
           MEMORY_PROMOTION_MIN_SCORE="${MEMORY_PROMOTION_MIN_SCORE:-$MEMORY_MIN_SCORE}"
           PLAYWRIGHT_READY=0
-          mkdir -p tmp responses errors responses_readable evaluations combined input/processed
+          mkdir -p tmp responses errors responses_readable evaluations combined input/processed requests/old-requests responses/old-responses
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
           [[ -f tools/find_memory_reuse_candidate.py ]] || { echo "Missing tools/find_memory_reuse_candidate.py"; exit 1; }
           [[ -f tools/apply_promotion_policy.py ]] || { echo "Missing tools/apply_promotion_policy.py"; exit 1; }
@@ -128,6 +128,49 @@ jobs:
             PLAYWRIGHT_READY=1
           }
 
+          move_with_dedupe() {
+            local src="$1"
+            local dest_dir="$2"
+            local base
+            local stem
+            local ext
+            local ts
+            local dest
+
+            [[ -f "$src" ]] || return 0
+            mkdir -p "$dest_dir"
+            base="$(basename "$src")"
+            stem="${base%.*}"
+            ext="${base##*.}"
+            if [[ "$ext" == "$base" ]]; then
+              ext=""
+            else
+              ext=".${ext}"
+            fi
+            dest="${dest_dir}/${base}"
+            if [[ -e "$dest" ]]; then
+              ts="$(date -u +%Y%m%dT%H%M%SZ)"
+              dest="${dest_dir}/${stem}_${ts}${ext}"
+            fi
+            mv "$src" "$dest"
+          }
+
+          archive_old_request_response_files() {
+            local keep_request="$1"
+            local keep_response="$2"
+
+            shopt -s nullglob
+            for req in requests/job_*.json; do
+              [[ "$req" == "$keep_request" ]] && continue
+              move_with_dedupe "$req" "requests/old-requests"
+            done
+            for resp in responses/job_*.json; do
+              [[ "$resp" == "$keep_response" ]] && continue
+              move_with_dedupe "$resp" "responses/old-responses"
+            done
+            shopt -u nullglob
+          }
+
           process_prompt() {
             local job_id="$1"
             local prompt_file="$2"
@@ -137,6 +180,7 @@ jobs:
             local chunk_count="${6:-1}"
             local instructions_file="${7:-$default_instructions_file}"
             local question_source_file="${8:-$prompt_file}"
+            local simple_mode="${9:-0}"
             local -a chunk_args=()
             local -a instruction_args=()
 
@@ -151,6 +195,38 @@ jobs:
             if [[ ! -f "$question_source_file" ]]; then
               question_source_file="$prompt_file"
             fi
+
+            if [[ "$simple_mode" == "1" ]]; then
+              echo "Simple mode enabled for ${job_id}: skipping memory reuse and evaluation."
+              ensure_playwright
+              if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
+                python chatgpt_file_playwright_anonymous_ci.py \
+                --input-file "$prompt_file" \
+                "${instruction_args[@]}" \
+                --output-file "$out_file" \
+                --wait-seconds 60 \
+                --timeout-ms 120000 \
+                "${chunk_args[@]}"
+              then
+                if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                  python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                else
+                  python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                fi
+              else
+                if [[ -s "$out_file" ]]; then
+                  if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                    python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                  else
+                    python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                  fi
+                else
+                  python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"PIPELINE_EXECUTION_ERROR","message":"chatgpt playwright step failed"}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
+                fi
+              fi
+              return 0
+            fi
+
             question_preview="$(first_100_words "$question_source_file")"
             eval_prompt_file="tmp/${job_id}.eval.prompt.txt"
             eval_out_file="tmp/${job_id}.eval.out.txt"
@@ -267,6 +343,9 @@ jobs:
             exit 0
           fi
 
+          LAST_REQUEST_FILE=""
+          LAST_RESPONSE_FILE=""
+
           while IFS= read -r req; do
             [[ -z "$req" ]] && continue
             [[ -f "$req" ]] || continue
@@ -275,10 +354,11 @@ jobs:
               prompt_file="tmp/${job_id}.prompt.txt"
               out_file="tmp/${job_id}.out.txt"
               question_file="tmp/${job_id}.question.txt"
+              model_file="tmp/${job_id}.model.txt"
               input_committed_at="$(git log -1 --format=%cI -- "$req" 2>/dev/null || true)"
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
-              python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); question_path=Path(sys.argv[3]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); parts=[x for x in (system_prompt, user_prompt) if x]; nested=payload.get("request"); messages=nested.get("messages", []) if isinstance(nested, dict) else []; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt="\n\n".join(parts).strip(); question_text=(user_prompt or user_text or final_prompt).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8"); question_path.write_text(question_text, encoding="utf-8")' "$req" "$prompt_file" "$question_file"
+              python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); question_path=Path(sys.argv[3]); model_path=Path(sys.argv[4]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); nested=payload.get("request"); model_name=str(nested.get("model") or "") if isinstance(nested, dict) else ""; messages=nested.get("messages", []) if isinstance(nested, dict) else []; parts=[x for x in (system_prompt, user_prompt) if x]; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt="\n\n".join(parts).strip(); question_text=(user_prompt or user_text or final_prompt).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8"); question_path.write_text(question_text, encoding="utf-8"); model_path.write_text(model_name.strip(), encoding="utf-8")' "$req" "$prompt_file" "$question_file" "$model_file"
               chunk_count="$(calculate_chunk_count "$prompt_file")"
               if [[ "$chunk_count" == ERR:* ]]; then
                 IFS=':' read -r _ word_count max_words <<< "$chunk_count"
@@ -288,7 +368,16 @@ jobs:
               fi
 
               echo "Processing ${req} as ${job_id}"
-              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count" "$default_instructions_file" "$question_file"
+              model_name="$(cat "$model_file" 2>/dev/null || true)"
+              simple_mode="0"
+              if [[ "$model_name" == "git-chatgpt" ]]; then
+                simple_mode="1"
+              fi
+              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count" "$default_instructions_file" "$question_file" "$simple_mode"
+              LAST_REQUEST_FILE="$req"
+              if [[ -f "responses/${job_id}.json" ]]; then
+                LAST_RESPONSE_FILE="responses/${job_id}.json"
+              fi
             else
               base_name="$(basename "$req")"
               stem="${base_name%.txt}"
@@ -309,6 +398,9 @@ jobs:
               else
                 echo "Processing ${req} as ${job_id}"
                 process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count" "$default_instructions_file" "$question_file"
+                if [[ -f "responses/${job_id}.json" ]]; then
+                  LAST_RESPONSE_FILE="responses/${job_id}.json"
+                fi
               fi
 
               target="input/processed/${base_name}"
@@ -319,6 +411,8 @@ jobs:
               mv "$req" "$target"
             fi
           done <<< "$CHANGED"
+
+          archive_old_request_response_files "$LAST_REQUEST_FILE" "$LAST_RESPONSE_FILE"
 
       - name: Upload Playwright diagnostics
         if: ${{ failure() || (github.event_name == 'workflow_dispatch' && github.event.inputs.upload_artifacts == 'true') }}
@@ -339,7 +433,7 @@ jobs:
           set -euo pipefail
           git config user.name "git-inference-pipeline"
           git config user.email "git-inference-pipeline@users.noreply.github.com"
-          git add input responses errors responses_readable evaluations combined
+          git add input requests responses errors responses_readable evaluations combined
           git diff --cached --quiet && exit 0
           git commit -m "pipeline: process prompts and archive inputs [skip ci]"
           if git push origin HEAD:main; then

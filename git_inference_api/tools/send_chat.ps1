@@ -1,6 +1,6 @@
 param(
     [string]$ApiBaseUrl = "http://127.0.0.1:8000",
-    [string]$Model = "git-chatgpt",
+    [string]$Model = "git-chatgpt-json",
     [string]$Prompt,
     [switch]$ShowCombined,
     [switch]$CombinedInMessage,

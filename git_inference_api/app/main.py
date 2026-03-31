@@ -362,8 +362,96 @@ def build_job_status(job: dict[str, Any]) -> JobStatusResponse:
     )
 
 
+ALLOWED_CHAT_ROLES = {"system", "user", "assistant", "tool"}
+
+
+def is_openclaw_compat_model(model_name: str) -> bool:
+    model = str(model_name or "").strip()
+    return bool(model and model in settings.openclaw_compat_models())
+
+
+def normalize_chat_role(raw_role: Any, compat_mode: bool) -> str:
+    role = str(raw_role or "").strip().lower()
+    if role in ALLOWED_CHAT_ROLES:
+        return role
+    if compat_mode and role == "developer":
+        return "system"
+    if compat_mode and role:
+        return "user"
+    raise HTTPException(
+        status_code=400,
+        detail={
+            "code": "INVALID_REQUEST",
+            "message": f"Unsupported chat role: {raw_role!r}",
+        },
+    )
+
+
+def extract_text_content(raw_content: Any) -> str:
+    if raw_content is None:
+        return ""
+    if isinstance(raw_content, str):
+        return raw_content.strip()
+    if isinstance(raw_content, (int, float, bool)):
+        return str(raw_content).strip()
+    if isinstance(raw_content, list):
+        parts: list[str] = []
+        for item in raw_content:
+            text = extract_text_content(item)
+            if text:
+                parts.append(text)
+        return "\n".join(parts).strip()
+    if isinstance(raw_content, dict):
+        if "text" in raw_content:
+            return extract_text_content(raw_content.get("text"))
+        if "content" in raw_content:
+            return extract_text_content(raw_content.get("content"))
+        if "message" in raw_content and isinstance(raw_content["message"], dict):
+            nested = raw_content["message"]
+            if "content" in nested:
+                return extract_text_content(nested.get("content"))
+        return json.dumps(raw_content, ensure_ascii=False).strip()
+    return str(raw_content).strip()
+
+
 def normalize_chat_request(request: ChatRequest) -> dict[str, Any]:
-    messages = [{"role": message.role, "content": message.content} for message in request.messages]
+    compat_mode = is_openclaw_compat_model(request.model)
+    messages: list[dict[str, str]] = []
+
+    for idx, message in enumerate(request.messages):
+        role = normalize_chat_role(message.role, compat_mode=compat_mode)
+        raw_content = message.content
+        if not compat_mode and not isinstance(raw_content, str):
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "code": "INVALID_REQUEST",
+                    "message": f"messages[{idx}].content must be a string",
+                },
+            )
+
+        content = extract_text_content(raw_content)
+        if not content:
+            if compat_mode:
+                continue
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "code": "INVALID_REQUEST",
+                    "message": f"messages[{idx}].content must not be empty",
+                },
+            )
+        messages.append({"role": role, "content": content})
+
+    if not messages:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "code": "INVALID_REQUEST",
+                "message": "No usable non-empty messages were provided",
+            },
+        )
+
     target_idx = -1
     for idx in range(len(messages) - 1, -1, -1):
         if messages[idx]["role"] == "user":

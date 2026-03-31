@@ -5,12 +5,9 @@ from typing import Any, Literal, Optional
 from pydantic import BaseModel, Field
 
 
-Role = Literal["system", "user", "assistant", "tool"]
-
-
 class ChatMessage(BaseModel):
-    role: Role
-    content: str = Field(min_length=1)
+    role: str = Field(min_length=1)
+    content: Any = None
 
 
 class ChatRequest(BaseModel):
