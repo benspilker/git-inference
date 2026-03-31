@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_57a30f2944ca4801",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-03-31T16:27:11Z",
+  "updated_at": "2026-03-31T16:27:11Z",
+  "run_context": {
+    "job_id": "job_57a30f2944ca4801",
+    "question_id": "q_job_57a30f2944ca4801",
+    "run_id": "run_job_57a30f2944ca4801",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_57a30f2944ca4801",
+    "root_object_id": "q_job_57a30f2944ca4801"
+  },
+  "content": {
+    "question_text_preview": "Sender (untrusted metadata): json { \"label\": \"openclaw-tui\", \"id\": \"openclaw-tui\", \"name\": \"openclaw-tui\", \"username\": \"openclaw-tui\" } [Tue 2026-03-31 16:24 UTC] Wake up, my friend!",
+    "categorization": {
+      "topic_short": "assistant_bootstrap",
+      "topic": "assistant initialization and user onboarding",
+      "topics": [
+        "assistant identity",
+        "onboarding",
+        "conversation setup"
+      ],
+      "keywords": [
+        "bootstrap",
+        "identity",
+        "assistant persona",
+        "user introduction"
+      ],
+      "summary": "User initiates assistant wake-up; assistant responds by prompting for identity and user preferences.",
+      "language": "en",
+      "domain": "ai_interaction",
+      "subdomain": "onboarding",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "assistant_bootstrap",
+    "topic": "assistant initialization and user onboarding",
+    "topics": [
+      "assistant identity",
+      "onboarding",
+      "conversation setup"
+    ],
+    "keywords": [
+      "bootstrap",
+      "identity",
+      "assistant persona",
+      "user introduction"
+    ],
+    "summary": "Assistant begins onboarding conversation by asking user for identity preferences and interaction style.",
+    "query_variants": [],
+    "language": "en",
+    "domain": "ai_interaction",
+    "subdomain": "onboarding",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_57a30f2944ca4801",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "phase": 1,
+      "created_at": "2026-03-31T16:27:11Z",
+      "dimensions": {
+        "correctness": 9.5,
+        "completeness": 8.5,
+        "clarity": 9.0,
+        "usefulness": 8.5,
+        "groundedness": 9.0,
+        "specificity": 8.5
+      },
+      "overall_score": 8.9,
+      "confidence_band": "high",
+      "notes": "Response appropriately initiates onboarding, aligns with context, and is clear and engaging. Slightly open-ended but appropriate for bootstrap phase."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "prior_assistant_response"
+    ],
+    "source_object_ids": [
+      "q_job_57a30f2944ca4801",
+      "resp_job_57a30f2944ca4801"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "silver",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 8.9
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_57a30f2944ca4801.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [],
+    "related_object_ids": [
+      "q_job_57a30f2944ca4801",
+      "resp_job_57a30f2944ca4801"
+    ],
+    "evaluation_path": "evaluations/eval_job_57a30f2944ca4801.json",
+    "final_path": null
+  }
+}
