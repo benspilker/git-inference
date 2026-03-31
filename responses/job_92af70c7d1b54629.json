@@ -1,0 +1,12 @@
+{
+  "job_id": "job_92af70c7d1b54629",
+  "message": {
+    "role": "assistant",
+    "content": "Yep — connection looks good.\n\nI received both chunks, stored them correctly, and followed your instructions (ACK 1/2 earlier, now full synthesis). The model is responding normally and coherently.\n\nIf you want a deeper test (tools, memory, web search, etc.), tell me what to probe 👍"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T13:10:10-04:00",
+  "started_at": "2026-03-31T17:10:19Z",
+  "elapsed_seconds": 108,
+  "completed_at": "2026-03-31T17:11:58Z"
+}
