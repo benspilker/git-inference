@@ -1,0 +1,12 @@
+{
+  "job_id": "job_d0810bbc7ffc445e",
+  "message": {
+    "role": "assistant",
+    "content": "OpenClaw was first released in 2022. The exact release date may vary based on different milestones, but its development was primarily focused on creating a flexible, personal assistant framework with advanced capabilities for task automation and integration."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T17:35:15-04:00",
+  "started_at": "2026-03-31T21:35:25Z",
+  "elapsed_seconds": 117,
+  "completed_at": "2026-03-31T21:37:12Z"
+}
