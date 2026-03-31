@@ -1,0 +1,12 @@
+{
+  "job_id": "job_4b2d1028f9d84ece",
+  "message": {
+    "role": "assistant",
+    "content": "Got it, I’ve processed all the information and am ready to proceed. How can I assist you with these details?"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T16:06:25-04:00",
+  "started_at": "2026-03-31T20:06:35Z",
+  "elapsed_seconds": 83,
+  "completed_at": "2026-03-31T20:07:48Z"
+}
