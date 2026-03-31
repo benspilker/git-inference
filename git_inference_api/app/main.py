@@ -29,6 +29,7 @@ from .worker import worker
 
 configure_logging()
 logger = logging.getLogger("git_inference_api.api")
+TERMINAL_JOB_STATUSES = {"completed", "failed", "expired"}
 
 
 @asynccontextmanager
@@ -220,6 +221,7 @@ def handle_submission(
         return JSONResponse(status_code=202, content=accepted.model_dump())
 
     waited = wait_for_terminal_state(job_id, timeout_seconds=settings.api_wait_timeout_seconds)
+    ensure_terminal_for_sync(waited)
     return build_response_for_job(
         job=waited,
         model=model,
@@ -238,7 +240,7 @@ def build_response_for_mode(
     combined_in_message: bool = False,
 ):
     status = job["status"]
-    if async_mode or status in {"completed", "failed", "expired"}:
+    if async_mode or status in TERMINAL_JOB_STATUSES:
         return build_response_for_job(
             job=job,
             model=model,
@@ -248,6 +250,7 @@ def build_response_for_mode(
         )
 
     waited = wait_for_terminal_state(job["job_id"], timeout_seconds=settings.api_wait_timeout_seconds)
+    ensure_terminal_for_sync(waited)
     return build_response_for_job(
         job=waited,
         model=model,
@@ -282,6 +285,21 @@ def build_response_for_job(
 
     accepted = build_accepted_response(job)
     return JSONResponse(status_code=202, content=accepted.model_dump())
+
+
+def ensure_terminal_for_sync(job: dict[str, Any]) -> None:
+    status = str(job.get("status") or "")
+    if status in TERMINAL_JOB_STATUSES:
+        return
+    raise HTTPException(
+        status_code=504,
+        detail={
+            "code": "WAIT_TIMEOUT",
+            "message": "Job did not reach a terminal state before API wait timeout.",
+            "job_id": job.get("job_id"),
+            "status": status or None,
+        },
+    )
 
 
 def build_success_response(

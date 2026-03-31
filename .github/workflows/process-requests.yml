@@ -50,8 +50,13 @@ jobs:
           GH_EVENT_NAME: ${{ github.event_name }}
           GH_EVENT_BEFORE: ${{ github.event.before }}
           GH_SHA: ${{ github.sha }}
+          GH_ACTOR: ${{ github.actor }}
         run: |
           set -euo pipefail
+          if [[ "$GH_ACTOR" == "github-actions[bot]" ]]; then
+            echo "Skipping self-triggered run from github-actions[bot]."
+            exit 0
+          fi
           CHUNK_WORDS=2000
           MAX_CHUNKS=5
           MAX_WORDS=$((CHUNK_WORDS * MAX_CHUNKS))
