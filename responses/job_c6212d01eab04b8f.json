@@ -1,0 +1,12 @@
+{
+  "job_id": "job_c6212d01eab04b8f",
+  "message": {
+    "role": "assistant",
+    "content": "Got it! I’ve integrated all the chunks and can now use the combined information for any future tasks or responses you need. Let me know how you'd like to proceed!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T17:37:16-04:00",
+  "started_at": "2026-03-31T21:37:25Z",
+  "elapsed_seconds": 89,
+  "completed_at": "2026-03-31T21:38:45Z"
+}
