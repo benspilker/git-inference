@@ -1,0 +1,12 @@
+{
+  "job_id": "job_49f9d5e3ec384d49",
+  "message": {
+    "role": "assistant",
+    "content": "Why don’t programmers like nature?\n\nToo many bugs. 🐛"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T16:13:52-04:00",
+  "started_at": "2026-04-01T20:14:02Z",
+  "elapsed_seconds": 58,
+  "completed_at": "2026-04-01T20:14:50Z"
+}
