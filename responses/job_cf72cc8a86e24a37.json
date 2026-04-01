@@ -1,0 +1,12 @@
+{
+  "job_id": "job_cf72cc8a86e24a37",
+  "message": {
+    "role": "assistant",
+    "content": "I hit an internal automation issue while generating a response. Please send your message again."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T14:57:47-04:00",
+  "started_at": "2026-04-01T18:57:56Z",
+  "elapsed_seconds": 299,
+  "completed_at": "2026-04-01T19:02:46Z"
+}
