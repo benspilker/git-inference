@@ -1,0 +1,12 @@
+{
+  "job_id": "job_7268b4347dae4625",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s the current weather for Indianapolis (today):\n\nConditions: Mostly cloudy with a chance of light rain or storms\n\nTemperature: Around ~70°F (21–22°C)\n\nFeels like: Slightly cooler due to wind\n\nWind: Moderate, with occasional stronger gusts\n\nRain chance: Moderate (showers possible later today) \nPogoda.ru\n\nQuick take\n\nNot a terrible day, but unsettled\n\nYou might get on-and-off rain\n\nExpect breezy conditions\n\nWhat to do\n\nBring a light jacket or hoodie\n\nKeep an umbrella handy\n\nIf you’re out later, check radar—storms can pop up\n\nIf you want, I can give you an hour-by-hour breakdown or check for severe weather alerts."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T17:03:47-04:00",
+  "started_at": "2026-04-01T21:03:58Z",
+  "elapsed_seconds": 59,
+  "completed_at": "2026-04-01T21:04:46Z"
+}
