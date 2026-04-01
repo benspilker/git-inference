@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_938d8389095141c7",
+  "phase": 1,
+  "status": "complete",
+  "created_at": "2026-04-01T01:11:42Z",
+  "updated_at": "2026-04-01T01:11:42Z",
+  "run_context": {
+    "job_id": "job_938d8389095141c7",
+    "question_id": "q_job_938d8389095141c7",
+    "run_id": "run_job_938d8389095141c7",
+    "branch_id": "branch_01",
+    "research_id": null,
+    "parent_object_id": "resp_job_938d8389095141c7",
+    "root_object_id": "q_job_938d8389095141c7"
+  },
+  "content": {
+    "question_text_preview": "Tell me a joke?",
+    "categorization": {
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "title": null,
+    "topic_short": "",
+    "topic": "",
+    "topics": [],
+    "keywords": [],
+    "summary": "",
+    "query_variants": [],
+    "language": "en",
+    "domain": "",
+    "subdomain": "",
+    "sensitivity": "public",
+    "recency_class": "stable"
+  },
+  "scores": [
+    {
+      "score_event_id": "score_evt_job_938d8389095141c7",
+      "score_profile": "answer_score_profile",
+      "judge_type": "final_judge",
+      "judge_model": "memory-reuse",
+      "phase": 1,
+      "created_at": "2026-04-01T01:11:42Z",
+      "dimensions": {
+        "correctness": 10.0,
+        "completeness": 10.0,
+        "clarity": 10.0,
+        "usefulness": 10.0,
+        "groundedness": 10.0,
+        "specificity": 10.0
+      },
+      "overall_score": 10.0,
+      "confidence_band": "high",
+      "notes": "Reused high-scoring prior response from job_bf49eecc3b50410c (similarity=1.000)."
+    }
+  ],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "memory-reuse",
+    "judge_version": "1.0"
+  },
+  "provenance": {
+    "source_inputs": [
+      "question_preview",
+      "historical_combined"
+    ],
+    "source_object_ids": [
+      "q_job_938d8389095141c7",
+      "resp_job_bf49eecc3b50410c"
+    ],
+    "source_paths": [
+      "combined/job_bf49eecc3b50410c.json"
+    ]
+  },
+  "promotion": {
+    "memory_eligible": true,
+    "memory_tier": "gold",
+    "promotion_reason": "score_and_confidence_pass(score>=8.50,confidence>=high)",
+    "blocked_reason": null,
+    "effective_score": 10.0
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_938d8389095141c7.json",
+    "index_path": "indexes/evaluations_index.jsonl",
+    "source_paths": [
+      "combined/job_bf49eecc3b50410c.json"
+    ],
+    "related_object_ids": [
+      "q_job_938d8389095141c7",
+      "resp_job_bf49eecc3b50410c"
+    ],
+    "evaluation_path": "evaluations/eval_job_938d8389095141c7.json",
+    "final_path": null
+  }
+}

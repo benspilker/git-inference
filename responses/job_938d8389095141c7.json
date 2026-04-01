@@ -1,0 +1,20 @@
+{
+  "job_id": "job_938d8389095141c7",
+  "message": {
+    "role": "assistant",
+    "content": "Sure! Here’s one for you:\n\nWhy don't skeletons fight each other?\n\nThey don't have the guts! 😄"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T21:11:32-04:00",
+  "started_at": "2026-04-01T01:11:42Z",
+  "elapsed_seconds": 10,
+  "completed_at": "2026-04-01T01:11:42Z",
+  "memory_reuse": {
+    "enabled": true,
+    "source_job_id": "job_bf49eecc3b50410c",
+    "source_path": "combined/job_bf49eecc3b50410c.json",
+    "score": 10.0,
+    "confidence_band": "high",
+    "similarity": 1.0
+  }
+}
