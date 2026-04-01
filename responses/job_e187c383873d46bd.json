@@ -1,0 +1,12 @@
+{
+  "job_id": "job_e187c383873d46bd",
+  "message": {
+    "role": "assistant",
+    "content": "Got it! I have all the chunks now. How can I assist you with this dataset?"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T12:37:48-04:00",
+  "started_at": "2026-04-01T16:37:58Z",
+  "elapsed_seconds": 103,
+  "completed_at": "2026-04-01T16:39:31Z"
+}
