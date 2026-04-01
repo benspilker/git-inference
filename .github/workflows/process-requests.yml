@@ -223,8 +223,11 @@ jobs:
                 "${instruction_args[@]}" \
                 --output-file "$out_file" \
                 --start-new-chat \
-                --wait-seconds 60 \
+                --wait-seconds 45 \
                 --timeout-ms 120000 \
+                --post-response-wait-seconds 1 \
+                --response-settle-seconds 2 \
+                --max-settle-wait-seconds 25 \
                 "${chunk_args[@]}"
               then
                 if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then

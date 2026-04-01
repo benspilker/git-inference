@@ -220,6 +220,14 @@ def handle_submission(
         accepted = build_accepted_response(queued)
         return JSONResponse(status_code=202, content=accepted.model_dump())
 
+    if stream:
+        return stream_response_for_job(
+            job_id=job_id,
+            model=model,
+            response_type=response_type,
+            combined_in_message=combined_in_message,
+        )
+
     waited = wait_for_terminal_state(job_id, timeout_seconds=settings.api_wait_timeout_seconds)
     ensure_terminal_for_sync(waited)
     return build_response_for_job(
@@ -245,6 +253,14 @@ def build_response_for_mode(
             job=job,
             model=model,
             stream=stream,
+            response_type=response_type,
+            combined_in_message=combined_in_message,
+        )
+
+    if stream:
+        return stream_response_for_job(
+            job_id=job["job_id"],
+            model=model,
             response_type=response_type,
             combined_in_message=combined_in_message,
         )
@@ -692,6 +708,102 @@ def wait_for_terminal_state(job_id: str, timeout_seconds: int) -> dict[str, Any]
         if time.monotonic() >= deadline:
             return job
         time.sleep(min(0.5, settings.result_poll_interval_seconds))
+
+
+def stream_response_for_job(
+    job_id: str,
+    model: str,
+    response_type: Literal["chat", "generate"],
+    combined_in_message: bool = False,
+) -> StreamingResponse:
+    poll_interval = max(0.2, float(settings.result_poll_interval_seconds))
+    heartbeat_interval = max(1.0, poll_interval)
+    timeout_seconds = max(0, int(settings.api_wait_timeout_seconds))
+    deadline = time.monotonic() + timeout_seconds if timeout_seconds > 0 else None
+
+    def _iter() -> Any:
+        next_heartbeat = 0.0
+
+        while True:
+            job = db.get_job(job_id)
+            if not job:
+                payload = {
+                    "error": "job not found",
+                    "code": "JOB_NOT_FOUND",
+                    "job_id": job_id,
+                    "done": True,
+                }
+                yield json.dumps(payload) + "\n"
+                return
+
+            status = str(job.get("status") or "")
+            if status == "completed":
+                final = build_success_response(
+                    job=job,
+                    model=model,
+                    stream=False,
+                    response_type=response_type,
+                    combined_in_message=combined_in_message,
+                )
+                payload = final.model_dump() if hasattr(final, "model_dump") else final
+                yield json.dumps(payload) + "\n"
+                return
+
+            if status in {"failed", "expired"}:
+                error_payload = job.get("error_json") or {"message": f"job {status}"}
+                message = str(error_payload.get("message") or error_payload.get("error") or f"job {status}")
+                payload = {
+                    "error": message,
+                    "code": str(error_payload.get("code") or ""),
+                    "job_id": job_id,
+                    "status": status,
+                    "done": True,
+                }
+                details = {
+                    key: value
+                    for key, value in error_payload.items()
+                    if key not in {"message", "error", "code"}
+                }
+                if details:
+                    payload["details"] = details
+                yield json.dumps(payload) + "\n"
+                return
+
+            now = time.monotonic()
+            if now >= next_heartbeat:
+                if response_type == "chat":
+                    payload = {
+                        "model": model,
+                        "created_at": db.utcnow_iso(),
+                        "message": {"role": "assistant", "content": ""},
+                        "done": False,
+                        "job_id": job_id,
+                    }
+                else:
+                    payload = {
+                        "model": model,
+                        "created_at": db.utcnow_iso(),
+                        "response": "",
+                        "done": False,
+                        "job_id": job_id,
+                    }
+                yield json.dumps(payload) + "\n"
+                next_heartbeat = now + heartbeat_interval
+
+            if deadline is not None and now >= deadline:
+                payload = {
+                    "error": "Job did not reach a terminal state before API wait timeout.",
+                    "code": "WAIT_TIMEOUT",
+                    "job_id": job_id,
+                    "status": status or None,
+                    "done": True,
+                }
+                yield json.dumps(payload) + "\n"
+                return
+
+            time.sleep(min(0.5, poll_interval))
+
+    return StreamingResponse(_iter(), media_type="application/x-ndjson")
 
 
 def ndjson_response(payload: dict[str, Any]) -> StreamingResponse:
