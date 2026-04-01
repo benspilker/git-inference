@@ -1,0 +1,12 @@
+{
+  "job_id": "job_0c776ef7151a4c0e",
+  "message": {
+    "role": "assistant",
+    "content": "It seems like you're working on a polyphonic audio instrument voice in Max/MSP and using gen~. If you need help with generating a code for this, I can assist with that! However, I would need more details about what specific features you want for the voice, such as:\n\nOscillators: What types of waveforms (sine, square, saw, etc.) do you want for your oscillators?\n\nEnvelopes: Do you need an ADSR (Attack, Decay, Sustain, Release) envelope, or any other type of modulation for your instrument?\n\nEffects: Should the voice have built-in effects like reverb, chorus, or filter?\n\nPolyphony: How many voices should the instrument support, and do you need it to handle voice stealing or layering?\n\nPitch/Velocity Control: Any specific pitch, velocity, or modulations based on input?\n\nFeel free to give me a bit more context, and I'll generate the code for your polyphonic voice!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T21:32:21-04:00",
+  "started_at": "2026-04-01T01:32:30Z",
+  "elapsed_seconds": 90,
+  "completed_at": "2026-04-01T01:33:51Z"
+}

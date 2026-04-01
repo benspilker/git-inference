@@ -1,0 +1,136 @@
+{
+  "job_id": "job_0c776ef7151a4c0e",
+  "status": "completed",
+  "created_at": "2026-04-01T01:33:51Z",
+  "response": {
+    "job_id": "job_0c776ef7151a4c0e",
+    "message": {
+      "role": "assistant",
+      "content": "It seems like you're working on a polyphonic audio instrument voice in Max/MSP and using gen~. If you need help with generating a code for this, I can assist with that! However, I would need more details about what specific features you want for the voice, such as:\n\nOscillators: What types of waveforms (sine, square, saw, etc.) do you want for your oscillators?\n\nEnvelopes: Do you need an ADSR (Attack, Decay, Sustain, Release) envelope, or any other type of modulation for your instrument?\n\nEffects: Should the voice have built-in effects like reverb, chorus, or filter?\n\nPolyphony: How many voices should the instrument support, and do you need it to handle voice stealing or layering?\n\nPitch/Velocity Control: Any specific pitch, velocity, or modulations based on input?\n\nFeel free to give me a bit more context, and I'll generate the code for your polyphonic voice!"
+    },
+    "done": true,
+    "input_committed_at": "2026-03-31T21:32:21-04:00",
+    "started_at": "2026-04-01T01:32:30Z",
+    "elapsed_seconds": 90,
+    "completed_at": "2026-04-01T01:33:51Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_0c776ef7151a4c0e",
+    "phase": 1,
+    "status": "complete",
+    "created_at": "2026-04-01T01:32:30Z",
+    "updated_at": "2026-04-01T01:32:30Z",
+    "run_context": {
+      "job_id": "job_0c776ef7151a4c0e",
+      "question_id": "q_job_0c776ef7151a4c0e",
+      "run_id": "run_job_0c776ef7151a4c0e",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_0c776ef7151a4c0e",
+      "root_object_id": "q_job_0c776ef7151a4c0e"
+    },
+    "content": {
+      "question_text_preview": "You are creating Max/MSP gen~ codebox code for a polyphonic audio instrument voice based off of the DEVICE_PROMPT.",
+      "categorization": {
+        "topic_short": "",
+        "topic": "",
+        "topics": [],
+        "keywords": [],
+        "summary": "",
+        "language": "en",
+        "domain": "",
+        "subdomain": "",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "query_variants": [],
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_0c776ef7151a4c0e",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 1,
+        "created_at": "2026-04-01T01:32:30Z",
+        "dimensions": {
+          "correctness": 0.0,
+          "completeness": 0.0,
+          "clarity": 0.0,
+          "usefulness": 0.0,
+          "groundedness": 0.0,
+          "specificity": 0.0
+        },
+        "overall_score": 0.0,
+        "confidence_band": "medium",
+        "notes": ""
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_0c776ef7151a4c0e",
+        "resp_job_0c776ef7151a4c0e"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": "confidence_below_high",
+      "effective_score": 0.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_0c776ef7151a4c0e.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_0c776ef7151a4c0e",
+        "resp_job_0c776ef7151a4c0e"
+      ],
+      "evaluation_path": "evaluations/eval_job_0c776ef7151a4c0e.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "score_summary": {
+    "overall_score": 0.0,
+    "confidence_band": "medium",
+    "memory_eligible": false,
+    "memory_tier": null
+  },
+  "paths": {
+    "response": "responses/job_0c776ef7151a4c0e.json",
+    "evaluation": "evaluations/eval_job_0c776ef7151a4c0e.json",
+    "error": "errors/job_0c776ef7151a4c0e.json",
+    "combined": "combined/job_0c776ef7151a4c0e.json"
+  }
+}
