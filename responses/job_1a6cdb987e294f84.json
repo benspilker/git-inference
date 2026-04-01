@@ -1,0 +1,12 @@
+{
+  "job_id": "job_1a6cdb987e294f84",
+  "message": {
+    "role": "assistant",
+    "content": "I have successfully stored both chunks. How can I assist you with them now?"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T21:38:53-04:00",
+  "started_at": "2026-04-01T01:39:03Z",
+  "elapsed_seconds": 82,
+  "completed_at": "2026-04-01T01:40:15Z"
+}
