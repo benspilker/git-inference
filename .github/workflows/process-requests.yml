@@ -71,11 +71,15 @@ jobs:
           [[ -f tools/find_memory_reuse_candidate.py ]] || { echo "Missing tools/find_memory_reuse_candidate.py"; exit 1; }
           [[ -f tools/apply_promotion_policy.py ]] || { echo "Missing tools/apply_promotion_policy.py"; exit 1; }
           default_instructions_file="tmp/pipeline.instructions.txt"
+          simple_instructions_file="tmp/pipeline.simple.instructions.txt"
           SYSTEM_PROMPT_FILE=".github/workflows/pipeline.system_prompt.txt"
+          SIMPLE_SYSTEM_PROMPT_FILE=".github/workflows/pipeline.simple_model_prompt.txt"
           EVAL_PROMPT_TEMPLATE_FILE=".github/workflows/pipeline.eval_prompt.template.txt"
           [[ -f "$SYSTEM_PROMPT_FILE" ]] || { echo "Missing $SYSTEM_PROMPT_FILE"; exit 1; }
+          [[ -f "$SIMPLE_SYSTEM_PROMPT_FILE" ]] || { echo "Missing $SIMPLE_SYSTEM_PROMPT_FILE"; exit 1; }
           [[ -f "$EVAL_PROMPT_TEMPLATE_FILE" ]] || { echo "Missing $EVAL_PROMPT_TEMPLATE_FILE"; exit 1; }
           cp "$SYSTEM_PROMPT_FILE" "$default_instructions_file"
+          cp "$SIMPLE_SYSTEM_PROMPT_FILE" "$simple_instructions_file"
 
           calculate_chunk_count() {
             local prompt_file="$1"
@@ -359,10 +363,12 @@ jobs:
               echo "Processing ${req} as ${job_id}"
               model_name="$(cat "$model_file" 2>/dev/null || true)"
               simple_mode="0"
+              selected_instructions_file="$default_instructions_file"
               if [[ "$model_name" == "git-chatgpt" ]]; then
                 simple_mode="1"
+                selected_instructions_file="$simple_instructions_file"
               fi
-              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count" "$default_instructions_file" "$question_file" "$simple_mode"
+              process_prompt "$job_id" "$prompt_file" "$out_file" "$input_committed_at" "$started_at" "$chunk_count" "$selected_instructions_file" "$question_file" "$simple_mode"
               LAST_REQUEST_FILE="$req"
               if [[ -f "responses/${job_id}.json" ]]; then
                 LAST_RESPONSE_FILE="responses/${job_id}.json"
