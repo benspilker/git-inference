@@ -1,0 +1,12 @@
+{
+  "job_id": "job_bc50968a2ca04b83",
+  "message": {
+    "role": "assistant",
+    "content": "I don’t have access to your workspace filesystem, so I can’t read /home/ubuntu/.openclaw/workspace/HEARTBEAT.md.\n\nIf there’s nothing specific you want checked or acted on, then:\n\nHEARTBEAT_OK"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T15:57:47-04:00",
+  "started_at": "2026-04-01T19:57:57Z",
+  "elapsed_seconds": 56,
+  "completed_at": "2026-04-01T19:58:43Z"
+}
