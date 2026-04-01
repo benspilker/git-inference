@@ -1,0 +1,12 @@
+{
+  "job_id": "job_04ed06d6dc1a4ac3",
+  "message": {
+    "role": "assistant",
+    "content": "I have successfully received and stored both chunks. If you're ready to proceed or need any further actions with the data, feel free to let me know!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T20:42:08-04:00",
+  "started_at": "2026-04-01T00:42:15Z",
+  "elapsed_seconds": 85,
+  "completed_at": "2026-04-01T00:43:33Z"
+}
