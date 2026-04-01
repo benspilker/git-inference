@@ -1,0 +1,12 @@
+{
+  "job_id": "job_95effdd7749b44d1",
+  "message": {
+    "role": "assistant",
+    "content": "Understood! How can I assist you today?"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T19:27:48-04:00",
+  "started_at": "2026-04-01T23:27:56Z",
+  "elapsed_seconds": 227,
+  "completed_at": "2026-04-01T23:31:35Z"
+}
