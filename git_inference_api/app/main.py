@@ -727,12 +727,17 @@ def stream_response_for_job(
         while True:
             job = db.get_job(job_id)
             if not job:
+                message_text = "job not found"
                 payload = {
-                    "error": "job not found",
+                    "error": message_text,
                     "code": "JOB_NOT_FOUND",
                     "job_id": job_id,
                     "done": True,
                 }
+                if response_type == "chat":
+                    payload["message"] = {"role": "assistant", "content": message_text}
+                else:
+                    payload["response"] = message_text
                 yield json.dumps(payload) + "\n"
                 return
 
@@ -766,6 +771,10 @@ def stream_response_for_job(
                 }
                 if details:
                     payload["details"] = details
+                if response_type == "chat":
+                    payload["message"] = {"role": "assistant", "content": message}
+                else:
+                    payload["response"] = message
                 yield json.dumps(payload) + "\n"
                 return
 
@@ -793,13 +802,18 @@ def stream_response_for_job(
                 next_heartbeat = now + heartbeat_interval
 
             if deadline is not None and now >= deadline:
+                message_text = "Job did not reach a terminal state before API wait timeout."
                 payload = {
-                    "error": "Job did not reach a terminal state before API wait timeout.",
+                    "error": message_text,
                     "code": "WAIT_TIMEOUT",
                     "job_id": job_id,
                     "status": status or None,
                     "done": True,
                 }
+                if response_type == "chat":
+                    payload["message"] = {"role": "assistant", "content": message_text}
+                else:
+                    payload["response"] = message_text
                 yield json.dumps(payload) + "\n"
                 return
 
