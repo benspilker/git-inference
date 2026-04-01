@@ -355,6 +355,18 @@ def _extract_response_text(assistant_messages, before_count: int, before_last_te
     return ""
 
 
+def _looks_like_non_answer_text(text: str) -> bool:
+    lowered = (text or "").strip().lower()
+    if not lowered:
+        return True
+    blocked_markers = [
+        "i hit an internal automation issue while generating a response",
+        "please send your message again",
+        "new session started",
+    ]
+    return any(marker in lowered for marker in blocked_markers)
+
+
 def _assistant_turns(page):
     selectors = [
         "[data-testid^='conversation-turn-'][data-turn='assistant'] [data-message-author-role='assistant']",
@@ -385,7 +397,7 @@ def _wait_for_valid_response(
     while time.time() < deadline:
         text = _extract_response_text(assistant_messages, before_count, before_last_text)
         lowered = text.lower()
-        if text and "something went wrong" not in lowered:
+        if text and "something went wrong" not in lowered and not _looks_like_non_answer_text(text):
             return text
 
         # In some sessions, clicking latest chat in sidebar refreshes response rendering.
@@ -1203,7 +1215,7 @@ def _send_prompt_and_collect_response(
         response_settle_seconds=response_settle_seconds,
         max_settle_wait_seconds=max_settle_wait_seconds,
     )
-    if refreshed and "something went wrong" not in refreshed.lower():
+    if refreshed and "something went wrong" not in refreshed.lower() and not _looks_like_non_answer_text(refreshed):
         response_text = refreshed
     return response_text
 
