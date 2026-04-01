@@ -1,0 +1,12 @@
+{
+  "job_id": "job_178a769a97cf43cd",
+  "message": {
+    "role": "assistant",
+    "content": "Yes, several large language models (LLMs) were publicly available before ChatGPT in 2022. Some notable ones include:\n\nGPT-3 (2020): Developed by OpenAI, GPT-3 was widely known and available through OpenAI’s API before ChatGPT. It was a major predecessor to the models used in ChatGPT.\n\nBERT (2018): Developed by Google, BERT (Bidirectional Encoder Representations from Transformers) was widely adopted for natural language understanding tasks, though it was more tuned for specific tasks rather than conversational generation.\n\nT5 (2019): Also by Google, the T5 (Text-to-Text Transfer Transformer) model was designed for a wide range of NLP tasks.\n\nXLNet (2019): A generalized autoregressive pretraining method, building on BERT, also used in multiple NLP tasks.\n\nThese models were either available via APIs, research papers, or open-source repositories and were used for various NLP applications prior to the broader launch of ChatGPT in late 2022."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T16:22:06-04:00",
+  "started_at": "2026-04-01T20:22:17Z",
+  "elapsed_seconds": 57,
+  "completed_at": "2026-04-01T20:23:03Z"
+}
