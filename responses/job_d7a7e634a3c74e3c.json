@@ -1,0 +1,12 @@
+{
+  "job_id": "job_d7a7e634a3c74e3c",
+  "message": {
+    "role": "assistant",
+    "content": "Got it! All chunks have been received. I'll now work on synthesizing them into a cohesive response. Give me a moment!"
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T23:07:15-04:00",
+  "started_at": "2026-04-01T03:07:25Z",
+  "elapsed_seconds": 94,
+  "completed_at": "2026-04-01T03:08:49Z"
+}
