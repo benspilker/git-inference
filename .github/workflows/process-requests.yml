@@ -209,6 +209,7 @@ jobs:
                 --input-file "$prompt_file" \
                 "${instruction_args[@]}" \
                 --output-file "$out_file" \
+                --start-new-chat \
                 --wait-seconds 60 \
                 --timeout-ms 120000 \
                 "${chunk_args[@]}"
@@ -257,6 +258,7 @@ jobs:
               --input-file "$prompt_file" \
               "${instruction_args[@]}" \
               --output-file "$out_file" \
+              --start-new-chat \
               --followup-input-file "$eval_prompt_file" \
               --followup-output-file "$eval_out_file" \
               --wait-seconds 60 \
@@ -363,7 +365,7 @@ jobs:
               input_committed_at="$(git log -1 --format=%cI -- "$req" 2>/dev/null || true)"
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
-              python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); question_path=Path(sys.argv[3]); model_path=Path(sys.argv[4]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); nested=payload.get("request"); model_name=str(nested.get("model") or "") if isinstance(nested, dict) else ""; messages=nested.get("messages", []) if isinstance(nested, dict) else []; parts=[x for x in (system_prompt, user_prompt) if x]; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt="\n\n".join(parts).strip(); question_text=(user_prompt or user_text or final_prompt).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8"); question_path.write_text(question_text, encoding="utf-8"); model_path.write_text(model_name.strip(), encoding="utf-8")' "$req" "$prompt_file" "$question_file" "$model_file"
+              python -c 'import json,sys; from pathlib import Path; request_path=Path(sys.argv[1]); prompt_path=Path(sys.argv[2]); question_path=Path(sys.argv[3]); model_path=Path(sys.argv[4]); payload=json.loads(request_path.read_text(encoding="utf-8")); system_prompt=str(payload.get("system_prompt") or "").strip(); user_prompt=str(payload.get("user_prompt") or "").strip(); nested=payload.get("request"); model_name=str(nested.get("model") or "") if isinstance(nested, dict) else ""; messages=nested.get("messages", []) if isinstance(nested, dict) else []; sys_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="system" and str(m.get("content", "")).strip()), ""); user_text=next((str(m.get("content", "")).strip() for m in messages if isinstance(m, dict) and str(m.get("role", ""))=="user" and str(m.get("content", "")).strip()), ""); simple_model=(model_name.strip()=="git-chatgpt"); parts=[x for x in (system_prompt, user_prompt) if x]; parts = parts if parts else [x for x in (sys_text, user_text) if x]; final_prompt=((user_prompt or user_text).strip() if simple_model else "\n\n".join(parts).strip()); question_text=(user_prompt or user_text or final_prompt).strip(); _ = final_prompt or (_ for _ in ()).throw(SystemExit(f"No prompt content found in request artifact: {request_path}")); prompt_path.write_text(final_prompt, encoding="utf-8"); question_path.write_text(question_text, encoding="utf-8"); model_path.write_text(model_name.strip(), encoding="utf-8")' "$req" "$prompt_file" "$question_file" "$model_file"
               chunk_count="$(calculate_chunk_count "$prompt_file")"
               if [[ "$chunk_count" == ERR:* ]]; then
                 IFS=':' read -r _ word_count max_words <<< "$chunk_count"

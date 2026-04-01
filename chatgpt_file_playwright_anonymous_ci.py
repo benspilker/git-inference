@@ -1089,7 +1089,8 @@ def _send_prompt_and_collect_response(
     _send_current_prompt(page, composer, prompt_text, use_ctrl_v=use_ctrl_v)
     _wait_for_user_turn_increment(page, before_user_count, timeout_ms=15000)
     page.wait_for_timeout(1200)
-    _refocus_chat_session(page)
+    # Do not jump chat threads here; this can select an older history item and
+    # cause stale assistant output capture.
     assistant_messages = _assistant_turns(page)
 
     response_text = _wait_for_valid_response(
@@ -1120,7 +1121,6 @@ def _send_prompt_and_collect_response(
             _send_current_prompt(page, composer, prompt_text, use_ctrl_v=use_ctrl_v)
             _wait_for_user_turn_increment(page, before_user_count, timeout_ms=15000)
             page.wait_for_timeout(1200)
-            _refocus_chat_session(page)
             assistant_messages = _assistant_turns(page)
             response_text = _wait_for_valid_response(
                 page,
@@ -1149,7 +1149,6 @@ def _send_prompt_and_collect_response(
             _send_current_prompt(page, composer, prompt_text, use_ctrl_v=use_ctrl_v)
             _wait_for_user_turn_increment(page, before_user_count, timeout_ms=15000)
             page.wait_for_timeout(1200)
-            _refocus_chat_session(page)
             assistant_messages = _assistant_turns(page)
             response_text = _wait_for_valid_response(
                 page,
@@ -1184,7 +1183,6 @@ def _send_prompt_and_collect_response(
             _send_current_prompt(page, composer, prompt_text, use_ctrl_v=use_ctrl_v)
             _wait_for_user_turn_increment(page, before_user_count, timeout_ms=15000)
             page.wait_for_timeout(1200)
-            _refocus_chat_session(page)
             assistant_messages = _assistant_turns(page)
             response_text = _wait_for_valid_response(
                 page,
