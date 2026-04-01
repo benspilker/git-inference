@@ -1,0 +1,12 @@
+{
+  "job_id": "job_87aef012af2e426e",
+  "message": {
+    "role": "assistant",
+    "content": "🚀 Artemis II — what it is (and where things stand)\n\nArtemis II is NASA’s first crewed mission in the Artemis program, designed to send astronauts around the Moon and back—no landing yet, but a full deep-space test with humans onboard.\n\n🧭 Mission basics\n\nAgency: NASA\n\nRocket: Space Launch System (SLS)\n\nCapsule: Orion spacecraft\n\nMission type: Lunar flyby (no landing)\n\nDuration: ~10 days\n\nGoal: Prove that Orion + SLS can safely carry humans to deep space and back\n\n👨‍🚀 Crew\n\nThe four astronauts selected are:\n\nReid Wiseman\n\nVictor Glover\n\nChristina Koch\n\nJeremy Hansen\n\n👉 Notable:\n\nFirst woman to travel to the Moon (Koch)\n\nFirst non-American to go that far from Earth (Hansen)\n\n🗓️ Launch timing (important)\n\nCurrent target: April 2026 (planned)\n\nThis has shifted multiple times due to:\n\nHeat shield issues discovered after Artemis I\n\nLife-support system upgrades\n\nGeneral safety reviews\n\n👉 In practice: expect possible delays—this program has a history of schedule movement.\n\n🛰️ What actually happens during the mission\n\nLaunch from Kennedy Space Center\n\nEarth orbit checkout\n\nBurn toward the Moon\n\nLoop around the Moon (free-return trajectory)\n\nHead back to Earth without entering lunar orbit\n\nHigh-speed reentry and ocean splashdown\n\n🎯 Why Artemis II matters\n\nFirst time humans go beyond low Earth orbit since Apollo 17\n\nValidates systems needed for:\n\nArtemis III (Moon landing)\n\nFuture Mars missions\n\nTests real deep-space risks:\n\nRadiation exposure\n\nNavigation without Earth orbit safety net\n\nLong-duration life support\n\n⚠️ Realistic expectations\n\nIt’s a test flight, not a spectacle-heavy landing mission\n\nBiggest risk areas:\n\nHeat shield performance on reentry\n\nLife support reliability\n\nSLS launch reliability (still early in lifecycle)\n\n🧠 Bottom line\n\nArtemis II is the bridge between uncrewed testing and humans walking on the Moon again. If it succeeds, it clears the path for Artemis III to land astronauts later this decade.\n\nIf you want, I can break down how Artemis II compares to Apollo missions or what Artemis III will actually look like (that’s where things get really interesting)."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T19:52:47-04:00",
+  "started_at": "2026-04-01T23:52:55Z",
+  "elapsed_seconds": 69,
+  "completed_at": "2026-04-01T23:53:56Z"
+}
