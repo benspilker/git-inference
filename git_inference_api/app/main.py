@@ -775,7 +775,8 @@ def stream_response_for_job(
                     payload = {
                         "model": model,
                         "created_at": db.utcnow_iso(),
-                        "message": {"role": "assistant", "content": ""},
+                        # Non-empty keepalive chunk to satisfy strict stream parsers.
+                        "message": {"role": "assistant", "content": " "},
                         "done": False,
                         "job_id": job_id,
                     }
@@ -783,7 +784,8 @@ def stream_response_for_job(
                     payload = {
                         "model": model,
                         "created_at": db.utcnow_iso(),
-                        "response": "",
+                        # Non-empty keepalive chunk to satisfy strict stream parsers.
+                        "response": " ",
                         "done": False,
                         "job_id": job_id,
                     }
