@@ -12,6 +12,14 @@ on:
         description: "Prompt text to process immediately (optional)"
         required: false
         type: string
+      carry_previous_qa:
+        description: "Carry previous Q/A into first post-/new prompt for git-chatgpt"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
       upload_artifacts:
         description: "Upload diagnostics artifacts even on success"
         required: false
@@ -47,6 +55,8 @@ jobs:
       - name: Process prompts (bash)
         env:
           PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
+          CARRY_PREVIOUS_QA_INPUT: ${{ github.event.inputs.carry_previous_qa }}
+          CARRY_PREVIOUS_QA_REPO_VAR: ${{ vars.CARRY_PREVIOUS_QA }}
           GH_EVENT_NAME: ${{ github.event_name }}
           GH_EVENT_BEFORE: ${{ github.event.before }}
           GH_SHA: ${{ github.sha }}
@@ -65,6 +75,8 @@ jobs:
           MEMORY_MIN_SIMILARITY="${MEMORY_MIN_SIMILARITY:-0.72}"
           MEMORY_REQUIRED_CONFIDENCE="${MEMORY_REQUIRED_CONFIDENCE:-high}"
           MEMORY_PROMOTION_MIN_SCORE="${MEMORY_PROMOTION_MIN_SCORE:-$MEMORY_MIN_SCORE}"
+          SIMPLE_MODEL_CARRY_PREVIOUS_QA="${CARRY_PREVIOUS_QA_INPUT:-${CARRY_PREVIOUS_QA_REPO_VAR:-1}}"
+          export SIMPLE_MODEL_CARRY_PREVIOUS_QA
           PLAYWRIGHT_READY=0
           mkdir -p tmp responses errors responses_readable evaluations combined input/processed requests/old-requests responses/old-responses
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }

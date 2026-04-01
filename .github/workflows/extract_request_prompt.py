@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -12,6 +13,15 @@ STARTUP_MARKERS = (
     "a new session was started via /new or /reset",
     "run your session startup sequence",
 )
+
+FALSEY = {"0", "false", "no", "off", "n"}
+
+
+def _env_enabled(name: str, default: bool = True) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() not in FALSEY
 
 
 def _read_json(path: Path) -> dict | None:
@@ -189,6 +199,7 @@ def main() -> None:
     sys_text = _last_message_by_role(messages, "system")
     user_text = _last_message_by_role(messages, "user")
     simple_model = model_name.strip() == "git-chatgpt"
+    carry_previous_qa_enabled = _env_enabled("SIMPLE_MODEL_CARRY_PREVIOUS_QA", default=True)
 
     parts = [x for x in (system_prompt, user_prompt) if x]
     if not parts:
@@ -200,7 +211,7 @@ def main() -> None:
     startup_only = int(simple_model and all(marker in lower_question for marker in STARTUP_MARKERS))
 
     startup_in_messages = _has_startup_prompt(messages)
-    if simple_model and not startup_only and startup_in_messages:
+    if simple_model and carry_previous_qa_enabled and not startup_only and startup_in_messages:
         chat_id = _extract_chat_id((system_prompt, sys_text))
         repo_root = request_path.parent.parent
         previous_exchange = _find_previous_exchange(repo_root, request_path, chat_id, question_text)
