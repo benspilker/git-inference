@@ -1,0 +1,12 @@
+{
+  "job_id": "job_836c7ceada5b4e0c",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s the current weather snapshot for Indianapolis today (best available latest data):\n\n🌡️ Conditions\n\nTemp: ~47°F high / ~31°F low \nTime and Date\n\nCurrent feel: Cold, mid–30s °F range with wind chill lower \nTime and Date\n\nSky: Mostly cloudy to overcast \nTime and Date\n\n🌬️ Wind\n\nModerate winds (can feel colder than actual temp)\n\n🌧️ Precipitation\n\nSlight chance of light snow or sprinkles early\n\nMostly dry later in the day \nTime and Date\n\n🧭 What it actually feels like\n\nChilly, a bit windy\n\nEarly-day mix possible, then just gray/cloudy\n\nTypical “late winter / early spring Midwest” feel\n\n✔️ Quick takeaway\n\nBring a jacket\n\nNo major storms today\n\nExpect cold + cloudy, not severe weather\n\nIf you want, I can give you an hour-by-hour breakdown or check if anything severe is expected later tonight."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T17:08:53-04:00",
+  "started_at": "2026-04-01T21:09:01Z",
+  "elapsed_seconds": 57,
+  "completed_at": "2026-04-01T21:09:50Z"
+}
