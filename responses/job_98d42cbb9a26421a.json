@@ -1,0 +1,12 @@
+{
+  "job_id": "job_98d42cbb9a26421a",
+  "message": {
+    "role": "assistant",
+    "content": "HEARTBEAT_OK"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T18:27:48-04:00",
+  "started_at": "2026-04-01T22:27:56Z",
+  "elapsed_seconds": 50,
+  "completed_at": "2026-04-01T22:28:38Z"
+}
