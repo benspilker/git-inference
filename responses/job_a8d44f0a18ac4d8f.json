@@ -1,0 +1,12 @@
+{
+  "job_id": "job_a8d44f0a18ac4d8f",
+  "message": {
+    "role": "assistant",
+    "content": "A 10-month-old baby typically needs 12-14 hours of sleep per day, including nighttime sleep and naps. This usually breaks down into:\n\n10-12 hours of nighttime sleep\n\n2-4 hours of nap sleep spread across 2 naps during the day\n\nEach baby’s sleep needs can vary, so adjust based on their behavior and temperament."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T17:16:32-04:00",
+  "started_at": "2026-04-01T21:16:41Z",
+  "elapsed_seconds": 51,
+  "completed_at": "2026-04-01T21:17:23Z"
+}
