@@ -1,0 +1,1 @@
+It seems like you're asking for Max/MSP gen~ code for a polyphonic audio instrument voice. Could you please provide the specifics of the audio instrument you're creating or describe the parameters you'd like to include (such as waveform, envelope, modulation, etc.)? I can then assist with creating a more tailored code for your polyphonic voice.

@@ -1,0 +1,12 @@
+{
+  "job_id": "job_ec6f8c03b44e433a",
+  "message": {
+    "role": "assistant",
+    "content": "It seems like you're asking for Max/MSP gen~ code for a polyphonic audio instrument voice. Could you please provide the specifics of the audio instrument you're creating or describe the parameters you'd like to include (such as waveform, envelope, modulation, etc.)? I can then assist with creating a more tailored code for your polyphonic voice."
+  },
+  "done": true,
+  "input_committed_at": "2026-03-31T21:30:51-04:00",
+  "started_at": "2026-04-01T01:31:00Z",
+  "elapsed_seconds": 89,
+  "completed_at": "2026-04-01T01:32:20Z"
+}
