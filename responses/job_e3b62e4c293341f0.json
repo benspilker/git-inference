@@ -1,0 +1,12 @@
+{
+  "job_id": "job_e3b62e4c293341f0",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s a concrete way to get OpenClaw fully configured with memory, identity, and purpose:\n\n1. Workspace structure\n\nEnsure your workspace has three folders: identity, memory, skills.\n\nidentity/ → store JSON/YAML defining your agent’s name, role, and personality.\n\nmemory/ → persistent storage files for facts, chat history, learned skills. Must be enabled in config.yaml.\n\nskills/ → scripts or modules that extend the agent’s abilities (Telegram hooks, API calls).\n\n2. Config file (config.yaml)\n\nEnable memory: memory_enabled: true\n\nPoint to memory folder: memory_path: ./memory\n\nSet identity file: identity_file: ./identity/agent.json\n\nOptional: purpose: \"Summarize news and answer queries\"\n\n3. Initialize memory\n\nIf OpenClaw supports CLI initialization: openclaw init-memory or similar.\n\nOtherwise, create an empty JSON/YAML file in memory/ and reference it in config.yaml.\n\n4. Verify Telegram integration\n\nTest with /status or /ping command from Telegram.\n\nMake sure your bot token and chat IDs are correct in config.yaml or secrets.yaml.\n\n5. Test identity and purpose\n\nStart the agent in debug mode: openclaw run --debug\n\nAsk it questions about its role, purpose, or stored facts to see if identity is loaded.\n\n6. Learning and persistence\n\nUse /learn commands (if supported) or append to memory/*.json during conversation.\n\nRestart the agent and verify it recalls previous interactions.\n\nResources for step-by-step guidance:\n\nQuick start: OpenClaw Quick Start Guide\n\nBeginner hub: OpenClaw Beginner Docs Hub\n\nTroubleshooting: Getting Started Tutorial\n\nIf you want, I can draft a ready-to-copy config.yaml + folder layout for a fully functional OpenClaw setup with memory and identity. It will get you running in under 10 minutes. Do you want me to do that?"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T17:17:48-04:00",
+  "started_at": "2026-04-01T21:17:57Z",
+  "elapsed_seconds": 70,
+  "completed_at": "2026-04-01T21:18:58Z"
+}
