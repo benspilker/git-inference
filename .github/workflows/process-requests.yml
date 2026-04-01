@@ -111,26 +111,26 @@ jobs:
 
           case "$SIMPLE_MODEL_WEB_SEARCH_MODE" in
             always_required)
-              cat >> "$simple_instructions_file" <<'EOF'
-
-Web Search Policy Override (highest priority):
-- This override supersedes any conflicting web-search guidance above.
-- For every user request, run live web search before answering.
-- If live web search is unavailable in the current session, respond exactly with:
-WEB_SEARCH_UNAVAILABLE
-- Do not provide a best-effort answer when search is unavailable.
-EOF
+              printf '%s\n' \
+                '' \
+                'Web Search Policy Override (highest priority):' \
+                '- This override supersedes any conflicting web-search guidance above.' \
+                '- For every user request, run live web search before answering.' \
+                '- If live web search is unavailable in the current session, respond exactly with:' \
+                'WEB_SEARCH_UNAVAILABLE' \
+                '- Do not provide a best-effort answer when search is unavailable.' \
+                >> "$simple_instructions_file"
               ;;
             time_sensitive_required)
-              cat >> "$simple_instructions_file" <<'EOF'
-
-Web Search Policy Override (highest priority):
-- This override supersedes any conflicting web-search guidance above.
-- For time-sensitive or recently changing topics (latest/recent/current/today, prices, releases, availability, news, schedules, rankings, product status), run live web search before answering.
-- If live web search is unavailable for those requests, respond exactly with:
-WEB_SEARCH_UNAVAILABLE
-- Do not provide a best-effort answer for those requests when search is unavailable.
-EOF
+              printf '%s\n' \
+                '' \
+                'Web Search Policy Override (highest priority):' \
+                '- This override supersedes any conflicting web-search guidance above.' \
+                '- For time-sensitive or recently changing topics (latest/recent/current/today, prices, releases, availability, news, schedules, rankings, product status), run live web search before answering.' \
+                '- If live web search is unavailable for those requests, respond exactly with:' \
+                'WEB_SEARCH_UNAVAILABLE' \
+                '- Do not provide a best-effort answer for those requests when search is unavailable.' \
+                >> "$simple_instructions_file"
               ;;
             default|*)
               ;;
