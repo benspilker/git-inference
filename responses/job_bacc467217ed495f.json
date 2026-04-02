@@ -1,0 +1,12 @@
+{
+  "job_id": "job_bacc467217ed495f",
+  "message": {
+    "role": "assistant",
+    "content": "To verify your OpenClaw system is set up correctly, run through these quick checks:\n\n1) Basic power + hardware sanity\n\nSystem powers on without resets or overheating\n\nMotors, servos, and sensors respond (no jittering or dead channels)\n\nWiring matches your schematic (especially motor drivers + limit switches)\n\n2) Controller / firmware check\n\nConnect to your controller (e.g., Arduino, Raspberry Pi, etc.) via USB\n\nUpload or run a simple test program:\n\nMove one motor at a time\n\nTrigger each sensor individually\n\nConfirm:\n\nNo compile/upload errors\n\nSerial output (if used) shows expected values\n\n3) Input / control test\n\nIf using a controller (joystick, buttons, app):\n\nEach input maps correctly (no reversed axes unless intended)\n\nDead zones and sensitivity feel right\n\nIf autonomous:\n\nRun a dry cycle and watch decision logic step-by-step\n\n4) Movement validation\n\nRun the claw through full range:\n\nOpen/close claw smoothly\n\nLift/lower arm without stalling\n\nCheck for:\n\nGrinding noises\n\nUneven motion\n\nMissed steps (stepper systems)\n\n5) Safety checks\n\nEmergency stop (if you built one) works instantly\n\nLimit switches stop motion at boundaries\n\nNo overheating after a few minutes of operation\n\n6) Repeatability test (important)\n\nRun the same pickup cycle 5–10 times:\n\nDoes it land in the same position each time?\n\nDoes grip strength stay consistent?\n\n7) Debug signals (if available)\n\nUse serial logs or LEDs to confirm:\n\nState transitions (idle → move → grab → lift)\n\nSensor triggers happen at the right time\n\nQuick “it’s working” checklist\n\nYou’re in good shape if:\n\nAll axes move correctly\n\nInputs behave predictably\n\nIt completes a full grab cycle without failure\n\nNo overheating, resets, or random behavior\n\nIf something feels off\n\nTell me:\n\nYour controller (Arduino? Pi? custom board?)\n\nMotor type (servo, stepper, DC)\n\nWhat exactly happens vs. expected\n\nI can help you pinpoint the issue fast."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T20:42:48-04:00",
+  "started_at": "2026-04-02T00:42:58Z",
+  "elapsed_seconds": 64,
+  "completed_at": "2026-04-02T00:43:52Z"
+}
