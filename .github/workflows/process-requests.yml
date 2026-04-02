@@ -279,6 +279,11 @@ jobs:
               playwright_status=1
               while true; do
                 attempt=$((attempt + 1))
+                retry_extra_args=()
+                if [[ "$attempt" -gt 1 ]]; then
+                  retry_extra_args+=(--refresh-before-send)
+                  echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh before send."
+                fi
                 if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
                   python chatgpt_file_playwright_anonymous_ci.py \
                   --input-file "$prompt_file" \
@@ -290,6 +295,7 @@ jobs:
                   --post-response-wait-seconds 1 \
                   --response-settle-seconds 2 \
                   --max-settle-wait-seconds 25 \
+                  "${retry_extra_args[@]}" \
                   "${chunk_args[@]}"
                 then
                   playwright_status=0
@@ -366,6 +372,11 @@ jobs:
               playwright_status=1
               while true; do
                 attempt=$((attempt + 1))
+                retry_extra_args=()
+                if [[ "$attempt" -gt 1 ]]; then
+                  retry_extra_args+=(--refresh-before-send)
+                  echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh before send."
+                fi
                 if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
                 python chatgpt_file_playwright_anonymous_ci.py \
                 --input-file "$prompt_file" \
@@ -377,6 +388,7 @@ jobs:
                 --wait-seconds 60 \
                 --followup-wait-seconds 45 \
                 --timeout-ms 120000 \
+                "${retry_extra_args[@]}" \
                 "${chunk_args[@]}"
                 then
                   playwright_status=0

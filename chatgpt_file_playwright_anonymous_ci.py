@@ -1259,6 +1259,7 @@ def run(
     map_reduce: bool,
     finalize_on_last_chunk: bool,
     start_new_chat: bool,
+    refresh_before_send: bool,
 ) -> None:
     playwright_sync_api = ensure_package("playwright.sync_api")
     sync_playwright = playwright_sync_api.sync_playwright
@@ -1326,6 +1327,13 @@ def run(
                 raise RuntimeError(
                     "Could not find the ChatGPT composer. Log in manually in this browser window and rerun."
                 )
+            if refresh_before_send:
+                print("Refreshing chat page before sending prompt.")
+                page.reload(wait_until="domcontentloaded", timeout=timeout_ms)
+                _redirect_from_openai_login_to_chat(page, chat_url=url, timeout_ms=timeout_ms)
+                composer = _recover_to_chatgpt_if_needed(page, chat_url=url, timeout_ms=timeout_ms)
+                if composer is None:
+                    raise RuntimeError("Could not find composer after refresh.")
             if start_new_chat:
                 _start_new_chat_if_available(page, timeout_ms=timeout_ms)
                 composer = _find_chat_composer(page, timeout_ms=timeout_ms)
@@ -1699,6 +1707,11 @@ def parse_args() -> argparse.Namespace:
         help="Force creation of a new chat thread before sending prompts (disabled by default).",
     )
     parser.add_argument(
+        "--refresh-before-send",
+        action="store_true",
+        help="Refresh the ChatGPT page before sending prompts (useful for retry attempts).",
+    )
+    parser.add_argument(
         "--omit-sections",
         default="",
         help="Comma-separated top-level JSON keys to remove from input before sending.",
@@ -1834,6 +1847,7 @@ def main() -> int:
             map_reduce=args.map_reduce,
             finalize_on_last_chunk=args.finalize_on_last_chunk,
             start_new_chat=args.start_new_chat,
+            refresh_before_send=args.refresh_before_send,
             omit_sections=omit_sections,
             post_response_wait_seconds=args.post_response_wait_seconds,
             response_settle_seconds=args.response_settle_seconds,
@@ -1871,6 +1885,7 @@ def main() -> int:
                 map_reduce=args.map_reduce,
                 finalize_on_last_chunk=args.finalize_on_last_chunk,
                 start_new_chat=args.start_new_chat,
+                refresh_before_send=args.refresh_before_send,
                 omit_sections=omit_sections,
                 post_response_wait_seconds=args.post_response_wait_seconds,
                 response_settle_seconds=args.response_settle_seconds,
