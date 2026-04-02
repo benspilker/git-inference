@@ -88,8 +88,10 @@ jobs:
           MEMORY_PROMOTION_MIN_SCORE="${MEMORY_PROMOTION_MIN_SCORE:-$MEMORY_MIN_SCORE}"
           SIMPLE_MODEL_CARRY_PREVIOUS_QA="${CARRY_PREVIOUS_QA_INPUT:-${CARRY_PREVIOUS_QA_REPO_VAR:-1}}"
           SIMPLE_MODEL_WEB_SEARCH_MODE="${SIMPLE_WEB_SEARCH_MODE_INPUT:-${SIMPLE_WEB_SEARCH_MODE_REPO_VAR:-time_sensitive_required}}"
+          SIMPLE_MODEL_WEB_SEARCH_RETRIES="${SIMPLE_MODEL_WEB_SEARCH_RETRIES:-2}"
           export SIMPLE_MODEL_CARRY_PREVIOUS_QA
           export SIMPLE_MODEL_WEB_SEARCH_MODE
+          export SIMPLE_MODEL_WEB_SEARCH_RETRIES
           PLAYWRIGHT_READY=0
           mkdir -p tmp responses errors responses_readable evaluations combined input/processed requests/old-requests responses/old-responses
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
@@ -269,19 +271,47 @@ jobs:
               fi
               echo "Simple mode enabled for ${job_id}: skipping memory reuse and evaluation."
               ensure_playwright
-              if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
-                python chatgpt_file_playwright_anonymous_ci.py \
-                --input-file "$prompt_file" \
-                "${instruction_args[@]}" \
-                --output-file "$out_file" \
-                --start-new-chat \
-                --wait-seconds 45 \
-                --timeout-ms 120000 \
-                --post-response-wait-seconds 1 \
-                --response-settle-seconds 2 \
-                --max-settle-wait-seconds 25 \
-                "${chunk_args[@]}"
-              then
+              web_retry_max=0
+              if [[ "$SIMPLE_MODEL_WEB_SEARCH_MODE" != "default" ]]; then
+                web_retry_max="$SIMPLE_MODEL_WEB_SEARCH_RETRIES"
+              fi
+              attempt=0
+              playwright_status=1
+              while true; do
+                attempt=$((attempt + 1))
+                if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
+                  python chatgpt_file_playwright_anonymous_ci.py \
+                  --input-file "$prompt_file" \
+                  "${instruction_args[@]}" \
+                  --output-file "$out_file" \
+                  --start-new-chat \
+                  --wait-seconds 45 \
+                  --timeout-ms 120000 \
+                  --post-response-wait-seconds 1 \
+                  --response-settle-seconds 2 \
+                  --max-settle-wait-seconds 25 \
+                  "${chunk_args[@]}"
+                then
+                  playwright_status=0
+                else
+                  playwright_status=$?
+                fi
+
+                web_unavailable=0
+                if [[ -s "$out_file" ]] && grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                  web_unavailable=1
+                fi
+
+                if [[ "$web_unavailable" == "1" && "$attempt" -le "$web_retry_max" ]]; then
+                  echo "WEB_SEARCH_UNAVAILABLE for ${job_id} (attempt ${attempt}/${web_retry_max}); retrying Playwright run..."
+                  : > "$out_file"
+                  sleep 2
+                  continue
+                fi
+                break
+              done
+
+              if [[ "$playwright_status" -eq 0 ]]; then
                 if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
                   python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
                 else
@@ -321,19 +351,48 @@ jobs:
               python -c 'import json,sys; from datetime import datetime,timezone; cand_path,out_path,job_id,qprev=sys.argv[1:5]; c=json.load(open(cand_path,"r",encoding="utf-8")); source_id=str(c.get("source_job_id") or "unknown"); now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z"); score=float(c.get("score") or 0.0); sim=float(c.get("similarity") or 0.0); confidence=str(c.get("confidence_band") or "high"); dims={k:score for k in ("correctness","completeness","clarity","usefulness","groundedness","specificity")}; payload={"schema_version":"1.0","object_type":"evaluation","object_id":f"eval_{job_id}","phase":1,"status":"complete","created_at":now,"updated_at":now,"run_context":{"job_id":job_id,"question_id":f"q_{job_id}","run_id":f"run_{job_id}","branch_id":"branch_01","research_id":None,"parent_object_id":f"resp_{job_id}","root_object_id":f"q_{job_id}"},"content":{"question_text_preview":qprev,"categorization":{"topic_short":"","topic":"","topics":[],"keywords":[],"summary":"","language":"en","domain":"","subdomain":"","sensitivity":"public","recency_class":"stable"},"quality_flags":{"needs_web_verification":False,"missing_citations":False,"safety_or_policy_risk":False}},"metadata":{"title":None,"topic_short":"","topic":"","topics":[],"keywords":[],"summary":"","query_variants":[],"language":"en","domain":"","subdomain":"","sensitivity":"public","recency_class":"stable"},"scores":[{"score_event_id":f"score_evt_{job_id}","score_profile":"answer_score_profile","judge_type":"final_judge","judge_model":"memory-reuse","phase":1,"created_at":now,"dimensions":dims,"overall_score":score,"confidence_band":confidence,"notes":f"Reused high-scoring prior response from {source_id} (similarity={sim:.3f})."}],"judge":{"judge_type":"final_judge","judge_model":"memory-reuse","judge_version":"1.0"},"provenance":{"source_inputs":["question_preview","historical_combined"],"source_object_ids":[f"q_{job_id}",f"resp_{source_id}"],"source_paths":[c.get("source_path")]},"promotion":{"memory_eligible":False,"memory_tier":None,"promotion_reason":None,"blocked_reason":None,"effective_score":score},"links":{"repo_path":f"evaluations/eval_{job_id}.json","index_path":"indexes/evaluations_index.jsonl","source_paths":[c.get("source_path")],"related_object_ids":[f"q_{job_id}",f"resp_{source_id}"],"evaluation_path":f"evaluations/eval_{job_id}.json","final_path":None}}; open(out_path,"w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$reuse_candidate_file" "$eval_json_file" "$job_id" "$question_preview"
             else
               ensure_playwright
-              if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
-              python chatgpt_file_playwright_anonymous_ci.py \
-              --input-file "$prompt_file" \
-              "${instruction_args[@]}" \
-              --output-file "$out_file" \
-              --start-new-chat \
-              --followup-input-file "$eval_prompt_file" \
-              --followup-output-file "$eval_out_file" \
-              --wait-seconds 60 \
-              --followup-wait-seconds 45 \
-              --timeout-ms 120000 \
-              "${chunk_args[@]}"
-              then
+              web_retry_max=0
+              if [[ "$SIMPLE_MODEL_WEB_SEARCH_MODE" != "default" ]]; then
+                web_retry_max="$SIMPLE_MODEL_WEB_SEARCH_RETRIES"
+              fi
+              attempt=0
+              playwright_status=1
+              while true; do
+                attempt=$((attempt + 1))
+                if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
+                python chatgpt_file_playwright_anonymous_ci.py \
+                --input-file "$prompt_file" \
+                "${instruction_args[@]}" \
+                --output-file "$out_file" \
+                --start-new-chat \
+                --followup-input-file "$eval_prompt_file" \
+                --followup-output-file "$eval_out_file" \
+                --wait-seconds 60 \
+                --followup-wait-seconds 45 \
+                --timeout-ms 120000 \
+                "${chunk_args[@]}"
+                then
+                  playwright_status=0
+                else
+                  playwright_status=$?
+                fi
+
+                web_unavailable=0
+                if [[ -s "$out_file" ]] && grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                  web_unavailable=1
+                fi
+
+                if [[ "$web_unavailable" == "1" && "$attempt" -le "$web_retry_max" ]]; then
+                  echo "WEB_SEARCH_UNAVAILABLE for ${job_id} (attempt ${attempt}/${web_retry_max}); retrying Playwright run..."
+                  : > "$out_file"
+                  : > "$eval_out_file"
+                  sleep 2
+                  continue
+                fi
+                break
+              done
+
+              if [[ "$playwright_status" -eq 0 ]]; then
                 if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
                   python -c 'import json,sys; job_id,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3]; ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":"Live web search was required for this prompt but unavailable in the ChatGPT session."}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at"
                   cp "$out_file" "responses_readable/${job_id}.md"
