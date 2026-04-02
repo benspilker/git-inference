@@ -1,0 +1,12 @@
+{
+  "job_id": "job_f403b4b340184e2c",
+  "message": {
+    "role": "assistant",
+    "content": "I can check current trends on streaming platforms, but I need clarification: do you mean video streaming (Netflix, Prime, Disney+, etc.) or music streaming (Spotify, Apple Music, YouTube Music, etc.)?"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T20:18:10-04:00",
+  "started_at": "2026-04-02T00:18:18Z",
+  "elapsed_seconds": 53,
+  "completed_at": "2026-04-02T00:19:03Z"
+}
