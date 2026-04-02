@@ -1,0 +1,12 @@
+{
+  "job_id": "job_b128c2fb4c404e36",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis morning weather (Thu, April 2, 2026):\n\nConditions: Partly cloudy\n\nTemperature: ~45–50°F (7–10°C) early morning\n\nTrend: Warming to around ~60°F (16°C) later today\n\nWind: Light to moderate breeze\n\nPractical note: No major hazards this morning—good for commute. Keep a light jacket; temps are cool early but improve by midday."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-02T00:44:15-04:00",
+  "started_at": "2026-04-02T04:44:22Z",
+  "elapsed_seconds": 50,
+  "completed_at": "2026-04-02T04:45:05Z"
+}
