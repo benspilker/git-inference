@@ -1,0 +1,12 @@
+{
+  "job_id": "job_b9d2116a499744c6",
+  "message": {
+    "role": "assistant",
+    "content": "To verify that your OpenClaw system is set up properly on an Ubuntu VM, follow these practical steps:\n\n1. Check the service/process\n\nRun:\n\nBash\nsystemctl status openclaw\n\nor, if it’s not installed as a systemd service:\n\nBash\nps aux | grep openclaw\n\nYou should see the OpenClaw process running without errors.\n\n2. Test network connectivity\n\nIf OpenClaw exposes a web interface or API:\n\nBash\ncurl http://localhost:PORT\n\nReplace PORT with the configured port. You should get a valid response (HTML, JSON, or status code 200).\n\n3. Verify dependencies\n\nOpenClaw may require Python, Node, or other packages. Check with:\n\nBash\nopenclaw --version\n\nor the equivalent CLI tool to ensure it runs without missing dependency errors.\n\n4. Check logs\n\nOpenClaw logs are usually in:\n\n/var/log/openclaw/\n\nor the configured path. Inspect recent entries:\n\nBash\ntail -n 50 /var/log/openclaw/openclaw.log\n\nLook for errors or warnings.\n\n5. Run a functional test\n\nIf OpenClaw provides a CLI test command:\n\nBash\nopenclaw test\n\nor follow the documentation’s example workflow. Confirm expected output.\n\nIf you want, I can give a one-command checklist that runs all these checks on Ubuntu to quickly verify your setup. Do you want me to do that?"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T21:23:00-04:00",
+  "started_at": "2026-04-02T01:23:08Z",
+  "elapsed_seconds": 53,
+  "completed_at": "2026-04-02T01:23:53Z"
+}
