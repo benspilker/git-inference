@@ -279,14 +279,20 @@ jobs:
               playwright_status=1
               while true; do
                 attempt=$((attempt + 1))
+                attempt_prompt_file="$prompt_file"
                 retry_extra_args=()
                 if [[ "$attempt" -gt 1 ]]; then
                   retry_extra_args+=(--refresh-before-send)
-                  echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh before send."
+                  if [[ -f "$question_source_file" ]]; then
+                    attempt_prompt_file="$question_source_file"
+                    echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh and using question-only prompt."
+                  else
+                    echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh before send."
+                  fi
                 fi
                 if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
                   python chatgpt_file_playwright_anonymous_ci.py \
-                  --input-file "$prompt_file" \
+                  --input-file "$attempt_prompt_file" \
                   "${instruction_args[@]}" \
                   --output-file "$out_file" \
                   --start-new-chat \
@@ -318,7 +324,12 @@ jobs:
                 if [[ "$web_unavailable" == "1" && "$attempt" -le "$web_retry_max" ]]; then
                   echo "WEB_SEARCH_UNAVAILABLE for ${job_id} (attempt ${attempt}/${web_retry_max}); retrying Playwright run..."
                   : > "$out_file"
-                  sleep 2
+                  sleep_seconds=$((2 ** attempt))
+                  if [[ "$sleep_seconds" -gt 10 ]]; then
+                    sleep_seconds=10
+                  fi
+                  echo "Retry backoff: sleeping ${sleep_seconds}s before attempt $((attempt + 1))."
+                  sleep "$sleep_seconds"
                   continue
                 fi
                 break
@@ -372,14 +383,20 @@ jobs:
               playwright_status=1
               while true; do
                 attempt=$((attempt + 1))
+                attempt_prompt_file="$prompt_file"
                 retry_extra_args=()
                 if [[ "$attempt" -gt 1 ]]; then
                   retry_extra_args+=(--refresh-before-send)
-                  echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh before send."
+                  if [[ -f "$question_source_file" ]]; then
+                    attempt_prompt_file="$question_source_file"
+                    echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh and using question-only prompt."
+                  else
+                    echo "Retry attempt ${attempt} for ${job_id}: enabling page refresh before send."
+                  fi
                 fi
                 if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
                 python chatgpt_file_playwright_anonymous_ci.py \
-                --input-file "$prompt_file" \
+                --input-file "$attempt_prompt_file" \
                 "${instruction_args[@]}" \
                 --output-file "$out_file" \
                 --start-new-chat \
@@ -412,7 +429,12 @@ jobs:
                   echo "WEB_SEARCH_UNAVAILABLE for ${job_id} (attempt ${attempt}/${web_retry_max}); retrying Playwright run..."
                   : > "$out_file"
                   : > "$eval_out_file"
-                  sleep 2
+                  sleep_seconds=$((2 ** attempt))
+                  if [[ "$sleep_seconds" -gt 10 ]]; then
+                    sleep_seconds=10
+                  fi
+                  echo "Retry backoff: sleeping ${sleep_seconds}s before attempt $((attempt + 1))."
+                  sleep "$sleep_seconds"
                   continue
                 fi
                 break
