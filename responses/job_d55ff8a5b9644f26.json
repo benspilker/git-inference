@@ -1,0 +1,12 @@
+{
+  "job_id": "job_d55ff8a5b9644f26",
+  "message": {
+    "role": "assistant",
+    "content": "I don’t have personal identity, but you can refer to me as they/them."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-02T08:31:22-04:00",
+  "started_at": "2026-04-02T12:33:36Z",
+  "elapsed_seconds": 179,
+  "completed_at": "2026-04-02T12:34:21Z"
+}
