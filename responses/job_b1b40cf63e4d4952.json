@@ -1,0 +1,12 @@
+{
+  "job_id": "job_b1b40cf63e4d4952",
+  "message": {
+    "role": "assistant",
+    "content": "Understood. Ready for your next task."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-02T12:55:55-04:00",
+  "started_at": "2026-04-02T16:56:05Z",
+  "elapsed_seconds": 62,
+  "completed_at": "2026-04-02T16:56:57Z"
+}
