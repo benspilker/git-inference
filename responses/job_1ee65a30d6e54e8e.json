@@ -1,0 +1,12 @@
+{
+  "job_id": "job_1ee65a30d6e54e8e",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s the current weather for today (April 2, 2026) in Indianapolis, Indiana:\n\nHigh: ~70°F (21°C)\n\nLow: ~54°F (12°C)\n\nConditions: Overcast with rain showers\n\nRain: Likely throughout the day (moderate chance, periods of steady rain)\n\nWind: ~10–12 mph\n\nHumidity: High (~70–75%) \nTime and Date\n\nQuick take\n\nExpect a wet, gray day\n\nMild temperatures, but damp and cloudy\n\nYou’ll want a jacket + umbrella\n\nIf you want, I can break it down hour-by-hour or check the weekend outlook."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T20:08:30-04:00",
+  "started_at": "2026-04-02T00:08:39Z",
+  "elapsed_seconds": 59,
+  "completed_at": "2026-04-02T00:09:29Z"
+}
