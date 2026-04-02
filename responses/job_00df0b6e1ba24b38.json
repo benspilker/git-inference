@@ -1,0 +1,12 @@
+{
+  "job_id": "job_00df0b6e1ba24b38",
+  "message": {
+    "role": "assistant",
+    "content": "I can't look up the most recent information right now, but based on popular choices, here are five highly rated pizza spots in Indianapolis:\n\nPizzology\n\nKnown for artisan, hand-crafted pies and a cozy atmosphere. It's a local favorite for fresh ingredients and unique combinations.\n\nBuca di Beppo\n\nA family-style chain offering hearty Italian dishes and pizza. Great for large groups or casual dining.\n\nThe Eagle's Nest\n\nWhile mainly known for its incredible views and atmosphere, it serves some great pizza as well, especially with their rooftop dining experience.\n\nNapolese\n\nA Neapolitan-style pizzeria with a focus on high-quality ingredients and a wood-fired oven. They have a refined yet casual menu.\n\nBazbeaux Pizza\n\nA long-time local favorite, serving a variety of toppings and options in a friendly, no-frills setting.\n\nLet me know if you'd like more specific details about one of these!"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T20:11:49-04:00",
+  "started_at": "2026-04-02T00:11:57Z",
+  "elapsed_seconds": 59,
+  "completed_at": "2026-04-02T00:12:48Z"
+}
