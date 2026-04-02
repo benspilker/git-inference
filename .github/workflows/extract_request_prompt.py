@@ -44,16 +44,41 @@ def _last_message_by_role(messages: list[dict], role: str) -> str:
     return ""
 
 
-def _has_startup_prompt(messages: list[dict]) -> bool:
-    for message in messages:
+def _latest_startup_user_index(messages: list[dict]) -> int:
+    latest = -1
+    for idx, message in enumerate(messages):
         if not isinstance(message, dict):
             continue
         if str(message.get("role", "")).strip().lower() != "user":
             continue
         content = str(message.get("content", "")).lower()
         if all(marker in content for marker in STARTUP_MARKERS):
-            return True
-    return False
+            latest = idx
+    return latest
+
+
+def _is_first_post_startup_user_message(messages: list[dict]) -> bool:
+    """
+    Carry-over context should only apply to the first real user message after
+    the latest /new startup sequence, not every subsequent turn in the session.
+    """
+    startup_idx = _latest_startup_user_index(messages)
+    if startup_idx < 0:
+        return False
+
+    user_messages_after_startup = 0
+    for message in messages[startup_idx + 1 :]:
+        if not isinstance(message, dict):
+            continue
+        if str(message.get("role", "")).strip().lower() != "user":
+            continue
+        if not str(message.get("content", "")).strip():
+            continue
+        user_messages_after_startup += 1
+        if user_messages_after_startup > 1:
+            return False
+
+    return user_messages_after_startup == 1
 
 
 def _extract_chat_id(texts: Iterable[str]) -> str:
@@ -210,8 +235,8 @@ def main() -> None:
     lower_question = question_text.lower()
     startup_only = int(simple_model and all(marker in lower_question for marker in STARTUP_MARKERS))
 
-    startup_in_messages = _has_startup_prompt(messages)
-    if simple_model and carry_previous_qa_enabled and not startup_only and startup_in_messages:
+    carry_scope_match = _is_first_post_startup_user_message(messages)
+    if simple_model and carry_previous_qa_enabled and not startup_only and carry_scope_match:
         chat_id = _extract_chat_id((system_prompt, sys_text))
         repo_root = request_path.parent.parent
         previous_exchange = _find_previous_exchange(repo_root, request_path, chat_id, question_text)

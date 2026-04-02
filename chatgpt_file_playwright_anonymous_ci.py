@@ -340,16 +340,23 @@ def _refocus_chat_session(page) -> bool:
 
 
 def _extract_response_text(assistant_messages, before_count: int, before_last_text: str) -> str:
+    def _normalize(text: str) -> str:
+        cleaned = (text or "").strip()
+        # Some sessions prepend wrapper labels; keep only assistant content.
+        cleaned = re.sub(r"^\s*chatgpt\s+said:\s*\n+", "", cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(r"^\s*chatgpt\s*:\s*\n+", "", cleaned, flags=re.IGNORECASE)
+        return cleaned.strip()
+
     after_count = assistant_messages.count()
     if after_count == 0:
         return ""
 
     if after_count > before_count:
-        text = assistant_messages.nth(after_count - 1).inner_text().strip()
+        text = _normalize(assistant_messages.nth(after_count - 1).inner_text())
         return text
 
     # Fallback: some UI states update the latest assistant block in place.
-    text = assistant_messages.last.inner_text().strip()
+    text = _normalize(assistant_messages.last.inner_text())
     if text and text != before_last_text:
         return text
     return ""

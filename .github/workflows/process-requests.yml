@@ -298,8 +298,15 @@ jobs:
                 fi
 
                 web_unavailable=0
-                if [[ -s "$out_file" ]] && grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
-                  web_unavailable=1
+                if [[ -s "$out_file" ]]; then
+                  if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                    web_unavailable=1
+                  elif grep -Eiq "need to be logged in to chatgpt|to use python in chatgpt|you can (easily )?run this script on your local machine" "$out_file"; then
+                    # Browser fallback text from unauthenticated web/tool paths.
+                    # Treat as unavailable so retry/error flow is consistent.
+                    web_unavailable=1
+                    printf '%s\n' "WEB_SEARCH_UNAVAILABLE" > "$out_file"
+                  fi
                 fi
 
                 if [[ "$web_unavailable" == "1" && "$attempt" -le "$web_retry_max" ]]; then
@@ -378,8 +385,15 @@ jobs:
                 fi
 
                 web_unavailable=0
-                if [[ -s "$out_file" ]] && grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
-                  web_unavailable=1
+                if [[ -s "$out_file" ]]; then
+                  if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                    web_unavailable=1
+                  elif grep -Eiq "need to be logged in to chatgpt|to use python in chatgpt|you can (easily )?run this script on your local machine" "$out_file"; then
+                    # Browser fallback text from unauthenticated web/tool paths.
+                    # Treat as unavailable so retry/error flow is consistent.
+                    web_unavailable=1
+                    printf '%s\n' "WEB_SEARCH_UNAVAILABLE" > "$out_file"
+                  fi
                 fi
 
                 if [[ "$web_unavailable" == "1" && "$attempt" -le "$web_retry_max" ]]; then
