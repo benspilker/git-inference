@@ -1,0 +1,12 @@
+{
+  "job_id": "job_94fca4b4648c48dc",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s the current snapshot for today in Indianapolis (Apr 2, 2026):\n\nConditions: Mostly sunny to partly cloudy\n\nTemperature: ~31–41°F this morning, rising into the low–mid 40s°F\n\nWind: Light to moderate\n\nPrecipitation: Little to none expected\n\nWRTV Indianapolis\n\nWhat it feels like\n\nCool and crisp overall\n\nChilly early, more comfortable by midday\n\nNot a stormy day (unlike earlier this week’s pattern)\n\nQuick takeaway\n\n👉 A cool but calm spring day — good for being outside if you layer up.\n\nIf you want, I can break down the hour-by-hour or tonight’s forecast."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-02T09:20:52-04:00",
+  "started_at": "2026-04-02T13:21:02Z",
+  "elapsed_seconds": 57,
+  "completed_at": "2026-04-02T13:21:49Z"
+}
