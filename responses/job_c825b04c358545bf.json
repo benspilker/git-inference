@@ -1,0 +1,12 @@
+{
+  "job_id": "job_c825b04c358545bf",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis morning weather (April 2, 2026):\n\nConditions: Cloudy with showers likely\n\nTemperature: ~45–50°F (7–10°C) early morning\n\nToday’s high: ~58–62°F (14–17°C) \nExtreme Weather Watch\n\nWind: Light to moderate, occasional gusts\n\nRain chance: Moderate–high (spring pattern)\n\nPractical note:\nExpect a damp commute—bring a rain layer or umbrella. Roads may be slick, but no extreme cold or severe wind concerns early today."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-02T00:42:19-04:00",
+  "started_at": "2026-04-02T04:42:30Z",
+  "elapsed_seconds": 65,
+  "completed_at": "2026-04-02T04:43:24Z"
+}
