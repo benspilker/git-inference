@@ -1,0 +1,12 @@
+{
+  "job_id": "job_5f711e2ca02149eb",
+  "message": {
+    "role": "assistant",
+    "content": "I don't have live web access right now, so I can't provide the current weather. You can check a weather service like Google Weather or a weather app for up-to-date details on Indianapolis' conditions today."
+  },
+  "done": true,
+  "input_committed_at": "2026-04-02T09:19:01-04:00",
+  "started_at": "2026-04-02T13:19:11Z",
+  "elapsed_seconds": 77,
+  "completed_at": "2026-04-02T13:20:18Z"
+}
