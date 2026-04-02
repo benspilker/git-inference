@@ -1,0 +1,12 @@
+{
+  "job_id": "job_e71a15f842f44633",
+  "message": {
+    "role": "assistant",
+    "content": "The latest weather data shows:\n\nMax temp: 25 °C (76 °F)\n\nMin temp: 17 °C (63 °F)\n\nWind: 17 km/h (10 mph) from SSW (198°)\n\nSun hours: 10.3\n\nUV index: 1 (low)\n\nPrecipitation: Thundery showers at night\n\nSnow: 0 cm\n\nIt’s generally mild with a low UV risk, but expect nighttime thundery showers.\n\nDo you want a short-term hourly breakdown or just the day summary?"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-02T00:32:35-04:00",
+  "started_at": "2026-04-02T04:32:44Z",
+  "elapsed_seconds": 55,
+  "completed_at": "2026-04-02T04:33:30Z"
+}
