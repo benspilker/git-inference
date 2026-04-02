@@ -97,8 +97,10 @@ jobs:
           [[ -f chatgpt_file_playwright_anonymous_ci.py ]] || { echo "Missing chatgpt_file_playwright_anonymous_ci.py"; exit 1; }
           [[ -f tools/find_memory_reuse_candidate.py ]] || { echo "Missing tools/find_memory_reuse_candidate.py"; exit 1; }
           [[ -f tools/apply_promotion_policy.py ]] || { echo "Missing tools/apply_promotion_policy.py"; exit 1; }
+          [[ -f tools/build_weather_fallback_prompt.py ]] || { echo "Missing tools/build_weather_fallback_prompt.py"; exit 1; }
           default_instructions_file="tmp/pipeline.instructions.txt"
           simple_instructions_file="tmp/pipeline.simple.instructions.txt"
+          simple_instructions_base_file="tmp/pipeline.simple.base.instructions.txt"
           SYSTEM_PROMPT_FILE=".github/workflows/pipeline.system_prompt.txt"
           SIMPLE_PROMPT_FILE=".github/workflows/pipeline.simple_model_prompt.txt"
           EVAL_PROMPT_TEMPLATE_FILE=".github/workflows/pipeline.eval_prompt.template.txt"
@@ -107,8 +109,10 @@ jobs:
           cp "$SYSTEM_PROMPT_FILE" "$default_instructions_file"
           if [[ -f "$SIMPLE_PROMPT_FILE" ]]; then
             cp "$SIMPLE_PROMPT_FILE" "$simple_instructions_file"
+            cp "$SIMPLE_PROMPT_FILE" "$simple_instructions_base_file"
           else
             cp "$SYSTEM_PROMPT_FILE" "$simple_instructions_file"
+            cp "$SYSTEM_PROMPT_FILE" "$simple_instructions_base_file"
           fi
 
           case "$SIMPLE_MODEL_WEB_SEARCH_MODE" in
@@ -192,6 +196,71 @@ jobs:
             fi
             python -m playwright install --with-deps chromium
             PLAYWRIGHT_READY=1
+          }
+
+          is_weather_request() {
+            local question_file="$1"
+            python -c 'import re,sys; text=open(sys.argv[1],"r",encoding="utf-8").read().lower(); weather_markers=(r"\bweather\b",r"\bforecast\b",r"\btemperature\b",r"\brain\b",r"\bsnow\b",r"\bwind\b",r"\bhumid"); print("1" if any(re.search(p,text) for p in weather_markers) else "0")' "$question_file"
+          }
+
+          build_weather_fallback_prompt() {
+            local question_file="$1"
+            local out_prompt_file="$2"
+            local out_data_file="$3"
+            python tools/build_weather_fallback_prompt.py \
+              --question-file "$question_file" \
+              --out-prompt-file "$out_prompt_file" \
+              --out-data-file "$out_data_file"
+          }
+
+          try_weather_fallback() {
+            local job_id="$1"
+            local question_source_file="$2"
+            local out_file="$3"
+            local instructions_file="$4"
+            local fallback_prompt_file="tmp/${job_id}.weather.fallback.prompt.txt"
+            local fallback_data_file="tmp/${job_id}.weather.fallback.data.json"
+
+            if [[ ! -f "$question_source_file" ]]; then
+              return 1
+            fi
+            if [[ "$(is_weather_request "$question_source_file")" != "1" ]]; then
+              return 1
+            fi
+
+            if ! build_weather_fallback_prompt "$question_source_file" "$fallback_prompt_file" "$fallback_data_file"; then
+              echo "Weather fallback setup failed for ${job_id}."
+              return 1
+            fi
+
+            echo "Weather fallback engaged for ${job_id}; rendering natural-language answer from live JSON."
+            ensure_playwright
+            local -a fallback_instruction_args=()
+            if [[ -f "$instructions_file" ]]; then
+              fallback_instruction_args+=(--instructions-file "$instructions_file")
+            fi
+
+            if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
+              python chatgpt_file_playwright_anonymous_ci.py \
+              --input-file "$fallback_prompt_file" \
+              "${fallback_instruction_args[@]}" \
+              --output-file "$out_file" \
+              --start-new-chat \
+              --refresh-before-send \
+              --wait-seconds 45 \
+              --timeout-ms 120000 \
+              --post-response-wait-seconds 1 \
+              --response-settle-seconds 2 \
+              --max-settle-wait-seconds 25
+            then
+              if [[ -s "$out_file" ]] && ! grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
+                echo "Weather fallback succeeded for ${job_id}."
+                return 0
+              fi
+            fi
+
+            echo "Weather fallback did not produce a usable answer for ${job_id}."
+            return 1
           }
 
           move_with_dedupe() {
@@ -337,14 +406,22 @@ jobs:
 
               if [[ "$playwright_status" -eq 0 ]]; then
                 if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
-                  python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
+                  if try_weather_fallback "$job_id" "$question_source_file" "$out_file" "$simple_instructions_base_file"; then
+                    python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                  else
+                    python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
+                  fi
                 else
                   python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
                 fi
               else
                 if [[ -s "$out_file" ]]; then
                   if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
-                    python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
+                    if try_weather_fallback "$job_id" "$question_source_file" "$out_file" "$simple_instructions_base_file"; then
+                      python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                    else
+                      python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
+                    fi
                   else
                     python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
                   fi
@@ -442,8 +519,13 @@ jobs:
 
               if [[ "$playwright_status" -eq 0 ]]; then
                 if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
-                  python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
-                  cp "$out_file" "responses_readable/${job_id}.md"
+                  if try_weather_fallback "$job_id" "$question_source_file" "$out_file" "$simple_instructions_base_file"; then
+                    python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                    cp "$out_file" "responses_readable/${job_id}.md"
+                  else
+                    python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
+                    cp "$out_file" "responses_readable/${job_id}.md"
+                  fi
                 else
                   python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
                   cp "$out_file" "responses_readable/${job_id}.md"
@@ -457,8 +539,13 @@ jobs:
               else
                 if [[ -s "$out_file" ]]; then
                   if grep -q "WEB_SEARCH_UNAVAILABLE" "$out_file"; then
-                    python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
-                    cp "$out_file" "responses_readable/${job_id}.md"
+                    if try_weather_fallback "$job_id" "$question_source_file" "$out_file" "$simple_instructions_base_file"; then
+                      python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
+                      cp "$out_file" "responses_readable/${job_id}.md"
+                    else
+                      python -c 'import json,sys; job_id,input_committed_at,started_at,attempt,max_retries=sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); payload={"job_id":job_id,"input_committed_at":(ts or None),"started_at":(ss or None),"error":{"code":"WEB_SEARCH_UNAVAILABLE","message":f"Live web search was required for this prompt but unavailable in the ChatGPT session after {attempt} attempt(s).","attempts":attempt,"max_retries":max_retries}}; open(f"errors/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$input_committed_at" "$started_at" "$attempt" "$web_retry_max"
+                      cp "$out_file" "responses_readable/${job_id}.md"
+                    fi
                   else
                     python -c 'import json,sys; from datetime import datetime,timezone; job_id,out_file,input_committed_at,started_at=sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]; content=open(out_file,"r",encoding="utf-8").read().strip(); completed_dt=datetime.now(timezone.utc).replace(microsecond=0); completed_at=completed_dt.isoformat().replace("+00:00","Z"); ts=(input_committed_at or "").strip(); ss=(started_at or "").strip(); basis=(ts or ss); basis_dt=(datetime.fromisoformat(basis.replace("Z","+00:00")) if basis else None); basis_dt=(basis_dt.replace(tzinfo=timezone.utc) if (basis_dt is not None and basis_dt.tzinfo is None) else basis_dt); elapsed_seconds=(max(0,int((completed_dt-basis_dt.astimezone(timezone.utc)).total_seconds())) if basis_dt is not None else None); payload={"job_id":job_id,"message":{"role":"assistant","content":content},"done":True,"input_committed_at":(ts or None),"started_at":(ss or None),"elapsed_seconds":elapsed_seconds,"completed_at":completed_at}; open(f"responses/{job_id}.json","w",encoding="utf-8").write(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")' "$job_id" "$out_file" "$input_committed_at" "$started_at"
                     cp "$out_file" "responses_readable/${job_id}.md"
