@@ -1,0 +1,12 @@
+{
+  "job_id": "job_660df833904943f0",
+  "message": {
+    "role": "assistant",
+    "content": "To check if your OpenClaw system is set up properly on an Ubuntu VM, follow these steps:\n\n1. Verify Installation\n\nRun:\n\nBash\nopenclaw --version\n\nConfirms the system is installed and executable.\n\nIf the command fails, OpenClaw isn’t installed correctly or isn’t in your PATH.\n\n2. Check Dependencies\n\nOpenClaw may depend on Python, Node.js, or other packages. Check with:\n\nBash\nsudo apt update\nsudo apt install python3 python3-pip\n\nThen verify Python:\n\nBash\npython3 --version\npip3 list | grep openclaw\n3. Test the Service\n\nRun a built-in test or example:\n\nBash\nopenclaw run-example\n\nIf it completes without errors, your environment and paths are likely correct.\n\nIf errors appear, note missing libraries or permissions.\n\n4. Check Network / VM Integration\n\nMake sure the VM has proper network access if OpenClaw interacts with external servers.\n\nBash\nping api.openclaw.io\n\nIf blocked, update firewall/NAT rules.\n\n5. Log and Error Check\n\nCheck OpenClaw logs (usually in ~/.openclaw/logs/ or /var/log/openclaw/) for errors:\n\nBash\ntail -n 50 ~/.openclaw/logs/openclaw.log\n6. Optional: Hardware / GPU Support\n\nIf your tasks rely on GPU acceleration:\n\nBash\nlspci | grep -i nvidia   # or amd\nnvidia-smi               # for NVIDIA cards\n\nConfirms the VM sees the GPU and drivers are loaded.\n\nI can provide a single command that quickly verifies the entire OpenClaw environment and returns a pass/fail summary. Do you want me to do that?"
+  },
+  "done": true,
+  "input_committed_at": "2026-04-01T20:46:57-04:00",
+  "started_at": "2026-04-02T00:47:05Z",
+  "elapsed_seconds": 56,
+  "completed_at": "2026-04-02T00:47:53Z"
+}
