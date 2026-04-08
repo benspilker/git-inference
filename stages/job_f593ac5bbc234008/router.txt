@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "string",
+"confidence": 0.0,
+"requires_local_execution": true,
+"reason": "The request does not provide enough context or information to classify as a specific intent."
+}
