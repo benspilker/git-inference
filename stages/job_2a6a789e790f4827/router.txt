@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "read and follow HEARTBEAT.md instructions in workspace",
+"confidence": 0.95,
+"requires_local_execution": true,
+"reason": "The user explicitly requests the system to read a specific local file and act according to its instructions, which requires local execution and file access."
+}
