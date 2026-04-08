@@ -1,0 +1,9 @@
+{
+  "job_id": "job_e0915d6f6d2f4f71",
+  "state": "failed",
+  "intent_type": null,
+  "task_type": null,
+  "current_stage": "router",
+  "updated_at": "2026-04-08T18:13:43Z",
+  "created_at": "2026-04-08T18:08:48Z"
+}
