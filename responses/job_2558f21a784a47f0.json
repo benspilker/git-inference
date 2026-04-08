@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2558f21a784a47f0",
+  "message": {
+    "role": "assistant",
+    "content": "Live web search was required for this prompt but unavailable in the ChatGPT session after 3 attempt(s)."
+  },
+  "done": true,
+  "started_at": "2026-04-08T13:19:10Z",
+  "completed_at": "2026-04-08T13:21:15Z"
+}
