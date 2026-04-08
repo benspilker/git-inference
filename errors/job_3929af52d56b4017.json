@@ -1,0 +1,21 @@
+{
+  "job_id": "job_3929af52d56b4017",
+  "started_at": "2026-04-08T03:08:47Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: echo_text",
+    "details": {
+      "task_type": "echo_text",
+      "verified": false,
+      "executed_at": "2026-04-08T03:09:12Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: echo_text",
+        "parameters": {
+          "text": "OLLAMA_OK"
+        }
+      }
+    }
+  }
+}

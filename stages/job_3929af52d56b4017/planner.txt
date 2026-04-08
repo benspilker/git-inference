@@ -1,0 +1,14 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "echo_text",
+"confidence": 0.94,
+"requires_local_execution": true,
+"parameters": {
+"text": "OLLAMA_OK"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "The system outputs exactly the string OLLAMA_OK with no additional characters or whitespace."
+}
