@@ -101,20 +101,163 @@ def _ensure_column(conn: sqlite3.Connection, table: str, column: str, sql_type: 
         conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {sql_type}")
 
 
-def requeue_inflight_jobs() -> None:
+def _parse_iso_timestamp(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    raw = str(value).strip()
+    if not raw:
+        return None
+    if raw.endswith("Z"):
+        raw = raw[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(raw)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def recover_inflight_jobs(max_age_seconds: int | None = None) -> dict[str, Any]:
+    threshold = settings.stale_inflight_max_age_seconds if max_age_seconds is None else int(max_age_seconds)
+    threshold = max(0, threshold)
+    now_dt = datetime.now(timezone.utc)
+    now_iso = now_dt.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
     placeholders = ",".join("?" for _ in REQUEUEABLE_STATUS_VALUES)
     values = list(REQUEUEABLE_STATUS_VALUES)
+
+    expired_jobs: list[str] = []
+    requeued_jobs: list[str] = []
+
     with DB_LOCK, connect() as conn:
-        conn.execute(
+        rows = conn.execute(
             f"""
-            UPDATE jobs
-            SET status = 'queued',
-                current_stage = 'queued',
-                started_at = NULL
+            SELECT job_id, status, started_at, created_at
+            FROM jobs
             WHERE status IN ({placeholders})
             """,
             values,
-        )
+        ).fetchall()
+
+        for row in rows:
+            job_id = str(row["job_id"])
+            started_at = _parse_iso_timestamp(row["started_at"])
+            created_at = _parse_iso_timestamp(row["created_at"])
+            reference_time = started_at or created_at
+            age_seconds = (now_dt - reference_time).total_seconds() if reference_time else None
+
+            if age_seconds is not None and age_seconds >= threshold:
+                error_json = json.dumps(
+                    {
+                        "code": "STALE_INFLIGHT_JOB",
+                        "message": f"Recovered stale in-flight job on startup (age_seconds={int(age_seconds)}).",
+                    },
+                    sort_keys=True,
+                )
+                conn.execute(
+                    """
+                    UPDATE jobs
+                    SET status = 'expired',
+                        current_stage = 'expired',
+                        completed_at = ?,
+                        error_json = ?
+                    WHERE job_id = ?
+                    """,
+                    (now_iso, error_json, job_id),
+                )
+                expired_jobs.append(job_id)
+                continue
+
+            conn.execute(
+                """
+                UPDATE jobs
+                SET status = 'queued',
+                    current_stage = 'queued',
+                    started_at = NULL
+                WHERE job_id = ?
+                """,
+                (job_id,),
+            )
+            requeued_jobs.append(job_id)
+
+    return {
+        "expired": len(expired_jobs),
+        "requeued": len(requeued_jobs),
+        "threshold_seconds": threshold,
+        "expired_job_ids": expired_jobs,
+        "requeued_job_ids": requeued_jobs,
+    }
+
+
+def requeue_inflight_jobs() -> None:
+    # Compatibility wrapper for existing callers.
+    recover_inflight_jobs(max_age_seconds=10**9)
+
+
+def purge_inflight_jobs(
+    include_queued: bool = True,
+    terminal_status: str = "failed",
+    reason: str | None = None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    if terminal_status not in {"failed", "expired"}:
+        raise ValueError("terminal_status must be 'failed' or 'expired'")
+
+    target_statuses = list(ACTIVE_STATUS_VALUES)
+    if include_queued:
+        target_statuses.append("queued")
+
+    placeholders = ",".join("?" for _ in target_statuses)
+    now_iso = utcnow_iso()
+    details_reason = reason or "manual purge"
+
+    with DB_LOCK, connect() as conn:
+        rows = conn.execute(
+            f"SELECT job_id, status FROM jobs WHERE status IN ({placeholders}) ORDER BY created_at ASC",
+            target_statuses,
+        ).fetchall()
+        job_ids = [str(row["job_id"]) for row in rows]
+
+        if dry_run or not job_ids:
+            return {
+                "dry_run": dry_run,
+                "purged": len(job_ids),
+                "target_statuses": target_statuses,
+                "terminal_status": terminal_status,
+                "job_ids": job_ids,
+            }
+
+        for row in rows:
+            job_id = str(row["job_id"])
+            prior_status = str(row["status"])
+            error_json = json.dumps(
+                {
+                    "code": "QUEUE_PURGED",
+                    "message": f"Manually purged job from {prior_status} to {terminal_status}.",
+                    "reason": details_reason,
+                },
+                sort_keys=True,
+            )
+            conn.execute(
+                """
+                UPDATE jobs
+                SET status = ?,
+                    current_stage = ?,
+                    completed_at = ?,
+                    error_json = ?
+                WHERE job_id = ?
+                """,
+                (terminal_status, terminal_status, now_iso, error_json, job_id),
+            )
+
+    return {
+        "dry_run": dry_run,
+        "purged": len(job_ids),
+        "target_statuses": target_statuses,
+        "terminal_status": terminal_status,
+        "job_ids": job_ids,
+    }
 
 
 def create_job(idempotency_key: str, request_hash: str, request_json: dict[str, Any]) -> str:

@@ -72,6 +72,14 @@ class Settings:
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))
     prompt_max_chunks: int = int(os.getenv("PROMPT_MAX_CHUNKS", "5"))
 
+    # Queue/admin behavior
+    stale_inflight_max_age_seconds: int = int(os.getenv("STALE_INFLIGHT_MAX_AGE_SECONDS", "900"))
+    admin_api_key: str = os.getenv("ADMIN_API_KEY", "")
+
+    # Git lock cleanup
+    enable_stale_git_lock_cleanup: bool = env_bool("ENABLE_STALE_GIT_LOCK_CLEANUP", True)
+    git_lock_stale_seconds: int = int(os.getenv("GIT_LOCK_STALE_SECONDS", "120"))
+
     # Prompt file locations
     router_prompt_file: str = os.getenv("ROUTER_PROMPT_FILE", ".github/workflows/pipeline.router_prompt.txt")
     planner_prompt_file: str = os.getenv("PLANNER_PROMPT_FILE", ".github/workflows/pipeline.planner_prompt.txt")
@@ -144,4 +152,3 @@ class Settings:
 
 
 settings = Settings()
-

@@ -68,6 +68,82 @@ SUCCESS_STATES = {"completed", "succeeded", "success", "finished", "done"}
 FAILURE_STATES = {"failed", "error", "errored", "expired", "timeout", "timed_out", "cancelled", "canceled"}
 
 
+def _git_lock_candidates() -> list[Path]:
+    git_dir = settings.repo_path / ".git"
+    if not git_dir.exists():
+        return []
+
+    candidates: list[Path] = [
+        git_dir / "index.lock",
+        git_dir / "HEAD.lock",
+        git_dir / "packed-refs.lock",
+        git_dir / "refs" / "heads" / f"{settings.branch}.lock",
+    ]
+
+    refs_heads = git_dir / "refs" / "heads"
+    refs_remotes = git_dir / "refs" / "remotes"
+    if refs_heads.exists():
+        candidates.extend(refs_heads.rglob("*.lock"))
+    if refs_remotes.exists():
+        candidates.extend(refs_remotes.rglob("*.lock"))
+
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for path in candidates:
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
+def _has_active_git_process() -> bool:
+    try:
+        result = subprocess.run(["ps", "-eo", "comm"], capture_output=True, text=True, check=False)
+    except Exception:
+        return False
+    if result.returncode != 0:
+        return False
+    lines = [line.strip().lower() for line in result.stdout.splitlines() if line.strip()]
+    return any(name == "git" for name in lines)
+
+
+def cleanup_stale_git_locks(force: bool = False) -> list[str]:
+    if not settings.enable_stale_git_lock_cleanup and not force:
+        return []
+
+    if _has_active_git_process() and not force:
+        logger.info("skip git lock cleanup because an active git process was detected")
+        return []
+
+    stale_after = max(0, int(settings.git_lock_stale_seconds))
+    now = time.time()
+    removed: list[str] = []
+
+    for lock_path in _git_lock_candidates():
+        if not lock_path.exists():
+            continue
+        try:
+            age_seconds = now - lock_path.stat().st_mtime
+        except FileNotFoundError:
+            continue
+
+        if not force and age_seconds < stale_after:
+            continue
+
+        try:
+            lock_path.unlink(missing_ok=True)
+        except Exception as exc:
+            logger.warning("failed to remove stale git lock", extra={"path": str(lock_path), "error": str(exc)})
+            continue
+
+        removed.append(str(lock_path))
+        logger.warning("removed stale git lock", extra={"path": str(lock_path), "age_seconds": int(age_seconds)})
+
+    return removed
+
+
 def run_git(*args: str, check: bool = True, retryable: bool = True) -> subprocess.CompletedProcess[str]:
     last_result: subprocess.CompletedProcess[str] | None = None
     max_attempts = settings.git_max_retries if retryable else 1
@@ -101,6 +177,13 @@ def run_git(*args: str, check: bool = True, retryable: bool = True) -> subproces
             "git command failed",
             extra={"operation": " ".join(args), "attempt": attempt, "max_attempts": max_attempts},
         )
+
+        lowered = message.lower()
+        if "lock" in lowered and ("cannot lock ref" in lowered or "unable to create" in lowered):
+            removed = cleanup_stale_git_locks(force=False)
+            if removed:
+                logger.warning("cleaned stale git locks after git failure", extra={"removed": removed})
+
         if not check and attempt == max_attempts:
             return result
         if attempt < max_attempts:
@@ -132,7 +215,9 @@ def ensure_repo_ready() -> None:
 
 
 def sync_repo_to_remote_head() -> None:
+    cleanup_stale_git_locks(force=False)
     run_git("fetch", "origin", settings.branch)
+    cleanup_stale_git_locks(force=False)
     run_git("reset", "--hard", f"origin/{settings.branch}")
     run_git("clean", "-fd")
 

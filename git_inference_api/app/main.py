@@ -49,9 +49,9 @@ STAGEABLE_STATUSES = {
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     db.init_db()
-    db.requeue_inflight_jobs()
+    recovery_summary = db.recover_inflight_jobs()
     worker.start()
-    logger.info("application started")
+    logger.info("application started", extra={"startup_recovery": recovery_summary})
     yield
     worker.stop()
     logger.info("application stopped")
@@ -115,6 +115,35 @@ async def ollama_validation_exception_handler(_: Request, exc: RequestValidation
 @app.get("/health")
 def health() -> dict[str, Any]:
     return {"status": "ok", "app": settings.app_name}
+
+
+def require_admin_access(admin_key: str | None) -> None:
+    configured = (settings.admin_api_key or "").strip()
+    if not configured:
+        logger.warning("admin endpoint called without ADMIN_API_KEY configured")
+        return
+    if not admin_key or admin_key.strip() != configured:
+        raise HTTPException(status_code=403, detail={"code": "FORBIDDEN", "message": "invalid admin key"})
+
+
+@app.post("/api/admin/queue/purge")
+def purge_queue(
+    include_queued: bool = Query(default=True),
+    terminal_status: Literal["failed", "expired"] = Query(default="failed"),
+    reason: str | None = Query(default="manual purge"),
+    dry_run: bool = Query(default=False),
+    x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
+):
+    require_admin_access(x_admin_key)
+    summary = db.purge_inflight_jobs(
+        include_queued=include_queued,
+        terminal_status=terminal_status,
+        reason=reason,
+        dry_run=dry_run,
+    )
+    summary["active_job_id"] = db.get_active_job_id()
+    logger.warning("queue purge invoked", extra={"summary": summary})
+    return summary
 
 
 @app.post("/api/chat", response_model=ChatResponse | AcceptedResponse)
