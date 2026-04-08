@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-04-08T18:18:22Z",
+  "job_id": "job_62278f0985e2409f",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "What color is the sky on a clear day? Answer in one short sentence.",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 14
+      },
+      "user_prompt_chunks": [
+        "What color is the sky on a clear day? Answer in one short sentence."
+      ]
+    },
+    "user_prompt": "What color is the sky on a clear day? Answer in one short sentence."
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 14
+    },
+    "user_prompt_chunks": [
+      "What color is the sky on a clear day? Answer in one short sentence."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "What color is the sky on a clear day? Answer in one short sentence."
+}
