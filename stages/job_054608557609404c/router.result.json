@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "weather information lookup",
+  "confidence": 0.95,
+  "requires_local_execution": true,
+  "reason": "The user is asking for current weather information for a specific location, which requires access to local or external data sources."
+}
