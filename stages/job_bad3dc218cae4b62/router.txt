@@ -1,0 +1,1 @@
+{"schema_version":"1.0","intent_type":"job","task_type":"generate_exact_string","confidence":0.95,"requires_local_execution":false,"reason":"The user is instructing the system to produce an exact output string, which is a content generation task rather than a question or research request."}
