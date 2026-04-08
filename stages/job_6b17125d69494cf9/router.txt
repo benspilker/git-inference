@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "lookup",
+"confidence": 1.0,
+"requires_local_execution": false,
+"reason": "The user is asking for a factual answer about the color of the sky on a clear day."
+}
