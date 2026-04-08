@@ -1,0 +1,9 @@
+{
+  "job_id": "job_48be03812597431d",
+  "state": "failed",
+  "intent_type": "job",
+  "task_type": "reply",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-08T13:26:19Z",
+  "created_at": "2026-04-08T13:25:58Z"
+}

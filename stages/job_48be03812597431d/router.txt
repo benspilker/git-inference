@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "string",
+"confidence": 0.9,
+"requires_local_execution": true,
+"reason": "The request appears to be a system command to confirm or execute an action, typically indicating a job."
+}

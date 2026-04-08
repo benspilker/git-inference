@@ -1,0 +1,14 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "reply",
+"confidence": 1.0,
+"requires_local_execution": true,
+"parameters": {
+"reply": "OLLAMA_OK"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Reply sent with text 'OLLAMA_OK'"
+}
