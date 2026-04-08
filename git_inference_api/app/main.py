@@ -614,6 +614,9 @@ def classify_route_hint(normalized_request: dict[str, Any]) -> str | None:
     user_text = str(normalized_request.get("user_prompt") or normalized_request.get("prompt") or "").lower()
     if not user_text:
         return None
+    system_test_markers = ("reply with exactly", "respond with exactly", "return exactly", "output exactly")
+    if any(marker in user_text for marker in system_test_markers):
+        return "system_test"
     research_markers = ("research", "investigate", "deeply compare", "build a report", "from many angles")
     if any(marker in user_text for marker in research_markers):
         return "research"
@@ -628,6 +631,8 @@ def classify_route_hint(normalized_request: dict[str, Any]) -> str | None:
 
 def suggest_task_type(normalized_request: dict[str, Any], route_hint: str | None) -> str:
     text = str(normalized_request.get("user_prompt") or normalized_request.get("prompt") or "").lower()
+    if route_hint == "system_test":
+        return "system_command"
     if route_hint == "job":
         if "weather" in text and ("daily" in text or "every" in text):
             return "scheduled_weather_report"
