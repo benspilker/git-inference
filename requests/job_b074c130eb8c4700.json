@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-04-08T19:08:59Z",
+  "job_id": "job_b074c130eb8c4700",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Hey Juniper, what is the weather like today in Grand Rapids, Michigan? Give a concise answer.",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 16
+      },
+      "user_prompt_chunks": [
+        "Hey Juniper, what is the weather like today in Grand Rapids, Michigan? Give a concise answer."
+      ]
+    },
+    "user_prompt": "Hey Juniper, what is the weather like today in Grand Rapids, Michigan? Give a concise answer."
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 16
+    },
+    "user_prompt_chunks": [
+      "Hey Juniper, what is the weather like today in Grand Rapids, Michigan? Give a concise answer."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Hey Juniper, what is the weather like today in Grand Rapids, Michigan? Give a concise answer."
+}
