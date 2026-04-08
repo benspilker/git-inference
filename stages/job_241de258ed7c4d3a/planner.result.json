@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "read_file",
+  "confidence": 1.0,
+  "requires_local_execution": true,
+  "parameters": {
+    "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+    "strict_follow_instructions": true
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "The content of /home/ubuntu/.openclaw/workspace/HEARTBEAT.md is read and returned without reading any other files or inferring from prior tasks."
+}
