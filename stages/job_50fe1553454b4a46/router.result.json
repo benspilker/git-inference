@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "system acknowledgment",
+  "confidence": 0.95,
+  "requires_local_execution": true,
+  "reason": "The user is instructing the system to output a specific acknowledgment message, which is a direct execution task."
+}

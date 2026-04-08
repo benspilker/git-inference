@@ -1,0 +1,10 @@
+{
+  "job_id": "job_50fe1553454b4a46",
+  "message": {
+    "role": "assistant",
+    "content": "Verification succeeded. The system received and acknowledged the confirmation text OLLAMA_OK."
+  },
+  "done": true,
+  "started_at": "2026-04-08T18:02:26Z",
+  "completed_at": "2026-04-08T18:02:54Z"
+}

@@ -1,0 +1,47 @@
+{
+  "job_id": "job_50fe1553454b4a46",
+  "status": {
+    "job_id": "job_50fe1553454b4a46",
+    "state": "completed",
+    "intent_type": "job",
+    "task_type": "system_confirmation",
+    "current_stage": "complete",
+    "updated_at": "2026-04-08T18:03:02Z",
+    "created_at": "2026-04-08T18:02:27Z"
+  },
+  "response": {
+    "job_id": "job_50fe1553454b4a46",
+    "message": {
+      "role": "assistant",
+      "content": "Verification succeeded. The system received and acknowledged the confirmation text OLLAMA_OK."
+    },
+    "done": true,
+    "started_at": "2026-04-08T18:02:26Z",
+    "completed_at": "2026-04-08T18:02:54Z"
+  },
+  "evaluation": {
+    "error": "EVAL_CONTEXT_MISSING",
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "effective_score": null,
+      "promotion_reason": null,
+      "blocked_reason": "missing_score"
+    }
+  },
+  "error": null,
+  "execution": {
+    "task_type": "system_confirmation",
+    "verified": true,
+    "executed_at": "2026-04-08T18:02:47Z",
+    "execution_status": "success",
+    "details": {
+      "executor": "system_noop",
+      "message": "System meta task requires no external execution.",
+      "task_type": "system_confirmation",
+      "response_text": "",
+      "success_condition": "The local system receives and acknowledges the confirmation text 'OLLAMA_OK'."
+    }
+  },
+  "generated_at": "2026-04-08T18:03:02Z"
+}
