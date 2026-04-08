@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "string",
+"confidence": 0.0,
+"requires_local_execution": true,
+"reason": "User has provided a non-contextual phrase likely not implying a request for system action, information, or clarification."
+}

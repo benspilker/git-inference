@@ -1,0 +1,131 @@
+{
+  "job_id": "job_e5b86a6e8c1a449f",
+  "status": {
+    "job_id": "job_e5b86a6e8c1a449f",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "system_command",
+    "current_stage": "complete",
+    "updated_at": "2026-04-08T18:17:28Z",
+    "created_at": "2026-04-08T18:16:53Z"
+  },
+  "response": {
+    "job_id": "job_e5b86a6e8c1a449f",
+    "message": {
+      "role": "assistant",
+      "content": "OLLAMA_OK"
+    },
+    "done": true,
+    "started_at": "2026-04-08T18:16:53Z",
+    "completed_at": "2026-04-08T18:17:16Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_e5b86a6e8c1a449f",
+    "phase": 2,
+    "status": "complete",
+    "created_at": "2026-04-08T18:17:16Z",
+    "updated_at": "2026-04-08T18:17:16Z",
+    "run_context": {
+      "job_id": "job_e5b86a6e8c1a449f",
+      "question_id": "q_job_e5b86a6e8c1a449f",
+      "run_id": "run_job_e5b86a6e8c1a449f",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_e5b86a6e8c1a449f",
+      "root_object_id": "q_job_e5b86a6e8c1a449f"
+    },
+    "content": {
+      "question_text_preview": "Reply with exactly: OLLAMA_OK",
+      "categorization": {
+        "topic_short": "",
+        "topic": "",
+        "topics": [],
+        "keywords": [],
+        "summary": "",
+        "language": "en",
+        "domain": "",
+        "subdomain": "",
+        "sensitivity": "public",
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": null,
+      "topic_short": "",
+      "topic": "",
+      "topics": [],
+      "keywords": [],
+      "summary": "",
+      "query_variants": [],
+      "language": "en",
+      "domain": "",
+      "subdomain": "",
+      "sensitivity": "public",
+      "recency_class": "stable"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_e5b86a6e8c1a449f",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 2,
+        "created_at": "2026-04-08T18:17:16Z",
+        "dimensions": {
+          "correctness": 0.0,
+          "completeness": 0.0,
+          "clarity": 0.0,
+          "usefulness": 0.0,
+          "groundedness": 0.0,
+          "specificity": 0.0
+        },
+        "overall_score": 0.0,
+        "confidence_band": "medium",
+        "notes": ""
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_e5b86a6e8c1a449f",
+        "resp_job_e5b86a6e8c1a449f"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": "confidence_below_high",
+      "effective_score": 0.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_e5b86a6e8c1a449f.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_e5b86a6e8c1a449f",
+        "resp_job_e5b86a6e8c1a449f"
+      ],
+      "evaluation_path": "evaluations/eval_job_e5b86a6e8c1a449f.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-08T18:17:28Z"
+}
