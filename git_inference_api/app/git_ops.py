@@ -63,6 +63,10 @@ class RepoFileLock:
 
 REPO_LOCK = RepoFileLock(settings.repo_lock_path)
 
+VISIBLE_NONTERMINAL_STATES = {"needs_clarification"}
+SUCCESS_STATES = {"completed", "succeeded", "success", "finished", "done"}
+FAILURE_STATES = {"failed", "error", "errored", "expired", "timeout", "timed_out", "cancelled", "canceled"}
+
 
 def run_git(*args: str, check: bool = True, retryable: bool = True) -> subprocess.CompletedProcess[str]:
     last_result: subprocess.CompletedProcess[str] | None = None
@@ -111,6 +115,17 @@ def run_git(*args: str, check: bool = True, retryable: bool = True) -> subproces
 
 def ensure_repo_ready() -> None:
     settings.ensure_directories()
+    required_dirs = [
+        settings.requests_dir,
+        settings.responses_dir,
+        settings.errors_dir,
+        settings.combined_dir,
+        settings.status_dir,
+        "stages",
+        "execution",
+    ]
+    for rel in required_dirs:
+        (settings.repo_path / rel).mkdir(parents=True, exist_ok=True)
     if settings.auto_init_repo and not (settings.repo_path / ".git").exists():
         run_git("init", "-b", settings.branch, retryable=False)
         logger.info("initialized repo", extra={"path": str(settings.repo_path)})
@@ -133,27 +148,48 @@ def write_request_artifact(job_id: str, request_json: dict[str, Any]) -> Path:
         "system_prompt": _extract_system_prompt(request_json),
         "user_prompt": _extract_user_prompt(request_json),
         "request": request_json,
+        "routing_metadata": request_json.get("routing_metadata"),
+        "transport": request_json.get("transport"),
     }
-    chunking = request_json.get("chunking")
-    if isinstance(chunking, dict):
-        payload["chunking"] = chunking
-    if isinstance(request_json.get("user_prompt_chunks"), list):
-        payload["user_prompt_chunks"] = request_json["user_prompt_chunks"]
-    if isinstance(request_json.get("prompt_chunks"), list):
-        payload["prompt_chunks"] = request_json["prompt_chunks"]
     request_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     logger.info("wrote request artifact", extra={"job_id": job_id, "path": str(request_path)})
     return request_path
 
 
-def commit_and_push_request(job_id: str, request_path: Path) -> None:
-    run_git("add", str(request_path.relative_to(settings.repo_path)))
-    commit_result = run_git("commit", "-m", f"submit inference job {job_id}", check=False, retryable=False)
+def write_stage_request_artifact(job_id: str, stage_name: str, payload: dict[str, Any]) -> Path:
+    stage_dir = settings.repo_path / "stages" / job_id
+    stage_dir.mkdir(parents=True, exist_ok=True)
+    stage_path = stage_dir / f"{stage_name}.request.json"
+    wrapped = {
+        "job_id": job_id,
+        "stage_name": stage_name,
+        "created_at": utcnow_iso(),
+        "payload": payload,
+    }
+    stage_path.write_text(json.dumps(wrapped, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    logger.info("wrote stage request artifact", extra={"job_id": job_id, "stage": stage_name, "path": str(stage_path)})
+    return stage_path
+
+
+def commit_and_push_paths(job_id: str, paths: list[Path], message: str) -> None:
+    rels = [str(p.relative_to(settings.repo_path)) for p in paths]
+    if not rels:
+        return
+    run_git("add", *rels)
+    commit_result = run_git("commit", "-m", message, check=False, retryable=False)
     combined = (commit_result.stdout + commit_result.stderr).lower()
     if commit_result.returncode != 0 and "nothing to commit" not in combined:
         raise GitError(commit_result.stderr.strip() or commit_result.stdout.strip())
     run_git("push", "origin", settings.branch)
-    logger.info("pushed request commit", extra={"job_id": job_id})
+    logger.info("pushed commit", extra={"job_id": job_id, "paths": rels})
+
+
+def commit_and_push_request(job_id: str, request_path: Path) -> None:
+    commit_and_push_paths(job_id, [request_path], f"submit inference job {job_id}")
+
+
+def commit_and_push_stage_request(job_id: str, stage_name: str, stage_path: Path) -> None:
+    commit_and_push_paths(job_id, [stage_path], f"submit {stage_name} stage for {job_id}")
 
 
 def wait_for_result(job_id: str, timeout_seconds: int) -> dict[str, Any]:
@@ -166,6 +202,10 @@ def wait_for_result(job_id: str, timeout_seconds: int) -> dict[str, Any]:
         if failure_payload is not None:
             raise JobFailedError(failure_payload)
 
+        clarification_payload = try_read_clarification(job_id)
+        if clarification_payload is not None:
+            return clarification_payload
+
         response_payload = try_read_success(job_id)
         if response_payload is not None:
             return response_payload
@@ -175,6 +215,25 @@ def wait_for_result(job_id: str, timeout_seconds: int) -> dict[str, Any]:
     raise JobTimedOutError(f"job {job_id} did not finish within {timeout_seconds} seconds")
 
 
+def wait_for_stage_result(job_id: str, stage_name: str, timeout_seconds: int) -> dict[str, Any]:
+    deadline = time.time() + timeout_seconds
+
+    while time.time() < deadline:
+        sync_repo_to_remote_head()
+
+        failure_payload = try_read_failure(job_id)
+        if failure_payload is not None:
+            raise JobFailedError(failure_payload)
+
+        stage_payload = try_read_stage_result(job_id, stage_name)
+        if stage_payload is not None:
+            return stage_payload
+
+        time.sleep(settings.result_poll_interval_seconds)
+
+    raise JobTimedOutError(f"job {job_id} stage {stage_name} did not finish within {timeout_seconds} seconds")
+
+
 def try_read_result(job_id: str) -> dict[str, Any]:
     sync_repo_to_remote_head()
 
@@ -182,11 +241,28 @@ def try_read_result(job_id: str) -> dict[str, Any]:
     if failure_payload is not None:
         raise JobFailedError(failure_payload)
 
+    clarification_payload = try_read_clarification(job_id)
+    if clarification_payload is not None:
+        return clarification_payload
+
     response_payload = try_read_success(job_id)
     if response_payload is not None:
         return response_payload
 
     raise ResultNotFoundError(job_id)
+
+
+def try_read_stage_result(job_id: str, stage_name: str) -> dict[str, Any] | None:
+    candidates = [
+        settings.repo_path / "stages" / job_id / f"{stage_name}.result.json",
+        settings.repo_path / "stages" / job_id / f"{stage_name}.json",
+    ]
+    for path in candidates:
+        if path.exists():
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            logger.info("stage result artifact found", extra={"job_id": job_id, "stage": stage_name, "path": str(path)})
+            return payload
+    return None
 
 
 def try_read_success(job_id: str) -> dict[str, Any] | None:
@@ -201,6 +277,25 @@ def try_read_success(job_id: str) -> dict[str, Any] | None:
         payload = json.loads(status_path.read_text(encoding="utf-8"))
         if is_success_status_payload(payload):
             logger.info("success status artifact found", extra={"job_id": job_id, "path": str(status_path)})
+            return payload
+
+    return None
+
+
+def try_read_clarification(job_id: str) -> dict[str, Any] | None:
+    status_path = settings.repo_path / settings.status_dir / f"{job_id}.json"
+    response_path = settings.repo_path / settings.responses_dir / f"{job_id}.json"
+
+    for path in (status_path, response_path):
+        if not path.exists():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        state = str(payload.get("state", payload.get("status", ""))).lower()
+        if state in VISIBLE_NONTERMINAL_STATES:
+            logger.info("clarification artifact found", extra={"job_id": job_id, "path": str(path)})
+            return payload
+        if payload.get("needs_clarification") is True:
+            logger.info("clarification payload found", extra={"job_id": job_id, "path": str(path)})
             return payload
 
     return None
@@ -240,10 +335,10 @@ def parse_pipeline_failure_artifact(payload: dict[str, Any]) -> dict[str, Any] |
         return normalize_failure_payload(payload, outer_payload=payload)
 
     state = str(payload.get("state", payload.get("status", ""))).lower()
-    if state in {"failed", "error", "errored", "expired", "timeout", "timed_out", "cancelled", "canceled"}:
+    if state in FAILURE_STATES:
         return normalize_failure_payload(payload, outer_payload=payload)
 
-    if payload.get("done") is False and "message" in payload and not payload.get("response"):
+    if payload.get("done") is False and "message" in payload and not payload.get("response") and state not in VISIBLE_NONTERMINAL_STATES:
         return normalize_failure_payload(payload, outer_payload=payload)
 
     return None
@@ -264,13 +359,21 @@ def normalize_failure_payload(error_payload: dict[str, Any], outer_payload: dict
         or "Pipeline reported a failure"
     )
 
-    normalized: dict[str, Any] = {
-        "code": code,
-        "message": message,
-    }
+    normalized: dict[str, Any] = {"code": code, "message": message}
 
     details = {}
-    for key in ("job_id", "state", "status", "failed", "done", "completed_at", "updated_at"):
+    for key in (
+        "job_id",
+        "state",
+        "status",
+        "failed",
+        "done",
+        "completed_at",
+        "updated_at",
+        "intent_type",
+        "task_type",
+        "current_stage",
+    ):
         if key in error_payload:
             details[key] = error_payload[key]
     if outer_payload is not None and outer_payload is not error_payload:
@@ -289,10 +392,10 @@ def is_success_status_payload(payload: dict[str, Any]) -> bool:
     state = str(payload.get("state", payload.get("status", ""))).lower()
     return bool(
         payload.get("done") is True
-        or state in {"completed", "succeeded", "success", "finished", "done"}
+        or state in SUCCESS_STATES
         or "message" in payload
         or "response" in payload
-    )
+    ) and state not in VISIBLE_NONTERMINAL_STATES
 
 
 def _extract_system_prompt(request_json: dict[str, Any]) -> str | None:

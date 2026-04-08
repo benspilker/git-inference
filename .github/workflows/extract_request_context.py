@@ -15,6 +15,9 @@ STARTUP_MARKERS = (
 )
 
 FALSEY = {"0", "false", "no", "off", "n"}
+QUESTION_ROUTE_HINTS = ("what", "which", "when", "where", "why", "how", "?")
+JOB_ROUTE_HINTS = ("set up", "schedule", "remind me", "configure", "create", "cron", "run this daily")
+RESEARCH_ROUTE_HINTS = ("research", "investigate", "deeply compare", "build a report", "from many angles")
 
 
 def _env_enabled(name: str, default: bool = True) -> bool:
@@ -58,10 +61,6 @@ def _latest_startup_user_index(messages: list[dict]) -> int:
 
 
 def _is_first_post_startup_user_message(messages: list[dict]) -> bool:
-    """
-    Carry-over context should only apply to the first real user message after
-    the latest /new startup sequence, not every subsequent turn in the session.
-    """
     startup_idx = _latest_startup_user_index(messages)
     if startup_idx < 0:
         return False
@@ -102,7 +101,7 @@ def _squash_question(text: str) -> str:
     return lines[-1]
 
 
-def _truncate(text: str, max_chars: int = 1200) -> str:
+def _truncate(text: str, max_chars: int = 300) -> str:
     clean = (text or "").strip()
     if len(clean) <= max_chars:
         return clean
@@ -131,7 +130,27 @@ def _find_response_file(repo_root: Path, job_id: str) -> Path | None:
     return None
 
 
-def _find_previous_exchange(
+def _classify_route_hint(question_text: str) -> str:
+    lower = (question_text or "").strip().lower()
+    if any(marker in lower for marker in RESEARCH_ROUTE_HINTS):
+        return "research"
+    if any(marker in lower for marker in JOB_ROUTE_HINTS):
+        return "job"
+    if any(marker in lower for marker in QUESTION_ROUTE_HINTS):
+        return "question"
+    return "question"
+
+
+def _build_continuity_summary(previous_question: str, previous_response: str) -> str:
+    return (
+        "Recent continuity:\n"
+        f"- Previous user topic: {_truncate(previous_question, 180)}\n"
+        f"- Previous assistant focus: {_truncate(previous_response, 260)}\n\n"
+        "Current user message:\n"
+    )
+
+
+def _find_previous_exchange_summary(
     repo_root: Path,
     current_request: Path,
     chat_id: str,
@@ -191,13 +210,12 @@ def _find_previous_exchange(
         response_payload = _read_json(response_path)
         if not isinstance(response_payload, dict):
             continue
+
         response_message = response_payload.get("message")
         if not isinstance(response_message, dict):
             continue
         response_content = str(response_message.get("content") or "").strip()
-        if not response_content:
-            continue
-        if response_content == "NO_REPLY":
+        if not response_content or response_content == "NO_REPLY":
             continue
 
         return prior_question_compact or prior_question.strip(), response_content
@@ -211,6 +229,7 @@ def main() -> None:
     question_path = Path(sys.argv[3])
     model_path = Path(sys.argv[4])
     startup_path = Path(sys.argv[5])
+    context_path = Path(sys.argv[6]) if len(sys.argv) > 6 else None
 
     payload = json.loads(request_path.read_text(encoding="utf-8"))
     system_prompt = str(payload.get("system_prompt") or "").strip()
@@ -221,34 +240,62 @@ def main() -> None:
     if not isinstance(messages, list):
         messages = []
 
+    routing_metadata = payload.get("routing_metadata")
+    if not isinstance(routing_metadata, dict) and isinstance(nested, dict):
+        routing_metadata = nested.get("routing_metadata")
+    if not isinstance(routing_metadata, dict):
+        routing_metadata = {}
+
+    transport = payload.get("transport")
+    if not isinstance(transport, dict) and isinstance(nested, dict):
+        transport = nested.get("transport")
+    if not isinstance(transport, dict):
+        transport = {}
+
     sys_text = _last_message_by_role(messages, "system")
     user_text = _last_message_by_role(messages, "user")
-    simple_model = model_name.strip() == "git-chatgpt"
-    carry_previous_qa_enabled = _env_enabled("SIMPLE_MODEL_CARRY_PREVIOUS_QA", default=True)
+
+    is_openclaw_compat = model_name.strip() == "git-chatgpt"
+    continuity_enabled = _env_enabled("SIMPLE_MODEL_CARRY_PREVIOUS_QA", default=False)
 
     parts = [x for x in (system_prompt, user_prompt) if x]
     if not parts:
         parts = [x for x in (sys_text, user_text) if x]
 
-    final_prompt = (user_prompt or user_text).strip() if simple_model else "\n\n".join(parts).strip()
+    final_prompt = (user_prompt or user_text).strip() if is_openclaw_compat else "\n\n".join(parts).strip()
     question_text = (user_prompt or user_text or final_prompt).strip()
     lower_question = question_text.lower()
-    startup_only = int(simple_model and all(marker in lower_question for marker in STARTUP_MARKERS))
+    startup_only = int(is_openclaw_compat and all(marker in lower_question for marker in STARTUP_MARKERS))
+
+    chat_id = _extract_chat_id((system_prompt, sys_text))
+    route_hint = str(routing_metadata.get("intent_type") or "").strip().lower() or _classify_route_hint(question_text)
+    task_type = str(routing_metadata.get("task_type") or "").strip()
+
+    continuity = {
+        "enabled": False,
+        "source_job_question": None,
+        "summary_applied": False,
+    }
 
     carry_scope_match = _is_first_post_startup_user_message(messages)
-    if simple_model and carry_previous_qa_enabled and not startup_only and carry_scope_match:
-        chat_id = _extract_chat_id((system_prompt, sys_text))
+    if (
+        is_openclaw_compat
+        and continuity_enabled
+        and not startup_only
+        and carry_scope_match
+        and route_hint == "question"
+    ):
         repo_root = request_path.parent.parent
-        previous_exchange = _find_previous_exchange(repo_root, request_path, chat_id, question_text)
+        previous_exchange = _find_previous_exchange_summary(repo_root, request_path, chat_id, question_text)
         if previous_exchange is not None:
             previous_question, previous_response = previous_exchange
-            continuity_block = (
-                "Continuity context from your immediately previous exchange:\n"
-                f"- Previous user question: {_truncate(previous_question, 500)}\n"
-                f"- Previous assistant response: {_truncate(previous_response, 1200)}\n\n"
-                "Current user message:\n"
-            )
+            continuity_block = _build_continuity_summary(previous_question, previous_response)
             final_prompt = f"{continuity_block}{final_prompt}".strip()
+            continuity = {
+                "enabled": True,
+                "source_job_question": _truncate(previous_question, 180),
+                "summary_applied": True,
+            }
 
     if not final_prompt:
         raise SystemExit(f"No prompt content found in request artifact: {request_path}")
@@ -257,6 +304,22 @@ def main() -> None:
     question_path.write_text(question_text, encoding="utf-8")
     model_path.write_text(model_name.strip(), encoding="utf-8")
     startup_path.write_text(str(startup_only), encoding="utf-8")
+
+    if context_path is not None:
+        context_payload = {
+            "job_id": str(payload.get("job_id") or request_path.stem),
+            "model": model_name.strip(),
+            "question_text": question_text,
+            "system_prompt": system_prompt or sys_text,
+            "startup_only": bool(startup_only),
+            "chat_id": chat_id,
+            "route_hint": route_hint,
+            "task_type": task_type,
+            "routing_metadata": routing_metadata,
+            "transport": transport,
+            "continuity": continuity,
+        }
+        context_path.write_text(json.dumps(context_payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

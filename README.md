@@ -194,7 +194,7 @@ bash tools/send_chat.sh --api-base-url "http://127.0.0.1:8000" --prompt "Tell me
 ### 1. In WSL, run the API
 
 ```bash
-cd /mnt/c/Users/bspilker/repos/git_inference_api_updated
+cd /mnt/c/Users/bspilker/repos/git-inference/git_inference_api
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -205,25 +205,26 @@ export REPO_BRANCH=main
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --app-dir .
 ```
 
-### 2. In another WSL terminal, run fake pipeline
+### 2. Trigger the workflow pipeline
+
+Use the repository workflow to process queued requests (or wait for push triggers):
 
 ```bash
-cd /mnt/c/Users/bspilker/repos/git_inference_api_updated
-source .venv/bin/activate
-python tools/mock_pipeline.py /tmp/git_inference_demo/pipeline-workrepo main
+# from repo root
+# gh workflow run process-requests.yml
 ```
 
 ### 3. In PowerShell, send request
 
 ```powershell
-cd C:\Users\bspilker\repos\git_inference_api_updated\tools
+cd C:\Users\bspilker\repos\git-inference\git_inference_api\tools
 ./send_chat.ps1 -ApiBaseUrl "http://127.0.0.1:8000" -Prompt "Tell me a joke"
 ```
 
 ### 4. In WSL/Git Bash, send request with bash helper
 
 ```bash
-cd /mnt/c/Users/bspilker/repos/git_inference_api_updated
+cd /mnt/c/Users/bspilker/repos/git-inference/git_inference_api
 bash tools/send_chat.sh --api-base-url "http://127.0.0.1:8000" --prompt "Tell me a joke"
 ```
 
