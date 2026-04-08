@@ -1,0 +1,150 @@
+{
+  "job_id": "job_0aa7a6f604d44b27",
+  "status": {
+    "job_id": "job_0aa7a6f604d44b27",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "weather_lookup",
+    "current_stage": "complete",
+    "updated_at": "2026-04-08T18:46:27Z",
+    "created_at": "2026-04-08T18:44:24Z"
+  },
+  "response": {
+    "job_id": "job_0aa7a6f604d44b27",
+    "message": {
+      "role": "assistant",
+      "content": "Live web search was required for this prompt but unavailable in the ChatGPT session after 3 attempt(s)."
+    },
+    "done": true,
+    "started_at": "2026-04-08T18:44:23Z",
+    "completed_at": "2026-04-08T18:46:12Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_0aa7a6f604d44b27",
+    "phase": 2,
+    "status": "complete",
+    "created_at": "2026-04-08T18:46:12Z",
+    "updated_at": "2026-04-08T18:46:12Z",
+    "run_context": {
+      "job_id": "job_0aa7a6f604d44b27",
+      "question_id": "q_job_0aa7a6f604d44b27",
+      "run_id": "run_job_0aa7a6f604d44b27",
+      "branch_id": "branch_01",
+      "research_id": null,
+      "parent_object_id": "resp_job_0aa7a6f604d44b27",
+      "root_object_id": "q_job_0aa7a6f604d44b27"
+    },
+    "content": {
+      "question_text_preview": "What is the weather today in Indianapolis, Indiana?",
+      "categorization": {
+        "topic_short": "weather",
+        "topic": "current weather information",
+        "topics": [
+          "weather",
+          "forecast",
+          "location-specific"
+        ],
+        "keywords": [
+          "weather",
+          "Indianapolis",
+          "today",
+          "forecast"
+        ],
+        "summary": "User asked for the current weather in Indianapolis, Indiana.",
+        "language": "en",
+        "domain": "information",
+        "subdomain": "meteorology",
+        "sensitivity": "public",
+        "recency_class": "time-sensitive"
+      },
+      "quality_flags": {
+        "needs_web_verification": true,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "title": "Indianapolis Weather Query",
+      "topic_short": "weather",
+      "topic": "current weather information",
+      "topics": [
+        "weather",
+        "forecast"
+      ],
+      "keywords": [
+        "Indianapolis",
+        "weather",
+        "today"
+      ],
+      "summary": "Request for today's weather in Indianapolis, Indiana.",
+      "query_variants": [
+        "current weather in Indianapolis today",
+        "Indianapolis weather forecast"
+      ],
+      "language": "en",
+      "domain": "information",
+      "subdomain": "meteorology",
+      "sensitivity": "public",
+      "recency_class": "time-sensitive"
+    },
+    "scores": [
+      {
+        "score_event_id": "score_evt_job_0aa7a6f604d44b27",
+        "score_profile": "answer_score_profile",
+        "judge_type": "final_judge",
+        "judge_model": "chatgpt-playwright",
+        "phase": 2,
+        "created_at": "2026-04-08T18:46:12Z",
+        "dimensions": {
+          "correctness": 0.0,
+          "completeness": 0.0,
+          "clarity": 0.0,
+          "usefulness": 0.0,
+          "groundedness": 0.0,
+          "specificity": 0.0
+        },
+        "overall_score": 0.0,
+        "confidence_band": "high",
+        "notes": "The assistant response did not provide any weather information; it only stated LIVE_WEB_UNAVAILABLE."
+      }
+    ],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {
+      "source_inputs": [
+        "question_preview",
+        "prior_assistant_response"
+      ],
+      "source_object_ids": [
+        "q_job_0aa7a6f604d44b27",
+        "resp_job_0aa7a6f604d44b27"
+      ]
+    },
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": "needs_web_verification",
+      "effective_score": 0.0
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_0aa7a6f604d44b27.json",
+      "index_path": "indexes/evaluations_index.jsonl",
+      "source_paths": [],
+      "related_object_ids": [
+        "q_job_0aa7a6f604d44b27",
+        "resp_job_0aa7a6f604d44b27"
+      ],
+      "evaluation_path": "evaluations/eval_job_0aa7a6f604d44b27.json",
+      "final_path": null
+    }
+  },
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-08T18:46:27Z"
+}
