@@ -1,0 +1,8 @@
+{
+  "job_id": "job_7726b6b2727c41be",
+  "started_at": "2026-04-08T23:12:54Z",
+  "error": {
+    "code": "SYSTEM_TEST_STAGE_FAILED",
+    "message": "System test answerer stage execution failed."
+  }
+}

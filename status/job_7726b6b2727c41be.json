@@ -1,0 +1,9 @@
+{
+  "job_id": "job_7726b6b2727c41be",
+  "state": "failed",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "current_stage": "answerer",
+  "updated_at": "2026-04-08T23:22:16Z",
+  "created_at": "2026-04-08T23:12:54Z"
+}
