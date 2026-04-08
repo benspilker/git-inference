@@ -1,0 +1,67 @@
+{
+  "job_id": "job_88ac26b3f0574003",
+  "status": {
+    "job_id": "job_88ac26b3f0574003",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "read_and_execute_heartbeat_instructions",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-08T21:25:57Z",
+    "created_at": "2026-04-08T21:25:36Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_88ac26b3f0574003",
+    "started_at": "2026-04-08T21:25:35Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: read_and_execute_heartbeat_instructions",
+      "details": {
+        "task_type": "read_and_execute_heartbeat_instructions",
+        "verified": false,
+        "executed_at": "2026-04-08T21:25:57Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: read_and_execute_heartbeat_instructions",
+          "parameters": {
+            "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+            "current_time_utc": "2026-04-08T21:20:00Z",
+            "fallback_output": "HEARTBEAT_OK",
+            "constraints": {
+              "do_not_infer_previous_tasks": true,
+              "strict_file_path": true,
+              "ignore_alternative_paths": [
+                "docs/heartbeat.md"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "read_and_execute_heartbeat_instructions",
+    "verified": false,
+    "executed_at": "2026-04-08T21:25:57Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: read_and_execute_heartbeat_instructions",
+      "parameters": {
+        "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+        "current_time_utc": "2026-04-08T21:20:00Z",
+        "fallback_output": "HEARTBEAT_OK",
+        "constraints": {
+          "do_not_infer_previous_tasks": true,
+          "strict_file_path": true,
+          "ignore_alternative_paths": [
+            "docs/heartbeat.md"
+          ]
+        }
+      }
+    }
+  },
+  "generated_at": "2026-04-08T21:25:57Z"
+}

@@ -1,0 +1,22 @@
+{
+  "task_type": "read_and_execute_heartbeat_instructions",
+  "verified": false,
+  "executed_at": "2026-04-08T21:25:57Z",
+  "execution_status": "failed",
+  "details": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: read_and_execute_heartbeat_instructions",
+    "parameters": {
+      "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+      "current_time_utc": "2026-04-08T21:20:00Z",
+      "fallback_output": "HEARTBEAT_OK",
+      "constraints": {
+        "do_not_infer_previous_tasks": true,
+        "strict_file_path": true,
+        "ignore_alternative_paths": [
+          "docs/heartbeat.md"
+        ]
+      }
+    }
+  }
+}

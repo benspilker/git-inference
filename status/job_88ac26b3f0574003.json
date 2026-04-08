@@ -1,0 +1,9 @@
+{
+  "job_id": "job_88ac26b3f0574003",
+  "state": "failed",
+  "intent_type": "job",
+  "task_type": "read_and_execute_heartbeat_instructions",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-08T21:25:57Z",
+  "created_at": "2026-04-08T21:25:36Z"
+}
