@@ -1,0 +1,15 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "read_file",
+"confidence": 1.0,
+"requires_local_execution": true,
+"parameters": {
+"file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+"follow_instructions_strictly": true
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "The contents of /home/ubuntu/.openclaw/workspace/HEARTBEAT.md are read successfully and any instructions within are followed exactly."
+}
