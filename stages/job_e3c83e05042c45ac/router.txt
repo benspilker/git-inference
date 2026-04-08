@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "read_and_follow_HEARTBEAT_md",
+"confidence": 0.95,
+"requires_local_execution": true,
+"reason": "The user is requesting the system to read a local file and follow its instructions, which requires local file access and execution."
+}
