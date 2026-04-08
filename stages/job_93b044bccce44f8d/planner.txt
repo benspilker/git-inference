@@ -1,0 +1,16 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "read_file",
+"confidence": 1.0,
+"requires_local_execution": true,
+"parameters": {
+"file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+"action_if_missing": "none",
+"follow_instructions_strictly": true
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "File /home/ubuntu/.openclaw/workspace/HEARTBEAT.md is read if it exists and instructions within are followed; if no action is required, response is HEARTBEAT_OK."
+}
