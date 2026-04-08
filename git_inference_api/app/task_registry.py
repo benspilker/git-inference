@@ -13,6 +13,12 @@ class TaskDefinition:
 
 
 SUPPORTED_TASKS: dict[str, TaskDefinition] = {
+    "system_response": TaskDefinition(
+        task_type="system_response",
+        required_fields=("response_text",),
+        executor_name="system_response",
+        description="No-op response task used when planner determines no external action is required.",
+    ),
     "scheduled_weather_report": TaskDefinition(
         task_type="scheduled_weather_report",
         required_fields=("frequency", "time", "location"),

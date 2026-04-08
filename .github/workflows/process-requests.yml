@@ -465,6 +465,22 @@ jobs:
               out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
               raise SystemExit(0)
 
+          if task_type.startswith("system_"):
+              payload = {
+                  **base,
+                  "execution_status": "success",
+                  "verified": True,
+                  "details": {
+                      "executor": "system_noop",
+                      "message": "System meta task requires no external execution.",
+                      "task_type": task_type,
+                      "response_text": str(params.get("response_text") or params.get("message") or ""),
+                      "success_condition": success_condition,
+                  },
+              }
+              out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+              raise SystemExit(0)
+
           task_def = get_task(task_type)
           if task_def is None:
               payload = {
@@ -1140,4 +1156,3 @@ jobs:
           done
           echo "Failed to push after retries."
           exit 1
-

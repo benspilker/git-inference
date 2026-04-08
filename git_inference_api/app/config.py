@@ -89,6 +89,7 @@ class Settings:
 
     # Workflow feature flags
     enable_workflow: bool = env_bool("ENABLE_WORKFLOW", True)
+    enable_stage_orchestration: bool = env_bool("ENABLE_STAGE_ORCHESTRATION", False)
     enable_stage_artifacts: bool = env_bool("ENABLE_STAGE_ARTIFACTS", True)
     enable_execution_artifacts: bool = env_bool("ENABLE_EXECUTION_ARTIFACTS", True)
     enable_local_execution: bool = env_bool("ENABLE_LOCAL_EXECUTION", True)

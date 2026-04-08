@@ -448,7 +448,7 @@ def build_job_status(job: dict[str, Any]) -> JobStatusResponse:
     payload = JobStatusResponse(
         job_id=job["job_id"],
         status=job["status"],
-        done=job["status"] == "completed",
+        done=job["status"] in TERMINAL_JOB_STATUSES,
         position=db.count_queue_position(job["job_id"]),
         active_job_id=db.get_active_job_id(),
         model=job["request_json"].get("model"),
@@ -847,7 +847,7 @@ def stream_response_for_job(
                         body = final.body.decode("utf-8")
                         payload = json.loads(body)
                     except Exception:
-                        payload = {"job_id": job_id, "status": status, "done": status == "completed"}
+                        payload = {"job_id": job_id, "status": status, "done": status in TERMINAL_JOB_STATUSES}
                 else:
                     payload = final.model_dump() if hasattr(final, "model_dump") else final
                 yield json.dumps(payload) + "\n"

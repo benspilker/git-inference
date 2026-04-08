@@ -80,6 +80,10 @@ class JobWorker:
         task_type = routing.get("task_type")
 
         try:
+            if not settings.enable_stage_orchestration:
+                self._process_job_single_run(job, intent_type=intent_type, task_type=task_type)
+                return
+
             self._update_status(job_id, "routing", intent_type=intent_type, task_type=task_type)
             router_result = self._run_router_stage(job)
             intent_type = router_result.get("intent_type") or intent_type
@@ -206,6 +210,61 @@ class JobWorker:
         finally:
             self._notify_event.set()
 
+    def _process_job_single_run(
+        self,
+        job: dict[str, Any],
+        intent_type: str | None = None,
+        task_type: str | None = None,
+    ) -> None:
+        """
+        Compatibility mode:
+        submit a single request artifact and wait for the workflow's final result.
+        """
+        job_id = job["job_id"]
+        self._update_status(job_id, "routing", intent_type=intent_type, task_type=task_type)
+
+        with REPO_LOCK:
+            sync_repo_to_remote_head()
+            request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            request_path = write_request_artifact(job_id, request_payload)
+            commit_and_push_request(job_id, request_path)
+
+        result = wait_for_result(job_id, timeout_seconds=settings.job_timeout_seconds)
+
+        if isinstance(result, dict):
+            state = str(result.get("state", result.get("status", ""))).strip().lower()
+            if state == "needs_clarification" or result.get("needs_clarification") is True:
+                self._mark_needs_clarification(
+                    job_id,
+                    result,
+                    intent_type=result.get("intent_type") or intent_type,
+                    task_type=result.get("task_type") or task_type,
+                )
+                logger.info(
+                    "one-shot workflow requires clarification",
+                    extra={"job_id": job_id, "status": "needs_clarification"},
+                )
+                return
+
+        normalized = self._normalize_response_payload(
+            result,
+            router_result={"intent_type": intent_type, "task_type": task_type},
+        )
+
+        execution_json = normalized.get("execution") if isinstance(normalized.get("execution"), dict) else None
+        stages_json = normalized.get("stages") if isinstance(normalized.get("stages"), dict) else None
+
+        db.mark_completed(
+            job_id,
+            normalized,
+            execution_json=execution_json,
+            stages_json=stages_json,
+        )
+        logger.info(
+            "one-shot workflow completed",
+            extra={"job_id": job_id, "status": "completed", "intent_type": intent_type, "task_type": task_type},
+        )
+
     def _extract_routing_metadata(self, job: dict[str, Any]) -> dict[str, Any]:
         request_json = job.get("request_json") or {}
         routing = request_json.get("routing_metadata")
@@ -322,6 +381,20 @@ class JobWorker:
                     "message": "Local execution is disabled in configuration.",
                     "executor": task.executor_name,
                     "parameters": parameters,
+                    "success_condition": success_condition,
+                },
+            }
+
+        if task_type.startswith("system_"):
+            return {
+                **base,
+                "execution_status": "success",
+                "verified": True,
+                "details": {
+                    "executor": task.executor_name,
+                    "message": "System meta task requires no external execution.",
+                    "task_type": task_type,
+                    "response_text": str(parameters.get("response_text") or parameters.get("message") or ""),
                     "success_condition": success_condition,
                 },
             }
