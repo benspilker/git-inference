@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "read_file",
+"confidence": 1.0,
+"requires_local_execution": true,
+"reason": "User has requested to read a specific file (HEARTBEAT.md), which implies a job action related to file access."
+}
