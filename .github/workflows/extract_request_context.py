@@ -255,7 +255,9 @@ def main() -> None:
     sys_text = _last_message_by_role(messages, "system")
     user_text = _last_message_by_role(messages, "user")
 
-    is_openclaw_compat = model_name.strip() == "git-chatgpt"
+    normalized_model = model_name.strip().lower()
+    model_tail = normalized_model.split("/")[-1] if normalized_model else ""
+    is_openclaw_compat = model_tail in {"git-chatgpt", "git-perplexity"}
     continuity_enabled = _env_enabled("SIMPLE_MODEL_CARRY_PREVIOUS_QA", default=False)
 
     parts = [x for x in (system_prompt, user_prompt) if x]
@@ -306,6 +308,30 @@ def main() -> None:
     startup_path.write_text(str(startup_only), encoding="utf-8")
 
     if context_path is not None:
+        chunking = None
+        if isinstance(transport.get("chunking"), dict):
+            chunking = transport.get("chunking")
+        elif isinstance(payload.get("chunking"), dict):
+            chunking = payload.get("chunking")
+        elif isinstance(nested, dict) and isinstance(nested.get("chunking"), dict):
+            chunking = nested.get("chunking")
+        if not isinstance(chunking, dict):
+            chunking = {}
+
+        def _to_int(value, default: int) -> int:
+            try:
+                return int(value)
+            except Exception:
+                return default
+
+        chunking_normalized = {
+            "enabled": bool(chunking.get("enabled")),
+            "chunk_count": max(1, _to_int(chunking.get("chunk_count"), 1)),
+            "max_chunks": max(1, _to_int(chunking.get("max_chunks"), 5)),
+            "chunk_size_words": max(1, _to_int(chunking.get("chunk_size_words"), 2000)),
+            "word_count": max(0, _to_int(chunking.get("word_count"), 0)),
+            "mode": str(chunking.get("mode") or "").strip().lower(),
+        }
         context_payload = {
             "job_id": str(payload.get("job_id") or request_path.stem),
             "model": model_name.strip(),
@@ -317,6 +343,7 @@ def main() -> None:
             "task_type": task_type,
             "routing_metadata": routing_metadata,
             "transport": transport,
+            "chunking": chunking_normalized,
             "continuity": continuity,
         }
         context_path.write_text(json.dumps(context_payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

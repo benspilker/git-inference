@@ -1,10 +1,20 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+from typing import Any, Callable
 
 from .prompt_contracts import extract_json_payload
-from .stage_runner import run_stage_once, write_stage_outputs
+from .stage_runner import run_stage_once
+
+
+def _coerce_stage_response(value: Any) -> str:
+    if isinstance(value, tuple) and value:
+        value = value[0]
+    if isinstance(value, str):
+        return value
+    if value is None:
+        return ""
+    return str(value)
 
 
 def split_text_into_chunks(text: str, chunks: int) -> list[str]:
@@ -124,17 +134,21 @@ def run_chunk_plan(
     post_response_wait_seconds: int,
     response_settle_seconds: int,
     max_settle_wait_seconds: int,
+    run_stage_once_fn: Callable[..., Any] | None = None,
 ) -> str:
+    stage_once = run_stage_once_fn or run_stage_once
     input_chunks = split_text_into_chunks(prompt_text, chunks)
     if len(input_chunks) == 1:
-        return run_stage_once(
-            page=page,
-            timeout_ms=timeout_ms,
-            prompt_text=(f"{instructions_text}\n\n{prompt_text}" if instructions_text else prompt_text),
-            wait_seconds=wait_seconds,
-            post_response_wait_seconds=post_response_wait_seconds,
-            response_settle_seconds=response_settle_seconds,
-            max_settle_wait_seconds=max_settle_wait_seconds,
+        return _coerce_stage_response(
+            stage_once(
+                page=page,
+                timeout_ms=timeout_ms,
+                prompt_text=(f"{instructions_text}\n\n{prompt_text}" if instructions_text else prompt_text),
+                wait_seconds=wait_seconds,
+                post_response_wait_seconds=post_response_wait_seconds,
+                response_settle_seconds=response_settle_seconds,
+                max_settle_wait_seconds=max_settle_wait_seconds,
+            )
         )
 
     if mode == "finalize_on_last_chunk":
@@ -146,14 +160,16 @@ def run_chunk_plan(
                 if chunk_idx < total_chunks
                 else build_final_chunk_prompt(chunk_input_text, chunk_idx, total_chunks, instructions_text)
             )
-            response = run_stage_once(
-                page=page,
-                timeout_ms=timeout_ms,
-                prompt_text=prompt,
-                wait_seconds=wait_seconds,
-                post_response_wait_seconds=post_response_wait_seconds,
-                response_settle_seconds=response_settle_seconds,
-                max_settle_wait_seconds=max_settle_wait_seconds,
+            response = _coerce_stage_response(
+                stage_once(
+                    page=page,
+                    timeout_ms=timeout_ms,
+                    prompt_text=prompt,
+                    wait_seconds=wait_seconds,
+                    post_response_wait_seconds=post_response_wait_seconds,
+                    response_settle_seconds=response_settle_seconds,
+                    max_settle_wait_seconds=max_settle_wait_seconds,
+                )
             )
             if chunk_idx == total_chunks:
                 output_text = response
@@ -163,14 +179,16 @@ def run_chunk_plan(
         map_payloads = []
         for chunk_idx, chunk_input_text in enumerate(input_chunks, start=1):
             prompt = build_chunk_map_prompt(chunk_input_text, chunk_idx, len(input_chunks))
-            response = run_stage_once(
-                page=page,
-                timeout_ms=timeout_ms,
-                prompt_text=prompt,
-                wait_seconds=wait_seconds,
-                post_response_wait_seconds=post_response_wait_seconds,
-                response_settle_seconds=response_settle_seconds,
-                max_settle_wait_seconds=max_settle_wait_seconds,
+            response = _coerce_stage_response(
+                stage_once(
+                    page=page,
+                    timeout_ms=timeout_ms,
+                    prompt_text=prompt,
+                    wait_seconds=wait_seconds,
+                    post_response_wait_seconds=post_response_wait_seconds,
+                    response_settle_seconds=response_settle_seconds,
+                    max_settle_wait_seconds=max_settle_wait_seconds,
+                )
             )
             payload = extract_json_payload(response)
             if payload is None:
@@ -178,14 +196,16 @@ def run_chunk_plan(
             map_payloads.append(payload)
         merged = merge_map_payloads(map_payloads)
         reduce_prompt = build_reduce_prompt(merged, instructions_text)
-        return run_stage_once(
-            page=page,
-            timeout_ms=timeout_ms,
-            prompt_text=reduce_prompt,
-            wait_seconds=wait_seconds,
-            post_response_wait_seconds=post_response_wait_seconds,
-            response_settle_seconds=response_settle_seconds,
-            max_settle_wait_seconds=max_settle_wait_seconds,
+        return _coerce_stage_response(
+            stage_once(
+                page=page,
+                timeout_ms=timeout_ms,
+                prompt_text=reduce_prompt,
+                wait_seconds=wait_seconds,
+                post_response_wait_seconds=post_response_wait_seconds,
+                response_settle_seconds=response_settle_seconds,
+                max_settle_wait_seconds=max_settle_wait_seconds,
+            )
         )
 
     # legacy multi-chunk
@@ -193,14 +213,16 @@ def run_chunk_plan(
     for chunk_text in input_chunks:
         prompt = f"{instructions_text}\n\n{chunk_text}" if instructions_text else chunk_text
         outputs.append(
-            run_stage_once(
-                page=page,
-                timeout_ms=timeout_ms,
-                prompt_text=prompt,
-                wait_seconds=wait_seconds,
-                post_response_wait_seconds=post_response_wait_seconds,
-                response_settle_seconds=response_settle_seconds,
-                max_settle_wait_seconds=max_settle_wait_seconds,
+            _coerce_stage_response(
+                stage_once(
+                    page=page,
+                    timeout_ms=timeout_ms,
+                    prompt_text=prompt,
+                    wait_seconds=wait_seconds,
+                    post_response_wait_seconds=post_response_wait_seconds,
+                    response_settle_seconds=response_settle_seconds,
+                    max_settle_wait_seconds=max_settle_wait_seconds,
+                )
             )
         )
     if len(outputs) == 1:

@@ -13,6 +13,14 @@ on:
         description: "Prompt text to process immediately (optional)"
         required: false
         type: string
+      playwright_engine:
+        description: "Playwright browser engine"
+        required: false
+        default: "chatgpt"
+        type: choice
+        options:
+          - "chatgpt"
+          - "perplexity"
       upload_artifacts:
         description: "Upload diagnostics artifacts even on success"
         required: false
@@ -55,6 +63,7 @@ jobs:
       - name: Process requests with staged orchestration
         env:
           PROMPT_TEXT_INPUT: ${{ github.event.inputs.prompt_text }}
+          PLAYWRIGHT_ENGINE_INPUT: ${{ github.event.inputs.playwright_engine }}
           GH_EVENT_NAME: ${{ github.event_name }}
           GH_EVENT_BEFORE: ${{ github.event.before }}
           GH_SHA: ${{ github.sha }}
@@ -71,7 +80,12 @@ jobs:
           rm -rf tmp/playwright-profiles || true
           mkdir -p tmp/playwright-profiles
 
+          PLAYWRIGHT_ENGINE="${PLAYWRIGHT_ENGINE:-${PLAYWRIGHT_ENGINE_INPUT:-chatgpt}}"
           PLAYWRIGHT_RUNNER_FILE="chatgpt_file_playwright_anonymous_ci.py"
+          if [[ "$PLAYWRIGHT_ENGINE" == "perplexity" ]]; then
+            PLAYWRIGHT_RUNNER_FILE="perplexity_file_playwright_anonymous_ci.py"
+          fi
+          PLAYWRIGHT_RUNNER_FILE_OVERRIDE=""
           EXTRACT_CONTEXT_SCRIPT=".github/workflows/extract_request_context.py"
           [[ -f "$PLAYWRIGHT_RUNNER_FILE" ]] || { echo "Missing $PLAYWRIGHT_RUNNER_FILE"; exit 1; }
           [[ -f "$EXTRACT_CONTEXT_SCRIPT" ]] || { echo "Missing $EXTRACT_CONTEXT_SCRIPT"; exit 1; }
@@ -174,6 +188,18 @@ jobs:
           PY
           }
 
+          resolve_playwright_runner_for_model() {
+            local model_name="$1"
+            case "$model_name" in
+              git-perplexity|git-perplexity-json|*/git-perplexity|*/git-perplexity-json)
+                echo "perplexity_file_playwright_anonymous_ci.py"
+                ;;
+              *)
+                echo "chatgpt_file_playwright_anonymous_ci.py"
+                ;;
+            esac
+          }
+
           call_playwright_stage() {
             local stage="$1"
             local stage_prompt_file="$2"
@@ -182,6 +208,9 @@ jobs:
             local expect_json="${5:-false}"
             local require_live_web="${6:-false}"
             local max_attempts_override="${7:-}"
+            local stage_chunks="${8:-1}"
+            local stage_chunk_mode="${9:-none}"
+            local runner_file="${PLAYWRIGHT_RUNNER_FILE_OVERRIDE:-$PLAYWRIGHT_RUNNER_FILE}"
 
             local attempts="${STAGE_MAX_ATTEMPTS:-2}"
             if [[ "$require_live_web" == "true" ]]; then
@@ -213,7 +242,7 @@ jobs:
               fi
 
               if xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' \
-                python "$PLAYWRIGHT_RUNNER_FILE" \
+                python "$runner_file" \
                 --stage-name "$stage" \
                 --instructions-file "$stage_prompt_file" \
                 --input-file "$input_payload_file" \
@@ -227,6 +256,8 @@ jobs:
                 --post-response-wait-seconds 1 \
                 --response-settle-seconds 2 \
                 --max-settle-wait-seconds 25 \
+                --chunks "$stage_chunks" \
+                --chunk-mode "$stage_chunk_mode" \
                 "${json_flags[@]}" \
                 "${extra_flags[@]}"; then
                 if [[ "$require_live_web" == "true" ]] && response_indicates_web_unavailable "$output_file"; then
@@ -411,6 +442,76 @@ jobs:
               target = target[1:-1].strip()
 
           print(target)
+          PY
+          }
+
+          parse_context_value() {
+            local context_file="$1"
+            local key="$2"
+            python - "$context_file" "$key" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          path = Path(sys.argv[1])
+          key = sys.argv[2]
+          if not path.exists():
+              print("")
+              raise SystemExit(0)
+          try:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+          except Exception:
+              print("")
+              raise SystemExit(0)
+          value = payload.get(key)
+          if value is None:
+              print("")
+          elif isinstance(value, (dict, list)):
+              print(json.dumps(value, ensure_ascii=False))
+          else:
+              print(str(value))
+          PY
+          }
+
+          parse_context_chunking() {
+            local context_file="$1"
+            python - "$context_file" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          path = Path(sys.argv[1])
+          if not path.exists():
+              print("1|none")
+              raise SystemExit(0)
+          try:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+          except Exception:
+              print("1|none")
+              raise SystemExit(0)
+          chunking = payload.get("chunking")
+          if not isinstance(chunking, dict):
+              transport = payload.get("transport")
+              if isinstance(transport, dict):
+                  chunking = transport.get("chunking")
+          if not isinstance(chunking, dict):
+              print("1|none")
+              raise SystemExit(0)
+
+          enabled = bool(chunking.get("enabled"))
+          try:
+              chunk_count = int(chunking.get("chunk_count") or 1)
+          except Exception:
+              chunk_count = 1
+          chunk_count = max(1, min(chunk_count, 5))
+          if not enabled:
+              chunk_count = 1
+
+          mode = str(chunking.get("mode") or "").strip().lower()
+          allowed = {"none", "map_reduce", "finalize_on_last_chunk", "legacy"}
+          if mode not in allowed:
+              mode = "finalize_on_last_chunk" if chunk_count > 1 else "none"
+          if chunk_count <= 1:
+              mode = "none"
+          print(f"{chunk_count}|{mode}")
           PY
           }
 
@@ -800,6 +901,7 @@ jobs:
             local job_id="$1"
             local user_prompt_file="$2"
             local started_at="$3"
+            local context_file="${4:-}"
 
             local memory_file="tmp/${job_id}.memory.txt"
             local router_input="tmp/${job_id}.router.input.txt"
@@ -824,6 +926,25 @@ jobs:
             local terminal_state=""
             local intent_type=""
             local task_type=""
+            local answerer_chunks="1"
+            local answerer_chunk_mode="none"
+
+            PLAYWRIGHT_RUNNER_FILE_OVERRIDE="$PLAYWRIGHT_RUNNER_FILE"
+            if [[ -n "${context_file:-}" && -f "$context_file" ]]; then
+              local model_name
+              model_name="$(parse_context_value "$context_file" "model" | tr -d '\r')"
+              if [[ -n "${model_name// }" ]]; then
+                PLAYWRIGHT_RUNNER_FILE_OVERRIDE="$(resolve_playwright_runner_for_model "$model_name")"
+              fi
+              [[ -f "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE" ]] || { echo "Missing runner $PLAYWRIGHT_RUNNER_FILE_OVERRIDE"; return 1; }
+
+              local chunk_info
+              chunk_info="$(parse_context_chunking "$context_file" | tr -d '\r')"
+              answerer_chunks="${chunk_info%%|*}"
+              answerer_chunk_mode="${chunk_info#*|}"
+              [[ -z "$answerer_chunks" ]] && answerer_chunks="1"
+              [[ -z "$answerer_chunk_mode" ]] && answerer_chunk_mode="none"
+            fi
 
             : > "$memory_file"
             local memory_candidate_file="tmp/${job_id}.memory_candidate.json"
@@ -891,7 +1012,7 @@ jobs:
                     terminal_state="failed"
                   else
                     printf '%s\n' "$exact_target" > "$answerer_input"
-                    if call_playwright_stage "answerer" "$SYSTEM_TEST_PROMPT_FILE" "$answerer_input" "$answerer_out" false false; then
+                    if call_playwright_stage "answerer" "$SYSTEM_TEST_PROMPT_FILE" "$answerer_input" "$answerer_out" false false "" "1" "none"; then
                       write_stage_output "$job_id" "answerer" "$answerer_out"
                       # Enforce exact system-test response contract in final payload.
                       printf '%s\n' "$exact_target" > "$answerer_out"
@@ -919,7 +1040,7 @@ jobs:
                   fi
                 else
                   render_request_payload "$user_prompt_file" "$memory_file" "$answerer_input"
-                  if call_playwright_stage "answerer" "$ANSWERER_PROMPT_FILE" "$answerer_input" "$answerer_out" false "$requires_live_web"; then
+                  if call_playwright_stage "answerer" "$ANSWERER_PROMPT_FILE" "$answerer_input" "$answerer_out" false "$requires_live_web" "" "$answerer_chunks" "$answerer_chunk_mode"; then
                     write_stage_output "$job_id" "answerer" "$answerer_out"
                     write_stage_result_json "$job_id" "answerer" "$answerer_out" false
                     save_final_response "$job_id" "$answerer_out" "$started_at"
@@ -927,7 +1048,7 @@ jobs:
                   else
                     local stage_rc=$?
                     if [[ "$stage_rc" -eq 30 ]]; then
-                      printf '%s\n' "Live web search was required for this prompt but unavailable in the ChatGPT session after ${STAGE_WEB_MAX_ATTEMPTS:-3} attempt(s)." > "$answerer_out"
+                      printf '%s\n' "Live web search was required for this prompt but unavailable in the browser session after ${STAGE_WEB_MAX_ATTEMPTS:-3} attempt(s)." > "$answerer_out"
                       write_stage_result_json "$job_id" "answerer" "$answerer_out" false
                       save_final_response "$job_id" "$answerer_out" "$started_at"
                       terminal_state="completed"
@@ -1242,7 +1363,7 @@ jobs:
             prompt_file="tmp/${job_id}.prompt.txt"
             started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
             printf '%s' "$PROMPT_TEXT" > "$prompt_file"
-            process_request_option_b "$job_id" "$prompt_file" "$started_at"
+            process_request_option_b "$job_id" "$prompt_file" "$started_at" ""
             exit 0
           fi
 
@@ -1283,7 +1404,7 @@ jobs:
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
               context_file="tmp/${job_id}.context.json"
               python "$EXTRACT_CONTEXT_SCRIPT" "$req" "$prompt_file" "tmp/${job_id}.question.txt" "tmp/${job_id}.model.txt" "tmp/${job_id}.startup.txt" "$context_file"
-              process_request_option_b "$job_id" "$prompt_file" "$started_at"
+              process_request_option_b "$job_id" "$prompt_file" "$started_at" "$context_file"
               LAST_REQUEST_FILE="$req"
               [[ -f "responses/${job_id}.json" ]] && LAST_RESPONSE_FILE="responses/${job_id}.json"
             else
@@ -1294,7 +1415,7 @@ jobs:
               prompt_file="tmp/${job_id}.prompt.txt"
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
               cp "$req" "$prompt_file"
-              process_request_option_b "$job_id" "$prompt_file" "$started_at"
+              process_request_option_b "$job_id" "$prompt_file" "$started_at" ""
               [[ -f "responses/${job_id}.json" ]] && LAST_RESPONSE_FILE="responses/${job_id}.json"
               move_with_dedupe "$req" "input/processed"
             fi
@@ -1310,6 +1431,8 @@ jobs:
           path: |
             chatgpt_playwright_error*
             chatgpt_network.log
+            perplexity_playwright_error*
+            perplexity_network.log
             tmp/*.out.txt
             errors/*.json
             status/*.json

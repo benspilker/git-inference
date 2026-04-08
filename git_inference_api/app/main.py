@@ -477,8 +477,14 @@ ALLOWED_CHAT_ROLES = {"system", "user", "assistant", "tool"}
 
 
 def is_openclaw_compat_model(model_name: str) -> bool:
-    model = str(model_name or "").strip()
-    return bool(model and model in settings.openclaw_compat_models())
+    model = str(model_name or "").strip().lower()
+    if not model:
+        return False
+    compat = {name.strip().lower() for name in settings.openclaw_compat_models() if str(name).strip()}
+    if model in compat:
+        return True
+    tail = model.split("/")[-1]
+    return tail in compat
 
 
 def normalize_chat_role(raw_role: Any, compat_mode: bool) -> str:
@@ -536,7 +542,7 @@ def normalize_chat_request(request: ChatRequest) -> dict[str, Any]:
             )
         content = extract_text_content(raw_content)
         if not content:
-            if compat_mode:
+            if compat_mode or role in {"assistant", "tool", "system"}:
                 continue
             raise HTTPException(
                 status_code=400,
