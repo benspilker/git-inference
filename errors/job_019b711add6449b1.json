@@ -1,0 +1,21 @@
+{
+  "job_id": "job_019b711add6449b1",
+  "started_at": "2026-04-08T02:48:37Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: system_acknowledgment",
+    "details": {
+      "task_type": "system_acknowledgment",
+      "verified": false,
+      "executed_at": "2026-04-08T02:48:56Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: system_acknowledgment",
+        "parameters": {
+          "message": "OLLAMA_OK"
+        }
+      }
+    }
+  }
+}

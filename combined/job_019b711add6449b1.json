@@ -1,0 +1,49 @@
+{
+  "job_id": "job_019b711add6449b1",
+  "status": {
+    "job_id": "job_019b711add6449b1",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "system_acknowledgment",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-08T02:48:56Z",
+    "created_at": "2026-04-08T02:48:37Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_019b711add6449b1",
+    "started_at": "2026-04-08T02:48:37Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: system_acknowledgment",
+      "details": {
+        "task_type": "system_acknowledgment",
+        "verified": false,
+        "executed_at": "2026-04-08T02:48:56Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: system_acknowledgment",
+          "parameters": {
+            "message": "OLLAMA_OK"
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "system_acknowledgment",
+    "verified": false,
+    "executed_at": "2026-04-08T02:48:56Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: system_acknowledgment",
+      "parameters": {
+        "message": "OLLAMA_OK"
+      }
+    }
+  },
+  "generated_at": "2026-04-08T02:48:56Z"
+}

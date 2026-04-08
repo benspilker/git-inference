@@ -1,0 +1,9 @@
+{
+  "job_id": "job_019b711add6449b1",
+  "state": "failed",
+  "intent_type": "job",
+  "task_type": "system_acknowledgment",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-08T02:48:56Z",
+  "created_at": "2026-04-08T02:48:37Z"
+}
