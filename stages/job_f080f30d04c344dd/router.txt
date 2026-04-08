@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "echo_string",
+"confidence": 0.87,
+"requires_local_execution": false,
+"reason": "The user is asking for a specific textual response to be returned, not requesting any system action or deeper research."
+}

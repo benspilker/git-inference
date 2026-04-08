@@ -1,0 +1,9 @@
+{
+  "job_id": "job_f080f30d04c344dd",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "echo_string",
+  "current_stage": "complete",
+  "updated_at": "2026-04-08T02:51:26Z",
+  "created_at": "2026-04-08T02:50:52Z"
+}
