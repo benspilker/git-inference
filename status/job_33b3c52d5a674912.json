@@ -1,0 +1,9 @@
+{
+  "job_id": "job_33b3c52d5a674912",
+  "state": "completed",
+  "intent_type": "job",
+  "task_type": "system_command",
+  "current_stage": "complete",
+  "updated_at": "2026-04-08T17:42:11Z",
+  "created_at": "2026-04-08T17:41:37Z"
+}

@@ -1,0 +1,14 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "system_command",
+"confidence": 0.9,
+"requires_local_execution": true,
+"parameters": {
+"command": "OLLAMA_OK"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "The local system outputs 'OLLAMA_OK' in response to the command."
+}

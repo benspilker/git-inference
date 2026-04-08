@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "acknowledgment_response",
+"confidence": 0.95,
+"requires_local_execution": true,
+"reason": "The user explicitly requests the system to perform an action (reply with 'OLLAMA_OK'), which qualifies as a job."
+}
