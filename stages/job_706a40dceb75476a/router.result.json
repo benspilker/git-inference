@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "read_heartbeat_file",
+  "confidence": 1.0,
+  "requires_local_execution": true,
+  "reason": "The request involves accessing and reading a specific file in the local environment, indicating a job task."
+}
