@@ -1,0 +1,13 @@
+{
+  "task_type": "system_response",
+  "verified": false,
+  "executed_at": "2026-04-08T17:11:32Z",
+  "execution_status": "failed",
+  "details": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: system_response",
+    "parameters": {
+      "response_text": "OLLAMA_OK"
+    }
+  }
+}
