@@ -1,0 +1,49 @@
+{
+  "job_id": "job_4e69d678350a46df",
+  "status": {
+    "job_id": "job_4e69d678350a46df",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "read_file",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-08T03:17:08Z",
+    "created_at": "2026-04-08T03:16:49Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_4e69d678350a46df",
+    "started_at": "2026-04-08T03:16:49Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: read_file",
+      "details": {
+        "task_type": "read_file",
+        "verified": false,
+        "executed_at": "2026-04-08T03:17:08Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: read_file",
+          "parameters": {
+            "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md"
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "read_file",
+    "verified": false,
+    "executed_at": "2026-04-08T03:17:08Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: read_file",
+      "parameters": {
+        "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md"
+      }
+    }
+  },
+  "generated_at": "2026-04-08T03:17:08Z"
+}

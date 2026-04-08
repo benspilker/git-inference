@@ -1,0 +1,9 @@
+{
+  "job_id": "job_4e69d678350a46df",
+  "state": "failed",
+  "intent_type": "job",
+  "task_type": "read_file",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-08T03:17:08Z",
+  "created_at": "2026-04-08T03:16:49Z"
+}
