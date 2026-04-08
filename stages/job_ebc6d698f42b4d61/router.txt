@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "read_workspace_file_and_follow_instructions",
+"confidence": 0.97,
+"requires_local_execution": true,
+"reason": "The user is requesting to read a specific file from a local workspace path and act based on its contents, which requires local file access and execution."
+}

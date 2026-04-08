@@ -1,0 +1,23 @@
+{
+  "task_type": "read_and_process_file",
+  "verified": false,
+  "executed_at": "2026-04-08T03:14:37Z",
+  "execution_status": "failed",
+  "details": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: read_and_process_file",
+    "parameters": {
+      "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+      "file_must_exist": false,
+      "fallback_output": "HEARTBEAT_OK",
+      "instructions": [
+        "Attempt to read the file at the specified path.",
+        "If the file does not exist, return HEARTBEAT_OK.",
+        "If the file exists, strictly follow any instructions contained within it.",
+        "Do not infer or repeat tasks from prior runs or chats.",
+        "If the file contains no actionable items, return HEARTBEAT_OK."
+      ],
+      "current_time_utc": "2026-04-08T03:13:00Z"
+    }
+  }
+}
