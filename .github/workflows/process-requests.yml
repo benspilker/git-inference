@@ -1301,8 +1301,7 @@ jobs:
         with:
           name: playwright-diagnostics-${{ github.run_id }}
           path: |
-            chatgpt_playwright_error.png
-            chatgpt_playwright_error.html
+            chatgpt_playwright_error*
             chatgpt_network.log
             tmp/*.out.txt
             errors/*.json

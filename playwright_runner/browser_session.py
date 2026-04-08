@@ -61,11 +61,33 @@ def dismiss_blocking_modals(page) -> None:
 def find_chat_composer(page, timeout_ms: int):
     selectors = [
         "#prompt-textarea",
+        "[data-testid='prompt-textarea']",
+        "textarea[data-testid='prompt-textarea']",
+        "form textarea#prompt-textarea",
+        "form textarea[placeholder*='Message']",
+        "form textarea",
         "textarea[placeholder*='Message']",
+        "textarea[aria-label*='Message']",
+        "textarea",
         "[contenteditable='true'][id*='prompt']",
+        "[contenteditable='true'][data-testid*='prompt']",
+        "[contenteditable='true'][data-lexical-editor='true']",
         "[contenteditable='true'][aria-label*='Message']",
+        "[contenteditable='true'][role='textbox']",
+        "div[contenteditable='true'][role='textbox']",
     ]
-    return first_visible_locator(page, selectors, timeout_ms=timeout_ms)
+    deadline = time.time() + max(1.0, timeout_ms / 1000.0)
+    while time.time() < deadline:
+        dismiss_blocking_modals(page)
+        composer = first_visible_locator(page, selectors, timeout_ms=min(2500, max(1000, timeout_ms)))
+        if composer is not None:
+            try:
+                if composer.is_enabled():
+                    return composer
+            except Exception:
+                return composer
+        page.wait_for_timeout(350)
+    return None
 
 
 def assistant_turns(page):

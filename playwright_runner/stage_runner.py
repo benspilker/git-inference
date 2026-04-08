@@ -11,6 +11,7 @@ from .browser_session import (
     stabilize_response,
     wait_for_valid_response,
 )
+from .diagnostics import save_failure_diagnostics
 from .prompt_contracts import extract_json_payload
 from .recovery import click_retry_if_visible, refresh_chat
 
@@ -25,6 +26,8 @@ def run_stage_once(
     max_settle_wait_seconds: int,
     allow_retry: bool = True,
     refresh_before_retry: bool = False,
+    stage_name: str = "generic",
+    error_screenshot: Path | None = None,
 ) -> tuple[str, dict]:
     metadata = {
         "attempt": 1,
@@ -34,8 +37,39 @@ def run_stage_once(
         "thread_reused": True,
         "new_chat_started": False,
         "failure_reason": None,
+        "attempt_failures": [],
     }
     start = time.time()
+
+    def _capture_attempt_failure(attempt_no: int, reason: str) -> None:
+        if error_screenshot is None:
+            return
+        try:
+            screenshot = error_screenshot.with_name(
+                f"{error_screenshot.stem}.stage-{stage_name}.attempt-{attempt_no}{error_screenshot.suffix}"
+            )
+            html_path = screenshot.with_suffix(".html")
+            save_failure_diagnostics(
+                page,
+                screenshot,
+                metadata={
+                    "stage_name": stage_name,
+                    "attempt": attempt_no,
+                    "failure_reason": reason,
+                    "captured_at_epoch": time.time(),
+                },
+                html_path=html_path,
+            )
+            metadata["attempt_failures"].append(
+                {
+                    "attempt": attempt_no,
+                    "failure_reason": reason,
+                    "screenshot": str(screenshot),
+                    "html": str(html_path),
+                }
+            )
+        except Exception:
+            pass
 
     def _single_attempt():
         composer = find_chat_composer(page, timeout_ms=timeout_ms)
@@ -73,18 +107,24 @@ def run_stage_once(
     try:
         response = _single_attempt()
     except Exception as exc:
+        _capture_attempt_failure(1, str(exc))
         if not allow_retry:
             metadata["failure_reason"] = str(exc)
             raise
         metadata["used_retry"] = True
         metadata["retry_count"] = 1
         metadata["attempt"] = 2
-        if refresh_before_retry:
-            refresh_chat(page, timeout_ms)
-            metadata["page_refreshed"] = True
-        else:
-            click_retry_if_visible(page)
-        response = _single_attempt()
+        retried_with_click = click_retry_if_visible(page)
+        metadata["retry_clicked"] = bool(retried_with_click)
+        # Always refresh before retrying to recover transient composer/UI failures.
+        refresh_chat(page, timeout_ms)
+        metadata["page_refreshed"] = True
+        try:
+            response = _single_attempt()
+        except Exception as retry_exc:
+            _capture_attempt_failure(2, str(retry_exc))
+            metadata["failure_reason"] = str(retry_exc)
+            raise
 
     end = time.time()
     metadata["start_time"] = start

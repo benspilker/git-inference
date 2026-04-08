@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import time
 from pathlib import Path
 
@@ -55,13 +56,21 @@ def enable_network_logging(page, log_file: Path, enabled: bool = True) -> None:
     append("Network logging enabled.")
 
 
-def save_failure_diagnostics(page, error_screenshot: Path | None) -> None:
+def save_failure_diagnostics(
+    page,
+    error_screenshot: Path | None,
+    metadata: dict | None = None,
+    html_path: Path | None = None,
+) -> None:
     if error_screenshot is None:
         return
     try:
         error_screenshot.parent.mkdir(parents=True, exist_ok=True)
         page.screenshot(path=str(error_screenshot), full_page=True)
-        html_path = error_screenshot.with_suffix(".html")
-        html_path.write_text(page.content(), encoding="utf-8")
+        resolved_html_path = html_path or error_screenshot.with_suffix(".html")
+        resolved_html_path.write_text(page.content(), encoding="utf-8")
+        if metadata is not None:
+            meta_path = error_screenshot.with_suffix(".meta.json")
+            meta_path.write_text(json.dumps(metadata, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     except Exception:
         pass

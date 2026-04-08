@@ -140,6 +140,8 @@ def run() -> int:
                     max_settle_wait_seconds=args.max_settle_wait_seconds,
                     allow_retry=args.allow_retry,
                     refresh_before_retry=args.refresh_before_retry,
+                    stage_name=args.stage_name,
+                    error_screenshot=error_screenshot,
                 )
                 run_metadata["page_refreshed"] = bool(run_metadata.get("page_refreshed")) or bool(args.refresh_before_send)
                 run_metadata["thread_reused"] = not started_new_chat
