@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-04-08T13:18:30Z",
+  "job_id": "job_2558f21a784a47f0",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Hey Juniper, what is the weather like today in Indianapolis?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 10
+      },
+      "user_prompt_chunks": [
+        "Hey Juniper, what is the weather like today in Indianapolis?"
+      ]
+    },
+    "user_prompt": "Hey Juniper, what is the weather like today in Indianapolis?"
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 10
+    },
+    "user_prompt_chunks": [
+      "Hey Juniper, what is the weather like today in Indianapolis?"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Hey Juniper, what is the weather like today in Indianapolis?"
+}
