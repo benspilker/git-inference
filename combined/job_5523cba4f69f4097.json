@@ -1,0 +1,49 @@
+{
+  "job_id": "job_5523cba4f69f4097",
+  "status": {
+    "job_id": "job_5523cba4f69f4097",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "respond_text",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-08T03:10:53Z",
+    "created_at": "2026-04-08T03:10:13Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_5523cba4f69f4097",
+    "started_at": "2026-04-08T03:10:13Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: respond_text",
+      "details": {
+        "task_type": "respond_text",
+        "verified": false,
+        "executed_at": "2026-04-08T03:10:53Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: respond_text",
+          "parameters": {
+            "response_text": "OLLAMA_OK"
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "respond_text",
+    "verified": false,
+    "executed_at": "2026-04-08T03:10:53Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: respond_text",
+      "parameters": {
+        "response_text": "OLLAMA_OK"
+      }
+    }
+  },
+  "generated_at": "2026-04-08T03:10:53Z"
+}

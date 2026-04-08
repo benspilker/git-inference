@@ -1,0 +1,1 @@
+{"schema_version":"1.0","intent_type":"job","mode":"local_action","task_type":"respond_text","confidence":0.98,"requires_local_execution":true,"parameters":{"response_text":"OLLAMA_OK"},"missing_fields":[],"question":"","success_condition":"The system outputs exactly the text 'OLLAMA_OK' with no additional characters or formatting."}

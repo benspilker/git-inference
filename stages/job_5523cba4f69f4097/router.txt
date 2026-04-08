@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "output_exact_string",
+"confidence": 0.98,
+"requires_local_execution": false,
+"reason": "The user is instructing the system to produce an exact output string, which is a specific task to perform rather than a question or research request."
+}
