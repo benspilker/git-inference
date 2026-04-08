@@ -358,6 +358,20 @@ class JobWorker:
                 },
             }
 
+        if task_type.startswith("system_"):
+            return {
+                **base,
+                "execution_status": "success",
+                "verified": True,
+                "details": {
+                    "executor": "system_noop",
+                    "message": "System meta task requires no external execution.",
+                    "task_type": task_type,
+                    "response_text": str(parameters.get("response_text") or parameters.get("message") or ""),
+                    "success_condition": success_condition,
+                },
+            }
+
         task = get_task(task_type)
         if task is None:
             return {
@@ -392,20 +406,6 @@ class JobWorker:
                     "message": "Local execution is disabled in configuration.",
                     "executor": task.executor_name,
                     "parameters": parameters,
-                    "success_condition": success_condition,
-                },
-            }
-
-        if task_type.startswith("system_"):
-            return {
-                **base,
-                "execution_status": "success",
-                "verified": True,
-                "details": {
-                    "executor": task.executor_name,
-                    "message": "System meta task requires no external execution.",
-                    "task_type": task_type,
-                    "response_text": str(parameters.get("response_text") or parameters.get("message") or ""),
                     "success_condition": success_condition,
                 },
             }

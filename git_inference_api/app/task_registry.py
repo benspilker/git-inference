@@ -13,6 +13,18 @@ class TaskDefinition:
 
 
 SUPPORTED_TASKS: dict[str, TaskDefinition] = {
+    "system_command": TaskDefinition(
+        task_type="system_command",
+        required_fields=(),
+        executor_name="system_noop",
+        description="Meta/system command task. No external side effects; treated as no-op execution.",
+    ),
+    "system_message": TaskDefinition(
+        task_type="system_message",
+        required_fields=(),
+        executor_name="system_noop",
+        description="Meta/system message task. No external side effects; treated as no-op execution.",
+    ),
     "system_response": TaskDefinition(
         task_type="system_response",
         required_fields=("response_text",),
