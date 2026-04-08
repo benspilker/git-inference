@@ -1,0 +1,14 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "system_status_check",
+"confidence": 1.0,
+"requires_local_execution": true,
+"parameters": {
+"message": "OLLAMA_OK"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Local system responds with 'OLLAMA_OK' confirmation"
+}

@@ -1,0 +1,9 @@
+{
+  "job_id": "job_568115b2b2f64c1d",
+  "state": "failed",
+  "intent_type": "job",
+  "task_type": "system_status_check",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-08T02:52:21Z",
+  "created_at": "2026-04-08T02:52:01Z"
+}
