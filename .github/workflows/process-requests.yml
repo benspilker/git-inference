@@ -68,6 +68,8 @@ jobs:
           fi
 
           mkdir -p             tmp             input/processed             requests             requests/old-requests             responses             responses/old-responses             responses_readable             errors             evaluations             combined             status             stages             execution
+          rm -rf tmp/playwright-profiles || true
+          mkdir -p tmp/playwright-profiles
 
           PLAYWRIGHT_RUNNER_FILE="chatgpt_file_playwright_anonymous_ci.py"
           EXTRACT_CONTEXT_SCRIPT=".github/workflows/extract_request_context.py"
@@ -193,6 +195,10 @@ jobs:
             while (( attempt <= attempts )); do
               local meta_file
               meta_file="${output_file}.meta.json"
+              local profile_dir
+              profile_dir="tmp/playwright-profiles/${job_id}/${stage}/attempt-${attempt}"
+              rm -rf "$profile_dir"
+              mkdir -p "$profile_dir"
 
               local extra_flags=()
               if (( attempt > 1 )); then
@@ -213,6 +219,7 @@ jobs:
                 --input-file "$input_payload_file" \
                 --output-file "$output_file" \
                 --metadata-output-file "$meta_file" \
+                --user-data-dir "$profile_dir" \
                 --allow-retry \
                 --refresh-before-retry \
                 --wait-seconds 45 \
