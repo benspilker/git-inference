@@ -573,13 +573,7 @@ class JobWorker:
         timeout_seconds = self._stage_timeout_seconds(stage_name)
 
         if hasattr(wait_for_stage_result, "__call__"):
-            try:
-                return wait_for_stage_result(job_id, stage_name=stage_name, timeout_seconds=timeout_seconds)
-            except ResultNotFoundError:  # type: ignore[name-defined]
-                pass
-            except Exception:
-                # fall back to one-shot result reader if stage file is not produced.
-                pass
+            return wait_for_stage_result(job_id, stage_name=stage_name, timeout_seconds=timeout_seconds)
 
         return wait_for_result(job_id, timeout_seconds=timeout_seconds)
 
