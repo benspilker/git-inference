@@ -1,0 +1,21 @@
+{
+  "job_id": "job_7929eed5f88c4c67",
+  "started_at": "2026-04-08T20:51:52Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: read_file",
+    "details": {
+      "task_type": "read_file",
+      "verified": false,
+      "executed_at": "2026-04-08T20:52:12Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: read_file",
+        "parameters": {
+          "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md"
+        }
+      }
+    }
+  }
+}
