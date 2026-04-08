@@ -1,0 +1,14 @@
+{
+  "task_type": "read_file_if_exists",
+  "verified": false,
+  "executed_at": "2026-04-08T03:18:17Z",
+  "execution_status": "failed",
+  "details": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: read_file_if_exists",
+    "parameters": {
+      "file_path": "/home/ubuntu/.openclaw/workspace/HEARTBEAT.md",
+      "follow_instructions_strictly": true
+    }
+  }
+}
