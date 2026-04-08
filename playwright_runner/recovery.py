@@ -65,5 +65,15 @@ def start_new_chat_if_available(page, timeout_ms: int) -> bool:
 
 
 def refresh_chat(page, timeout_ms: int) -> None:
-    page.reload(wait_until="domcontentloaded", timeout=timeout_ms)
+    try:
+        page.reload(wait_until="domcontentloaded", timeout=timeout_ms)
+    except Exception:
+        # Some anti-bot/interstitial states can fail reload with non-2xx responses.
+        # Fall back to a best-effort navigate to the current URL and continue.
+        try:
+            current_url = page.url
+            if current_url:
+                page.goto(current_url, wait_until="domcontentloaded", timeout=timeout_ms)
+        except Exception:
+            pass
     page.wait_for_timeout(1200)
