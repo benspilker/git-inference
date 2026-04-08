@@ -132,6 +132,44 @@ jobs:
             cp "$src" "stages/${job_id}/${stage}.txt"
           }
 
+          write_stage_result_json() {
+            local job_id="$1"
+            local stage="$2"
+            local src="$3"
+            local force_json="${4:-false}"
+            mkdir -p "stages/${job_id}"
+            python - "$job_id" "$stage" "$src" "$force_json" <<'PY'
+          import json
+          import re
+          import sys
+          from pathlib import Path
+
+          job_id, stage, src, force_json = sys.argv[1:5]
+          src_path = Path(src)
+          raw = src_path.read_text(encoding="utf-8").strip() if src_path.exists() else ""
+          payload = None
+
+          if force_json.lower() == "true":
+              payload = json.loads(raw) if raw else {}
+          else:
+              # Best effort: extract first JSON object from mixed text.
+              match = re.search(r"\{.*\}", raw, re.S)
+              if match:
+                  try:
+                      candidate = json.loads(match.group(0))
+                      if isinstance(candidate, dict):
+                          payload = candidate
+                  except Exception:
+                      payload = None
+
+          if not isinstance(payload, dict):
+              payload = {"response": raw}
+
+          out_path = Path("stages") / job_id / f"{stage}.result.json"
+          out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          PY
+          }
+
           call_playwright_stage() {
             local stage="$1"
             local stage_prompt_file="$2"
@@ -731,6 +769,7 @@ jobs:
               validate_json "$router_out" > "$router_json"
               validate_stage_contract "router" "$router_json" > "${router_json}.validated"
               mv "${router_json}.validated" "$router_json"
+              write_stage_result_json "$job_id" "router" "$router_json" true
 
               intent_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("intent_type",""))' "$router_json")"
               task_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("task_type",""))' "$router_json")"
@@ -743,12 +782,14 @@ jobs:
                 write_status "$job_id" "planning" "$intent_type" "$task_type" "answerer"
                 if call_playwright_stage "answerer" "$ANSWERER_PROMPT_FILE" "$answerer_input" "$answerer_out" false "$requires_live_web"; then
                   write_stage_output "$job_id" "answerer" "$answerer_out"
+                  write_stage_result_json "$job_id" "answerer" "$answerer_out" false
                   save_final_response "$job_id" "$answerer_out" "$started_at"
                   terminal_state="completed"
                 else
                   local stage_rc=$?
                   if [[ "$stage_rc" -eq 30 ]]; then
                     printf '%s\n' "Live web search was required for this prompt but unavailable in the ChatGPT session after ${STAGE_WEB_MAX_ATTEMPTS:-3} attempt(s)." > "$answerer_out"
+                    write_stage_result_json "$job_id" "answerer" "$answerer_out" false
                     save_final_response "$job_id" "$answerer_out" "$started_at"
                     terminal_state="completed"
                   else
@@ -796,6 +837,7 @@ jobs:
                   validate_json "$planner_out" > "$planner_json"
                   validate_stage_contract "planner" "$planner_json" > "${planner_json}.validated"
                   mv "${planner_json}.validated" "$planner_json"
+                  write_stage_result_json "$job_id" "planner" "$planner_json" true
 
                   local planner_intent
                   planner_intent="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("intent_type",""))' "$planner_json")"
@@ -883,6 +925,7 @@ jobs:
                       build_final_phraser_input "$execution_json" "$final_input"
                       if call_playwright_stage "final_phraser" "$FINAL_PHRASER_PROMPT_FILE" "$final_input" "$final_out" false false; then
                         write_stage_output "$job_id" "final_phraser" "$final_out"
+                        write_stage_result_json "$job_id" "final_phraser" "$final_out" false
                         save_final_response "$job_id" "$final_out" "$started_at"
                         terminal_state="completed"
                       else

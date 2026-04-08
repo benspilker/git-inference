@@ -347,6 +347,16 @@ def try_read_stage_result(job_id: str, stage_name: str) -> dict[str, Any] | None
             payload = json.loads(path.read_text(encoding="utf-8"))
             logger.info("stage result artifact found", extra={"job_id": job_id, "stage": stage_name, "path": str(path)})
             return payload
+
+    txt_path = settings.repo_path / "stages" / job_id / f"{stage_name}.txt"
+    if txt_path.exists():
+        raw = txt_path.read_text(encoding="utf-8")
+        payload = {"response": raw}
+        logger.info(
+            "stage text artifact found; wrapped as response",
+            extra={"job_id": job_id, "stage": stage_name, "path": str(txt_path)},
+        )
+        return payload
     return None
 
 

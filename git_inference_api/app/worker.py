@@ -17,7 +17,6 @@ from .git_ops import (
     REPO_LOCK,
     ResultNotFoundError,
     commit_and_push_request,
-    commit_and_push_stage_request,
     ensure_repo_ready,
     normalize_failure_payload,
     sync_repo_to_remote_head,
@@ -25,7 +24,6 @@ from .git_ops import (
     wait_for_result,
     wait_for_stage_result,
     write_request_artifact,
-    write_stage_request_artifact,
 )
 from .task_registry import get_task, validate_required_fields
 
@@ -84,6 +82,7 @@ class JobWorker:
                 self._process_job_single_run(job, intent_type=intent_type, task_type=task_type)
                 return
 
+            self._submit_stage_mode_request(job)
             self._update_status(job_id, "routing", intent_type=intent_type, task_type=task_type)
             router_result = self._run_router_stage(job)
             intent_type = router_result.get("intent_type") or intent_type
@@ -264,6 +263,18 @@ class JobWorker:
             "one-shot workflow completed",
             extra={"job_id": job_id, "status": "completed", "intent_type": intent_type, "task_type": task_type},
         )
+
+    def _submit_stage_mode_request(self, job: dict[str, Any]) -> None:
+        """
+        Stage orchestration consumes stage artifacts emitted by the normal request pipeline run.
+        Submit the request once up front so router/planner/answerer/final stage artifacts can appear.
+        """
+        job_id = job["job_id"]
+        with REPO_LOCK:
+            sync_repo_to_remote_head()
+            request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            request_path = write_request_artifact(job_id, request_payload)
+            commit_and_push_request(job_id, request_path)
 
     def _extract_routing_metadata(self, job: dict[str, Any]) -> dict[str, Any]:
         request_json = job.get("request_json") or {}
@@ -559,17 +570,7 @@ class JobWorker:
         return int(mapping.get(stage_name, settings.job_timeout_seconds))
 
     def _run_stage_via_pipeline(self, job_id: str, stage_name: str) -> dict[str, Any]:
-        stage_payload = {"stage_name": stage_name, "job_id": job_id}
         timeout_seconds = self._stage_timeout_seconds(stage_name)
-
-        with REPO_LOCK:
-            sync_repo_to_remote_head()
-            if hasattr(write_stage_request_artifact, "__call__"):
-                stage_path = write_stage_request_artifact(job_id, stage_name, stage_payload)
-                commit_and_push_stage_request(job_id, stage_name, stage_path)
-            else:
-                request_path = write_request_artifact(job_id, {"stage_name": stage_name})
-                commit_and_push_request(job_id, request_path)
 
         if hasattr(wait_for_stage_result, "__call__"):
             try:
