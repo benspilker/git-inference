@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "weather_lookup",
+"confidence": 0.9,
+"requires_local_execution": false,
+"reason": "The user is asking for weather information, which qualifies as a question."
+}
