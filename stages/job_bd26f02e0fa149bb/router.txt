@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "string",
+"confidence": 0.8,
+"requires_local_execution": false,
+"reason": "The user appears to be asking about weather, which typically falls under a request for information or lookup."
+}
