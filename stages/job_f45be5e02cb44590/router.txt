@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "read_file",
+"confidence": 1.0,
+"requires_local_execution": true,
+"reason": "The user is requesting to read the HEARTBEAT.md file from the specified workspace."
+}
