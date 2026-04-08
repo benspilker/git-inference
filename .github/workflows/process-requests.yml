@@ -6,6 +6,7 @@ on:
     paths:
       - "input/*.txt"
       - "requests/job_*.json"
+      - "stages/**/*.request.json"
   workflow_dispatch:
     inputs:
       prompt_text:
@@ -1139,5 +1140,4 @@ jobs:
           done
           echo "Failed to push after retries."
           exit 1
-
 
