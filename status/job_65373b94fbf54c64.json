@@ -1,0 +1,9 @@
+{
+  "job_id": "job_65373b94fbf54c64",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "fixed_output_generation",
+  "current_stage": "complete",
+  "updated_at": "2026-04-08T03:06:33Z",
+  "created_at": "2026-04-08T03:05:54Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "fixed_output_generation",
+"confidence": 0.86,
+"requires_local_execution": false,
+"reason": "The user is asking for a specific text output, not requesting an action or deeper research."
+}
