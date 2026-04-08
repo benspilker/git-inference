@@ -27,7 +27,7 @@ class Settings:
     result_poll_interval_seconds: float = float(os.getenv("RESULT_POLL_INTERVAL_SECONDS", "2.0"))
 
     # Optional stage-specific timeouts
-    router_stage_timeout_seconds: int = int(os.getenv("ROUTER_STAGE_TIMEOUT_SECONDS", "300"))
+    router_stage_timeout_seconds: int = int(os.getenv("ROUTER_STAGE_TIMEOUT_SECONDS", "900"))
     planner_stage_timeout_seconds: int = int(os.getenv("PLANNER_STAGE_TIMEOUT_SECONDS", "120"))
     answerer_stage_timeout_seconds: int = int(os.getenv("ANSWERER_STAGE_TIMEOUT_SECONDS", "180"))
     final_phraser_stage_timeout_seconds: int = int(os.getenv("FINAL_PHRASER_STAGE_TIMEOUT_SECONDS", "120"))
