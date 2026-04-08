@@ -1,0 +1,8 @@
+{
+  "job_id": "job_d3db920f4d24402f",
+  "started_at": "2026-04-08T23:42:59Z",
+  "error": {
+    "code": "ROUTER_STAGE_FAILED",
+    "message": "Router stage execution failed."
+  }
+}
