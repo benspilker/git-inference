@@ -1,0 +1,24 @@
+{
+  "job_id": "job_586a17ba9c9b48ce",
+  "status": {
+    "job_id": "job_586a17ba9c9b48ce",
+    "state": "failed",
+    "intent_type": null,
+    "task_type": null,
+    "current_stage": "router",
+    "updated_at": "2026-04-08T23:41:26Z",
+    "created_at": "2026-04-08T23:37:02Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_586a17ba9c9b48ce",
+    "started_at": "2026-04-08T23:37:02Z",
+    "error": {
+      "code": "ROUTER_STAGE_FAILED",
+      "message": "Router stage execution failed."
+    }
+  },
+  "execution": null,
+  "generated_at": "2026-04-08T23:41:26Z"
+}
