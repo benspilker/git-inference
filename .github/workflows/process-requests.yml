@@ -1259,8 +1259,27 @@ jobs:
             else
               write_stage_output "$job_id" "router" "$router_out"
               validate_json "$router_out" > "$router_json"
-              validate_stage_contract "router" "$router_json" > "${router_json}.validated"
-              mv "${router_json}.validated" "$router_json"
+              if validate_stage_contract "router" "$router_json" > "${router_json}.validated"; then
+                mv "${router_json}.validated" "$router_json"
+              else
+                echo "[router] contract validation failed; applying safe question/information fallback"
+                python - "$router_json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          router_path = Path(sys.argv[1])
+          fallback = {
+              "schema_version": "1.0",
+              "intent_type": "question",
+              "task_type": "information",
+              "confidence": 0.55,
+              "requires_local_execution": False,
+              "reason": "Router output failed contract validation; applied safe fallback route to answerer."
+          }
+          router_path.write_text(json.dumps(fallback, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          PY
+              fi
 
               intent_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("intent_type",""))' "$router_json")"
               task_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("task_type",""))' "$router_json")"
