@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "scheduled_weather_report",
+"confidence": 0.42,
+"requires_local_execution": true,
+"reason": "User requests setting up a disabled daily weather cron for a specific location and timezone and to confirm a job ID, which requires scheduling and confirmation of a local job."
+}

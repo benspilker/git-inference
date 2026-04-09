@@ -1,0 +1,9 @@
+{
+  "job_id": "job_96125a74257b48b9",
+  "state": "needs_clarification",
+  "intent_type": "job",
+  "task_type": "scheduled_weather_report",
+  "current_stage": "planner",
+  "updated_at": "2026-04-09T23:05:53Z",
+  "created_at": "2026-04-09T23:04:00Z"
+}

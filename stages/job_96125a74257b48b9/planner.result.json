@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "mode": "local_action",
+  "task_type": "scheduled_weather_report",
+  "confidence": 0.0,
+  "requires_local_execution": true,
+  "parameters": {
+    "task": "disable",
+    "frequency": "daily",
+    "time": "08:30",
+    "timezone": "America/New_York",
+    "location": " Indianapolis",
+    "payload": {
+      "weather_report": true
+    }
+  },
+  "missing_fields": [],
+  "question": "Please confirm the exact target location name spelling (Indianapolis, IN) and whether the 8:30 AM time should be interpreted in America/New_York or local Indianapolis time for the daily disabled cron.",
+  "success_condition": "Cron job for daily weather report at 08:30 America/New_York for Indianapolis is created in a disabled state; a job_id is returned and stored."
+}
