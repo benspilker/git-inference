@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import re
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,7 +26,7 @@ from .git_ops import (
     wait_for_stage_result,
     write_request_artifact,
 )
-from .task_registry import get_task, validate_required_fields
+from .task_registry import canonicalize_task_type, get_task, validate_required_fields
 
 logger = logging.getLogger("git_inference_api.worker")
 
@@ -337,12 +338,16 @@ class JobWorker:
         return self._run_stage_via_pipeline(job["job_id"], stage_name="planner")
 
     def _execute_local_task(self, job: dict[str, Any], planner_result: dict[str, Any]) -> dict[str, Any]:
-        task_type = str(planner_result.get("task_type") or "").strip()
+        original_task_type = str(planner_result.get("task_type") or "").strip()
+        task_type = canonicalize_task_type(original_task_type)
         parameters = planner_result.get("parameters") if isinstance(planner_result.get("parameters"), dict) else {}
         success_condition = str(planner_result.get("success_condition") or "").strip()
+        if task_type == "scheduled_weather_report":
+            parameters = self._normalize_weather_schedule_parameters(parameters)
 
         base = {
             "task_type": task_type or None,
+            "original_task_type": original_task_type or None,
             "verified": False,
             "executed_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         }
@@ -367,6 +372,7 @@ class JobWorker:
                     "executor": "system_noop",
                     "message": "System meta task requires no external execution.",
                     "task_type": task_type,
+                    "original_task_type": original_task_type or None,
                     "response_text": str(parameters.get("response_text") or parameters.get("message") or ""),
                     "success_condition": success_condition,
                 },
@@ -379,7 +385,7 @@ class JobWorker:
                 "execution_status": "failed",
                 "details": {
                     "code": "UNSUPPORTED_TASK_TYPE",
-                    "message": f"Unsupported task_type: {task_type}",
+                    "message": f"Unsupported task_type: {original_task_type or task_type}",
                     "parameters": parameters,
                 },
             }
@@ -495,6 +501,87 @@ class JobWorker:
                 "parameters": parameters,
             },
         }
+
+    def _normalize_weather_schedule_parameters(self, parameters: dict[str, Any]) -> dict[str, Any]:
+        normalized: dict[str, Any] = dict(parameters or {})
+
+        schedule_obj = normalized.get("schedule")
+        schedule_dict = schedule_obj if isinstance(schedule_obj, dict) else {}
+
+        cron_expr = str(
+            normalized.get("cron_schedule")
+            or normalized.get("cron")
+            or normalized.get("cron_expression")
+            or schedule_dict.get("cron_expression")
+            or ""
+        ).strip()
+
+        schedule_text = str(
+            normalized.get("schedule")
+            if isinstance(normalized.get("schedule"), str)
+            else normalized.get("target_time_reference")
+            or ""
+        ).strip()
+
+        timezone_value = self._first_nonempty(
+            normalized.get("timezone"),
+            normalized.get("time_zone"),
+            normalized.get("recipient_timezone"),
+            normalized.get("time_of_delivery_timezone"),
+            normalized.get("timezone_policy"),
+            schedule_dict.get("timezone"),
+        )
+        if timezone_value:
+            normalized["timezone"] = timezone_value
+
+        location_value = self._first_nonempty(
+            normalized.get("location"),
+            normalized.get("city"),
+            normalized.get("recipient_location"),
+            schedule_dict.get("location"),
+        )
+        if not location_value:
+            command_text = str(normalized.get("command") or "").strip()
+            cmd_match = re.search(r"weather(?:_update)?\s+([A-Za-z][A-Za-z\s,\-\.]+)$", command_text, flags=re.IGNORECASE)
+            if cmd_match:
+                location_value = cmd_match.group(1).strip()
+        if location_value:
+            normalized["location"] = location_value
+
+        frequency_value = self._first_nonempty(normalized.get("frequency"))
+        if not frequency_value and cron_expr:
+            frequency_value = "daily"
+        if frequency_value:
+            normalized["frequency"] = frequency_value
+
+        time_value = self._first_nonempty(
+            normalized.get("time"),
+            normalized.get("send_time"),
+            normalized.get("time_of_delivery"),
+            schedule_dict.get("time"),
+        )
+        if not time_value:
+            m = re.search(r"\b(\d{1,2}:\d{2})\b", schedule_text)
+            if m:
+                time_value = m.group(1)
+        if not time_value and cron_expr:
+            parts = cron_expr.split()
+            if len(parts) >= 2 and parts[0].isdigit() and parts[1].isdigit():
+                time_value = f"{int(parts[1]):02d}:{int(parts[0]):02d}"
+        if time_value:
+            normalized["time"] = time_value
+
+        return normalized
+
+    @staticmethod
+    def _first_nonempty(*values: Any) -> str:
+        for value in values:
+            if value is None:
+                continue
+            text = str(value).strip()
+            if text:
+                return text
+        return ""
 
     def _verify_local_task(self, job: dict[str, Any], execution_result: dict[str, Any]) -> dict[str, Any]:
         execution_status = str(execution_result.get("execution_status") or "").lower()

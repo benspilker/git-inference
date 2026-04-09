@@ -873,6 +873,7 @@ jobs:
             python - "$planner_json" "$out_json" <<'PY'
           import json
           import hashlib
+          import re
           import sys
           from datetime import datetime, timezone
           from pathlib import Path
@@ -899,7 +900,7 @@ jobs:
               out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
               raise SystemExit(0)
 
-          task_type = str(plan.get("task_type") or "").strip()
+          task_type_raw = str(plan.get("task_type") or "").strip()
           params = plan.get("parameters") if isinstance(plan.get("parameters"), dict) else {}
           success_condition = str(plan.get("success_condition") or "")
 
@@ -929,8 +930,103 @@ jobs:
                           missing.append(f)
                   return missing
 
+          def canonicalize_task_type(task: str) -> str:
+              raw = str(task or "").strip().lower()
+              if not raw:
+                  return ""
+              normalized = "_".join(raw.replace("-", " ").split())
+              if normalized.startswith("schedule_cron") or normalized.startswith("cron_schedule") or "cron" in normalized:
+                  return "scheduled_weather_report"
+              if "reminder" in normalized:
+                  return "reminder"
+              return normalized
+
+          def normalize_weather_schedule_parameters(parameters: dict) -> dict:
+              normalized = dict(parameters or {})
+              schedule_obj = normalized.get("schedule")
+              schedule_dict = schedule_obj if isinstance(schedule_obj, dict) else {}
+
+              cron_expr = str(
+                  normalized.get("cron_schedule")
+                  or normalized.get("cron")
+                  or normalized.get("cron_expression")
+                  or schedule_dict.get("cron_expression")
+                  or ""
+              ).strip()
+
+              schedule_text = str(
+                  normalized.get("schedule")
+                  if isinstance(normalized.get("schedule"), str)
+                  else normalized.get("target_time_reference")
+                  or ""
+              ).strip()
+
+              def first_nonempty(*values):
+                  for value in values:
+                      if value is None:
+                          continue
+                      text = str(value).strip()
+                      if text:
+                          return text
+                  return ""
+
+              timezone_value = first_nonempty(
+                  normalized.get("timezone"),
+                  normalized.get("time_zone"),
+                  normalized.get("recipient_timezone"),
+                  normalized.get("time_of_delivery_timezone"),
+                  normalized.get("timezone_policy"),
+                  schedule_dict.get("timezone"),
+              )
+              if timezone_value:
+                  normalized["timezone"] = timezone_value
+
+              location_value = first_nonempty(
+                  normalized.get("location"),
+                  normalized.get("city"),
+                  normalized.get("recipient_location"),
+                  schedule_dict.get("location"),
+              )
+              if not location_value:
+                  command_text = str(normalized.get("command") or "").strip()
+                  cmd_match = re.search(r"weather(?:_update)?\s+([A-Za-z][A-Za-z\s,\-\.]+)$", command_text, flags=re.IGNORECASE)
+                  if cmd_match:
+                      location_value = cmd_match.group(1).strip()
+              if location_value:
+                  normalized["location"] = location_value
+
+              frequency_value = first_nonempty(normalized.get("frequency"))
+              if not frequency_value and cron_expr:
+                  frequency_value = "daily"
+              if frequency_value:
+                  normalized["frequency"] = frequency_value
+
+              time_value = first_nonempty(
+                  normalized.get("time"),
+                  normalized.get("send_time"),
+                  normalized.get("time_of_delivery"),
+                  schedule_dict.get("time"),
+              )
+              if not time_value:
+                  m = re.search(r"\b(\d{1,2}:\d{2})\b", schedule_text)
+                  if m:
+                      time_value = m.group(1)
+              if not time_value and cron_expr:
+                  parts = cron_expr.split()
+                  if len(parts) >= 2 and parts[0].isdigit() and parts[1].isdigit():
+                      time_value = f"{int(parts[1]):02d}:{int(parts[0]):02d}"
+              if time_value:
+                  normalized["time"] = time_value
+
+              return normalized
+
+          task_type = canonicalize_task_type(task_type_raw)
+          if task_type == "scheduled_weather_report":
+              params = normalize_weather_schedule_parameters(params)
+
           base = {
               "task_type": task_type or None,
+              "original_task_type": task_type_raw or None,
               "verified": False,
               "executed_at": now_iso(),
           }
@@ -971,7 +1067,7 @@ jobs:
                   "execution_status": "failed",
                   "details": {
                       "code": "UNSUPPORTED_TASK_TYPE",
-                      "message": f"Unsupported task_type: {task_type}",
+                      "message": f"Unsupported task_type: {task_type_raw or task_type}",
                       "parameters": params,
                   },
               }

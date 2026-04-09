@@ -52,8 +52,23 @@ SUPPORTED_TASKS: dict[str, TaskDefinition] = {
 }
 
 
+def canonicalize_task_type(task_type: str) -> str:
+    raw = str(task_type or "").strip().lower()
+    if not raw:
+        return ""
+    normalized = "_".join(raw.replace("-", " ").split())
+    if normalized in SUPPORTED_TASKS:
+        return normalized
+    if normalized.startswith("schedule_cron") or normalized.startswith("cron_schedule") or "cron" in normalized:
+        return "scheduled_weather_report"
+    if "reminder" in normalized:
+        return "reminder"
+    return normalized
+
+
 def get_task(task_type: str) -> TaskDefinition | None:
-    return SUPPORTED_TASKS.get(task_type)
+    canonical = canonicalize_task_type(task_type)
+    return SUPPORTED_TASKS.get(canonical)
 
 
 def validate_required_fields(task_type: str, parameters: dict[str, Any]) -> list[str]:

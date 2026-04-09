@@ -22,6 +22,14 @@ Rules:
 - If the request explicitly asks for deep investigation, comparison from many angles, or a report, classify it as research.
 - If location, time, or other critical required fields are missing for a likely job, you may use needs_clarification.
 - Prefer the most specific reasonable task_type.
+- Use canonical task_type names only:
+  - scheduled_weather_report
+  - reminder
+  - file_write
+  - system_command
+  - general_question
+  - root_topic_research
+- Do not output ad-hoc cron variants like schedule_cron_job or schedule_cron_*.
 
 Return JSON exactly in this shape:
 {

@@ -14,6 +14,12 @@ Rules:
 - Prefer normalized parameter values where reasonable.
 - If a timezone is not specified but a user timezone is present in context, you may use it.
 - If the task cannot be safely planned from the input, return needs_clarification.
+- Use canonical task_type names only. For scheduling requests, always use:
+  - scheduled_weather_report (weather schedule requests)
+  - reminder (generic reminder schedule requests)
+  - file_write (explicit file write requests)
+  - system_command (deterministic no-op/system tests)
+- Do not invent new task_type variants such as schedule_cron_job, cron_schedule, or schedule_cron_*.
 
 Return JSON exactly in this shape:
 {
