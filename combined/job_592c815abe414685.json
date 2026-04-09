@@ -1,0 +1,63 @@
+{
+  "job_id": "job_592c815abe414685",
+  "status": {
+    "job_id": "job_592c815abe414685",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "schedule_cron_weather",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-09T21:40:03Z",
+    "created_at": "2026-04-09T21:38:20Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_592c815abe414685",
+    "started_at": "2026-04-09T21:38:20Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather",
+      "details": {
+        "task_type": "schedule_cron_weather",
+        "verified": false,
+        "executed_at": "2026-04-09T21:40:03Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: schedule_cron_weather",
+          "parameters": {
+            "recipient_location": "Indianapolis, IN",
+            "recipient_timezone": "America/New_York",
+            "trigger_time": "08:30",
+            "trigger_time_unit": "daily",
+            "content_type": "weather",
+            "delivery_method": "email",
+            "frequency": "daily",
+            "start_date": null
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "schedule_cron_weather",
+    "verified": false,
+    "executed_at": "2026-04-09T21:40:03Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather",
+      "parameters": {
+        "recipient_location": "Indianapolis, IN",
+        "recipient_timezone": "America/New_York",
+        "trigger_time": "08:30",
+        "trigger_time_unit": "daily",
+        "content_type": "weather",
+        "delivery_method": "email",
+        "frequency": "daily",
+        "start_date": null
+      }
+    }
+  },
+  "generated_at": "2026-04-09T21:40:03Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "setup_cron_job",
+"confidence": 0.66,
+"requires_local_execution": true,
+"reason": "User asks to set up a cron job to send weather for Indianapolis daily at 8:30 AM America/New_York; this requires configuring a scheduled task on a local system or server, which is a setup/verification action rather than purely informational."
+}
