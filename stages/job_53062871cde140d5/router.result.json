@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "set_up_cron_weather_notification",
+  "confidence": 0.72,
+  "requires_local_execution": true,
+  "reason": "The user requests setting up a recurring cron job to deliver weather in a specific locale/timezone, which involves scheduling and configuration actions rather than just providing information."
+}

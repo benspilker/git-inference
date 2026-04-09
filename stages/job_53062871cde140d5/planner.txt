@@ -1,0 +1,20 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "schedule_cron_weather_indianapolis",
+"confidence": 0.72,
+"requires_local_execution": true,
+"parameters": {
+"timezone": "America/New_York",
+"recipient": "user",
+"location": "Indianapolis",
+"frequency": "daily",
+"time_of_day": "08:30",
+"weather_endpoint": null,
+"notification_method": null
+},
+"missing_fields": ["weather_endpoint", "notification_method"],
+"question": "Please provide: (1) preferred weather data source or endpoint, (2) how you want to receive the weather (email, SMS, push), and (3) any authentication details if the weather service requires it.",
+"success_condition": "Cron job created to fetch weather for Indianapolis daily at 08:30 America/New_York and deliver to the specified recipient via the chosen notification method using the provided weather data source."
+}

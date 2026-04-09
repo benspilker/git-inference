@@ -1,0 +1,61 @@
+{
+  "job_id": "job_53062871cde140d5",
+  "status": {
+    "job_id": "job_53062871cde140d5",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "schedule_cron_weather_indianapolis",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-09T21:45:29Z",
+    "created_at": "2026-04-09T21:43:52Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_53062871cde140d5",
+    "started_at": "2026-04-09T21:43:52Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather_indianapolis",
+      "details": {
+        "task_type": "schedule_cron_weather_indianapolis",
+        "verified": false,
+        "executed_at": "2026-04-09T21:45:29Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: schedule_cron_weather_indianapolis",
+          "parameters": {
+            "timezone": "America/New_York",
+            "recipient": "user",
+            "location": "Indianapolis",
+            "frequency": "daily",
+            "time_of_day": "08:30",
+            "weather_endpoint": null,
+            "notification_method": null
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "schedule_cron_weather_indianapolis",
+    "verified": false,
+    "executed_at": "2026-04-09T21:45:29Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather_indianapolis",
+      "parameters": {
+        "timezone": "America/New_York",
+        "recipient": "user",
+        "location": "Indianapolis",
+        "frequency": "daily",
+        "time_of_day": "08:30",
+        "weather_endpoint": null,
+        "notification_method": null
+      }
+    }
+  },
+  "generated_at": "2026-04-09T21:45:29Z"
+}
