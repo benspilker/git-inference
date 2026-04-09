@@ -1464,6 +1464,16 @@ jobs:
       - name: Commit and push artifacts
         run: |
           set -euo pipefail
+          if [[ ! -d .git ]]; then
+            if [[ -n "${GITHUB_WORKSPACE:-}" && -d "${GITHUB_WORKSPACE}/.git" ]]; then
+              cd "${GITHUB_WORKSPACE}"
+            else
+              echo "Not in git checkout directory."
+              pwd
+              ls -la
+              exit 128
+            fi
+          fi
           git config user.name "git-inference-pipeline"
           git config user.email "git-inference-pipeline@users.noreply.github.com"
           git add input requests responses errors responses_readable evaluations combined status stages execution
