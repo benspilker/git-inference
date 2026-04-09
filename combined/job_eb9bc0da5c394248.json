@@ -1,0 +1,71 @@
+{
+  "job_id": "job_eb9bc0da5c394248",
+  "status": {
+    "job_id": "job_eb9bc0da5c394248",
+    "state": "needs_clarification",
+    "intent_type": "job",
+    "task_type": "scheduled_weather_report",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-09T22:46:32Z",
+    "created_at": "2026-04-09T22:44:46Z"
+  },
+  "response": {
+    "job_id": "job_eb9bc0da5c394248",
+    "message": {
+      "role": "assistant",
+      "content": "I still need these fields to continue: time, location."
+    },
+    "done": false,
+    "started_at": "2026-04-09T22:44:46Z",
+    "needs_clarification": true,
+    "execution": {
+      "task_type": "scheduled_weather_report",
+      "original_task_type": "scheduled_weather_report",
+      "verified": false,
+      "executed_at": "2026-04-09T22:46:32Z",
+      "execution_status": "needs_clarification",
+      "details": {
+        "code": "MISSING_REQUIRED_FIELDS",
+        "message": "Task parameters are missing required fields.",
+        "missing_fields": [
+          "time",
+          "location"
+        ],
+        "parameters": {
+          "job_name": "nl-cron-test",
+          "enabled": false,
+          "weather_location": " Indianapolis",
+          "timezone": "America/New_York",
+          "frequency": "daily",
+          "time_of_day": "08:30"
+        }
+      }
+    }
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": {
+    "task_type": "scheduled_weather_report",
+    "original_task_type": "scheduled_weather_report",
+    "verified": false,
+    "executed_at": "2026-04-09T22:46:32Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "time",
+        "location"
+      ],
+      "parameters": {
+        "job_name": "nl-cron-test",
+        "enabled": false,
+        "weather_location": " Indianapolis",
+        "timezone": "America/New_York",
+        "frequency": "daily",
+        "time_of_day": "08:30"
+      }
+    }
+  },
+  "generated_at": "2026-04-09T22:46:32Z"
+}

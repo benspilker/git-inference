@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "scheduled_weather_report",
+  "confidence": 0.72,
+  "requires_local_execution": true,
+  "parameters": {
+    "job_name": "nl-cron-test",
+    "enabled": false,
+    "weather_location": " Indianapolis",
+    "timezone": "America/New_York",
+    "frequency": "daily",
+    "time_of_day": "08:30"
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "Weather report for Indianapolis is produced and delivered to the requester at 08:30 America/New_York daily when the job is enabled."
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "system_command",
+  "confidence": 0.7,
+  "requires_local_execution": true,
+  "reason": "The user asks to create a disabled cron job with a specific schedule and action, which is a system configuration task requiring local execution. Classification as a job with a system_command task type fits best."
+}
