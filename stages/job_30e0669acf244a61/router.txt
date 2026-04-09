@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "needs_clarification",
+"confidence": 0.44,
+"requires_local_execution": true,
+"reason": "User asks to classify a request into intent types for a local execution system, but no specific content to classify is provided. Clarification needed on the actual user query to determine if it is a question, job, or research."
+}
