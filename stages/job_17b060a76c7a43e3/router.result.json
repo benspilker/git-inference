@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "read_heartbeat_and_report",
+  "confidence": 0.42,
+  "requires_local_execution": true,
+  "reason": "The user asks to read a local HEARTBEAT.md file from a specific path and respond accordingly. Since this environment restricts local file access, clarification is needed to confirm whether the system can access that file directly in this context."
+}

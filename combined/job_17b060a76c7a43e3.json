@@ -1,0 +1,24 @@
+{
+  "job_id": "job_17b060a76c7a43e3",
+  "status": {
+    "job_id": "job_17b060a76c7a43e3",
+    "state": "failed",
+    "intent_type": "needs_clarification",
+    "task_type": "read_heartbeat_and_report",
+    "current_stage": "router_invalid",
+    "updated_at": "2026-04-09T19:13:40Z",
+    "created_at": "2026-04-09T19:12:30Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_17b060a76c7a43e3",
+    "started_at": "2026-04-09T19:12:29Z",
+    "error": {
+      "code": "ROUTER_INVALID_INTENT",
+      "message": "Router returned an unsupported intent_type."
+    }
+  },
+  "execution": null,
+  "generated_at": "2026-04-09T19:13:40Z"
+}
