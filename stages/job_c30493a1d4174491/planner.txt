@@ -1,0 +1,22 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "scheduled_weather_report",
+"confidence": 0.72,
+"requires_local_execution": true,
+"parameters": {
+"cron_name": "nl-cron-test",
+"enabled": false,
+"location": "Indianapolis",
+"timezone": "America/New_York",
+"time": "08:30",
+"frequency": "daily",
+"weather_source": null
+},
+"missing_fields": [
+"weather_source"
+],
+"question": "Please confirm the weather data source to use (e.g., common weather API) and whether Indianapolis timezone alignment should strictly follow America/New_York for scheduling despite the city being in a different state.",
+"success_condition": "The system registers a disabled daily weather report cron job named nl-cron-test configured to send weather for Indianapolis at 08:30 America/New_York each day, pending activation once enabled."
+}

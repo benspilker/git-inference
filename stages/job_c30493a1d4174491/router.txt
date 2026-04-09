@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "file_write",
+"confidence": 0.55,
+"requires_local_execution": true,
+"reason": "User requests creation of a scheduled task (cron-like job) to send daily weather data, with specific time, location, and timezone. This implies configuring a local execution task rather than seeking information."
+}
