@@ -1,0 +1,10 @@
+{
+  "job_id": "job_dispatch_24170951350_1",
+  "message": {
+    "role": "assistant",
+    "content": "Current weather in Indianapolis, IN: Partly cloudy, around 62°F. Forecast for today calls for a warmer day with more sun and clouds mixed in. Winds from the SSE at about 4 mph. A light shower isn’t expected today, but showers are possible later in the week. If you’d like, I can add hourly details or a short hour-by-hour outlook."
+  },
+  "done": true,
+  "started_at": "2026-04-09T03:35:05Z",
+  "completed_at": "2026-04-09T03:36:22Z"
+}
