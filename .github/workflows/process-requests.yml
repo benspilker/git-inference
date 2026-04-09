@@ -1159,7 +1159,7 @@ jobs:
             )
 
             Path(out_file).write_text(" ".join(parts) + "\n", encoding="utf-8")
-            PY
+          PY
                           then
                             write_stage_result_json "$job_id" "answerer" "$answerer_out" false
                             save_final_response "$job_id" "$answerer_out" "$started_at"
