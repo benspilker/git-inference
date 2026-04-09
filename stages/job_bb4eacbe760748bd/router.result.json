@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "The user asks to reply with an exact string, which is a formatting request rather than an informational or actionable task for the system. It is ambiguous whether this requires local execution or is a content instruction; clarification is needed to determine if any action is required. Deterministic system-test override applied for exact-reply probe."
+}
