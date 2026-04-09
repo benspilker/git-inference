@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "scheduled_weather_report",
+  "confidence": 0.72,
+  "requires_local_execution": true,
+  "parameters": {
+    "task_name": "nl-cron-test",
+    "enabled": false,
+    "location": "Indianapolis",
+    "timezone": "America/New_York",
+    "local_time": "08:30",
+    "frequency": "daily",
+    "weather_source": null
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "A disabled cron job named nl-cron-test is created in the local scheduler; when enabled, it will deliver the daily Indianapolis weather at 08:30 America/New_York."
+}

@@ -1,0 +1,23 @@
+{
+  "task_type": "scheduled_weather_report",
+  "original_task_type": "scheduled_weather_report",
+  "verified": false,
+  "executed_at": "2026-04-09T22:49:19Z",
+  "execution_status": "needs_clarification",
+  "details": {
+    "code": "MISSING_REQUIRED_FIELDS",
+    "message": "Task parameters are missing required fields.",
+    "missing_fields": [
+      "time"
+    ],
+    "parameters": {
+      "task_name": "nl-cron-test",
+      "enabled": false,
+      "location": "Indianapolis",
+      "timezone": "America/New_York",
+      "local_time": "08:30",
+      "frequency": "daily",
+      "weather_source": null
+    }
+  }
+}
