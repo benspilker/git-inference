@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "setup_cron_weather_notifier",
+"confidence": 0.65,
+"requires_local_execution": true,
+"reason": "User requests configuring a recurring system task (cron job) to fetch and send weather for Indianapolis daily at 8:30 AM America/New_York; this involves scheduling and possibly notification setup, which qualifies as a system action requiring local execution."
+}

@@ -1,0 +1,67 @@
+{
+  "job_id": "job_5970b3180e184dc2",
+  "status": {
+    "job_id": "job_5970b3180e184dc2",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "schedule_cron_weather Indianapolis 8:30 AM America/New_York",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-09T21:37:20Z",
+    "created_at": "2026-04-09T21:35:35Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_5970b3180e184dc2",
+    "started_at": "2026-04-09T21:35:35Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather Indianapolis 8:30 AM America/New_York",
+      "details": {
+        "task_type": "schedule_cron_weather Indianapolis 8:30 AM America/New_York",
+        "verified": false,
+        "executed_at": "2026-04-09T21:37:20Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: schedule_cron_weather Indianapolis 8:30 AM America/New_York",
+          "parameters": {
+            "recipient_location": "Indianapolis, IN, USA",
+            "send_time": "08:30",
+            "time_zone": "America/New_York",
+            "frequency": "daily",
+            "message_subject": "Daily weather update for Indianapolis",
+            "delivery_method": "email",
+            "weather_source": "public weather API",
+            "delivery_details": {
+              "email": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "schedule_cron_weather Indianapolis 8:30 AM America/New_York",
+    "verified": false,
+    "executed_at": "2026-04-09T21:37:20Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather Indianapolis 8:30 AM America/New_York",
+      "parameters": {
+        "recipient_location": "Indianapolis, IN, USA",
+        "send_time": "08:30",
+        "time_zone": "America/New_York",
+        "frequency": "daily",
+        "message_subject": "Daily weather update for Indianapolis",
+        "delivery_method": "email",
+        "weather_source": "public weather API",
+        "delivery_details": {
+          "email": null
+        }
+      }
+    }
+  },
+  "generated_at": "2026-04-09T21:37:20Z"
+}

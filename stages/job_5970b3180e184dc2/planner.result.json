@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "schedule_cron_weather Indianapolis 8:30 AM America/New_York",
+  "confidence": 0.55,
+  "requires_local_execution": true,
+  "parameters": {
+    "recipient_location": "Indianapolis, IN, USA",
+    "send_time": "08:30",
+    "time_zone": "America/New_York",
+    "frequency": "daily",
+    "message_subject": "Daily weather update for Indianapolis",
+    "delivery_method": "email",
+    "weather_source": "public weather API",
+    "delivery_details": {
+      "email": null
+    }
+  },
+  "missing_fields": [
+    "delivery_method details (e.g., email address or integration)",
+    "weather_source authentication/API key",
+    "recipient_contact_address"
+  ],
+  "question": "Please provide the destination for the weather updates (e.g., recipient email address) and confirm the weather API source and any required credentials.",
+  "success_condition": "Cron job is created to send a daily weather update for Indianapolis at 08:30 America/New_York, with delivery confirmed to the specified recipient target."
+}
