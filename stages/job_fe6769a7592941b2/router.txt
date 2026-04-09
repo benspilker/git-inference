@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "read_heartbeat",
+"confidence": 0.42,
+"requires_local_execution": true,
+"reason": "User requests reading a local HEARTBEAT.md file from a specific workspace path and responding with HEARTBEAT_OK if nothing needs attention. This requires local access to the filesystem which is not available in this context."
+}
