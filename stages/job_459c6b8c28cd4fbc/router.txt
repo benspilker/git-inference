@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "read_heartbeat_and_respond",
+"confidence": 0.58,
+"requires_local_execution": true,
+"reason": "The user asks to read a local HEARTBEAT.md file from a workspace to determine if action is needed. This implies a local file check and potential actions based on its contents, which is a local-execution task rather than a simple information request."
+}
