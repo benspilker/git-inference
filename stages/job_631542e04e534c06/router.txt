@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "information_retrieval",
+"confidence": 0.62,
+"requires_local_execution": false,
+"reason": "User asks for exact Indiana Pacers schedule for April 2026 including date, opponent, and home/away. This requires up-to-date event data from a schedule source."
+}

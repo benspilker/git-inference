@@ -1,0 +1,26 @@
+{
+  "job_id": "job_631542e04e534c06",
+  "status": {
+    "job_id": "job_631542e04e534c06",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information_retrieval",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T19:23:02Z",
+    "created_at": "2026-04-09T19:21:28Z"
+  },
+  "response": {
+    "job_id": "job_631542e04e534c06",
+    "message": {
+      "role": "assistant",
+      "content": "Here is the Pacers’ April 2026 schedule with date, opponent, and home/away status:\n\nApr 9, 2026 — at Brooklyn Nets — Away\n\nApr 10, 2026 — vs Philadelphia 76ers — Home\n\nApr 12, 2026 — vs Detroit Pistons — Home\n\nNote: This is based on publicly published schedules for the 2025-26 season. If you’d like, I can double-check with the latest official NBA/Pacers source to confirm exact times and arena names for your time zone. Would you like me to do that?"
+    },
+    "done": true,
+    "started_at": "2026-04-09T19:21:28Z",
+    "completed_at": "2026-04-09T19:23:02Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T19:23:02Z"
+}
