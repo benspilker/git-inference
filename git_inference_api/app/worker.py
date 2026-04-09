@@ -276,16 +276,25 @@ class JobWorker:
         if not settings.openclaw_cron_ssh_target.strip():
             return result
 
-        execution_path = settings.repo_path / settings.execution_dir / f"{job_id}.json"
-        if not execution_path.exists():
+        execution_payload: dict[str, Any] | None = None
+        inline_execution = result.get("execution")
+        if isinstance(inline_execution, dict):
+            execution_payload = inline_execution
+        else:
+            execution_path = settings.repo_path / settings.execution_dir / f"{job_id}.json"
+            if execution_path.exists():
+                try:
+                    loaded = json.loads(execution_path.read_text(encoding="utf-8"))
+                    if isinstance(loaded, dict):
+                        execution_payload = loaded
+                except Exception:
+                    execution_payload = None
+
+        if execution_payload is None:
             return result
 
-        try:
-            execution_payload = json.loads(execution_path.read_text(encoding="utf-8"))
-        except Exception:
-            return result
-
-        if str(execution_payload.get("execution_status") or "").lower() != "handoff_required":
+        execution_status = str(execution_payload.get("execution_status") or "").lower()
+        if execution_status not in {"handoff_required", "needs_clarification"}:
             return result
 
         canonical_task_type = canonicalize_task_type(str(execution_payload.get("task_type") or ""))
@@ -298,6 +307,10 @@ class JobWorker:
         updated["execution"] = runtime_execution
         if runtime_message:
             updated["message"] = {"role": "assistant", "content": runtime_message}
+        if str(runtime_execution.get("execution_status") or "").lower() == "success":
+            updated["needs_clarification"] = False
+            updated["done"] = True
+            updated["completed_at"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         return updated
 
     def _run_runtime_weather_cron_executor(self, execution_payload: dict[str, Any]) -> tuple[dict[str, Any], str]:
@@ -741,7 +754,14 @@ class JobWorker:
         if location_value:
             normalized["location"] = location_value
 
-        frequency_value = self._first_nonempty(normalized.get("frequency"))
+        frequency_value = self._first_nonempty(
+            normalized.get("frequency"),
+            normalized.get("date"),
+            normalized.get("cadence"),
+            normalized.get("interval"),
+            schedule_dict.get("frequency"),
+            schedule_dict.get("cadence"),
+        )
         if not frequency_value and cron_expr:
             frequency_value = "daily"
         if frequency_value:

@@ -429,8 +429,13 @@ jobs:
                   raise SystemExit("planner.parameters must be object")
               if not isinstance(data.get("missing_fields"), list):
                   raise SystemExit("planner.missing_fields must be array")
-              if str(data.get("intent_type")) == "needs_clarification" and not str(data.get("question") or "").strip():
-                  raise SystemExit("planner.question required when intent_type=needs_clarification")
+              if str(data.get("intent_type")) == "needs_clarification":
+                  question = str(data.get("question") or "").strip()
+                  missing_fields = [str(x).strip() for x in data.get("missing_fields", []) if str(x).strip()]
+                  if not question and not missing_fields:
+                      data["intent_type"] = "job"
+                  elif not question:
+                      data["question"] = f"Please confirm/provide: {', '.join(missing_fields)}."
 
           print(json.dumps(data, ensure_ascii=False))
           PY

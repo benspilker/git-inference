@@ -433,7 +433,17 @@ def parse_pipeline_failure_artifact(payload: dict[str, Any]) -> dict[str, Any] |
     if state in FAILURE_STATES:
         return normalize_failure_payload(payload, outer_payload=payload)
 
-    if payload.get("done") is False and "message" in payload and not payload.get("response") and state not in VISIBLE_NONTERMINAL_STATES:
+    planner = payload.get("planner") if isinstance(payload.get("planner"), dict) else {}
+    planner_intent = str(planner.get("intent_type", "")).lower()
+
+    if (
+        payload.get("done") is False
+        and "message" in payload
+        and not payload.get("response")
+        and state not in VISIBLE_NONTERMINAL_STATES
+        and payload.get("needs_clarification") is not True
+        and planner_intent not in VISIBLE_NONTERMINAL_STATES
+    ):
         return normalize_failure_payload(payload, outer_payload=payload)
 
     return None
