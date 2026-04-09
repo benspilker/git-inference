@@ -445,9 +445,17 @@ jobs:
           patterns = [
               r"don.?t have live web access",
               r"do not have live web access",
+              r"don.?t currently have live web access",
+              r"do not currently have live web access",
+              r"don.?t currently have live access",
+              r"do not currently have live access",
               r"don.?t have live weather access",
               r"do not have live weather access",
               r"i don.?t have .* live .* access right now",
+              r"i don.?t currently have .* live .* access",
+              r"i do not currently have .* live .* access",
+              r"don.?t .* live access .* in this chat",
+              r"do not .* live access .* in this chat",
               r"live web lookup required",
               r"live lookup required",
               r"don.?t have access to live tools",
@@ -460,6 +468,9 @@ jobs:
               r"cannot browse the web",
               r"unable to access live web",
               r"live_web_unavailable",
+              r"i can(?:not|n.?t) (?:pull|fetch|get) .* exact .* in this chat",
+              r"if you(?:.?d| would)? like,? i can (?:pull|fetch|get) .* if you",
+              r"if you (?:share|provide) (?:a )?(?:link|url)",
           ]
           hit = any(re.search(p, text) for p in patterns)
           raise SystemExit(0 if hit else 1)
