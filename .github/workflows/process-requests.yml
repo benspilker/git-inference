@@ -355,6 +355,9 @@ jobs:
           patterns = [
               r"don.?t have live web access",
               r"do not have live web access",
+              r"don.?t have live weather access",
+              r"do not have live weather access",
+              r"i don.?t have .* live .* access right now",
               r"live web search .* unavailable",
               r"web search was required .* unavailable",
               r"cannot browse the web",
