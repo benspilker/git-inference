@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "speed_check_request",
+"confidence": 0.0,
+"requires_local_execution": true,
+"reason": "User instructs to reply with a specific string, which does not fit defined intents; content appears to be a test or placeholder requiring clarification on expected action."
+}
