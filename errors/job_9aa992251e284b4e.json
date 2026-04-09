@@ -1,0 +1,28 @@
+{
+  "job_id": "job_9aa992251e284b4e",
+  "started_at": "2026-04-09T21:33:03Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: schedule_cron_weather_delivery",
+    "details": {
+      "task_type": "schedule_cron_weather_delivery",
+      "verified": false,
+      "executed_at": "2026-04-09T21:34:39Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: schedule_cron_weather_delivery",
+        "parameters": {
+          "recipient_timezone": "America/New_York",
+          "time_of_delivery": "08:30",
+          "time_of_delivery_timezone": "America/New_York",
+          "city": "Indianapolis",
+          "send_weather": true,
+          "frequency": "daily",
+          "delivery_method": "cron_job",
+          "weather_source": "default_weather_api"
+        }
+      }
+    }
+  }
+}

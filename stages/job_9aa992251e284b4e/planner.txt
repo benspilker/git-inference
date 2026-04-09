@@ -1,0 +1,21 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "schedule_cron_weather_delivery",
+"confidence": 0.72,
+"requires_local_execution": true,
+"parameters": {
+"recipient_timezone": "America/New_York",
+"time_of_delivery": "08:30",
+"time_of_delivery_timezone": "America/New_York",
+"city": "Indianapolis",
+"send_weather": true,
+"frequency": "daily",
+"delivery_method": "cron_job",
+"weather_source": "default_weather_api"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Cron job is created to deliver daily Indianapolis weather at 08:30 America/New_York, and a test run confirms receipt."
+}
