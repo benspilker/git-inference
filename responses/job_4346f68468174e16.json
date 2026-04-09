@@ -1,0 +1,10 @@
+{
+  "job_id": "job_4346f68468174e16",
+  "message": {
+    "role": "assistant",
+    "content": "Today in Grand Rapids, Michigan: Sunny with a current temperature around 64°F (18°C). Humidity about 32%, wind from the west-southwest around 9 mph, with clear skies and low cloud cover. Highs today are expected to be in the upper 60s to near 70°F, with continued sunny conditions into the afternoon. A light breeze persists, and there’s little to no precipitation forecast for today."
+  },
+  "done": true,
+  "started_at": "2026-04-09T19:28:53Z",
+  "completed_at": "2026-04-09T19:30:54Z"
+}
