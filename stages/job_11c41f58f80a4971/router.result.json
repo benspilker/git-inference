@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "create_disabled_cron",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "reason": "The user requests creating a disabled cron job with a specific schedule and destination (weather update for Indianapolis), which is an actionable configuration task requiring system-level actions not available in this interface."
+}

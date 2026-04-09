@@ -1,0 +1,39 @@
+{
+  "job_id": "job_11c41f58f80a4971",
+  "started_at": "2026-04-09T21:52:01Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: schedule_cron_job",
+    "details": {
+      "task_type": "schedule_cron_job",
+      "verified": false,
+      "executed_at": "2026-04-09T21:53:34Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: schedule_cron_job",
+        "parameters": {
+          "job_name": "nl-cron-test",
+          "enabled": false,
+          "schedule": {
+            "cron_expression": "0 8 * * *",
+            "timezone": "America/New_York",
+            "alias": "daily_8_30_am_eastern"
+          },
+          "command": {
+            "action": "send_weather_update",
+            "location": "Indianapolis",
+            "weather_target": " Indianapolis"
+          },
+          "environment": {
+            "execution_context": "local_system",
+            "retry_policy": {
+              "retries": 0,
+              "backoff": "none"
+            }
+          }
+        }
+      }
+    }
+  }
+}

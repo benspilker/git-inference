@@ -1,0 +1,36 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "schedule_cron_job",
+"confidence": 0.62,
+"requires_local_execution": true,
+"parameters": {
+"job_name": "nl-cron-test",
+"enabled": false,
+"schedule": {
+"cron_expression": "0 8 * * *",
+"timezone": "America/New_York",
+"alias": "daily_8_30_am_eastern"
+},
+"command": {
+"action": "send_weather_update",
+"location": "Indianapolis",
+"weather_target": " Indianapolis"
+},
+"environment": {
+"execution_context": "local_system",
+"retry_policy": {
+"retries": 0,
+"backoff": "none"
+}
+}
+},
+"missing_fields": [
+"shell_command",
+"notification_method",
+"data_source_for_weather"
+],
+"question": "Please confirm the weather data source and the preferred notification channel (email, Slack, webhook) for Indianapolis weather updates, and whether the cron should be disabled by default or enabled after creation.",
+"success_condition": "Cron job created with name nl-cron-test, scheduled to run daily at 08:30 America/New_York, executes weather update for Indianapolis, and remains disabled until explicitly enabled."
+}
