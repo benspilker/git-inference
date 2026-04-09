@@ -588,7 +588,31 @@ jobs:
           from pathlib import Path
 
           text = Path(sys.argv[1]).read_text(encoding="utf-8", errors="ignore")
-          lowered = text.lstrip().lower()
+          raw = text
+
+          # Strip markdown code blocks and noisy transport wrappers frequently prepended
+          # by upstream callers (Conversation/Sender metadata blocks).
+          cleaned = re.sub(r"```.*?```", " ", raw, flags=re.DOTALL)
+          lines = []
+          for line in cleaned.splitlines():
+              s = line.strip()
+              if not s:
+                  continue
+              low = s.lower()
+              if low.startswith("conversation info"):
+                  continue
+              if low.startswith("sender (untrusted metadata)"):
+                  continue
+              if low.startswith("sender:"):
+                  continue
+              if low.startswith("user prompt:"):
+                  continue
+              lines.append(s)
+          candidate = " ".join(lines).strip() if lines else raw.strip()
+          # Remove leading timestamp-style envelope prefixes like:
+          # [Thu 2026-04-02 04:08 UTC] What is ...
+          candidate = re.sub(r"^\[[^\]]+\]\s*", "", candidate).strip()
+          lowered = candidate.lower().lstrip()
 
           # Existing fast path: "Tell me ..."
           if re.match(r"^(?:please\s+)?tell\s+me\b", lowered):
