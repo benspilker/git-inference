@@ -1,0 +1,10 @@
+{
+  "job_id": "job_0b1c3e6777994472",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s the current weather in Indianapolis today:\n\nTemperature: around 75°F (24°C)\n\nConditions: Sunny\n\nHumidity: about 32%\n\nWind: light, SW around 7 mph\n\nVisibility: good (about 26 miles)\n\nPrecipitation: 0 inches\n\nUV index: moderate (around 4)\n\nForecast highlights:\n\nToday: Partly sunny and warm.\n\nTomorrow: Showers possible; not as warm.\n\nFollowing days: Mix of sun and clouds with occasional breezes or showers.\n\nIf you’d like, I can pull a more detailed hourly forecast or a specific timestamp for today."
+  },
+  "done": true,
+  "started_at": "2026-04-09T20:10:45Z",
+  "completed_at": "2026-04-09T20:12:06Z"
+}
