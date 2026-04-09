@@ -66,9 +66,10 @@ def find_chat_composer(page, timeout_ms: int):
 
 def assistant_turns(page):
     selectors = [
-        "[data-testid='answer']",
-        "[data-testid*='answer']",
         "main article .prose",
+        "main [class*='prose']",
+        "main [class*='markdown']",
+        "main article",
         "main .prose",
     ]
     for selector in selectors:
@@ -112,10 +113,60 @@ def looks_like_non_answer_text(text: str) -> bool:
     return any(marker in lowered for marker in blocked_markers)
 
 
-def set_composer_text(composer, text: str) -> None:
+def _is_contenteditable(composer) -> bool:
+    try:
+        handle = composer.element_handle()
+        if handle is None:
+            return False
+        return bool(handle.evaluate("(el) => el.getAttribute('contenteditable') === 'true' || el.isContentEditable"))
+    except Exception:
+        return False
+
+
+def _read_composer_text(composer) -> str:
+    handle = composer.element_handle()
+    if handle is None:
+        return ""
+    try:
+        return str(
+            handle.evaluate(
+                """(el) => {
+                    const isEditable = el.getAttribute('contenteditable') === 'true' || el.isContentEditable;
+                    if (isEditable) return (el.innerText || el.textContent || '').trim();
+                    return (el.value || '').trim();
+                }"""
+            )
+        ).strip()
+    except Exception:
+        return ""
+
+
+def set_composer_text(page, composer, text: str) -> None:
+    if _is_contenteditable(composer):
+        # Perplexity currently uses Lexical contenteditable input; real keyboard events
+        # keep internal editor state in sync, unlike direct DOM assignment.
+        try:
+            composer.press("Control+A")
+            composer.press("Backspace")
+        except Exception:
+            pass
+        lines = text.split("\n")
+        for idx, line in enumerate(lines):
+            if line:
+                page.keyboard.type(line, delay=6)
+            if idx < len(lines) - 1:
+                page.keyboard.press("Shift+Enter")
+        return
+
     handle = composer.element_handle()
     if handle is None:
         raise RuntimeError("Failed to resolve composer element.")
+    try:
+        composer.fill(text)
+        return
+    except Exception:
+        pass
+
     handle.evaluate(
         """(el, value) => {
             const isEditable = el.getAttribute('contenteditable') === 'true' || el.isContentEditable;
@@ -146,11 +197,13 @@ def send_prompt(page, composer, prompt_text: str) -> None:
         composer.click(timeout=3000)
     except Exception:
         composer.click(force=True, timeout=3000)
-    set_composer_text(composer, prompt_text)
+    set_composer_text(page, composer, prompt_text)
     send_selectors = [
         "button[type='submit']",
         "button[aria-label*='Submit']",
         "button[aria-label*='Send']",
+        "button[aria-label*='Ask']",
+        "[data-ask-input-container='true'] button[aria-label]:not([aria-label*='voice']):not([aria-label*='Dictation']):not([aria-label*='Model']):not([aria-label*='Add files'])",
     ]
     deadline = time.time() + 15
     while time.time() < deadline:
@@ -160,11 +213,21 @@ def send_prompt(page, composer, prompt_text: str) -> None:
                 if btn.count() == 0 or not btn.is_visible() or not btn.is_enabled():
                     continue
                 btn.click(timeout=2000)
-                return
+                page.wait_for_timeout(450)
+                if not _read_composer_text(composer):
+                    return
+                continue
             except Exception:
                 continue
         page.wait_for_timeout(300)
-    composer.press("Enter")
+    for combo in ("Control+Enter", "Meta+Enter", "Enter"):
+        try:
+            composer.press(combo)
+            page.wait_for_timeout(450)
+            if not _read_composer_text(composer):
+                return
+        except Exception:
+            continue
 
 
 def wait_for_valid_response(
