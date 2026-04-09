@@ -1,0 +1,30 @@
+{
+  "job_id": "job_e2088f93e2d14b27",
+  "started_at": "2026-04-09T20:52:13Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: schedule_cron_job",
+    "details": {
+      "task_type": "schedule_cron_job",
+      "verified": false,
+      "executed_at": "2026-04-09T20:53:54Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: schedule_cron_job",
+        "parameters": {
+          "schedule": "0 8 1-31 * *",
+          "timezone": "America/New_York",
+          "recipient": "user",
+          "payload": {
+            "type": "weather_report",
+            "location": " Indianapolis",
+            "frequency": "daily",
+            "time": "08:30"
+          },
+          "destination": "user_email_or_message_platform"
+        }
+      }
+    }
+  }
+}

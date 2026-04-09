@@ -1,0 +1,9 @@
+{
+  "job_id": "job_e2088f93e2d14b27",
+  "state": "failed",
+  "intent_type": "job",
+  "task_type": "schedule_cron_job",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-09T20:53:54Z",
+  "created_at": "2026-04-09T20:52:13Z"
+}
