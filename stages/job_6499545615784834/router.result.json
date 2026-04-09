@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "setup_cron_job",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "reason": "The user requests configuring a scheduled task (cron job) to deliver weather updates and to confirm a job ID, which is an action requiring system configuration and verification."
+}

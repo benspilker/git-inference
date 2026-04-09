@@ -1,0 +1,19 @@
+{
+  "task_type": "schedule_cron_weather_report",
+  "verified": false,
+  "executed_at": "2026-04-09T21:17:52Z",
+  "execution_status": "failed",
+  "details": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: schedule_cron_weather_report",
+    "parameters": {
+      "recipient_location": "Indianapolis, IN, USA",
+      "recipient_timezone": "America/New_York",
+      "cron_schedule": "30 8 * * *",
+      "timezone_policy": "America/New_York",
+      "notification_method": "email or messaging",
+      "weather_data_source": "default weather API",
+      "confirmation_requested": true
+    }
+  }
+}
