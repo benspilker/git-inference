@@ -1,0 +1,21 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "schedule_cron_weather_report",
+"confidence": 0.62,
+"requires_local_execution": true,
+"parameters": {
+"recipient_timezone": "America/New_York",
+"target_location": "Indianapolis",
+"cron_expression": "30 8 * * *",
+"message_subject": "Daily Indianapolis weather",
+"message_body_template": "Weather report for Indianapolis is: {{weather_summary}}",
+"delivery_method": "email",
+"delivery_address": "user_provided_email",
+"weather_source": "public_weather_api"
+},
+"missing_fields": ["delivery_address", "weather_source", "delivery_method"],
+"question": "Please provide the delivery address (email) and confirm the weather data source and delivery method to finalize the cron job setup.",
+"success_condition": "Cron job scheduled to fetch Indianapolis weather daily at 08:30 America/New_York and deliver the formatted weather summary to the specified recipient; the system returns a valid job ID."
+}

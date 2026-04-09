@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "schedule_cron_job",
+"confidence": 0.62,
+"requires_local_execution": true,
+"reason": "User requests creating a scheduled task (cron job) to fetch weather for Indianapolis daily at a specific time and return a job ID, which implies configuring a system action rather than seeking information."
+}

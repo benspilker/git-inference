@@ -1,0 +1,63 @@
+{
+  "job_id": "job_1c4025071ae549b5",
+  "status": {
+    "job_id": "job_1c4025071ae549b5",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "schedule_cron_weather_report",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-09T21:20:33Z",
+    "created_at": "2026-04-09T21:18:58Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_1c4025071ae549b5",
+    "started_at": "2026-04-09T21:18:57Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather_report",
+      "details": {
+        "task_type": "schedule_cron_weather_report",
+        "verified": false,
+        "executed_at": "2026-04-09T21:20:33Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: schedule_cron_weather_report",
+          "parameters": {
+            "recipient_timezone": "America/New_York",
+            "target_location": "Indianapolis",
+            "cron_expression": "30 8 * * *",
+            "message_subject": "Daily Indianapolis weather",
+            "message_body_template": "Weather report for Indianapolis is: {{weather_summary}}",
+            "delivery_method": "email",
+            "delivery_address": "user_provided_email",
+            "weather_source": "public_weather_api"
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "schedule_cron_weather_report",
+    "verified": false,
+    "executed_at": "2026-04-09T21:20:33Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_weather_report",
+      "parameters": {
+        "recipient_timezone": "America/New_York",
+        "target_location": "Indianapolis",
+        "cron_expression": "30 8 * * *",
+        "message_subject": "Daily Indianapolis weather",
+        "message_body_template": "Weather report for Indianapolis is: {{weather_summary}}",
+        "delivery_method": "email",
+        "delivery_address": "user_provided_email",
+        "weather_source": "public_weather_api"
+      }
+    }
+  },
+  "generated_at": "2026-04-09T21:20:34Z"
+}
