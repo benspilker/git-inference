@@ -1,0 +1,10 @@
+{
+  "job_id": "job_f3b21d11b84c47e0",
+  "message": {
+    "role": "assistant",
+    "content": "OLLAMA_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-09T16:12:17Z",
+  "completed_at": "2026-04-09T16:13:28Z"
+}
