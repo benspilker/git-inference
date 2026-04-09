@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "The user instructs to reply with exact text 'OLLAMA_OK' which does not provide a clear request for information, action, or investigation. Clarification is needed to determine the intended task and any required local actions. Deterministic system-test override applied for exact-reply probe."
+}
