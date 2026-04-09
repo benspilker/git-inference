@@ -1,0 +1,10 @@
+{
+  "job_id": "job_manual_perpfix_20260408202922",
+  "message": {
+    "role": "assistant",
+    "content": "PERPLEXITY_PIPELINE_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-09T00:30:12Z",
+  "completed_at": "2026-04-09T00:31:20Z"
+}

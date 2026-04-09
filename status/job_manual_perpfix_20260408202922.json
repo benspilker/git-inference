@@ -1,0 +1,9 @@
+{
+  "job_id": "job_manual_perpfix_20260408202922",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "current_stage": "complete",
+  "updated_at": "2026-04-09T00:33:22Z",
+  "created_at": "2026-04-09T00:30:12Z"
+}

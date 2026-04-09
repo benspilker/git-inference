@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "classification",
+"confidence": 0.0,
+"requires_local_execution": true,
+"reason": "The user request asks to reply with a specific string ('PERPLEXITY_PIPELINE_OK'), but in this stage they want a JSON classification of the intent. The required response must be JSON with the given schema. The user’s instruction to output a plain string cannot be accommodated within the classification format without clarification."
+}
