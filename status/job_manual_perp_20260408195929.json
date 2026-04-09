@@ -1,0 +1,9 @@
+{
+  "job_id": "job_manual_perp_20260408195929",
+  "state": "failed",
+  "intent_type": null,
+  "task_type": null,
+  "current_stage": "router",
+  "updated_at": "2026-04-09T00:04:46Z",
+  "created_at": "2026-04-09T00:00:24Z"
+}
