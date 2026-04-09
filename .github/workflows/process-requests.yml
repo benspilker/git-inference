@@ -113,6 +113,7 @@ jobs:
           MEMORY_PROMOTION_MIN_SCORE="${MEMORY_PROMOTION_MIN_SCORE:-$MEMORY_MIN_SCORE}"
           STAGE_MAX_ATTEMPTS="${STAGE_MAX_ATTEMPTS:-2}"
           STAGE_WEB_MAX_ATTEMPTS="${STAGE_WEB_MAX_ATTEMPTS:-3}"
+          EVALUATION_ENABLED="${EVALUATION_ENABLED:-false}"
           [[ -f tools/find_memory_reuse_candidate.py ]] || { echo "Missing tools/find_memory_reuse_candidate.py"; exit 1; }
           [[ -f tools/apply_promotion_policy.py ]] || { echo "Missing tools/apply_promotion_policy.py"; exit 1; }
 
@@ -1343,20 +1344,21 @@ jobs:
             fi
 
             if [[ "$terminal_state" == "completed" && -f "responses/${job_id}.json" ]]; then
-              local question_preview
-              question_preview="$(python - "$user_prompt_file" <<'PY'
+              if [[ "${EVALUATION_ENABLED,,}" == "true" ]]; then
+                local question_preview
+                question_preview="$(python - "$user_prompt_file" <<'PY'
           import re, sys
           text = open(sys.argv[1], "r", encoding="utf-8").read()
           words = re.findall(r"\S+", text)
           print(" ".join(words[:100]).strip())
           PY
-          )"
-              render_eval_prompt "$EVAL_PROMPT_TEMPLATE_FILE" "$eval_prompt" "$question_preview" "$job_id" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-              call_playwright_stage "evaluation" "$ANSWERER_PROMPT_FILE" "$eval_prompt" "$eval_out" false false || true
-              if validate_json "$eval_out" > "$eval_json"; then
-                :
-              else
-                python - "$job_id" "$eval_json" "$eval_out" <<'PY'
+                )"
+                render_eval_prompt "$EVAL_PROMPT_TEMPLATE_FILE" "$eval_prompt" "$question_preview" "$job_id" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                call_playwright_stage "evaluation" "$ANSWERER_PROMPT_FILE" "$eval_prompt" "$eval_out" false false || true
+                if validate_json "$eval_out" > "$eval_json"; then
+                  :
+                else
+                  python - "$job_id" "$eval_json" "$eval_out" <<'PY'
           import json, sys
           from pathlib import Path
           from datetime import datetime, timezone
@@ -1405,8 +1407,11 @@ jobs:
           }
           Path(eval_json).write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
           PY
+                fi
+                apply_promotion_policy "$eval_json"
+              else
+                echo "[evaluation] skipped (EVALUATION_ENABLED=${EVALUATION_ENABLED})"
               fi
-              apply_promotion_policy "$eval_json"
               write_status "$job_id" "completed" "$intent_type" "$task_type" "complete"
             fi
 
