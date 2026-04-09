@@ -1,0 +1,58 @@
+{
+  "job_id": "job_manual_perpfix_20260408202922",
+  "request": {
+    "model": "git-perplexity",
+    "routing_metadata": {
+      "intent_type": "question",
+      "schema_version": "1.0",
+      "task_type": "general_question",
+      "requires_local_execution": false,
+      "route_state": "received"
+    },
+    "request_type": "chat",
+    "transport": {
+      "chunking": {
+        "enabled": false,
+        "word_count": 4,
+        "chunk_count": 1,
+        "max_chunks": 5,
+        "chunk_size_words": 2000
+      },
+      "user_prompt_chunks": [
+        "Reply with exactly: PERPLEXITY_PIPELINE_OK"
+      ]
+    },
+    "combined_in_message": false,
+    "user_prompt": "Reply with exactly: PERPLEXITY_PIPELINE_OK",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Reply with exactly: PERPLEXITY_PIPELINE_OK"
+      }
+    ],
+    "stream": false
+  },
+  "transport": {
+    "chunking": {
+      "enabled": false,
+      "word_count": 4,
+      "chunk_count": 1,
+      "max_chunks": 5,
+      "chunk_size_words": 2000
+    },
+    "user_prompt_chunks": [
+      "Reply with exactly: PERPLEXITY_PIPELINE_OK"
+    ]
+  },
+  "type": "chat",
+  "routing_metadata": {
+    "intent_type": "question",
+    "schema_version": "1.0",
+    "task_type": "general_question",
+    "requires_local_execution": false,
+    "route_state": "received"
+  },
+  "user_prompt": "Reply with exactly: PERPLEXITY_PIPELINE_OK",
+  "created_at": "2026-04-09T00:29:22Z",
+  "system_prompt": null
+}
