@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "retrieve_schedule",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "reason": "User asks for an exact April 2026 Pacers schedule with date, opponent, and home/away; obtaining this requires up-to-date game schedule data likely from a sports schedule source."
+}

@@ -1,0 +1,9 @@
+{
+  "job_id": "job_accdfa17e4c64a71",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "retrieve_schedule",
+  "current_stage": "complete",
+  "updated_at": "2026-04-09T20:25:20Z",
+  "created_at": "2026-04-09T20:23:51Z"
+}
