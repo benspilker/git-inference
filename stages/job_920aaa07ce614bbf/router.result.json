@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "locate_heartbeat_file_and_report",
+  "confidence": 0.42,
+  "requires_local_execution": true,
+  "reason": "User asks to read a specific local file HEARTBEAT.md at a given path; tool/network access is unavailable in this environment, so the action cannot be completed here. Clarification or alternative guidance is needed."
+}

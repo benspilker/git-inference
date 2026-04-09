@@ -1,0 +1,9 @@
+{
+  "job_id": "job_920aaa07ce614bbf",
+  "state": "failed",
+  "intent_type": "needs_clarification",
+  "task_type": "locate_heartbeat_file_and_report",
+  "current_stage": "router_invalid",
+  "updated_at": "2026-04-09T17:54:41Z",
+  "created_at": "2026-04-09T17:53:30Z"
+}
