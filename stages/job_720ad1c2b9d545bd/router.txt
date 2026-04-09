@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "how_to_pizza",
+"confidence": 0.62,
+"requires_local_execution": false,
+"reason": "User asks for instructions to make a pizza; falls under providing information or instructions."
+}
