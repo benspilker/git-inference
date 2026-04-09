@@ -214,6 +214,7 @@ jobs:
             local max_attempts_override="${7:-}"
             local stage_chunks="${8:-1}"
             local stage_chunk_mode="${9:-none}"
+            local validation_question_file="${10:-}"
             local runner_file="${PLAYWRIGHT_RUNNER_FILE_OVERRIDE:-$PLAYWRIGHT_RUNNER_FILE}"
 
             local attempts="${STAGE_MAX_ATTEMPTS:-2}"
@@ -342,6 +343,15 @@ jobs:
                   fi
                   return 30
                 fi
+                if [[ "$require_live_web" == "true" ]] && response_requires_live_weather_retry "$validation_question_file" "$output_file"; then
+                  if (( attempt < attempts )); then
+                    echo "[$stage] weather response failed live-data validation, retrying attempt $((attempt + 1))/${attempts}"
+                    attempt=$((attempt + 1))
+                    sleep 2
+                    continue
+                  fi
+                  return 30
+                fi
                 return 0
               fi
 
@@ -423,6 +433,13 @@ jobs:
               r"don.?t have live weather access",
               r"do not have live weather access",
               r"i don.?t have .* live .* access right now",
+              r"live web lookup required",
+              r"live lookup required",
+              r"don.?t have access to live tools",
+              r"do not have access to live tools",
+              r"don.?t have access to live web",
+              r"do not have access to live web",
+              r"i can.?t access live web",
               r"live web search .* unavailable",
               r"web search was required .* unavailable",
               r"cannot browse the web",
@@ -431,6 +448,59 @@ jobs:
           ]
           hit = any(re.search(p, text) for p in patterns)
           raise SystemExit(0 if hit else 1)
+          PY
+          }
+
+          response_requires_live_weather_retry() {
+            local question_file="$1"
+            local answer_file="$2"
+            if [[ -z "${question_file// }" || ! -f "$question_file" ]]; then
+              return 1
+            fi
+            python - "$question_file" "$answer_file" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          question = Path(sys.argv[1]).read_text(encoding="utf-8", errors="ignore").lower()
+          answer = Path(sys.argv[2]).read_text(encoding="utf-8", errors="ignore")
+          lower = answer.lower()
+
+          weather_markers = [
+              "weather", "forecast", "temperature", "high", "low", "rain", "snow", "wind", "humidity", "feels like"
+          ]
+          if not any(m in question for m in weather_markers):
+              raise SystemExit(1)
+
+          fallback_patterns = [
+              r"live web lookup required",
+              r"live web search .* unavailable",
+              r"web search was required .* unavailable",
+              r"don.?t have access to live tools",
+              r"do not have access to live tools",
+              r"don.?t have access to live web",
+              r"do not have access to live web",
+              r"don.?t have live web access",
+              r"do not have live web access",
+              r"unable to access live web",
+              r"cannot browse the web",
+              r"run (?:this|the) (?:python )?script",
+              r"openweathermap",
+          ]
+          if any(re.search(p, lower) for p in fallback_patterns):
+              raise SystemExit(0)
+
+          has_temp = bool(re.search(r"\b-?\d{1,3}\s*(?:°\s*[cf]|degrees?\s*[cf]|[cf]\b)", lower))
+          has_number = bool(re.search(r"\b\d{1,3}\b", lower))
+          weather_fact_terms = [
+              "temperature", "high", "low", "forecast", "humidity", "wind", "precip", "rain", "snow", "clear",
+              "cloud", "sunny", "overcast", "thunder", "storm", "conditions", "feels like", "uv", "chance"
+          ]
+          has_fact_term = any(term in lower for term in weather_fact_terms)
+          if has_temp or (has_number and has_fact_term):
+              raise SystemExit(1)
+
+          raise SystemExit(0)
           PY
           }
 
@@ -1163,7 +1233,7 @@ jobs:
                   fi
                 else
                   render_request_payload "$user_prompt_file" "$memory_file" "$answerer_input"
-                  if call_playwright_stage "answerer" "$ANSWERER_PROMPT_FILE" "$answerer_input" "$answerer_out" false "$requires_live_web" "" "$answerer_chunks" "$answerer_chunk_mode"; then
+                  if call_playwright_stage "answerer" "$ANSWERER_PROMPT_FILE" "$answerer_input" "$answerer_out" false "$requires_live_web" "" "$answerer_chunks" "$answerer_chunk_mode" "$user_prompt_file"; then
                     write_stage_output "$job_id" "answerer" "$answerer_out"
                     write_stage_result_json "$job_id" "answerer" "$answerer_out" false
                     save_final_response "$job_id" "$answerer_out" "$started_at"
