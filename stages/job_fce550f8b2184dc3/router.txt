@@ -1,0 +1,1 @@
+{"schema_version":"1.0","intent_type":"job","task_type":"scheduled_weather_report","confidence":0.58,"requires_local_execution":true,"reason":"User requests setting up a disabled daily weather cron for Indianapolis at 8:30 AM America/New_York and confirm the job id, which involves scheduling a system task and returning a job identifier."}
