@@ -86,11 +86,13 @@ jobs:
           fi
           PLAYWRIGHT_RUNNER_FILE_OVERRIDE=""
           WEATHER_FALLBACK_SCRIPT="tools/weather_fallback_openmeteo.py"
+          WEB_FALLBACK_SCRIPT="tools/web_fallback_duckduckgo.py"
           EXTRACT_CONTEXT_SCRIPT=".github/workflows/extract_request_context.py"
           echo "Playwright engine: $PLAYWRIGHT_ENGINE"
           echo "Playwright runner: $PLAYWRIGHT_RUNNER_FILE"
           [[ -f "$PLAYWRIGHT_RUNNER_FILE" ]] || { echo "Missing $PLAYWRIGHT_RUNNER_FILE"; exit 1; }
           [[ -f "$WEATHER_FALLBACK_SCRIPT" ]] || { echo "Missing $WEATHER_FALLBACK_SCRIPT"; exit 1; }
+          [[ -f "$WEB_FALLBACK_SCRIPT" ]] || { echo "Missing $WEB_FALLBACK_SCRIPT"; exit 1; }
           [[ -f "$EXTRACT_CONTEXT_SCRIPT" ]] || { echo "Missing $EXTRACT_CONTEXT_SCRIPT"; exit 1; }
 
           ROUTER_PROMPT_FILE=".github/workflows/pipeline.router_prompt.txt"
@@ -1249,16 +1251,28 @@ jobs:
                             save_final_response "$job_id" "$answerer_out" "$started_at"
                             terminal_state="completed"
                           else
+                            if python "$WEB_FALLBACK_SCRIPT" "$user_prompt_file" "$answerer_out"; then
+                              write_stage_result_json "$job_id" "answerer" "$answerer_out" false
+                              save_final_response "$job_id" "$answerer_out" "$started_at"
+                              terminal_state="completed"
+                            else
+                              printf '%s\n' "Live web search was required for this prompt but unavailable in the browser session after ${STAGE_WEB_MAX_ATTEMPTS:-3} attempt(s)." > "$answerer_out"
+                              write_stage_result_json "$job_id" "answerer" "$answerer_out" false
+                              save_final_response "$job_id" "$answerer_out" "$started_at"
+                              terminal_state="completed"
+                            fi
+                          fi
+                        else
+                          if python "$WEB_FALLBACK_SCRIPT" "$user_prompt_file" "$answerer_out"; then
+                            write_stage_result_json "$job_id" "answerer" "$answerer_out" false
+                            save_final_response "$job_id" "$answerer_out" "$started_at"
+                            terminal_state="completed"
+                          else
                             printf '%s\n' "Live web search was required for this prompt but unavailable in the browser session after ${STAGE_WEB_MAX_ATTEMPTS:-3} attempt(s)." > "$answerer_out"
                             write_stage_result_json "$job_id" "answerer" "$answerer_out" false
                             save_final_response "$job_id" "$answerer_out" "$started_at"
                             terminal_state="completed"
                           fi
-                        else
-                          printf '%s\n' "Live web search was required for this prompt but unavailable in the browser session after ${STAGE_WEB_MAX_ATTEMPTS:-3} attempt(s)." > "$answerer_out"
-                          write_stage_result_json "$job_id" "answerer" "$answerer_out" false
-                          save_final_response "$job_id" "$answerer_out" "$started_at"
-                          terminal_state="completed"
                         fi
                       else
                         write_status "$job_id" "failed" "$intent_type" "$task_type" "answerer"
