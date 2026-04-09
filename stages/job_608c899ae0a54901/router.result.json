@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "The user asks to reply with exactly: OLLAMA_OK, which is a directive to produce a specific local response. It is not a request for information, a job to perform, or a research task, and no local execution is required. Clarification is needed to confirm whether they want the assistant to return that exact string or to perform a broader action. Deterministic system-test override applied for exact-reply probe."
+}
