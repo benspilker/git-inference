@@ -1,0 +1,26 @@
+{
+  "job_id": "job_370236c7ee7d4d1e",
+  "status": {
+    "job_id": "job_370236c7ee7d4d1e",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T19:47:34Z",
+    "created_at": "2026-04-09T19:46:54Z"
+  },
+  "response": {
+    "job_id": "job_370236c7ee7d4d1e",
+    "message": {
+      "role": "assistant",
+      "content": "Current weather in Grand Rapids, MI: Sunny, 64°F (18°C) with light winds around 9 mph from the WSW. Humidity about 32%, visibility ~28 miles, and very low cloud cover (~8%). The day is breezy with clearing skies; no precipitation expected today."
+    },
+    "done": true,
+    "started_at": "2026-04-09T19:46:53Z",
+    "completed_at": "2026-04-09T19:47:34Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T19:47:34Z"
+}
