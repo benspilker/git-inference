@@ -51,12 +51,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: "pip"
-          cache-dependency-path: ".github/workflows/requirements-playwright.txt"
-
       - name: Install Python deps
         run: |
           set -euo pipefail
