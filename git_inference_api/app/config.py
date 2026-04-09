@@ -75,6 +75,10 @@ class Settings:
     # Queue/admin behavior
     stale_inflight_max_age_seconds: int = int(os.getenv("STALE_INFLIGHT_MAX_AGE_SECONDS", "900"))
     admin_api_key: str = os.getenv("ADMIN_API_KEY", "")
+    heartbeat_short_circuit_enabled: bool = env_bool("HEARTBEAT_SHORT_CIRCUIT_ENABLED", True)
+    heartbeat_defer_when_busy: bool = env_bool("HEARTBEAT_DEFER_WHEN_BUSY", True)
+    heartbeat_cooldown_seconds: int = int(os.getenv("HEARTBEAT_COOLDOWN_SECONDS", "1800"))
+    heartbeat_ack_text: str = os.getenv("HEARTBEAT_ACK_TEXT", "HEARTBEAT_OK")
 
     # Git lock cleanup
     enable_stale_git_lock_cleanup: bool = env_bool("ENABLE_STALE_GIT_LOCK_CLEANUP", True)

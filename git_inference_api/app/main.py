@@ -44,6 +44,8 @@ STAGEABLE_STATUSES = {
     "failed",
     "expired",
 }
+_HEARTBEAT_LAST_ACK_HASH: str | None = None
+_HEARTBEAT_LAST_ACK_AT_MONO: float = 0.0
 
 
 @asynccontextmanager
@@ -236,6 +238,16 @@ def handle_submission(
             async_mode=async_mode,
             combined_in_message=combined_in_message,
         )
+
+    heartbeat_response = maybe_short_circuit_heartbeat(
+        normalized_request=normalized_request,
+        request_hash=request_hash,
+        model=model,
+        response_type=response_type,
+        stream=stream,
+    )
+    if heartbeat_response is not None:
+        return heartbeat_response
 
     route_hint = classify_route_hint(normalized_request)
     routing_metadata = {
@@ -616,8 +628,126 @@ def normalize_generate_request(request: GenerateRequest) -> dict[str, Any]:
     return normalized
 
 
+def extract_primary_prompt_text(normalized_request: dict[str, Any]) -> str:
+    return str(normalized_request.get("user_prompt") or normalized_request.get("prompt") or "").strip()
+
+
+def is_heartbeat_control_prompt(prompt_text: str) -> bool:
+    lowered = (prompt_text or "").strip().lower()
+    if not lowered:
+        return False
+
+    strong_markers = (
+        "read heartbeat.md if it exists",
+        "if nothing needs attention, reply heartbeat_ok",
+        "heartbeat prompt:",
+    )
+    if any(marker in lowered for marker in strong_markers):
+        return True
+
+    markers = (
+        "heartbeat.md",
+        "heartbeat_ok",
+        "do not infer or repeat old tasks",
+        "if nothing needs attention",
+    )
+    score = sum(1 for marker in markers if marker in lowered)
+    return score >= 2
+
+
+def build_heartbeat_ack_response(
+    *,
+    model: str,
+    response_type: Literal["chat", "generate"],
+    stream: bool,
+    request_hash: str,
+    active_job_id: str | None,
+    reason: str,
+) -> JSONResponse | StreamingResponse:
+    created_at = db.utcnow_iso()
+    synthetic_job_id = f"heartbeat_{request_hash[:12]}"
+    execution_meta = {"mode": "heartbeat_short_circuit", "reason": reason}
+
+    if response_type == "chat":
+        payload = {
+            "model": model,
+            "created_at": created_at,
+            "message": {"role": "assistant", "content": settings.heartbeat_ack_text},
+            "done": True,
+            "job_id": synthetic_job_id,
+            "intent_type": "heartbeat",
+            "task_type": "heartbeat_poll",
+            "current_stage": "heartbeat_short_circuit",
+            "active_job_id": active_job_id,
+            "execution": execution_meta,
+        }
+    else:
+        payload = {
+            "model": model,
+            "created_at": created_at,
+            "response": settings.heartbeat_ack_text,
+            "done": True,
+            "job_id": synthetic_job_id,
+            "intent_type": "heartbeat",
+            "task_type": "heartbeat_poll",
+            "current_stage": "heartbeat_short_circuit",
+            "active_job_id": active_job_id,
+            "execution": execution_meta,
+        }
+
+    if stream:
+        return ndjson_response(payload)
+    return JSONResponse(status_code=200, content=payload)
+
+
+def maybe_short_circuit_heartbeat(
+    *,
+    normalized_request: dict[str, Any],
+    request_hash: str,
+    model: str,
+    response_type: Literal["chat", "generate"],
+    stream: bool,
+) -> JSONResponse | StreamingResponse | None:
+    if not settings.heartbeat_short_circuit_enabled:
+        return None
+
+    prompt_text = extract_primary_prompt_text(normalized_request)
+    if not is_heartbeat_control_prompt(prompt_text):
+        return None
+
+    global _HEARTBEAT_LAST_ACK_HASH, _HEARTBEAT_LAST_ACK_AT_MONO
+    now_mono = time.monotonic()
+    cooldown_seconds = max(0, int(settings.heartbeat_cooldown_seconds))
+    active_job_id = db.get_active_job_id()
+
+    reason = "short_circuit"
+    if settings.heartbeat_defer_when_busy and active_job_id:
+        reason = "deferred_busy_queue"
+    elif (
+        cooldown_seconds > 0
+        and _HEARTBEAT_LAST_ACK_HASH == request_hash
+        and (now_mono - _HEARTBEAT_LAST_ACK_AT_MONO) < cooldown_seconds
+    ):
+        reason = "deduped_within_cooldown"
+
+    _HEARTBEAT_LAST_ACK_HASH = request_hash
+    _HEARTBEAT_LAST_ACK_AT_MONO = now_mono
+    logger.info(
+        "heartbeat short-circuited",
+        extra={"reason": reason, "active_job_id": active_job_id, "model": model},
+    )
+    return build_heartbeat_ack_response(
+        model=model,
+        response_type=response_type,
+        stream=stream,
+        request_hash=request_hash,
+        active_job_id=active_job_id,
+        reason=reason,
+    )
+
+
 def classify_route_hint(normalized_request: dict[str, Any]) -> str | None:
-    user_text = str(normalized_request.get("user_prompt") or normalized_request.get("prompt") or "").lower()
+    user_text = extract_primary_prompt_text(normalized_request).lower()
     if not user_text:
         return None
     system_test_markers = ("reply with exactly", "respond with exactly", "return exactly", "output exactly")
