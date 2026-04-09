@@ -1,0 +1,39 @@
+{
+  "job_id": "job_326794a7f9644876",
+  "started_at": "2026-04-09T21:41:10Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: schedule_cron_weather_report",
+    "details": {
+      "task_type": "schedule_cron_weather_report",
+      "verified": false,
+      "executed_at": "2026-04-09T21:42:48Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: schedule_cron_weather_report",
+        "parameters": {
+          "schedule": {
+            "cron_expression": "0 8 1-31 * *",
+            "timezone": "America/New_York",
+            "description": "Daily weather report for Indianapolis at 08:30 AM America/New_York"
+          },
+          "recipient": {
+            "name": "",
+            "contact_method": "email",
+            "address": ""
+          },
+          "data_source": {
+            "provider": "",
+            "endpoint": ""
+          },
+          "location": {
+            "city": "Indianapolis",
+            "state": "IN",
+            "country": "US"
+          }
+        }
+      }
+    }
+  }
+}

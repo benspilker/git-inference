@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "schedule_cron_weather_report",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "parameters": {
+    "schedule": {
+      "cron_expression": "0 8 1-31 * *",
+      "timezone": "America/New_York",
+      "description": "Daily weather report for Indianapolis at 08:30 AM America/New_York"
+    },
+    "recipient": {
+      "name": "",
+      "contact_method": "email",
+      "address": ""
+    },
+    "data_source": {
+      "provider": "",
+      "endpoint": ""
+    },
+    "location": {
+      "city": "Indianapolis",
+      "state": "IN",
+      "country": "US"
+    }
+  },
+  "missing_fields": [
+    "recipient details (name and address or email)",
+    "data_source provider/endpoint"
+  ],
+  "question": "Please provide recipient contact details (name and email or address) and the weather data source provider plus endpoint to fetch forecasts.",
+  "success_condition": "Cron job scheduled to run daily at 08:30 AM America/New_York and deliver Indianapolis weather report to the specified recipient using the provided data source."
+}
