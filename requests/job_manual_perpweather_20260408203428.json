@@ -1,0 +1,58 @@
+{
+  "transport": {
+    "user_prompt_chunks": [
+      "What is the weather like today in Indianapolis, Indiana? Use live web results and include temperature + conditions."
+    ],
+    "chunking": {
+      "max_chunks": 5,
+      "chunk_count": 1,
+      "enabled": false,
+      "word_count": 18,
+      "chunk_size_words": 2000
+    }
+  },
+  "user_prompt": "What is the weather like today in Indianapolis, Indiana? Use live web results and include temperature + conditions.",
+  "routing_metadata": {
+    "schema_version": "1.0",
+    "route_state": "received",
+    "requires_local_execution": false,
+    "intent_type": "question",
+    "task_type": "general_question"
+  },
+  "job_id": "job_manual_perpweather_20260408203428",
+  "type": "chat",
+  "request": {
+    "request_type": "chat",
+    "stream": false,
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the weather like today in Indianapolis, Indiana? Use live web results and include temperature + conditions."
+      }
+    ],
+    "model": "git-perplexity",
+    "routing_metadata": {
+      "schema_version": "1.0",
+      "route_state": "received",
+      "requires_local_execution": false,
+      "intent_type": "question",
+      "task_type": "general_question"
+    },
+    "user_prompt": "What is the weather like today in Indianapolis, Indiana? Use live web results and include temperature + conditions.",
+    "transport": {
+      "user_prompt_chunks": [
+        "What is the weather like today in Indianapolis, Indiana? Use live web results and include temperature + conditions."
+      ],
+      "chunking": {
+        "max_chunks": 5,
+        "chunk_count": 1,
+        "enabled": false,
+        "word_count": 18,
+        "chunk_size_words": 2000
+      }
+    },
+    "combined_in_message": false
+  },
+  "created_at": "2026-04-09T00:34:28Z",
+  "system_prompt": null
+}
