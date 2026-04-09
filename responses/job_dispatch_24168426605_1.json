@@ -1,0 +1,10 @@
+{
+  "job_id": "job_dispatch_24168426605_1",
+  "message": {
+    "role": "assistant",
+    "content": "PERPLEXITY_SIMPLE_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-09T01:59:23Z",
+  "completed_at": "2026-04-09T02:00:27Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "clarify_request",
+"confidence": 0.42,
+"requires_local_execution": true,
+"reason": "The user asks to reply with a specific string but the system requires classifying the request and not performing an action; the instruction to reply with a literal string conflicts with the intent to classify the user's request. Clarification is needed on whether to proceed with classification or output the requested string in this stage."
+}
