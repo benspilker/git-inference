@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "requires_clarification",
+  "confidence": 0.4,
+  "requires_local_execution": false,
+  "reason": "The user request is about classification of intents for a local execution system, but no concrete query or task details are provided. Additional clarification on what exact input or examples to classify is needed to proceed."
+}

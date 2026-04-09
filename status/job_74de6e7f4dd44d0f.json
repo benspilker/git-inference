@@ -1,0 +1,9 @@
+{
+  "job_id": "job_74de6e7f4dd44d0f",
+  "state": "failed",
+  "intent_type": "needs_clarification",
+  "task_type": "requires_clarification",
+  "current_stage": "router_invalid",
+  "updated_at": "2026-04-09T20:58:38Z",
+  "created_at": "2026-04-09T20:57:41Z"
+}
