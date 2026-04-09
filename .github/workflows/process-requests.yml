@@ -580,6 +580,46 @@ jobs:
           PY
           }
 
+          should_bypass_router_prompt() {
+            local question_file="$1"
+            python - "$question_file" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          text = Path(sys.argv[1]).read_text(encoding="utf-8", errors="ignore")
+          lowered = text.lstrip().lower()
+
+          # Existing fast path: "Tell me ..."
+          if re.match(r"^(?:please\s+)?tell\s+me\b", lowered):
+              print("true")
+              raise SystemExit(0)
+
+          # New fast path: direct informational question openers.
+          starts_like_direct_question = bool(
+              re.match(r"^(?:please\s+)?(?:what|how|when|where|which|who)\b", lowered)
+          )
+          if not starts_like_direct_question:
+              print("false")
+              raise SystemExit(0)
+
+          # Guardrails: do not bypass for action/scheduling/local-state asks.
+          disallow_markers = [
+              "set up", "setup", "configure", "create", "delete", "remove", "disable", "enable",
+              "schedule", "cron", "job", "remind me", "run this daily", "every day", "every morning",
+              "local machine", "this host", "this server", "on this machine",
+              "service", "daemon", "process", "port", "socket", "cron job", "timer",
+              "git status", "repository", "repo", "file ", "files ", "folder", "directory", "log",
+              "disk", "memory usage", "cpu usage", "uptime",
+          ]
+          if any(marker in lowered for marker in disallow_markers):
+              print("false")
+              raise SystemExit(0)
+
+          print("true")
+          PY
+          }
+
           apply_router_system_test_override() {
             local router_json="$1"
             python - "$router_json" <<'PY'
@@ -1147,7 +1187,7 @@ jobs:
             render_request_payload "$user_prompt_file" "$memory_file" "$router_input"
 
             local bypass_router="false"
-            if [[ "$(is_system_test_prompt "$user_prompt_file")" != "true" ]] && [[ "$(starts_with_tell_me_prompt "$user_prompt_file")" == "true" ]]; then
+            if [[ "$(is_system_test_prompt "$user_prompt_file")" != "true" ]] && [[ "$(should_bypass_router_prompt "$user_prompt_file")" == "true" ]]; then
               bypass_router="true"
             fi
 
@@ -1166,7 +1206,7 @@ jobs:
               "task_type": "information",
               "confidence": 0.95,
               "requires_local_execution": False,
-              "reason": "Router bypass: prompt begins with 'Tell me', treated as direct informational question."
+              "reason": "Router bypass: safe direct informational prompt, treated as direct question."
           }
           out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
           PY

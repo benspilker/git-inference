@@ -21,7 +21,7 @@ class Settings:
     app_name: str = os.getenv("APP_NAME", "Git Inference API")
 
     # API / worker timing
-    api_wait_timeout_seconds: int = int(os.getenv("API_WAIT_TIMEOUT_SECONDS", "180"))
+    api_wait_timeout_seconds: int = int(os.getenv("API_WAIT_TIMEOUT_SECONDS", "300"))
     job_timeout_seconds: int = int(os.getenv("JOB_TIMEOUT_SECONDS", "900"))
     worker_poll_interval_seconds: float = float(os.getenv("WORKER_POLL_INTERVAL_SECONDS", "1.0"))
     result_poll_interval_seconds: float = float(os.getenv("RESULT_POLL_INTERVAL_SECONDS", "2.0"))
