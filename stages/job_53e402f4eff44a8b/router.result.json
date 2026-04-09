@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "The user requests a very specific string output 'TELEGRAM_OK_2' but does not specify a real task; the system should clarify the intended action or confirm whether this is a test input rather than a request requiring local execution. Deterministic system-test override applied for exact-reply probe."
+}
