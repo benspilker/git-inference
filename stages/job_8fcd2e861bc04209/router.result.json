@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "setup_cron_weather_indianapolis",
+  "confidence": 0.65,
+  "requires_local_execution": true,
+  "reason": "User asks to set up a cron job to send weather updates for Indianapolis daily at a specific time, which is a configuration/task requiring system actions and scheduling in a local environment."
+}

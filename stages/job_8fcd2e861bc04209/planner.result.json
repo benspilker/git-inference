@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "cron_schedule",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "parameters": {
+    "cron_expression": "0 8 1-31 * *",
+    "timezone": "America/New_York",
+    "recipient": "user",
+    "subject": "Daily Indianapolis weather",
+    "message_template": "Weather in Indianapolis for today: ${weather_summary}"
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "Cron job exists and, at 8:30 AM America/New_York daily, retrieves Indianapolis weather and delivers a message to the user with a non-empty weather summary."
+}
