@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "schedule_cron_job",
+  "confidence": 0.72,
+  "requires_local_execution": true,
+  "reason": "The user requests setting up a recurring cron job to fetch weather for a specific location and time, and to confirm a job ID, which involves configuration/execution on a local system, not just information."
+}
