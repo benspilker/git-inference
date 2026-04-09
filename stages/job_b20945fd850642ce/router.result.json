@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "read_heartbeat",
+  "confidence": 0.55,
+  "requires_local_execution": true,
+  "reason": "User requests reading a local HEARTBEAT.md file from a specific workspace path to determine if attention is needed, but as per constraints, no local action can be performed in this turn. The query is about file content inspection, which is a local action requiring clarification or permission to proceed with local access."
+}
