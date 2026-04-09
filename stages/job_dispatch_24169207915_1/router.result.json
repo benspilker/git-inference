@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "informational_presentation",
+  "confidence": 0.72,
+  "requires_local_execution": false,
+  "reason": "User asks for instructions to make a pizza, which is a request for information and steps rather than scheduling or performing a local action."
+}

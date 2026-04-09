@@ -1,0 +1,9 @@
+{
+  "promotion": {
+    "memory_eligible": false,
+    "memory_tier": null,
+    "effective_score": null,
+    "promotion_reason": null,
+    "blocked_reason": "missing_score"
+  }
+}
