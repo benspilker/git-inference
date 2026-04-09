@@ -1,0 +1,12 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"mode": "local_action",
+"task_type": "heartbeat_check",
+"confidence": 0.0,
+"requires_local_execution": true,
+"parameters": {},
+"missing_fields": ["HEARTBEAT.md contents in workspace"],
+"question": "Please provide access to the local workspace or share the contents of /home/ubuntu/.openclaw/workspace/HEARTBEAT.md so I can determine if any action is required.",
+"success_condition": "If HEARTBEAT.md exists and contains actionable guidance, perform the specified checks or tasks; if not, respond with HEARTBEAT_OK."
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "read workspace file and follow instructions",
+  "confidence": 1.0,
+  "requires_local_execution": true,
+  "reason": "The request explicitly instructs to read a local workspace file HEARTBEAT.md at a specific path (/home/ubuntu/.openclaw/workspace/HEARTBEAT.md) if it exists, follow its instructions strictly, and reply HEARTBEAT_OK if nothing needs attention. This is a system-performed task involving local file access and execution, fitting the 'job' definition."
+}
