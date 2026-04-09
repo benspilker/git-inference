@@ -8,6 +8,7 @@ import importlib
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 from playwright_runner.chunk_orchestrator import run_chunk_plan
 from playwright_runner.diagnostics import enable_network_logging, save_failure_diagnostics
@@ -62,6 +63,13 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def assert_perplexity_domain(page) -> None:
+    current_url = page.url or ""
+    host = (urlparse(current_url).netloc or "").lower()
+    if "perplexity.ai" not in host:
+        raise RuntimeError(f"Unexpected browser destination: {current_url} (expected host containing perplexity.ai)")
+
+
 def run() -> int:
     args = parse_args()
     playwright_sync_api = ensure_package("playwright.sync_api")
@@ -98,13 +106,16 @@ def run() -> int:
         try:
             enable_network_logging(page, network_log_file, enabled=args.network_log)
             page.goto(args.url, wait_until="domcontentloaded", timeout=args.timeout_ms)
+            assert_perplexity_domain(page)
 
             if args.refresh_before_send:
                 refresh_chat(page, args.timeout_ms)
+                assert_perplexity_domain(page)
 
             started_new_chat = False
             if args.start_new_chat:
                 started_new_chat = start_new_chat_if_available(page, args.timeout_ms)
+                assert_perplexity_domain(page)
 
             if args.chunk_mode != "none" and args.chunks > 1:
                 response_text = run_chunk_plan(
@@ -147,6 +158,8 @@ def run() -> int:
                 run_metadata["page_refreshed"] = bool(run_metadata.get("page_refreshed")) or bool(args.refresh_before_send)
                 run_metadata["thread_reused"] = not started_new_chat
                 run_metadata["new_chat_started"] = started_new_chat
+
+            run_metadata["final_url"] = page.url
 
             if args.expect_json and args.fail_if_invalid_json and extract_json_payload(response_text) is None:
                 raise RuntimeError(f"Stage {args.stage_name} expected valid JSON but did not receive it.")
