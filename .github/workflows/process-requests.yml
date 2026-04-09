@@ -1580,7 +1580,6 @@ jobs:
             local keep_response="$2"
             shopt -s nullglob
             for req in requests/job_*.json; do
-              [[ "$req" == "$keep_request" ]] && continue
               move_with_dedupe "$req" "requests/old-requests"
             done
             for resp in responses/job_*.json; do
