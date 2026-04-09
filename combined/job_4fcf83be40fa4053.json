@@ -1,0 +1,26 @@
+{
+  "job_id": "job_4fcf83be40fa4053",
+  "status": {
+    "job_id": "job_4fcf83be40fa4053",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T19:39:08Z",
+    "created_at": "2026-04-09T19:38:31Z"
+  },
+  "response": {
+    "job_id": "job_4fcf83be40fa4053",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s the current weather for Grand Rapids, MI:\n\nConditions: Sunny\n\nTemperature: 64°F (around 18°C)\n\nHumidity: 32%\n\nWind: West-southwest around 9 mph\n\nVisibility: 28 miles\n\nPressure: 30.00 in\n\nPrecipitation: 0 inches\n\nUV index: 3\n\nSky: Clear with low cloud cover\n\nToday: Breezy with clearing skies. Expect gradual cooling this evening and continued sunshine into the afternoon. If you need hourly details or a forecast for the next few days, I can pull that up."
+    },
+    "done": true,
+    "started_at": "2026-04-09T19:38:30Z",
+    "completed_at": "2026-04-09T19:39:08Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T19:39:08Z"
+}
