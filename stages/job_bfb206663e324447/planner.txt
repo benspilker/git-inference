@@ -1,0 +1,12 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "resume_previous_execution",
+"confidence": 0.42,
+"requires_local_execution": true,
+"parameters": {},
+"missing_fields": ["task_parameters", "timezone", "critical_fields_present"],
+"question": "Please provide the required task parameters (task_type, target_resources, deadlines, and timezone) to resume or complete the previous job safely.",
+"success_condition": "Task parameters validated and a feasible execution plan generated that meets all deadlines and resource constraints."
+}
