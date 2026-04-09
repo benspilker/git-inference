@@ -1,0 +1,1 @@
+The weather report task for Indianapolis is configured to run daily at 08:30 America/New_York but is currently disabled. A successful setup would be indicated by a stored job_id and a status of "disabled" until explicitly enabled.

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.42,
+"requires_local_execution": false,
+"reason": "User requests to set up a disabled daily weather cron for a specific city/timezone and confirm a job ID. This implies configuring a scheduled task and returning an identifier, which constitutes a system action rather than a simple question."
+}
