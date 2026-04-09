@@ -1,0 +1,10 @@
+{
+  "job_id": "job_dispatch_24169965829_1",
+  "message": {
+    "role": "assistant",
+    "content": "EVAL_SKIP_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-09T02:57:58Z",
+  "completed_at": "2026-04-09T02:59:03Z"
+}
