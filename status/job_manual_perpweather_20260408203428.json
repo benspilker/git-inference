@@ -1,0 +1,9 @@
+{
+  "job_id": "job_manual_perpweather_20260408203428",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "live_weather_lookup",
+  "current_stage": "complete",
+  "updated_at": "2026-04-09T00:39:54Z",
+  "created_at": "2026-04-09T00:35:06Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "live_weather_lookup",
+"confidence": 0.58,
+"requires_local_execution": true,
+"reason": "User requests live weather data for Indianapolis with temperature and conditions; this requires live web access which is restricted in this context."
+}
