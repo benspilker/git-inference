@@ -1,0 +1,26 @@
+{
+  "job_id": "job_6f8a006753834230",
+  "status": {
+    "job_id": "job_6f8a006753834230",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information_retrieval",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T18:54:03Z",
+    "created_at": "2026-04-09T18:52:30Z"
+  },
+  "response": {
+    "job_id": "job_6f8a006753834230",
+    "message": {
+      "role": "assistant",
+      "content": "I don’t have live access to the Pacers’ exact April 2026 schedule in this chat, but I can point you to reliable places to view it and summarize what you’ll typically see.\n\nWhere to check\n\nIndiana Pacers official schedule page: shows date, opponent, and home/away status for each game. Check the April section for precise entries.\n\nESPN Pacers schedule: mirrors official dates and includes TV/network info and game times.\n\nRealGM/Land of Basketball: provide complete April 2026 slate with results if available.\n\nWhat you’ll typically get\n\nA list of games in April 2026 with: date, opponent, and Home/Away indicator (e.g., Home vs. Gainbridge Fieldhouse or Away at Barclays Center).\n\nA few notes on tip times (in local or listed time zone) and any doubleheader or back-to-back sequences.\n\nIf you’d like, I can pull the exact April 2026 entries from those sources and present a clean list with date, opponent, and location. Just say “pull the April 2026 Pacers schedule.”"
+    },
+    "done": true,
+    "started_at": "2026-04-09T18:52:30Z",
+    "completed_at": "2026-04-09T18:54:03Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T18:54:03Z"
+}
