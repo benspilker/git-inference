@@ -1,0 +1,10 @@
+{
+  "job_id": "job_dispatch_24169834164_1",
+  "message": {
+    "role": "assistant",
+    "content": "SPEED_TEST_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-09T02:52:50Z",
+  "completed_at": "2026-04-09T02:53:58Z"
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "User asks to reply with exact text 'SPEED_TEST_OK' without providing a task or question; classification requires clarification on expected action and context for local execution. Deterministic system-test override applied for exact-reply probe."
+}

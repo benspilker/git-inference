@@ -1,0 +1,73 @@
+{
+  "job_id": "job_dispatch_24169834164_1",
+  "status": {
+    "job_id": "job_dispatch_24169834164_1",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "system_command",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T02:55:51Z",
+    "created_at": "2026-04-09T02:52:50Z"
+  },
+  "response": {
+    "job_id": "job_dispatch_24169834164_1",
+    "message": {
+      "role": "assistant",
+      "content": "SPEED_TEST_OK"
+    },
+    "done": true,
+    "started_at": "2026-04-09T02:52:50Z",
+    "completed_at": "2026-04-09T02:53:58Z"
+  },
+  "evaluation": {
+    "schema_version": "1.0",
+    "object_type": "evaluation",
+    "object_id": "eval_job_dispatch_24169834164_1",
+    "phase": 2,
+    "status": "failed",
+    "created_at": "2026-04-09T02:55:50Z",
+    "updated_at": "2026-04-09T02:55:50Z",
+    "run_context": {
+      "job_id": "job_dispatch_24169834164_1"
+    },
+    "content": {
+      "question_text_preview": "",
+      "categorization": {
+        "recency_class": "stable"
+      },
+      "quality_flags": {
+        "needs_web_verification": false,
+        "missing_citations": false,
+        "safety_or_policy_risk": false
+      }
+    },
+    "metadata": {
+      "language": "en"
+    },
+    "scores": [],
+    "judge": {
+      "judge_type": "final_judge",
+      "judge_model": "chatgpt-playwright",
+      "judge_version": "1.0"
+    },
+    "provenance": {},
+    "promotion": {
+      "memory_eligible": false,
+      "memory_tier": null,
+      "promotion_reason": null,
+      "blocked_reason": "missing_score",
+      "effective_score": null
+    },
+    "links": {
+      "repo_path": "evaluations/eval_job_dispatch_24169834164_1.json"
+    },
+    "error": {
+      "code": "EVAL_INVALID_JSON",
+      "message": "Evaluation output was not valid JSON",
+      "raw_excerpt": "{\n\"schema_version\": \"1.0\",\n\"object_type\": \"evaluation\",\n\"object_id\": \"eval_job_dispatch_24169834164"
+    }
+  },
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T02:55:51Z"
+}
