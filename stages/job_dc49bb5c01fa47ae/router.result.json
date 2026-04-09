@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "The user asks to reply with exactly: TELEGRAM_OK, which is a directive to output a specific string. It does not request information, a job, or a research task, and it lacks a clear actionable request within the system's capabilities. It requires clarification on whether this is a test input or a formatting instruction. Deterministic system-test override applied for exact-reply probe."
+}

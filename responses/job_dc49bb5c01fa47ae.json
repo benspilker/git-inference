@@ -1,0 +1,10 @@
+{
+  "job_id": "job_dc49bb5c01fa47ae",
+  "message": {
+    "role": "assistant",
+    "content": "TELEGRAM_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-09T17:29:23Z",
+  "completed_at": "2026-04-09T17:30:36Z"
+}
