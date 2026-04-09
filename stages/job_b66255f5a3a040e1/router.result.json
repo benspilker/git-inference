@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "read_heartbeat_file",
+  "confidence": 0.99,
+  "requires_local_execution": true,
+  "reason": "The user is requesting a filesystem action: read a specific workspace file if it exists, follow its instructions, and return a status result. This is a task to perform rather than a question or research request."
+}

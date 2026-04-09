@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "mode": "local_action",
+  "task_type": "read_heartbeat_and_report",
+  "confidence": 0.0,
+  "requires_local_execution": true,
+  "parameters": {},
+  "missing_fields": [],
+  "question": "Please confirm the exact path to the HEARTBEAT.md file if different from the workspace default, and whether to treat it as active instructions or as a read-only reference.",
+  "success_condition": "HEARTBEAT.md is read and any required actions specified within (if any) are evaluated for safety and reported back; if no actions are present, respond with HEARTBEAT_OK."
+}

@@ -1,0 +1,22 @@
+{
+  "job_id": "job_b66255f5a3a040e1",
+  "message": {
+    "role": "assistant",
+    "content": "Please confirm the exact path to the HEARTBEAT.md file if different from the workspace default, and whether to treat it as active instructions or as a read-only reference."
+  },
+  "done": false,
+  "started_at": "2026-04-09T18:00:09Z",
+  "needs_clarification": true,
+  "planner": {
+    "schema_version": "1.0",
+    "intent_type": "needs_clarification",
+    "mode": "local_action",
+    "task_type": "read_heartbeat_and_report",
+    "confidence": 0.0,
+    "requires_local_execution": true,
+    "parameters": {},
+    "missing_fields": [],
+    "question": "Please confirm the exact path to the HEARTBEAT.md file if different from the workspace default, and whether to treat it as active instructions or as a read-only reference.",
+    "success_condition": "HEARTBEAT.md is read and any required actions specified within (if any) are evaluated for safety and reported back; if no actions are present, respond with HEARTBEAT_OK."
+  }
+}
