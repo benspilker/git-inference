@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "setup_cron_weather_indianapolis",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "reason": "Setting up a cron job to send weather updates involves scheduling a system task and integrating with a weather service; this is a configuration/verification task rather than pure information retrieval."
+}

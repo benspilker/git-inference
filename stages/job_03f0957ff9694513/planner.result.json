@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "cron_schedule",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "parameters": {
+    "recipient_location": " Indianapolis, IN",
+    "recipient_time_zone": "America/New_York",
+    "schedule": {
+      "type": "cron",
+      "expression": "0 8 * * *",
+      "time_of_day": "08:30",
+      "timezone": "America/New_York",
+      "days": "every day"
+    },
+    "message_template": "Weather update for Indianapolis, IN: {weather_summary}",
+    "delivery_method": "email or notification"
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "Cron job created to send daily weather update for Indianapolis at 08:30 America/New_York; delivery confirmed by system."
+}
