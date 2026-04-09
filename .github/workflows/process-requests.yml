@@ -225,12 +225,55 @@ jobs:
 
             local attempt=1
             while (( attempt <= attempts )); do
+              local wait_seconds="${STAGE_WAIT_SECONDS_DEFAULT:-30}"
+              local post_wait_seconds="${STAGE_POST_WAIT_SECONDS_DEFAULT:-1}"
+              local settle_seconds="${STAGE_SETTLE_SECONDS_DEFAULT:-2}"
+              local max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_DEFAULT:-12}"
+              local timeout_ms="${STAGE_TIMEOUT_MS_DEFAULT:-120000}"
+
+              case "$stage" in
+                router)
+                  wait_seconds="${STAGE_WAIT_SECONDS_ROUTER:-18}"
+                  settle_seconds="${STAGE_SETTLE_SECONDS_ROUTER:-1}"
+                  max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_ROUTER:-6}"
+                  timeout_ms="${STAGE_TIMEOUT_MS_ROUTER:-90000}"
+                  ;;
+                planner)
+                  wait_seconds="${STAGE_WAIT_SECONDS_PLANNER:-20}"
+                  settle_seconds="${STAGE_SETTLE_SECONDS_PLANNER:-1}"
+                  max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_PLANNER:-6}"
+                  timeout_ms="${STAGE_TIMEOUT_MS_PLANNER:-90000}"
+                  ;;
+                evaluation)
+                  wait_seconds="${STAGE_WAIT_SECONDS_EVALUATION:-18}"
+                  settle_seconds="${STAGE_SETTLE_SECONDS_EVALUATION:-1}"
+                  max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_EVALUATION:-6}"
+                  timeout_ms="${STAGE_TIMEOUT_MS_EVALUATION:-90000}"
+                  ;;
+                answerer|final_phraser)
+                  if [[ "$require_live_web" == "true" ]]; then
+                    wait_seconds="${STAGE_WAIT_SECONDS_ANSWERER_WEB:-35}"
+                    settle_seconds="${STAGE_SETTLE_SECONDS_ANSWERER_WEB:-2}"
+                    max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_ANSWERER_WEB:-14}"
+                    timeout_ms="${STAGE_TIMEOUT_MS_ANSWERER_WEB:-120000}"
+                  else
+                    wait_seconds="${STAGE_WAIT_SECONDS_ANSWERER:-28}"
+                    settle_seconds="${STAGE_SETTLE_SECONDS_ANSWERER:-2}"
+                    max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_ANSWERER:-10}"
+                    timeout_ms="${STAGE_TIMEOUT_MS_ANSWERER:-110000}"
+                  fi
+                  ;;
+              esac
+
               local meta_file
               meta_file="${output_file}.meta.json"
               local profile_dir
               profile_dir="tmp/playwright-profiles/${job_id}/${stage}/attempt-${attempt}"
               rm -rf "$profile_dir"
               mkdir -p "$profile_dir"
+              local stage_started_epoch
+              stage_started_epoch="$(date +%s)"
+              echo "[$stage] attempt ${attempt}/${attempts} starting (runner=$runner_file wait=${wait_seconds}s settle=${settle_seconds}/${max_settle_wait_seconds}s timeout=${timeout_ms}ms)"
 
               local extra_flags=()
               if (( attempt > 1 )); then
@@ -254,15 +297,41 @@ jobs:
                 --user-data-dir "$profile_dir" \
                 --allow-retry \
                 --refresh-before-retry \
-                --wait-seconds 45 \
-                --timeout-ms 120000 \
-                --post-response-wait-seconds 1 \
-                --response-settle-seconds 2 \
-                --max-settle-wait-seconds 25 \
+                --wait-seconds "$wait_seconds" \
+                --timeout-ms "$timeout_ms" \
+                --post-response-wait-seconds "$post_wait_seconds" \
+                --response-settle-seconds "$settle_seconds" \
+                --max-settle-wait-seconds "$max_settle_wait_seconds" \
                 --chunks "$stage_chunks" \
                 --chunk-mode "$stage_chunk_mode" \
                 "${json_flags[@]}" \
                 "${extra_flags[@]}"; then
+                local stage_elapsed
+                stage_elapsed=$(( $(date +%s) - stage_started_epoch ))
+                echo "[$stage] attempt ${attempt}/${attempts} completed in ${stage_elapsed}s"
+                local final_url=""
+                if [[ -f "$meta_file" ]]; then
+                  final_url="$(python - "$meta_file" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          meta_path = Path(sys.argv[1])
+          try:
+              data = json.loads(meta_path.read_text(encoding="utf-8"))
+          except Exception:
+              data = {}
+          url = str(data.get("final_url") or "").strip()
+          if url:
+              print(url)
+          PY
+                  )"
+                fi
+                if [[ -n "${final_url// }" ]]; then
+                  echo "[$stage] final_url: $final_url (attempt ${attempt}/${attempts})"
+                else
+                  echo "[$stage] final_url: unavailable (attempt ${attempt}/${attempts})"
+                fi
                 if [[ "$require_live_web" == "true" ]] && response_indicates_web_unavailable "$output_file"; then
                   if (( attempt < attempts )); then
                     echo "[$stage] live web unavailable signal detected, retrying attempt $((attempt + 1))/${attempts}"
@@ -275,6 +344,9 @@ jobs:
                 return 0
               fi
 
+              local stage_elapsed_fail
+              stage_elapsed_fail=$(( $(date +%s) - stage_started_epoch ))
+              echo "[$stage] attempt ${attempt}/${attempts} failed after ${stage_elapsed_fail}s"
               if (( attempt >= attempts )); then
                 return 1
               fi

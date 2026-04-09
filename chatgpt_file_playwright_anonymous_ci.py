@@ -146,6 +146,7 @@ def run() -> int:
                 run_metadata["page_refreshed"] = bool(run_metadata.get("page_refreshed")) or bool(args.refresh_before_send)
                 run_metadata["thread_reused"] = not started_new_chat
                 run_metadata["new_chat_started"] = started_new_chat
+            run_metadata["final_url"] = page.url
 
             if args.expect_json and args.fail_if_invalid_json and extract_json_payload(response_text) is None:
                 raise RuntimeError(f"Stage {args.stage_name} expected valid JSON but did not receive it.")

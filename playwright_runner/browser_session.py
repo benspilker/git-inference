@@ -6,7 +6,9 @@ from pathlib import Path
 
 
 def first_visible_locator(page, selectors: list[str], timeout_ms: int):
-    per_selector_timeout = max(1000, int(timeout_ms / max(1, len(selectors))))
+    # Keep selector probing quick; we loop repeatedly in callers, so long
+    # per-selector waits only add latency without improving reliability.
+    per_selector_timeout = min(700, max(250, int(timeout_ms / max(1, len(selectors)))))
     for selector in selectors:
         locator = page.locator(selector).first
         try:
