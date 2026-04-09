@@ -1,0 +1,22 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "schedule_cron_job",
+"confidence": 0.55,
+"requires_local_execution": true,
+"parameters": {
+"schedule": "30 8 * * *",
+"timezone": "America/New_York",
+"recipient": "user",
+"message_template": "Weather in Indianapolis: ${weather}"
+},
+"missing_fields": [
+"weather_source_api_key",
+"weather_api_endpoint",
+"cron_user_account",
+"preferred_delivery_method"
+],
+"question": "Please provide: 1) weather API key and endpoint, 2) which user account should own the cron job, 3) preferred delivery method (email, SMS, app notification).",
+"success_condition": "Cron job created to fetch Indianapolis weather daily at 08:30 America/New_York and deliver to user; job reports success with a valid job ID."
+}

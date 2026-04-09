@@ -1,0 +1,16 @@
+{
+  "task_type": "schedule_cron_job",
+  "verified": false,
+  "executed_at": "2026-04-09T21:15:20Z",
+  "execution_status": "failed",
+  "details": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: schedule_cron_job",
+    "parameters": {
+      "schedule": "30 8 * * *",
+      "timezone": "America/New_York",
+      "recipient": "user",
+      "message_template": "Weather in Indianapolis: ${weather}"
+    }
+  }
+}
