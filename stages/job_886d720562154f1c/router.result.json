@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "setup_cron_weather_alert",
+  "confidence": 0.72,
+  "requires_local_execution": true,
+  "reason": "User requests setting up a cron job to fetch weather for Indianapolis daily at 8:30 AM America/New_York, which involves configuring a scheduled local action."
+}

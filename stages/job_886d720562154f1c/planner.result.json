@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "schedule_cron_expression",
+  "confidence": 0.65,
+  "requires_local_execution": true,
+  "parameters": {
+    "schedule": {
+      "cron_expression": "0 8 * * *",
+      "timezone": "America/New_York",
+      "days": "everyday",
+      "command": "send_weather_update",
+      "recipient": "user",
+      "location": " Indianapolis"
+    },
+    "weather_source": "default_weather_api",
+    "delivery_method": "email_or_notification",
+    "target_time_reference": "daily 08:30 AM America/New_York"
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "Cron job created and delivers Indianapolis weather daily at 08:30 AM America/New_York to the user"
+}
