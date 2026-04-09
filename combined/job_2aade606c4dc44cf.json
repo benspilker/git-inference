@@ -1,0 +1,57 @@
+{
+  "job_id": "job_2aade606c4dc44cf",
+  "status": {
+    "job_id": "job_2aade606c4dc44cf",
+    "state": "failed",
+    "intent_type": "job",
+    "task_type": "schedule_cron_job",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-09T21:56:13Z",
+    "created_at": "2026-04-09T21:54:35Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_2aade606c4dc44cf",
+    "started_at": "2026-04-09T21:54:35Z",
+    "error": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_job",
+      "details": {
+        "task_type": "schedule_cron_job",
+        "verified": false,
+        "executed_at": "2026-04-09T21:56:13Z",
+        "execution_status": "failed",
+        "details": {
+          "code": "UNSUPPORTED_TASK_TYPE",
+          "message": "Unsupported task_type: schedule_cron_job",
+          "parameters": {
+            "job_name": "nl-cron-test",
+            "enabled": false,
+            "schedule": "30 8 * * *",
+            "timezone": "America/New_York",
+            "command": "send_weather_update Indianapolis"
+          }
+        }
+      }
+    }
+  },
+  "execution": {
+    "task_type": "schedule_cron_job",
+    "verified": false,
+    "executed_at": "2026-04-09T21:56:13Z",
+    "execution_status": "failed",
+    "details": {
+      "code": "UNSUPPORTED_TASK_TYPE",
+      "message": "Unsupported task_type: schedule_cron_job",
+      "parameters": {
+        "job_name": "nl-cron-test",
+        "enabled": false,
+        "schedule": "30 8 * * *",
+        "timezone": "America/New_York",
+        "command": "send_weather_update Indianapolis"
+      }
+    }
+  },
+  "generated_at": "2026-04-09T21:56:13Z"
+}

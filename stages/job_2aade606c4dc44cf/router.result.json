@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "create_disabled_cron_weather_update",
+  "confidence": 0.55,
+  "requires_local_execution": true,
+  "reason": "The user requests creation of a scheduled cron job configured to run daily at a specific time and perform an action (send a weather update). This involves system configuration and scheduling, which classifies as a job requiring local execution."
+}

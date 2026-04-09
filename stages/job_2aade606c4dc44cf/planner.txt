@@ -1,0 +1,18 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "schedule_cron_job",
+"confidence": 0.65,
+"requires_local_execution": true,
+"parameters": {
+"job_name": "nl-cron-test",
+"enabled": false,
+"schedule": "30 8 * * *",
+"timezone": "America/New_York",
+"command": "send_weather_update Indianapolis"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Cron job nl-cron-test created with daily execution at 08:30 America/New_York to send weather updates for Indianapolis; job is initially disabled."
+}
