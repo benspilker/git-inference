@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "information_request",
+  "confidence": 0.72,
+  "requires_local_execution": true,
+  "reason": "User asks for the Indiana Pacers' opponents for this month, which requires up-to-date schedule lookup beyond the model's static knowledge."
+}

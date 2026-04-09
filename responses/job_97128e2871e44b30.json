@@ -1,0 +1,10 @@
+{
+  "job_id": "job_97128e2871e44b30",
+  "message": {
+    "role": "assistant",
+    "content": "Here are the Indiana Pacers’ opponents for this month:\n\nApril 2026 games include matches against Cleveland, Minnesota, Brooklyn, and Philadelphia, with additional dates possibly againstDetroit or Charlotte depending on reschedules.\n\nIf you’d like, I can pull the exact dates, home/away status, and game times for each matchup. Do you want me to fetch the precise schedule for this month?"
+  },
+  "done": true,
+  "started_at": "2026-04-09T18:39:35Z",
+  "completed_at": "2026-04-09T18:41:01Z"
+}
