@@ -1,0 +1,19 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "cron_schedule",
+"confidence": 0.65,
+"requires_local_execution": true,
+"parameters": {
+"timezone": "America/New_York",
+"recipient": "user",
+"execution_time": "08:30",
+"frequency": "daily",
+"subject": "weather update",
+"location": "Indianapolis"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Cron job created to fetch Indianapolis weather daily at 08:30 America/New_York and deliver update to the user"
+}

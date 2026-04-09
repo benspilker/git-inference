@@ -1,0 +1,26 @@
+{
+  "job_id": "job_1765a1c6338e4cb0",
+  "started_at": "2026-04-09T20:46:08Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: cron_schedule",
+    "details": {
+      "task_type": "cron_schedule",
+      "verified": false,
+      "executed_at": "2026-04-09T20:48:29Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: cron_schedule",
+        "parameters": {
+          "timezone": "America/New_York",
+          "recipient": "user",
+          "execution_time": "08:30",
+          "frequency": "daily",
+          "subject": "weather update",
+          "location": "Indianapolis"
+        }
+      }
+    }
+  }
+}

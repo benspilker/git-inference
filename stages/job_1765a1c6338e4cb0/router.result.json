@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "schedule_cron_weather_Indiaapolis",
+  "confidence": 0.42,
+  "requires_local_execution": true,
+  "reason": "The user requests setting up a recurring cron job to fetch weather for Indianapolis daily at a specific time, which involves scheduling and configuration tasks that imply system actions rather than a simple information request."
+}
