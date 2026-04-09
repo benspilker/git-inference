@@ -1,0 +1,1 @@
+{"schema_version":"1.0","intent_type":"job","task_type":"read_workspace_heartbeat","confidence":0.99,"requires_local_execution":true,"reason":"The request asks to inspect a workspace file and conditionally report status, which is a local file operation and execution task."}
