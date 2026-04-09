@@ -88,8 +88,9 @@ jobs:
           WEATHER_FALLBACK_SCRIPT="tools/weather_fallback_openmeteo.py"
           WEB_FALLBACK_SCRIPT="tools/web_fallback_duckduckgo.py"
           EXTRACT_CONTEXT_SCRIPT=".github/workflows/extract_request_context.py"
-          echo "Playwright engine: $PLAYWRIGHT_ENGINE"
-          echo "Playwright runner: $PLAYWRIGHT_RUNNER_FILE"
+          echo "Playwright default engine (workflow-level): $PLAYWRIGHT_ENGINE"
+          echo "Playwright default runner (workflow-level): $PLAYWRIGHT_RUNNER_FILE"
+          echo "Per-job engine/runner is resolved from request.model (see [dispatch] log lines)."
           [[ -f "$PLAYWRIGHT_RUNNER_FILE" ]] || { echo "Missing $PLAYWRIGHT_RUNNER_FILE"; exit 1; }
           [[ -f "$WEATHER_FALLBACK_SCRIPT" ]] || { echo "Missing $WEATHER_FALLBACK_SCRIPT"; exit 1; }
           [[ -f "$WEB_FALLBACK_SCRIPT" ]] || { echo "Missing $WEB_FALLBACK_SCRIPT"; exit 1; }
@@ -202,6 +203,18 @@ jobs:
                 ;;
               *)
                 echo "chatgpt_file_playwright_anonymous_ci.py"
+                ;;
+            esac
+          }
+
+          resolve_playwright_engine_for_runner() {
+            local runner_file="$1"
+            case "$runner_file" in
+              perplexity_file_playwright_anonymous_ci.py)
+                echo "perplexity"
+                ;;
+              *)
+                echo "chatgpt"
                 ;;
             esac
           }
@@ -1097,14 +1110,12 @@ jobs:
             local answerer_chunk_mode="none"
 
             PLAYWRIGHT_RUNNER_FILE_OVERRIDE="$PLAYWRIGHT_RUNNER_FILE"
+            local model_name=""
             if [[ -n "${context_file:-}" && -f "$context_file" ]]; then
-              local model_name
               model_name="$(parse_context_value "$context_file" "model" | tr -d '\r')"
               if [[ -n "${model_name// }" ]]; then
                 PLAYWRIGHT_RUNNER_FILE_OVERRIDE="$(resolve_playwright_runner_for_model "$model_name")"
               fi
-              echo "[dispatch] job=$job_id model=${model_name:-unknown} runner=$PLAYWRIGHT_RUNNER_FILE_OVERRIDE"
-              [[ -f "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE" ]] || { echo "Missing runner $PLAYWRIGHT_RUNNER_FILE_OVERRIDE"; return 1; }
 
               local chunk_info
               chunk_info="$(parse_context_chunking "$context_file" | tr -d '\r')"
@@ -1113,6 +1124,10 @@ jobs:
               [[ -z "$answerer_chunks" ]] && answerer_chunks="1"
               [[ -z "$answerer_chunk_mode" ]] && answerer_chunk_mode="none"
             fi
+            local dispatch_engine
+            dispatch_engine="$(resolve_playwright_engine_for_runner "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE")"
+            echo "[dispatch] job=$job_id model=${model_name:-unknown} engine=$dispatch_engine runner=$PLAYWRIGHT_RUNNER_FILE_OVERRIDE"
+            [[ -f "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE" ]] || { echo "Missing runner $PLAYWRIGHT_RUNNER_FILE_OVERRIDE"; return 1; }
 
             : > "$memory_file"
             local memory_candidate_file="tmp/${job_id}.memory_candidate.json"
