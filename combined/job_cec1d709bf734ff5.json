@@ -1,0 +1,26 @@
+{
+  "job_id": "job_cec1d709bf734ff5",
+  "status": {
+    "job_id": "job_cec1d709bf734ff5",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "food_culinary_instructions",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T18:36:40Z",
+    "created_at": "2026-04-09T18:35:08Z"
+  },
+  "response": {
+    "job_id": "job_cec1d709bf734ff5",
+    "message": {
+      "role": "assistant",
+      "content": "Direct answer:\nHere’s a straightforward, practical way to make a pizza from scratch.\n\nGather basics:\n\nDough: flour (strong bread flour works well), water, yeast, salt, olive oil.\n\nSauce: crushed tomatoes or tomato passata, salt, a pinch of sugar, olive oil, optional garlic or oregano.\n\nToppings: shredded mozzarella, any extras you like (basil, mushrooms, pepperoni, olives, peppers).\n\nMake the dough (about 2 large pizzas):\n\nActivate yeast: whisk a teaspoon of sugar in about 250–300 ml lukewarm water, sprinkle in 1 packet (7 g) active dry yeast, and let sit 5–10 minutes until foamy.\n\nMix dough: in a large bowl, combine 500 g flour and 1½ tsp salt. Add the yeast mixture plus 1–2 tbsp olive oil. Stir to form a rough dough.\n\nKnead: turn onto a floured surface and knead 8–12 minutes until smooth and elastic.\n\nRise: shape into a ball, place in a lightly oiled bowl, cover, and let rise in a warm spot until doubled (about 1–2 hours).\n\nDivide: knock back the dough, divide into 2 portions for large pizzas, or 4 for smaller crusts. Shape into tight balls and let rest 15–20 minutes.\n\nMake the sauce (while dough rises):\n\nSimmer 400 g crushed tomatoes with 1–2 cloves minced garlic, a pinch of salt, a pinch of sugar, and a drizzle of olive oil for 15–20 minutes. Taste and adjust.\n\nPre-heat and shape:\n\nHeat oven as hot as it will go (ideally 250–280°C / 480–540°F) and preheat a baking sheet or a pizza stone if you have one.\n\nRoll or stretch dough: on a floured surface, stretch each dough ball into a circle about 25–30 cm (9–12 inches) across. Leave a thicker edge for the crust.\n\nAssemble:\n\nSpoon a thin layer of sauce, leaving a border. Add shredded mozzarella and your chosen toppings.\n\nBake:\n\nTransfer to the hot sheet/stone. Bake 8–12 minutes, until the crust is golden and cheese is bubbling. For a crisper base, bake directly on a hot stone if available.\n\nFinish and serve:\n\nRemove from oven, drizzle with a little olive oil or fresh basil, slice, and enjoy.\n\nTips to tailor:\n\nFor a chewier crust, let dough rise slowly in the fridge overnight (2nd rise after shaping, 1–2 hours at room temp before baking).\n\nFor a thinner crust, roll the dough very thin and bake at the highest heat possible.\n\nIf you don’t have a pizza stone, a heavy steel pan or inverted baking sheet works well.\n\nWould you like a quick, exact ingredient list with metric measurements for your oven and pan size, or a veggie/vegan version?"
+    },
+    "done": true,
+    "started_at": "2026-04-09T18:35:08Z",
+    "completed_at": "2026-04-09T18:36:39Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T18:36:40Z"
+}

@@ -1,0 +1,9 @@
+{
+  "job_id": "job_cec1d709bf734ff5",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "food_culinary_instructions",
+  "current_stage": "complete",
+  "updated_at": "2026-04-09T18:36:40Z",
+  "created_at": "2026-04-09T18:35:08Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "food_culinary_instructions",
+"confidence": 0.72,
+"requires_local_execution": false,
+"reason": "User asks for step-by-step guidance to make a pizza, a general information request not requiring scheduling or system actions."
+}
