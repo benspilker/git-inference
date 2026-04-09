@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "weather_query",
+"confidence": 0.72,
+"requires_local_execution": true,
+"reason": "User requests current weather information for Grand Rapids, MI, which requires real-time data not available in memory."
+}
