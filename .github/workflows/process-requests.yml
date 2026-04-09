@@ -1593,15 +1593,18 @@ jobs:
             exit 0
           fi
 
-          if [[ "$GH_EVENT_NAME" == "push" ]]; then
-            BEFORE="$GH_EVENT_BEFORE"
-            if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
-              CANDIDATES="$(git diff --name-only "$BEFORE" "$GH_SHA" -- 'input/*.txt' 'requests/job_*.json' || true)"
+          CANDIDATES=""
+          if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            if [[ "$GH_EVENT_NAME" == "push" ]]; then
+              BEFORE="$GH_EVENT_BEFORE"
+              if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
+                CANDIDATES="$(git diff --name-only "$BEFORE" "$GH_SHA" -- 'input/*.txt' 'requests/job_*.json' 2>/dev/null || true)"
+              else
+                CANDIDATES="$( { git ls-files 'input/*.txt' 2>/dev/null || true; git ls-files 'requests/job_*.json' 2>/dev/null || true; } | sort -u )"
+              fi
             else
-              CANDIDATES="$( { git ls-files 'input/*.txt' || true; git ls-files 'requests/job_*.json' || true; } | sort -u )"
+              CANDIDATES="$( { git ls-files 'input/*.txt' 2>/dev/null || true; git ls-files 'requests/job_*.json' 2>/dev/null || true; } | sort -u )"
             fi
-          else
-            CANDIDATES="$( { git ls-files 'input/*.txt' || true; git ls-files 'requests/job_*.json' || true; } | sort -u )"
           fi
 
           CHANGED=""
