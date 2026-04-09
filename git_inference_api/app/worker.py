@@ -4,6 +4,8 @@ import hashlib
 import json
 import logging
 import re
+import shlex
+import subprocess
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
@@ -230,6 +232,7 @@ class JobWorker:
             commit_and_push_request(job_id, request_path)
 
         result = wait_for_result(job_id, timeout_seconds=settings.job_timeout_seconds)
+        result = self._apply_runtime_handoff_if_configured(job_id=job_id, result=result)
 
         if isinstance(result, dict):
             state = str(result.get("state", result.get("status", ""))).strip().lower()
@@ -264,6 +267,196 @@ class JobWorker:
             "one-shot workflow completed",
             extra={"job_id": job_id, "status": "completed", "intent_type": intent_type, "task_type": task_type},
         )
+
+    def _apply_runtime_handoff_if_configured(self, job_id: str, result: dict[str, Any]) -> dict[str, Any]:
+        if not isinstance(result, dict):
+            return result
+        if not settings.enable_runtime_handoff_executor:
+            return result
+        if not settings.openclaw_cron_ssh_target.strip():
+            return result
+
+        execution_path = settings.repo_path / settings.execution_dir / f"{job_id}.json"
+        if not execution_path.exists():
+            return result
+
+        try:
+            execution_payload = json.loads(execution_path.read_text(encoding="utf-8"))
+        except Exception:
+            return result
+
+        if str(execution_payload.get("execution_status") or "").lower() != "handoff_required":
+            return result
+
+        canonical_task_type = canonicalize_task_type(str(execution_payload.get("task_type") or ""))
+        if canonical_task_type != "scheduled_weather_report":
+            return result
+
+        runtime_execution, runtime_message = self._run_runtime_weather_cron_executor(execution_payload)
+
+        updated = dict(result)
+        updated["execution"] = runtime_execution
+        if runtime_message:
+            updated["message"] = {"role": "assistant", "content": runtime_message}
+        return updated
+
+    def _run_runtime_weather_cron_executor(self, execution_payload: dict[str, Any]) -> tuple[dict[str, Any], str]:
+        details = execution_payload.get("details") if isinstance(execution_payload.get("details"), dict) else {}
+        params = details.get("parameters") if isinstance(details.get("parameters"), dict) else {}
+        params = self._normalize_weather_schedule_parameters(params)
+
+        location = self._first_nonempty(params.get("location"), "Indianapolis")
+        timezone_value = self._first_nonempty(params.get("timezone"), settings.default_user_timezone)
+        cron_name = self._first_nonempty(params.get("cron_name"), params.get("job_name"), "nl-cron-test")
+        enabled = bool(params.get("enabled", False))
+
+        cron_expr = self._derive_cron_expression(params)
+        if not cron_expr:
+            failure = {
+                **execution_payload,
+                "execution_status": "failed",
+                "verified": False,
+                "details": {
+                    "code": "RUNTIME_CRON_INVALID_PARAMETERS",
+                    "message": "Unable to derive a cron expression from planner parameters.",
+                    "parameters": params,
+                },
+            }
+            return failure, "I could not create the cron job because the schedule was incomplete."
+
+        weather_message = (
+            f"Get the current weather for {location} and send a concise daily update. "
+            "Include temperature, conditions, and notable rain/wind risk. "
+            "If live weather lookup is unavailable, say so plainly."
+        )
+
+        remote_args = [
+            settings.openclaw_cron_cli_path,
+            "cron",
+            "add",
+            "--name",
+            cron_name,
+            "--cron",
+            cron_expr,
+            "--tz",
+            timezone_value,
+            "--agent",
+            settings.openclaw_cron_agent,
+            "--message",
+            weather_message,
+            "--channel",
+            settings.openclaw_cron_channel,
+            "--json",
+        ]
+        if not enabled:
+            remote_args.append("--disabled")
+        if settings.openclaw_cron_to.strip():
+            remote_args.extend(["--to", settings.openclaw_cron_to.strip()])
+
+        remote_command = " ".join(shlex.quote(arg) for arg in remote_args)
+        try:
+            proc = subprocess.run(
+                ["ssh", settings.openclaw_cron_ssh_target, remote_command],
+                capture_output=True,
+                text=True,
+                timeout=settings.openclaw_cron_timeout_seconds,
+                check=False,
+            )
+        except Exception as exc:
+            failure = {
+                **execution_payload,
+                "execution_status": "failed",
+                "verified": False,
+                "details": {
+                    "code": "RUNTIME_CRON_EXECUTOR_ERROR",
+                    "message": f"Runtime cron executor failed: {exc}",
+                    "parameters": params,
+                },
+            }
+            return failure, "I could not create the cron job due to a runtime executor error."
+
+        if proc.returncode != 0:
+            failure = {
+                **execution_payload,
+                "execution_status": "failed",
+                "verified": False,
+                "details": {
+                    "code": "RUNTIME_CRON_EXECUTOR_NONZERO",
+                    "message": (proc.stderr or proc.stdout or "").strip() or "openclaw cron add returned non-zero exit code",
+                    "parameters": params,
+                },
+            }
+            return failure, "I could not create the cron job because the runtime executor returned an error."
+
+        payload = self._parse_json_object(proc.stdout)
+        cron_id = ""
+        if isinstance(payload, dict):
+            cron_id = str(payload.get("id") or "").strip()
+
+        success = {
+            **execution_payload,
+            "execution_status": "success",
+            "verified": True,
+            "details": {
+                "executor": "openclaw_cron_remote",
+                "cron_id": cron_id or None,
+                "cron_name": cron_name,
+                "cron_expr": cron_expr,
+                "timezone": timezone_value,
+                "enabled": enabled,
+                "location": location,
+                "parameters": params,
+                "raw_output": (proc.stdout or "").strip(),
+            },
+        }
+        status_word = "enabled" if enabled else "disabled"
+        msg = f"Created {status_word} cron job `{cron_name}` ({cron_expr} {timezone_value}) for {location}."
+        if cron_id:
+            msg = f"{msg} Job ID: {cron_id}."
+        return success, msg
+
+    @staticmethod
+    def _parse_json_object(text: str) -> dict[str, Any] | None:
+        raw = (text or "").strip()
+        if not raw:
+            return None
+        try:
+            parsed = json.loads(raw)
+            return parsed if isinstance(parsed, dict) else None
+        except Exception:
+            pass
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start >= 0 and end > start:
+            try:
+                parsed = json.loads(raw[start : end + 1])
+                return parsed if isinstance(parsed, dict) else None
+            except Exception:
+                return None
+        return None
+
+    @staticmethod
+    def _derive_cron_expression(params: dict[str, Any]) -> str:
+        raw = str(params.get("cron_schedule") or params.get("cron") or params.get("cron_expression") or "").strip()
+        if raw:
+            parts = raw.split()
+            if len(parts) in {5, 6}:
+                return raw
+
+        time_value = str(params.get("time") or params.get("send_time") or "").strip()
+        if not time_value:
+            return ""
+        match = re.match(r"^\s*(\d{1,2}):(\d{2})\s*$", time_value)
+        if not match:
+            return ""
+        hour = int(match.group(1))
+        minute = int(match.group(2))
+        if hour < 0 or hour > 23 or minute < 0 or minute > 59:
+            return ""
+        frequency = str(params.get("frequency") or "daily").strip().lower()
+        if frequency in {"daily", "everyday", "every_day"}:
+            return f"{minute} {hour} * * *"
+        return ""
 
     def _submit_stage_mode_request(self, job: dict[str, Any]) -> None:
         """
