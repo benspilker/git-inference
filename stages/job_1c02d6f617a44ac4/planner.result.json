@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "cron_schedule_setup",
+  "confidence": 0.72,
+  "requires_local_execution": true,
+  "parameters": {
+    "recipient_timezone": "America/New_York",
+    "location": "Indianapolis",
+    "cron_schedule": " Daily at 08:30 AM America/New_York",
+    "delivery_method": "weather_report",
+    "content": "weather forecast"
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "Cron job is registered to send daily weather forecast for Indianapolis at 08:30 AM America/New_York, delivery confirmed by recipient."
+}

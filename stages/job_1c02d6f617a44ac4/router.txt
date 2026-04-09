@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "setup_cron_weather_notification",
+"confidence": 0.72,
+"requires_local_execution": true,
+"reason": "User requests configuring a cron job to deliver daily weather updates for Indianapolis at a specific time in a specified timezone, which involves scheduling a system task and timezone handling."
+}
