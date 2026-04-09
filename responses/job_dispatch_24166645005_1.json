@@ -1,0 +1,10 @@
+{
+  "job_id": "job_dispatch_24166645005_1",
+  "message": {
+    "role": "assistant",
+    "content": "Live web search was required for this prompt but unavailable in the browser session after 3 attempt(s)."
+  },
+  "done": true,
+  "started_at": "2026-04-09T00:56:51Z",
+  "completed_at": "2026-04-09T00:59:17Z"
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "weather lookup",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "reason": "User asks for current weather in a specific location; requires real-time weather data not available in this chat without external tools."
+}

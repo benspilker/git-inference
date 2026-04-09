@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "object_type": "evaluation",
+  "object_id": "eval_job_dispatch_24166645005_1",
+  "phase": 2,
+  "status": "failed",
+  "created_at": "2026-04-09T01:01:30Z",
+  "updated_at": "2026-04-09T01:01:30Z",
+  "run_context": {
+    "job_id": "job_dispatch_24166645005_1"
+  },
+  "content": {
+    "question_text_preview": "",
+    "categorization": {
+      "recency_class": "stable"
+    },
+    "quality_flags": {
+      "needs_web_verification": false,
+      "missing_citations": false,
+      "safety_or_policy_risk": false
+    }
+  },
+  "metadata": {
+    "language": "en"
+  },
+  "scores": [],
+  "judge": {
+    "judge_type": "final_judge",
+    "judge_model": "chatgpt-playwright",
+    "judge_version": "1.0"
+  },
+  "provenance": {},
+  "promotion": {
+    "memory_eligible": false,
+    "memory_tier": null,
+    "promotion_reason": null,
+    "blocked_reason": "missing_score",
+    "effective_score": null
+  },
+  "links": {
+    "repo_path": "evaluations/eval_job_dispatch_24166645005_1.json"
+  },
+  "error": {
+    "code": "EVAL_INVALID_JSON",
+    "message": "Evaluation output was not valid JSON",
+    "raw_excerpt": "{\"schema_version\":\"1.0\",\"object_type\":\"evaluation\",\"object_id\":\"eval_job_dispatch_24166645005_1\",\"phase\":2,\"status\":\"complete\",\"created_at\":\"2026-04-09T00:59:17Z\",\"updated_at\":\"2026-04-09T00:59:17Z\",\"run_context\":{\"job_id\":\"job_dispatch_24166645005_1\",\"question_id\":\"q_job_dispatch_24166645005_1\",\"run_id\":\"run_job_dispatch_24166645005_1\",\"branch_id\":\"branch_01\",\"research_id\":null,\"parent_object_id\":\"resp_job_dispatch_24166645005_1\",\"root_object_id\":\"q_job_dispatch_24166645005_1\"},\"content\":{\"question_text_preview\":\"What is the weather like today in Grand Rapids, Michigan?\",\"categorization\":{\"topic_short\":\"\",\"topic\":\"\",\"topics\":[],\"keywords\":[],\"summary\":\"\",\"language\":\"en\",\"domain\":\"\",\"subdomain\":\"\",\"sensitivity\":\"public\",\"recency_class\":\"stable\"},\"quality_flags\":{\"needs_web_verification\":false,\"missing_citations:false,\"safety_or_policy_risk\":false}},\"metadata\":{\"title\":null,\"topic_short\":\"\",\"topic\":\"\",\"topics\":[],\"keywords\":[],\"summary\":\"\",\"query_variants\":[],\"language\":\"en\",\"domain\":\"\",\"subdomain\":\"\",\"sensitivity\":\"public\",\"recency_class\":\"stable\"},\"scores\":[{\"score_event_id\":\"score_evt_job_dispatch_24166645005_1\",\"score_profile\":\"answer_score_profile\",\"judge_type\":\"final_judge\",\"judge_model\":\"chatgpt-playwright\",\"phase\":2,\"created_at\":\"2026-04-09T00:59:17Z\",\"dimensions\":{\"correctness\":0.0,\"completeness\":0.0,\"clarity\":0.0,\"usefulness\":0.0,\"groundedness\":0.0,\"specificity\":0.0},\"overall_score\":0.0,\"confidence_band\":\"medium\",\"notes\":\"\"}],\"judge\":{\"judge_type\":\"final_judge\",\"judg"
+  }
+}
