@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "information",
+  "confidence": 0.95,
+  "requires_local_execution": false,
+  "reason": "Router bypass: prompt begins with 'Tell me', treated as direct informational question."
+}
