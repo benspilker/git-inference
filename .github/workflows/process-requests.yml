@@ -1109,6 +1109,7 @@ jobs:
               if [[ -n "${model_name// }" ]]; then
                 PLAYWRIGHT_RUNNER_FILE_OVERRIDE="$(resolve_playwright_runner_for_model "$model_name")"
               fi
+              echo "[dispatch] job=$job_id model=${model_name:-unknown} runner=$PLAYWRIGHT_RUNNER_FILE_OVERRIDE"
               [[ -f "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE" ]] || { echo "Missing runner $PLAYWRIGHT_RUNNER_FILE_OVERRIDE"; return 1; }
 
               local chunk_info
@@ -1617,6 +1618,17 @@ jobs:
             [[ -f "$req" ]] || continue
             CHANGED+="${req}"$'\n'
           done <<< "$CANDIDATES"
+
+          if [[ -z "${CHANGED// }" ]]; then
+            echo "Diff/list candidate scan was empty. Falling back to direct workspace scan."
+            shopt -s nullglob
+            for req in requests/job_*.json input/*.txt; do
+              [[ "$req" == input/processed/* ]] && continue
+              [[ -f "$req" ]] || continue
+              CHANGED+="${req}"$'\n'
+            done
+            shopt -u nullglob
+          fi
 
           if [[ -z "${CHANGED// }" ]]; then
             echo "No pending input/request files to process."
