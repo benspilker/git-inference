@@ -21,7 +21,6 @@ on:
         options:
           - "chatgpt"
           - "perplexity"
-          - "gemini"
       upload_artifacts:
         description: "Upload diagnostics artifacts even on success"
         required: false
@@ -84,8 +83,6 @@ jobs:
           PLAYWRIGHT_RUNNER_FILE="chatgpt_file_playwright_anonymous_ci.py"
           if [[ "$PLAYWRIGHT_ENGINE" == "perplexity" ]]; then
             PLAYWRIGHT_RUNNER_FILE="perplexity_file_playwright_anonymous_ci.py"
-          elif [[ "$PLAYWRIGHT_ENGINE" == "gemini" ]]; then
-            PLAYWRIGHT_RUNNER_FILE="gemini_file_playwright_anonymous_ci.py"
           fi
           PLAYWRIGHT_RUNNER_FILE_OVERRIDE=""
           WEATHER_FALLBACK_SCRIPT="tools/weather_fallback_openmeteo.py"
@@ -202,9 +199,6 @@ jobs:
             case "$model_name" in
               git-perplexity|git-perplexity-json|*/git-perplexity|*/git-perplexity-json)
                 echo "perplexity_file_playwright_anonymous_ci.py"
-                ;;
-              git-gemini|*/git-gemini)
-                echo "gemini_file_playwright_anonymous_ci.py"
                 ;;
               *)
                 echo "chatgpt_file_playwright_anonymous_ci.py"
@@ -1676,8 +1670,6 @@ jobs:
             chatgpt_network.log
             perplexity_playwright_error*
             perplexity_network.log
-            gemini_playwright_error*
-            gemini_network.log
             tmp/*.out.txt
             errors/*.json
             status/*.json
