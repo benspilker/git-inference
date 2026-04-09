@@ -1,0 +1,26 @@
+{
+  "job_id": "job_32d13ad1fe934622",
+  "status": {
+    "job_id": "job_32d13ad1fe934622",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T20:14:55Z",
+    "created_at": "2026-04-09T20:14:17Z"
+  },
+  "response": {
+    "job_id": "job_32d13ad1fe934622",
+    "message": {
+      "role": "assistant",
+      "content": "Today in Indianapolis, Indiana, it’s sunny and warm. Current conditions show a high around 75°F (24°C) with light SW winds about 7 mph, humidity near 32%, and minimal cloud cover. The forecast calls for continued warmth with mainly sunny skies today, then a chance of showers tomorrow, followed by generally pleasant conditions over the next few days. [AccuWeather]"
+    },
+    "done": true,
+    "started_at": "2026-04-09T20:14:17Z",
+    "completed_at": "2026-04-09T20:14:55Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T20:14:55Z"
+}
