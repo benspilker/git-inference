@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "needs_clarification",
+"confidence": 0.47,
+"requires_local_execution": true,
+"reason": "User request is ambiguous about the specific local action or information they want classified; it resembles a meta-task (intent classification) without a concrete action or data to process."
+}

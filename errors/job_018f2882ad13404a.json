@@ -1,0 +1,8 @@
+{
+  "job_id": "job_018f2882ad13404a",
+  "started_at": "2026-04-09T20:59:42Z",
+  "error": {
+    "code": "ROUTER_INVALID_INTENT",
+    "message": "Router returned an unsupported intent_type."
+  }
+}
