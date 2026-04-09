@@ -1059,7 +1059,9 @@ jobs:
                     else
                       local stage_rc=$?
                       if [[ "$stage_rc" -eq 30 ]]; then
-                        if [[ "$task_type" == "live_weather_lookup" ]]; then
+                        local task_type_norm
+                        task_type_norm="$(printf '%s' "$task_type" | tr '[:upper:]' '[:lower:]' | tr ' ' '_')"
+                        if [[ "$task_type_norm" == "live_weather_lookup" || "$task_type_norm" == "weather_lookup" || "$task_type_norm" == "weather" ]] || grep -Eqi '\bweather\b' "$user_prompt_file"; then
                           if python - "$user_prompt_file" "$answerer_out" <<'PY'
             import json
             import re
