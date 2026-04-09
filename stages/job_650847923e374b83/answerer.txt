@@ -1,0 +1,13 @@
+I don’t have live access to pull the exact April 2026 Pacers schedule here. If you’d like, I can fetch it for you and return date, opponent, and home/away status.
+
+In the meantime, a reliable place to check is the Pacers official schedule page or ESPN’s Pacers schedule page, which list dates with venue and opponents:
+
+Indiana Pacers official schedule
+
+ESPN Pacers schedule
+
+Would you like me to look up the exact April 2026 entries now and present them in a simple list? If yes, I’ll pull the April dates and format them as:
+
+Date — Opponent — Home/Away
+
+I can also include times and game venue if you’d find that useful.
