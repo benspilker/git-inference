@@ -1,0 +1,21 @@
+{
+  "task_type": "scheduled_weather_report",
+  "original_task_type": "scheduled_weather_report",
+  "verified": false,
+  "executed_at": "2026-04-09T23:12:11Z",
+  "execution_status": "needs_clarification",
+  "details": {
+    "code": "MISSING_REQUIRED_FIELDS",
+    "message": "Task parameters are missing required fields.",
+    "missing_fields": [
+      "frequency"
+    ],
+    "parameters": {
+      "location": "Indianapolis, Indiana, United States",
+      "timezone": "America/New_York",
+      "time": "08:30",
+      "date": "daily",
+      "enabled": false
+    }
+  }
+}

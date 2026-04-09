@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "scheduled_weather_report",
+"confidence": 0.55,
+"requires_local_execution": true,
+"reason": "User requests setting up a disabled daily weather cron for Indianapolis at a specific time and to confirm the job ID, which requires scheduling action and identification of a job identifier."
+}

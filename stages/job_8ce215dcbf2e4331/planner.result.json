@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "scheduled_weather_report",
+  "confidence": 0.4,
+  "requires_local_execution": true,
+  "parameters": {
+    "location": "Indianapolis, Indiana, United States",
+    "timezone": "America/New_York",
+    "time": "08:30",
+    "date": "daily",
+    "enabled": false
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "A disabled daily weather cron for Indianapolis is defined with execution time 08:30 in America/New_York; a job identifier is returned as confirmation."
+}
