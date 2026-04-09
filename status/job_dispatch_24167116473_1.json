@@ -1,0 +1,9 @@
+{
+  "job_id": "job_dispatch_24167116473_1",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "weather_check",
+  "current_stage": "complete",
+  "updated_at": "2026-04-09T01:13:53Z",
+  "created_at": "2026-04-09T01:10:26Z"
+}
