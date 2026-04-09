@@ -1,0 +1,9 @@
+{
+  "job_id": "job_38b6fa6a2b4a4c80",
+  "state": "failed",
+  "intent_type": "job",
+  "task_type": "schedule_cron_weather_delivery",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-09T21:48:14Z",
+  "created_at": "2026-04-09T21:46:34Z"
+}

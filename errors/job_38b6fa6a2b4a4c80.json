@@ -1,0 +1,24 @@
+{
+  "job_id": "job_38b6fa6a2b4a4c80",
+  "started_at": "2026-04-09T21:46:34Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: schedule_cron_weather_delivery",
+    "details": {
+      "task_type": "schedule_cron_weather_delivery",
+      "verified": false,
+      "executed_at": "2026-04-09T21:48:14Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: schedule_cron_weather_delivery",
+        "parameters": {
+          "cron_expression": "0 8 * * *",
+          "timezone": "America/New_York",
+          "recipient": "user",
+          "message_template": "Weather in Indianapolis: {weather_summary}"
+        }
+      }
+    }
+  }
+}

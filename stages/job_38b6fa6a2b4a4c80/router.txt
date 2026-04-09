@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "set_up_cron_job",
+"confidence": 0.68,
+"requires_local_execution": true,
+"reason": "The user requests configuring a scheduled task (cron job) to fetch weather for Indianapolis daily at a specific time in a specified timezone, which is a setup/execution action rather than a simple question."
+}
