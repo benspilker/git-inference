@@ -1,0 +1,9 @@
+{
+  "job_id": "job_13810832ad894465",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "weather lookup",
+  "current_stage": "complete",
+  "updated_at": "2026-04-09T19:25:48Z",
+  "created_at": "2026-04-09T19:24:20Z"
+}

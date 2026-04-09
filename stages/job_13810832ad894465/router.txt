@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "weather lookup",
+"confidence": 0.42,
+"requires_local_execution": true,
+"reason": "User requests current weather in a specific city; this requires real-time data not available locally in this context."
+}
