@@ -468,6 +468,22 @@ jobs:
           PY
           }
 
+          starts_with_tell_me_prompt() {
+            local question_file="$1"
+            python - "$question_file" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          text = Path(sys.argv[1]).read_text(encoding="utf-8", errors="ignore")
+          lowered = text.lstrip().lower()
+          # Fast-path bypass for conversational informational asks:
+          # "Tell me ..." (with optional leading "Please").
+          hit = bool(re.match(r"^(?:please\s+)?tell\s+me\b", lowered))
+          print("true" if hit else "false")
+          PY
+          }
+
           apply_router_system_test_override() {
             local router_json="$1"
             python - "$router_json" <<'PY'
@@ -1031,8 +1047,36 @@ jobs:
             build_memory_reuse_context "$memory_candidate_file" "$memory_file" || true
             render_request_payload "$user_prompt_file" "$memory_file" "$router_input"
 
+            local bypass_router="false"
+            if [[ "$(is_system_test_prompt "$user_prompt_file")" != "true" ]] && [[ "$(starts_with_tell_me_prompt "$user_prompt_file")" == "true" ]]; then
+              bypass_router="true"
+            fi
+
+            local router_rc=0
             write_status "$job_id" "routing" "" "" "router"
-            if ! call_playwright_stage "router" "$ROUTER_PROMPT_FILE" "$router_input" "$router_out" true false; then
+            if [[ "$bypass_router" == "true" ]]; then
+              python - "$router_out" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          out_path = Path(sys.argv[1])
+          payload = {
+              "schema_version": "1.0",
+              "intent_type": "question",
+              "task_type": "information",
+              "confidence": 0.95,
+              "requires_local_execution": False,
+              "reason": "Router bypass: prompt begins with 'Tell me', treated as direct informational question."
+          }
+          out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          PY
+              echo "[router] bypassed via tell-me fast path"
+            else
+              call_playwright_stage "router" "$ROUTER_PROMPT_FILE" "$router_input" "$router_out" true false || router_rc=$?
+            fi
+
+            if (( router_rc != 0 )); then
               write_status "$job_id" "failed" "" "" "router"
               python - "$job_id" "$started_at" <<'PY'
           import json, sys
