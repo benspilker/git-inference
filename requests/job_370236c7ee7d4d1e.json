@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-04-09T19:46:12Z",
+  "job_id": "job_370236c7ee7d4d1e",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Conversation info (untrusted metadata):\n```json\n{\"message_id\":\"test-1\",\"sender\":\"Ben\",\"timestamp\":\"Thu 2026-04-09 15:00 EDT\"}\n```\n\nSender (untrusted metadata):\n```json\n{\"label\":\"Ben Spilker (7706210501)\",\"id\":\"7706210501\"}\n```\n\nWhat is the weather like today in Grand Rapids, Michigan?",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 28
+      },
+      "user_prompt_chunks": [
+        "Conversation info (untrusted metadata):\n```json\n{\"message_id\":\"test-1\",\"sender\":\"Ben\",\"timestamp\":\"Thu 2026-04-09 15:00 EDT\"}\n```\n\nSender (untrusted metadata):\n```json\n{\"label\":\"Ben Spilker (7706210501)\",\"id\":\"7706210501\"}\n```\n\nWhat is the weather like today in Grand Rapids, Michigan?"
+      ]
+    },
+    "user_prompt": "Conversation info (untrusted metadata):\n```json\n{\"message_id\":\"test-1\",\"sender\":\"Ben\",\"timestamp\":\"Thu 2026-04-09 15:00 EDT\"}\n```\n\nSender (untrusted metadata):\n```json\n{\"label\":\"Ben Spilker (7706210501)\",\"id\":\"7706210501\"}\n```\n\nWhat is the weather like today in Grand Rapids, Michigan?"
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 28
+    },
+    "user_prompt_chunks": [
+      "Conversation info (untrusted metadata):\n```json\n{\"message_id\":\"test-1\",\"sender\":\"Ben\",\"timestamp\":\"Thu 2026-04-09 15:00 EDT\"}\n```\n\nSender (untrusted metadata):\n```json\n{\"label\":\"Ben Spilker (7706210501)\",\"id\":\"7706210501\"}\n```\n\nWhat is the weather like today in Grand Rapids, Michigan?"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Conversation info (untrusted metadata):\n```json\n{\"message_id\":\"test-1\",\"sender\":\"Ben\",\"timestamp\":\"Thu 2026-04-09 15:00 EDT\"}\n```\n\nSender (untrusted metadata):\n```json\n{\"label\":\"Ben Spilker (7706210501)\",\"id\":\"7706210501\"}\n```\n\nWhat is the weather like today in Grand Rapids, Michigan?"
+}
