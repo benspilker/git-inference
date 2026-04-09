@@ -108,6 +108,11 @@ class Settings:
     openclaw_cron_channel: str = os.getenv("OPENCLAW_CRON_CHANNEL", "telegram")
     openclaw_cron_to: str = os.getenv("OPENCLAW_CRON_TO", "")
     openclaw_cron_timeout_seconds: int = int(os.getenv("OPENCLAW_CRON_TIMEOUT_SECONDS", "60"))
+    openclaw_cron_use_windows_ssh_fallback: bool = env_bool("OPENCLAW_CRON_USE_WINDOWS_SSH_FALLBACK", True)
+    openclaw_cron_windows_ssh_path: str = os.getenv(
+        "OPENCLAW_CRON_WINDOWS_SSH_PATH",
+        "/mnt/c/Windows/System32/OpenSSH/ssh.exe",
+    )
 
     # Optional defaults for execution/planning
     default_user_timezone: str = os.getenv("DEFAULT_USER_TIMEZONE", "America/New_York")

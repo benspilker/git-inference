@@ -367,6 +367,10 @@ class JobWorker:
             remote_args.extend(["--to", settings.openclaw_cron_to.strip()])
 
         remote_command = " ".join(shlex.quote(arg) for arg in remote_args)
+        transport = "ssh"
+        proc: subprocess.CompletedProcess[str] | None = None
+        failure_messages: list[str] = []
+
         try:
             proc = subprocess.run(
                 ["ssh", settings.openclaw_cron_ssh_target, remote_command],
@@ -375,27 +379,43 @@ class JobWorker:
                 timeout=settings.openclaw_cron_timeout_seconds,
                 check=False,
             )
+            if proc.returncode != 0:
+                failure_messages.append((proc.stderr or proc.stdout or "").strip() or "ssh returned non-zero")
         except Exception as exc:
-            failure = {
-                **execution_payload,
-                "execution_status": "failed",
-                "verified": False,
-                "details": {
-                    "code": "RUNTIME_CRON_EXECUTOR_ERROR",
-                    "message": f"Runtime cron executor failed: {exc}",
-                    "parameters": params,
-                },
-            }
-            return failure, "I could not create the cron job due to a runtime executor error."
+            failure_messages.append(f"ssh exception: {exc}")
 
-        if proc.returncode != 0:
+        windows_ssh_path = Path(settings.openclaw_cron_windows_ssh_path)
+        should_try_windows = (
+            (proc is None or proc.returncode != 0)
+            and settings.openclaw_cron_use_windows_ssh_fallback
+            and windows_ssh_path.exists()
+        )
+        if should_try_windows:
+            try:
+                win_proc = subprocess.run(
+                    [str(windows_ssh_path), settings.openclaw_cron_ssh_target, remote_command],
+                    capture_output=True,
+                    text=True,
+                    timeout=settings.openclaw_cron_timeout_seconds,
+                    check=False,
+                )
+                if win_proc.returncode == 0:
+                    proc = win_proc
+                    transport = "windows_ssh"
+                else:
+                    failure_messages.append((win_proc.stderr or win_proc.stdout or "").strip() or "windows ssh returned non-zero")
+            except Exception as exc:
+                failure_messages.append(f"windows ssh exception: {exc}")
+
+        if proc is None or proc.returncode != 0:
+            joined = " | ".join(msg for msg in failure_messages if msg).strip()
             failure = {
                 **execution_payload,
                 "execution_status": "failed",
                 "verified": False,
                 "details": {
                     "code": "RUNTIME_CRON_EXECUTOR_NONZERO",
-                    "message": (proc.stderr or proc.stdout or "").strip() or "openclaw cron add returned non-zero exit code",
+                    "message": joined or "openclaw cron add returned non-zero exit code",
                     "parameters": params,
                 },
             }
@@ -419,6 +439,7 @@ class JobWorker:
                 "enabled": enabled,
                 "location": location,
                 "parameters": params,
+                "ssh_transport": transport,
                 "raw_output": (proc.stdout or "").strip(),
             },
         }
