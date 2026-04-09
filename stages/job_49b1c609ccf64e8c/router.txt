@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "setup_cron_weather_notification",
+"confidence": 0.72,
+"requires_local_execution": true,
+"reason": "User requests to set up a cron job to deliver weather updates at a specific daily time in a specific timezone, which is a configuration/automation task requiring action."
+}
