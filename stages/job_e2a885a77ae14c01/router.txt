@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "needs_clarification",
+"confidence": 0.28,
+"requires_local_execution": true,
+"reason": "The user asks to reply with exactly: OLLAMA_OK, which is a directive not aligned with typical task execution. It is unclear whether this is a test, a requirement for a subsequent local action, or a content generation rule. More context is needed to determine the appropriate action."
+}

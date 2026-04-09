@@ -1,0 +1,26 @@
+{
+  "job_id": "job_e2a885a77ae14c01",
+  "status": {
+    "job_id": "job_e2a885a77ae14c01",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "system_command",
+    "current_stage": "complete",
+    "updated_at": "2026-04-09T17:07:04Z",
+    "created_at": "2026-04-09T17:05:58Z"
+  },
+  "response": {
+    "job_id": "job_e2a885a77ae14c01",
+    "message": {
+      "role": "assistant",
+      "content": "OLLAMA_OK"
+    },
+    "done": true,
+    "started_at": "2026-04-09T17:05:57Z",
+    "completed_at": "2026-04-09T17:07:04Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T17:07:04Z"
+}
