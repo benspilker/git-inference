@@ -1,0 +1,9 @@
+{
+  "job_id": "job_9b896e394f0e4ac1",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "weather_query",
+  "current_stage": "complete",
+  "updated_at": "2026-04-09T19:42:27Z",
+  "created_at": "2026-04-09T19:40:40Z"
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "weather_query",
+  "confidence": 0.62,
+  "requires_local_execution": false,
+  "reason": "User asks for current weather in Grand Rapids, Michigan, which is a request for up-to-date weather information (external data)."
+}
