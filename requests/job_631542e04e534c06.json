@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-04-09T19:20:46Z",
+  "job_id": "job_631542e04e534c06",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "What is the exact Indiana Pacers schedule for April 2026 with date, opponent, and home/away.",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "job",
+      "requires_local_execution": true,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "generic_job"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 15
+      },
+      "user_prompt_chunks": [
+        "What is the exact Indiana Pacers schedule for April 2026 with date, opponent, and home/away."
+      ]
+    },
+    "user_prompt": "What is the exact Indiana Pacers schedule for April 2026 with date, opponent, and home/away."
+  },
+  "routing_metadata": {
+    "intent_type": "job",
+    "requires_local_execution": true,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "generic_job"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 15
+    },
+    "user_prompt_chunks": [
+      "What is the exact Indiana Pacers schedule for April 2026 with date, opponent, and home/away."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "What is the exact Indiana Pacers schedule for April 2026 with date, opponent, and home/away."
+}
