@@ -1,0 +1,9 @@
+{
+  "job_id": "job_e3f9088679264c0b",
+  "state": "needs_clarification",
+  "intent_type": "job",
+  "task_type": "read_heartbeat_and_report",
+  "current_stage": "planner",
+  "updated_at": "2026-04-09T15:28:16Z",
+  "created_at": "2026-04-09T15:26:07Z"
+}

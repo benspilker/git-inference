@@ -1,0 +1,42 @@
+{
+  "job_id": "job_e3f9088679264c0b",
+  "status": {
+    "job_id": "job_e3f9088679264c0b",
+    "state": "needs_clarification",
+    "intent_type": "job",
+    "task_type": "read_heartbeat_and_report",
+    "current_stage": "planner",
+    "updated_at": "2026-04-09T15:28:16Z",
+    "created_at": "2026-04-09T15:26:07Z"
+  },
+  "response": {
+    "job_id": "job_e3f9088679264c0b",
+    "message": {
+      "role": "assistant",
+      "content": "Please confirm the location of the HEARTBEAT.md file and whether to perform any actions if urgent items are found. If HEARTBEAT.md should be read from /home/ubuntu/.openclaw/workspace/HEARTBEAT.md, provide confirmation. Also specify if any notifications or follow-up tasks are required when specific heartbeat conditions are met."
+    },
+    "done": false,
+    "started_at": "2026-04-09T15:26:06Z",
+    "needs_clarification": true,
+    "planner": {
+      "schema_version": "1.0",
+      "intent_type": "needs_clarification",
+      "mode": "local_action",
+      "task_type": "read_heartbeat_and_report",
+      "confidence": 0.0,
+      "requires_local_execution": true,
+      "parameters": {},
+      "missing_fields": [
+        "heartbeat_path",
+        "read_frequency",
+        "actions_to_take_if_present"
+      ],
+      "question": "Please confirm the location of the HEARTBEAT.md file and whether to perform any actions if urgent items are found. If HEARTBEAT.md should be read from /home/ubuntu/.openclaw/workspace/HEARTBEAT.md, provide confirmation. Also specify if any notifications or follow-up tasks are required when specific heartbeat conditions are met.",
+      "success_condition": "HEARTBEAT.md is read from the specified workspace, and any defined heartbeat directives are reported back or acted upon according to provided instructions."
+    }
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-09T15:28:16Z"
+}

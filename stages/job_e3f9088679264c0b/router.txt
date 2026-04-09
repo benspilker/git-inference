@@ -1,0 +1,1 @@
+{"schema_version":"1.0","intent_type":"job","task_type":"read_workspace_heartbeat","confidence":0.99,"requires_local_execution":true,"reason":"The user is requesting the system to inspect a workspace file and possibly update behavior based on its contents, which is a task/action request rather than information seeking."}
