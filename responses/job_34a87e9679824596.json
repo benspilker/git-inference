@@ -1,0 +1,31 @@
+{
+  "job_id": "job_34a87e9679824596",
+  "message": {
+    "role": "assistant",
+    "content": "I still need these fields to continue: time."
+  },
+  "done": false,
+  "started_at": "2026-04-10T00:30:40Z",
+  "needs_clarification": true,
+  "execution": {
+    "task_type": "scheduled_weather_report",
+    "original_task_type": "scheduled_weather_report",
+    "verified": false,
+    "executed_at": "2026-04-10T00:32:21Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "time"
+      ],
+      "parameters": {
+        "location": "Indianapolis",
+        "timezone": "America/New_York",
+        "time_of_day": "08:30",
+        "frequency": "daily",
+        "enabled": false
+      }
+    }
+  }
+}

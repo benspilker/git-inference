@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "scheduled_weather_report",
+  "confidence": 0.0,
+  "requires_local_execution": true,
+  "parameters": {
+    "location": "Indianapolis",
+    "timezone": "America/New_York",
+    "time_of_day": "08:30",
+    "frequency": "daily",
+    "enabled": false
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "Task scheduled with a disabled state for daily weather reporting at 08:30 local time in America/New_York for Indianapolis; a job id is returned and recorded as the execution reference."
+}
