@@ -1,0 +1,22 @@
+{
+  "task_type": "scheduled_weather_report",
+  "original_task_type": "scheduled_weather_report",
+  "verified": false,
+  "executed_at": "2026-04-10T01:13:56Z",
+  "execution_status": "handoff_required",
+  "details": {
+    "executor": "scheduled_weather_report",
+    "message": "Task requires runtime-specific executor not available in GitHub runner.",
+    "handoff_path": "/__w/git-inference/git-inference/execution/handoff/job_cc8c5f3ca73140c1.json",
+    "parameters": {
+      "location": "Indianapolis",
+      "time": "08:30",
+      "timezone": "America/New_York",
+      "recipient": "Telegram",
+      "enabled": false,
+      "frequency": "daily",
+      "weather_source": null
+    },
+    "success_condition": "A disabled OpenClaw cron job is created in the system to send a daily weather report for Indianapolis at 08:30 America/New_York to Telegram; the job is confirmed with a job_id and remains disabled until explicitly enabled."
+  }
+}

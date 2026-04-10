@@ -1,0 +1,20 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "scheduled_weather_report",
+"confidence": 0.42,
+"requires_local_execution": true,
+"parameters": {
+"location": "Indianapolis",
+"time": "08:30",
+"timezone": "America/New_York",
+"recipient": "Telegram",
+"enabled": false,
+"frequency": "daily",
+"weather_source": null
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "A disabled OpenClaw cron job is created in the system to send a daily weather report for Indianapolis at 08:30 America/New_York to Telegram; the job is confirmed with a job_id and remains disabled until explicitly enabled."
+}
