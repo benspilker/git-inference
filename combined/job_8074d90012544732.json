@@ -1,0 +1,26 @@
+{
+  "job_id": "job_8074d90012544732",
+  "status": {
+    "job_id": "job_8074d90012544732",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-10T02:41:30Z",
+    "created_at": "2026-04-10T02:39:14Z"
+  },
+  "response": {
+    "job_id": "job_8074d90012544732",
+    "message": {
+      "role": "assistant",
+      "content": "I don’t have live weather data in this turn, so I can’t pull Indianapolis’s current conditions right now. Here’s a concise Telegram-style update template you can send, and I’ll fill it in with exact numbers if you want me to fetch them in a subsequent turn.\n\nTelegram update (example format)\n\nIndianapolis, IN: 72°F, Partly cloudy, light breeze; chance of rain 10% today; wind 5 mph from the SW.\n\nIf you’d like, I can pull the latest current conditions and convert them into a ready-to-send message as soon as I have tool access. Would you like me to proceed with a live lookup and provide the exact temperature, sky condition, and rain/wind risk for today?"
+    },
+    "done": true,
+    "started_at": "2026-04-10T02:39:14Z",
+    "completed_at": "2026-04-10T02:41:30Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-10T02:41:30Z"
+}
