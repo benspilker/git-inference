@@ -1,0 +1,3 @@
+{
+  "response": "Success condition: A disabled daily weather cron for Indianapolis at 08:30 America/New_York is created and a job_id is returned; the cron remains disabled until explicitly re-enabled."
+}

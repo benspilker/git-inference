@@ -1,0 +1,10 @@
+{
+  "job_id": "job_7ead88a30a84474a",
+  "message": {
+    "role": "assistant",
+    "content": "Success condition: A disabled daily weather cron for Indianapolis at 08:30 America/New_York is created and a job_id is returned; the cron remains disabled until explicitly re-enabled."
+  },
+  "done": true,
+  "started_at": "2026-04-10T00:18:54Z",
+  "completed_at": "2026-04-10T00:21:11Z"
+}

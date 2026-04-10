@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "system_command",
+  "confidence": 0.4,
+  "requires_local_execution": true,
+  "parameters": {
+    "task": "disable",
+    "cron": {
+      "type": "daily",
+      "schedule_time": "08:30",
+      "timezone": "America/New_York",
+      "target_location": " Indianapolis"
+    },
+    "confirmation_required": false
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "A disabled daily weather cron for Indianapolis at 08:30 America/New_York is created and a job_id is returned; the cron remains disabled until explicitly re-enabled."
+}

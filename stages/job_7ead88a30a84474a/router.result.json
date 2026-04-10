@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "system_command",
+  "confidence": 0.58,
+  "requires_local_execution": true,
+  "reason": "The user requests setting up a disabled daily weather cron job for a specific location/time and to confirm a job id, which implies configuring a scheduled automation and returning a job identifier."
+}
