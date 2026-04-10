@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-04-10T01:10:29Z",
+  "job_id": "job_cc8c5f3ca73140c1",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Create a disabled OpenClaw cron job to send me a daily weather report for Indianapolis at 8:30 AM America/New_York on Telegram and confirm the job id.",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "job",
+      "requires_local_execution": true,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "scheduled_weather_report"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 26
+      },
+      "user_prompt_chunks": [
+        "Create a disabled OpenClaw cron job to send me a daily weather report for Indianapolis at 8:30 AM America/New_York on Telegram and confirm the job id."
+      ]
+    },
+    "user_prompt": "Create a disabled OpenClaw cron job to send me a daily weather report for Indianapolis at 8:30 AM America/New_York on Telegram and confirm the job id."
+  },
+  "routing_metadata": {
+    "intent_type": "job",
+    "requires_local_execution": true,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "scheduled_weather_report"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 26
+    },
+    "user_prompt_chunks": [
+      "Create a disabled OpenClaw cron job to send me a daily weather report for Indianapolis at 8:30 AM America/New_York on Telegram and confirm the job id."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Create a disabled OpenClaw cron job to send me a daily weather report for Indianapolis at 8:30 AM America/New_York on Telegram and confirm the job id."
+}
