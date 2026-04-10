@@ -1,0 +1,20 @@
+{
+  "task_type": "scheduled_weather_report",
+  "original_task_type": "scheduled_weather_report",
+  "verified": false,
+  "executed_at": "2026-04-10T00:36:59Z",
+  "execution_status": "handoff_required",
+  "details": {
+    "executor": "scheduled_weather_report",
+    "message": "Task requires runtime-specific executor not available in GitHub runner.",
+    "handoff_path": "/__w/git-inference/git-inference/execution/handoff/job_547976047a9a4456.json",
+    "parameters": {
+      "location": "Indianapolis",
+      "timezone": "America/New_York",
+      "time": "08:30",
+      "frequency": "daily",
+      "enabled": false
+    },
+    "success_condition": "Weather report schedule for Indianapolis is created in disabled state with next run time aligned to 08:30 America/New_York daily; a job_id is returned and recorded."
+  }
+}

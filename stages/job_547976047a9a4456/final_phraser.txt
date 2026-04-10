@@ -1,0 +1,43 @@
+Execution status: handoff_required
+
+Summary
+
+The requested scheduled weather report could not be created in the current environment because a runtime-specific executor is not available on this GitHub runner.
+
+The task requires a handoff to an appropriate executor with access to the needed runtime.
+
+Details
+
+Task type: scheduled_weather_report
+
+Original task type: scheduled_weather_report
+
+Verified: false
+
+Executed at: 2026-04-10T00:36:59Z
+
+Handoff path: /__w/git-inference/git-inference/execution/handoff/job_547976047a9a4456.json
+
+Parameters:
+
+Location: Indianapolis
+
+Timezone: America/New_York
+
+Time: 08:30
+
+Frequency: daily
+
+Enabled: false
+
+Success condition (for the handoff): Weather report schedule for Indianapolis is created in disabled state with next run time aligned to 08:30 America/New_York daily; a job_id is returned and recorded.
+
+What you need to do next
+
+Route the task to an environment that has the required runtime executor.
+
+Ensure the executor creates the schedule in a disabled state with the next run time set to 08:30 America/New_York daily.
+
+After successful handoff, a job_id should be returned and recorded.
+
+Would you like me to draft a brief handoff note or log entry for your deployment workflow to accompany this transfer?

@@ -1,0 +1,9 @@
+{
+  "job_id": "job_547976047a9a4456",
+  "state": "completed",
+  "intent_type": "job",
+  "task_type": "scheduled_weather_report",
+  "current_stage": "complete",
+  "updated_at": "2026-04-10T00:37:34Z",
+  "created_at": "2026-04-10T00:35:14Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.58,
+"requires_local_execution": true,
+"reason": "User requests setting up a disabled daily weather cron for Indianapolis at a specific time and retrieving a job ID, which implies configuring a scheduled task in a local/execution system. The request requires internal action not available to me in this interface."
+}
