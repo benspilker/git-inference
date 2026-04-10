@@ -1,0 +1,16 @@
+{
+  "job_id": "job_35f29a66f35642e7",
+  "task_type": "scheduled_weather_report",
+  "parameters": {
+    "location": "Indianapolis",
+    "timezone": "America/New_York",
+    "time": "2026-04-10T08:30:00",
+    "frequency": "daily",
+    "recipient_platform": "Telegram",
+    "job_name": "weather-indy-e2e-020036-a2",
+    "enabled": false
+  },
+  "success_condition": "A disabled scheduled_weather_report task named weather-indy-e2e-020036-a2 is created with daily 08:30 America/New_York delivery to Telegram, and a confirmation including the job_id is returned.",
+  "created_at": "2026-04-10T02:03:23Z",
+  "status": "pending_runtime_executor"
+}

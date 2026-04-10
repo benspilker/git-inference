@@ -1,0 +1,10 @@
+{
+  "job_id": "job_35f29a66f35642e7",
+  "message": {
+    "role": "assistant",
+    "content": "Adjust the task parameters (location, time, platform) before reattempting?"
+  },
+  "done": true,
+  "started_at": "2026-04-10T02:01:28Z",
+  "completed_at": "2026-04-10T02:04:00Z"
+}

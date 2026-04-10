@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.48,
+"requires_local_execution": true,
+"reason": "User requests creation of a scheduled cron-like task (OpenClaw) with specific timing and delivery channel, which is a configuration/action requiring system-level execution."
+}
