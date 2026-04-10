@@ -1,0 +1,10 @@
+{
+  "job_id": "job_c5cc3ab3acdd4505",
+  "message": {
+    "role": "assistant",
+    "content": "I don’t have live weather data access right now. Here’s a concise Telegram-style update you can send, but please verify with a current source if accuracy is critical:\n\nWeather update for Indianapolis, IN today:\n\nTemperature: around mid to upper 60s°F (check exact current reading)\n\nConditions:partly to mostly cloudy with periods of sun\n\nRain/wind risk: low to moderate chance of brief showers; winds light to breezy (5–15 mph)\n\nNote: For precise numbers (current temp, high/low, precipitation chances, wind speed), please pull today’s NOAA/Weather Channel/AccuWeather update and use those figures in the message. If you want, I can format a ready-to-send telegram payload once you provide the exact numbers."
+  },
+  "done": true,
+  "started_at": "2026-04-10T02:36:29Z",
+  "completed_at": "2026-04-10T02:38:12Z"
+}
