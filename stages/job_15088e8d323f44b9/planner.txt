@@ -1,0 +1,30 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "scheduled_weather_report",
+"confidence": 0.60,
+"requires_local_execution": true,
+"parameters": {
+"location": {
+"city": "Indianapolis",
+"state": "IN",
+"country": "USA"
+},
+"recipient": {
+"channel": "telegram",
+"communication_id": "unknown"
+},
+"update_length": "concise",
+"data_points": [
+"temperature",
+"conditions",
+"rain_risk",
+"wind_risk"
+],
+"timezone": "America/New_York"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Telegram message delivered with current temperature, conditions, and notable rain/wind risk for Indianapolis, IN, USA within the specified concise format"
+}

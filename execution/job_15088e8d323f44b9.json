@@ -1,0 +1,30 @@
+{
+  "task_type": "scheduled_weather_report",
+  "original_task_type": "scheduled_weather_report",
+  "verified": false,
+  "executed_at": "2026-04-10T02:31:26Z",
+  "execution_status": "needs_clarification",
+  "details": {
+    "code": "MISSING_REQUIRED_FIELDS",
+    "message": "Task parameters are missing required fields.",
+    "missing_fields": [
+      "frequency",
+      "time"
+    ],
+    "parameters": {
+      "location": "{'city': 'Indianapolis', 'state': 'IN', 'country': 'USA'}",
+      "recipient": {
+        "channel": "telegram",
+        "communication_id": "unknown"
+      },
+      "update_length": "concise",
+      "data_points": [
+        "temperature",
+        "conditions",
+        "rain_risk",
+        "wind_risk"
+      ],
+      "timezone": "America/New_York"
+    }
+  }
+}

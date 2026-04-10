@@ -1,0 +1,85 @@
+{
+  "job_id": "job_15088e8d323f44b9",
+  "status": {
+    "job_id": "job_15088e8d323f44b9",
+    "state": "needs_clarification",
+    "intent_type": "job",
+    "task_type": "scheduled_weather_report",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-10T02:31:26Z",
+    "created_at": "2026-04-10T02:29:23Z"
+  },
+  "response": {
+    "job_id": "job_15088e8d323f44b9",
+    "message": {
+      "role": "assistant",
+      "content": "I still need these fields to continue: frequency, time."
+    },
+    "done": false,
+    "started_at": "2026-04-10T02:29:23Z",
+    "needs_clarification": true,
+    "execution": {
+      "task_type": "scheduled_weather_report",
+      "original_task_type": "scheduled_weather_report",
+      "verified": false,
+      "executed_at": "2026-04-10T02:31:26Z",
+      "execution_status": "needs_clarification",
+      "details": {
+        "code": "MISSING_REQUIRED_FIELDS",
+        "message": "Task parameters are missing required fields.",
+        "missing_fields": [
+          "frequency",
+          "time"
+        ],
+        "parameters": {
+          "location": "{'city': 'Indianapolis', 'state': 'IN', 'country': 'USA'}",
+          "recipient": {
+            "channel": "telegram",
+            "communication_id": "unknown"
+          },
+          "update_length": "concise",
+          "data_points": [
+            "temperature",
+            "conditions",
+            "rain_risk",
+            "wind_risk"
+          ],
+          "timezone": "America/New_York"
+        }
+      }
+    }
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": {
+    "task_type": "scheduled_weather_report",
+    "original_task_type": "scheduled_weather_report",
+    "verified": false,
+    "executed_at": "2026-04-10T02:31:26Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "frequency",
+        "time"
+      ],
+      "parameters": {
+        "location": "{'city': 'Indianapolis', 'state': 'IN', 'country': 'USA'}",
+        "recipient": {
+          "channel": "telegram",
+          "communication_id": "unknown"
+        },
+        "update_length": "concise",
+        "data_points": [
+          "temperature",
+          "conditions",
+          "rain_risk",
+          "wind_risk"
+        ],
+        "timezone": "America/New_York"
+      }
+    }
+  },
+  "generated_at": "2026-04-10T02:31:26Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "scheduled_weather_report",
+"confidence": 0.55,
+"requires_local_execution": true,
+"reason": "The user requests retrieving current weather for Indianapolis and sending a Telegram update, which constitutes a scheduled action involving data retrieval and messaging to a specific recipient."
+}
