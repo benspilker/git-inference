@@ -4,6 +4,8 @@ import hashlib
 import json
 import logging
 import re
+import shlex
+import subprocess
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
@@ -267,11 +269,202 @@ class JobWorker:
         )
 
     def _apply_runtime_handoff_if_configured(self, job_id: str, result: dict[str, Any]) -> dict[str, Any]:
-        if settings.enable_runtime_handoff_executor:
-            logger.warning(
-                "runtime handoff executor is deprecated and ignored; cron/reminder tasks must execute inside OpenClaw runtime"
-            )
-        return result
+        if not settings.enable_runtime_handoff_executor:
+            return result
+        if not settings.openclaw_cron_ssh_target.strip():
+            return result
+        if not isinstance(result, dict):
+            return result
+
+        execution = result.get("execution") if isinstance(result.get("execution"), dict) else None
+        if execution is None:
+            execution_path = settings.repo_path / settings.execution_dir / f"{job_id}.json"
+            if execution_path.exists():
+                try:
+                    loaded = json.loads(execution_path.read_text(encoding="utf-8"))
+                    execution = loaded if isinstance(loaded, dict) else None
+                except Exception:
+                    execution = None
+        if execution is None:
+            return result
+
+        task_type = canonicalize_task_type(str(execution.get("task_type") or ""))
+        execution_status = str(execution.get("execution_status") or "").lower()
+        if task_type != "scheduled_weather_report":
+            return result
+        if execution_status not in {"handoff_required", "needs_clarification"}:
+            return result
+
+        bridged_execution, user_message = self._bridge_openclaw_cron_from_execution(job_id=job_id, execution=execution)
+        updated = dict(result)
+        updated["execution"] = bridged_execution
+        if user_message:
+            updated["message"] = {"role": "assistant", "content": user_message}
+        if str(bridged_execution.get("execution_status") or "").lower() == "success":
+            updated["done"] = True
+            updated["needs_clarification"] = False
+            updated["completed_at"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+        return updated
+
+    def _bridge_openclaw_cron_from_execution(self, job_id: str, execution: dict[str, Any]) -> tuple[dict[str, Any], str]:
+        details = execution.get("details") if isinstance(execution.get("details"), dict) else {}
+        params = details.get("parameters") if isinstance(details.get("parameters"), dict) else {}
+        params = self._normalize_weather_schedule_parameters(params)
+
+        location = self._first_nonempty(params.get("location"), "Indianapolis")
+        timezone_value = self._first_nonempty(params.get("timezone"), settings.default_user_timezone)
+        cron_expr = self._derive_cron_expression(params)
+        enabled = bool(params.get("enabled", False))
+        cron_name = self._first_nonempty(params.get("cron_name"), params.get("job_name"), f"weather-{job_id[:8]}")
+        if not cron_expr:
+            failed = {
+                **execution,
+                "execution_status": "failed",
+                "verified": False,
+                "details": {
+                    "code": "CRON_BRIDGE_INVALID_SCHEDULE",
+                    "message": "Could not derive cron expression from execution parameters.",
+                    "parameters": params,
+                },
+            }
+            return failed, "I could not create the OpenClaw cron job because the schedule parameters were incomplete."
+
+        weather_message = (
+            f"Get the current weather for {location} and send a concise Telegram update "
+            "with temperature, conditions, and notable rain/wind risk."
+        )
+        remote_args = [
+            settings.openclaw_cron_cli_path,
+            "cron",
+            "add",
+            "--name",
+            cron_name,
+            "--cron",
+            cron_expr,
+            "--tz",
+            timezone_value,
+            "--agent",
+            settings.openclaw_cron_agent,
+            "--message",
+            weather_message,
+            "--channel",
+            settings.openclaw_cron_channel,
+            "--json",
+        ]
+        if not enabled:
+            remote_args.append("--disabled")
+        if settings.openclaw_cron_to.strip():
+            remote_args.extend(["--to", settings.openclaw_cron_to.strip()])
+        remote_command = " ".join(shlex.quote(arg) for arg in remote_args)
+
+        attempts: list[tuple[str, list[str]]] = []
+        win_ssh = Path(settings.openclaw_cron_windows_ssh_path)
+        if win_ssh.exists():
+            attempts.append(("windows_ssh", [str(win_ssh), settings.openclaw_cron_ssh_target, remote_command]))
+        attempts.append(("ssh", ["ssh", settings.openclaw_cron_ssh_target, remote_command]))
+
+        proc: subprocess.CompletedProcess[str] | None = None
+        transport_used = ""
+        errors: list[str] = []
+        for transport, cmd in attempts:
+            try:
+                candidate = subprocess.run(
+                    cmd,
+                    capture_output=True,
+                    text=True,
+                    timeout=settings.openclaw_cron_timeout_seconds,
+                    check=False,
+                )
+            except Exception as exc:
+                errors.append(f"{transport}: {exc}")
+                continue
+            if candidate.returncode == 0:
+                proc = candidate
+                transport_used = transport
+                break
+            err_text = (candidate.stderr or candidate.stdout or "").strip() or f"exit {candidate.returncode}"
+            errors.append(f"{transport}: {err_text}")
+
+        if proc is None:
+            failed = {
+                **execution,
+                "execution_status": "failed",
+                "verified": False,
+                "details": {
+                    "code": "CRON_BRIDGE_EXECUTION_FAILED",
+                    "message": " | ".join(errors) if errors else "All OpenClaw cron bridge attempts failed.",
+                    "parameters": params,
+                },
+            }
+            return failed, "I could not create the OpenClaw cron job because the bridge command failed."
+
+        cron_id = ""
+        payload = self._parse_json_object(proc.stdout)
+        if isinstance(payload, dict):
+            cron_id = str(payload.get("id") or "").strip()
+
+        success = {
+            **execution,
+            "execution_status": "success",
+            "verified": True,
+            "details": {
+                **(details if isinstance(details, dict) else {}),
+                "bridge": "openclaw_cron",
+                "ssh_transport": transport_used or "unknown",
+                "cron_id": cron_id or None,
+                "cron_name": cron_name,
+                "cron_expr": cron_expr,
+                "timezone": timezone_value,
+                "enabled": enabled,
+                "location": location,
+                "raw_output": (proc.stdout or "").strip(),
+            },
+        }
+        state_word = "enabled" if enabled else "disabled"
+        msg = f"Created {state_word} OpenClaw cron job `{cron_name}` for {location} at {cron_expr} ({timezone_value})."
+        if cron_id:
+            msg = f"{msg} Job ID: {cron_id}."
+        return success, msg
+
+    @staticmethod
+    def _derive_cron_expression(params: dict[str, Any]) -> str:
+        raw = str(params.get("cron_schedule") or params.get("cron") or params.get("cron_expression") or "").strip()
+        if raw:
+            parts = raw.split()
+            if len(parts) in {5, 6}:
+                return raw
+        time_value = str(params.get("time") or params.get("send_time") or params.get("time_of_day") or "").strip()
+        m = re.match(r"^\s*(\d{1,2}):(\d{2})\s*$", time_value)
+        if not m:
+            return ""
+        hour = int(m.group(1))
+        minute = int(m.group(2))
+        if hour < 0 or hour > 23 or minute < 0 or minute > 59:
+            return ""
+        frequency = str(params.get("frequency") or "daily").strip().lower()
+        if frequency in {"daily", "everyday", "every_day"}:
+            return f"{minute} {hour} * * *"
+        return ""
+
+    @staticmethod
+    def _parse_json_object(text: str) -> dict[str, Any] | None:
+        raw = (text or "").strip()
+        if not raw:
+            return None
+        try:
+            parsed = json.loads(raw)
+            return parsed if isinstance(parsed, dict) else None
+        except Exception:
+            pass
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start >= 0 and end > start:
+            try:
+                parsed = json.loads(raw[start : end + 1])
+                return parsed if isinstance(parsed, dict) else None
+            except Exception:
+                return None
+        return None
 
     def _submit_stage_mode_request(self, job: dict[str, Any]) -> None:
         """
