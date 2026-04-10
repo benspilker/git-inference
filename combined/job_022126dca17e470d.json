@@ -1,0 +1,26 @@
+{
+  "job_id": "job_022126dca17e470d",
+  "status": {
+    "job_id": "job_022126dca17e470d",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-10T03:42:02Z",
+    "created_at": "2026-04-10T03:40:07Z"
+  },
+  "response": {
+    "job_id": "job_022126dca17e470d",
+    "message": {
+      "role": "assistant",
+      "content": "Live web fallback results for \"[Fri 2026-04-10 03:39 UTC] Tell me what is the weather like in Indianapolis, IN today?\":\n1. 10-Day Weather Forecast for Indianapolis, Indiana 46234 - The Weather ... (Source: https://weather.com/weather/tenday/l/Indianapolis+Indiana+46234?canonicalCityId=f5857de26976b7888a3c32050a1e9ab7)\n2. 7-Day Forecast 39.77N 86.16W - National Weather Service (Source: https://forecast.weather.gov/zipcity.php?inputstring=Indianapolis,IN)\n3. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)\n4. Indianapolis Weather | wthr.com (Source: https://www.wthr.com/weather)\n5. Indianapolis, IN Weather Conditions | Weather Underground (Source: https://www.wunderground.com/weather/us/in/indianapolis)\nRetrieved via DuckDuckGo HTML on 2026-04-10 03:42 UTC."
+    },
+    "done": true,
+    "started_at": "2026-04-10T03:40:07Z",
+    "completed_at": "2026-04-10T03:42:02Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-10T03:42:03Z"
+}
