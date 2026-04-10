@@ -1,0 +1,21 @@
+{
+  "task_type": "scheduled_weather_report",
+  "original_task_type": "system_command",
+  "verified": false,
+  "executed_at": "2026-04-10T01:00:11Z",
+  "execution_status": "needs_clarification",
+  "details": {
+    "code": "MISSING_REQUIRED_FIELDS",
+    "message": "Task parameters are missing required fields.",
+    "missing_fields": [
+      "frequency"
+    ],
+    "parameters": {
+      "task": "setup_disabled_daily_weather_cron",
+      "location": "Indianapolis",
+      "time": "08:30",
+      "timezone": "America/New_York",
+      "confirm_job_id": true
+    }
+  }
+}

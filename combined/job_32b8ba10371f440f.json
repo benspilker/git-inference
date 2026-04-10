@@ -1,0 +1,67 @@
+{
+  "job_id": "job_32b8ba10371f440f",
+  "status": {
+    "job_id": "job_32b8ba10371f440f",
+    "state": "needs_clarification",
+    "intent_type": "job",
+    "task_type": "system_command",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-10T01:00:11Z",
+    "created_at": "2026-04-10T00:58:25Z"
+  },
+  "response": {
+    "job_id": "job_32b8ba10371f440f",
+    "message": {
+      "role": "assistant",
+      "content": "I still need these fields to continue: frequency."
+    },
+    "done": false,
+    "started_at": "2026-04-10T00:58:24Z",
+    "needs_clarification": true,
+    "execution": {
+      "task_type": "scheduled_weather_report",
+      "original_task_type": "system_command",
+      "verified": false,
+      "executed_at": "2026-04-10T01:00:11Z",
+      "execution_status": "needs_clarification",
+      "details": {
+        "code": "MISSING_REQUIRED_FIELDS",
+        "message": "Task parameters are missing required fields.",
+        "missing_fields": [
+          "frequency"
+        ],
+        "parameters": {
+          "task": "setup_disabled_daily_weather_cron",
+          "location": "Indianapolis",
+          "time": "08:30",
+          "timezone": "America/New_York",
+          "confirm_job_id": true
+        }
+      }
+    }
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": {
+    "task_type": "scheduled_weather_report",
+    "original_task_type": "system_command",
+    "verified": false,
+    "executed_at": "2026-04-10T01:00:11Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "frequency"
+      ],
+      "parameters": {
+        "task": "setup_disabled_daily_weather_cron",
+        "location": "Indianapolis",
+        "time": "08:30",
+        "timezone": "America/New_York",
+        "confirm_job_id": true
+      }
+    }
+  },
+  "generated_at": "2026-04-10T01:00:11Z"
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "system_command",
+  "confidence": 0.4,
+  "requires_local_execution": true,
+  "parameters": {
+    "task": "setup_disabled_daily_weather_cron",
+    "location": "Indianapolis",
+    "time": "08:30",
+    "timezone": "America/New_York",
+    "confirm_job_id": true
+  },
+  "missing_fields": [],
+  "question": "",
+  "success_condition": "A disabled daily weather cron for Indianapolis at 08:30 America/New_York is created and returns a job_id for reference."
+}
