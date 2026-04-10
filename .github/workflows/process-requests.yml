@@ -1398,20 +1398,37 @@ jobs:
               if validate_stage_contract "router" "$router_json" > "${router_json}.validated"; then
                 mv "${router_json}.validated" "$router_json"
               else
-                echo "[router] contract validation failed; applying safe question/information fallback"
-                python - "$router_json" <<'PY'
+                echo "[router] contract validation failed; applying metadata-aware fallback"
+                python - "$router_json" "$context_file" <<'PY'
           import json
           import sys
           from pathlib import Path
 
           router_path = Path(sys.argv[1])
+          context_path = Path(sys.argv[2])
+          context = {}
+          if context_path.exists():
+              try:
+                  context = json.loads(context_path.read_text(encoding="utf-8"))
+              except Exception:
+                  context = {}
+          route_hint = str(context.get("route_hint") or "").strip().lower()
+          task_hint = str(context.get("task_type") or "").strip()
+          if route_hint == "job":
+              intent = "job"
+              task = task_hint or "scheduled_weather_report"
+              requires_local_execution = True
+          else:
+              intent = "question"
+              task = task_hint or "information"
+              requires_local_execution = False
           fallback = {
               "schema_version": "1.0",
-              "intent_type": "question",
-              "task_type": "information",
+              "intent_type": intent,
+              "task_type": task,
               "confidence": 0.55,
-              "requires_local_execution": False,
-              "reason": "Router output failed contract validation; applied safe fallback route to answerer."
+              "requires_local_execution": requires_local_execution,
+              "reason": "Router output failed contract validation; applied metadata-aware fallback."
           }
           router_path.write_text(json.dumps(fallback, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
           PY
@@ -1419,6 +1436,14 @@ jobs:
 
               intent_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("intent_type",""))' "$router_json")"
               task_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("task_type",""))' "$router_json")"
+              if [[ "$task_type" == "system_command" ]]; then
+                local hinted_task
+                hinted_task="$(python -c 'import json,sys; d=json.load(open(sys.argv[1], "r", encoding="utf-8")); print((d.get("task_type") or ""))' "$context_file")"
+                if [[ "$hinted_task" == "scheduled_weather_report" ]]; then
+                  intent_type="job"
+                  task_type="scheduled_weather_report"
+                fi
+              fi
               if [[ "$(is_system_test_prompt "$user_prompt_file")" == "true" ]]; then
                 apply_router_system_test_override "$router_json"
                 intent_type="question"
