@@ -750,6 +750,10 @@ def classify_route_hint(normalized_request: dict[str, Any]) -> str | None:
     user_text = extract_primary_prompt_text(normalized_request).lower()
     if not user_text:
         return None
+    # Cron weather executions should follow the normal question lane,
+    # so they get the same retry/fallback behavior as Telegram asks.
+    if "[cron:" in user_text and any(k in user_text for k in ("weather", "forecast", "temperature")):
+        return "question"
     system_test_markers = ("reply with exactly", "respond with exactly", "return exactly", "output exactly")
     if any(marker in user_text for marker in system_test_markers):
         return "system_test"
@@ -769,6 +773,10 @@ def suggest_task_type(normalized_request: dict[str, Any], route_hint: str | None
     text = str(normalized_request.get("user_prompt") or normalized_request.get("prompt") or "").lower()
     if route_hint == "system_test":
         return "system_command"
+    if route_hint == "question":
+        if any(k in text for k in ("weather", "forecast", "temperature")):
+            return "information"
+        return "general_question"
     if route_hint == "job":
         if "weather" in text and ("daily" in text or "every" in text):
             return "scheduled_weather_report"
