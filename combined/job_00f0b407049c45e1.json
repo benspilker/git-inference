@@ -1,0 +1,26 @@
+{
+  "job_id": "job_00f0b407049c45e1",
+  "status": {
+    "job_id": "job_00f0b407049c45e1",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-10T19:10:34Z",
+    "created_at": "2026-04-10T19:09:51Z"
+  },
+  "response": {
+    "job_id": "job_00f0b407049c45e1",
+    "message": {
+      "role": "assistant",
+      "content": "Presidio is a global digital services and solutions provider focused on helping organizations transform IT with secure cloud, networking, security, and collaboration solutions. They offer end-to-end services from strategy and design to implementation and managed services, along with flexible financing options to simplify procurement. They partner with major tech vendors to deliver integrated solutions and aim to accelerate time-to-value for customers across industries. If you’d like, I can tailor a brief company snapshot (revenue range, services stack, or regional footprint) to your needs."
+    },
+    "done": true,
+    "started_at": "2026-04-10T19:09:50Z",
+    "completed_at": "2026-04-10T19:10:34Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-10T19:10:34Z"
+}
