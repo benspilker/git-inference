@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2d4fbcee23c14134",
+  "message": {
+    "role": "assistant",
+    "content": "Current weather in Indianapolis, IN: 68°F and sunny, with a gentle breeze from the south-southeast around 11 mph. No immediate rain, but a chance of showers and thunderstorms later this afternoon into the evening with a 60% precipitation probability and gusty winds up to about 22 mph in stronger storms. Stay alert for changing conditions this afternoon.\n\nTelegram update (concise):\nIndianapolis, IN — 68°F, sunny. SSE winds ~11 mph. Possible showers/thunderstorms after 2 pm; 60% rain chance; gusts to 22 mph. Stay weather-aware."
+  },
+  "done": true,
+  "started_at": "2026-04-10T12:29:30Z",
+  "completed_at": "2026-04-10T12:31:46Z"
+}
