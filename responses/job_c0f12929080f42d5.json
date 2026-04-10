@@ -1,0 +1,10 @@
+{
+  "job_id": "job_c0f12929080f42d5",
+  "message": {
+    "role": "assistant",
+    "content": "Once the appropriate executor is available, enable the job to start daily reports at 08:30 America/New_York for Indianapolis and deliver to Telegram."
+  },
+  "done": true,
+  "started_at": "2026-04-10T02:05:10Z",
+  "completed_at": "2026-04-10T02:07:47Z"
+}
