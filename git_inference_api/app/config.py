@@ -97,22 +97,10 @@ class Settings:
     enable_stage_artifacts: bool = env_bool("ENABLE_STAGE_ARTIFACTS", True)
     enable_execution_artifacts: bool = env_bool("ENABLE_EXECUTION_ARTIFACTS", True)
     enable_local_execution: bool = env_bool("ENABLE_LOCAL_EXECUTION", True)
+    # Deprecated: runtime cron execution now belongs to OpenClaw runtime only.
     enable_runtime_handoff_executor: bool = env_bool("ENABLE_RUNTIME_HANDOFF_EXECUTOR", False)
     enable_clarification_state: bool = env_bool("ENABLE_CLARIFICATION_STATE", True)
     default_combined_in_message: bool = env_bool("DEFAULT_COMBINED_IN_MESSAGE", False)
-
-    # Optional runtime handoff executor settings
-    openclaw_cron_ssh_target: str = os.getenv("OPENCLAW_CRON_SSH_TARGET", "")
-    openclaw_cron_cli_path: str = os.getenv("OPENCLAW_CRON_CLI_PATH", "~/.npm-global/bin/openclaw")
-    openclaw_cron_agent: str = os.getenv("OPENCLAW_CRON_AGENT", "main")
-    openclaw_cron_channel: str = os.getenv("OPENCLAW_CRON_CHANNEL", "telegram")
-    openclaw_cron_to: str = os.getenv("OPENCLAW_CRON_TO", "")
-    openclaw_cron_timeout_seconds: int = int(os.getenv("OPENCLAW_CRON_TIMEOUT_SECONDS", "60"))
-    openclaw_cron_use_windows_ssh_fallback: bool = env_bool("OPENCLAW_CRON_USE_WINDOWS_SSH_FALLBACK", True)
-    openclaw_cron_windows_ssh_path: str = os.getenv(
-        "OPENCLAW_CRON_WINDOWS_SSH_PATH",
-        "/mnt/c/Windows/System32/OpenSSH/ssh.exe",
-    )
 
     # Optional defaults for execution/planning
     default_user_timezone: str = os.getenv("DEFAULT_USER_TIMEZONE", "America/New_York")
