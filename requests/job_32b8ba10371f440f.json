@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-04-10T00:57:46Z",
+  "job_id": "job_32b8ba10371f440f",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Set up a disabled daily weather cron for Indianapolis at 8:30 AM America/New_York and confirm the job id.",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "job",
+      "requires_local_execution": true,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "scheduled_weather_report"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 18
+      },
+      "user_prompt_chunks": [
+        "Set up a disabled daily weather cron for Indianapolis at 8:30 AM America/New_York and confirm the job id."
+      ]
+    },
+    "user_prompt": "Set up a disabled daily weather cron for Indianapolis at 8:30 AM America/New_York and confirm the job id."
+  },
+  "routing_metadata": {
+    "intent_type": "job",
+    "requires_local_execution": true,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "scheduled_weather_report"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 18
+    },
+    "user_prompt_chunks": [
+      "Set up a disabled daily weather cron for Indianapolis at 8:30 AM America/New_York and confirm the job id."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Set up a disabled daily weather cron for Indianapolis at 8:30 AM America/New_York and confirm the job id."
+}
