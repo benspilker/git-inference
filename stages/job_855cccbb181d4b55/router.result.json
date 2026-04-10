@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "system_command",
+  "confidence": 0.62,
+  "requires_local_execution": true,
+  "reason": "The user asks to create a disabled cron job (system action) and confirm a job id, which requires configuring a system-level task (not a simple question) and implies local execution."
+}

@@ -1,0 +1,21 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "scheduled_weather_report",
+"confidence": 0.35,
+"requires_local_execution": true,
+"parameters": {
+"job_name": "weather-indy-e2e-015735-a1",
+"location": "Indianapolis, Indiana, USA",
+"recipient_channel": "Telegram",
+"delivery_time": "08:30",
+"delivery_timezone": "America/New_York",
+"frequency": "daily",
+"weather_report_type": "current_weather_summary",
+"enabled": false
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Job created with name weather-indy-e2e-015735-a1 in disabled state, configured to send daily weather reports for Indianapolis at 08:30 America/New_York to Telegram; confirmation includes the job_id Weather-Indy-E2E-015735-A1 and a disabled flag."
+}

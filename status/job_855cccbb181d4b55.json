@@ -1,0 +1,9 @@
+{
+  "job_id": "job_855cccbb181d4b55",
+  "state": "needs_clarification",
+  "intent_type": "job",
+  "task_type": "scheduled_weather_report",
+  "current_stage": "execute_local",
+  "updated_at": "2026-04-10T02:00:17Z",
+  "created_at": "2026-04-10T01:58:25Z"
+}
