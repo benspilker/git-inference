@@ -1,0 +1,21 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "scheduled_weather_report",
+"confidence": 0.42,
+"requires_local_execution": true,
+"parameters": {
+"job_name": "weather-indy-e2e-014849",
+"enabled": false,
+"recurrence": "daily",
+"time": "08:30",
+"timezone": "America/New_York",
+"location": "Indianapolis",
+"recipient_platform": "Telegram",
+"recipient": "you"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Weather report scheduled as a daily message to Telegram at 08:30 America/New_York for Indianapolis, with job disabled by default and job_id returned."
+}

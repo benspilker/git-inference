@@ -1,0 +1,34 @@
+{
+  "job_id": "job_d91c6b6fd3db491a",
+  "message": {
+    "role": "assistant",
+    "content": "I still need these fields to continue: frequency."
+  },
+  "done": false,
+  "started_at": "2026-04-10T01:50:22Z",
+  "needs_clarification": true,
+  "execution": {
+    "task_type": "scheduled_weather_report",
+    "original_task_type": "scheduled_weather_report",
+    "verified": false,
+    "executed_at": "2026-04-10T01:52:09Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "frequency"
+      ],
+      "parameters": {
+        "job_name": "weather-indy-e2e-014849",
+        "enabled": false,
+        "recurrence": "daily",
+        "time": "08:30",
+        "timezone": "America/New_York",
+        "location": "Indianapolis",
+        "recipient_platform": "Telegram",
+        "recipient": "you"
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.66,
+"requires_local_execution": true,
+"reason": "The user requests creation and configuration of a scheduled task (cron job) to send daily weather reports via Telegram, which is a system action requiring local execution and setup information."
+}
