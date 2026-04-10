@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "scheduled_weather_report",
+  "confidence": 0.52,
+  "requires_local_execution": true,
+  "parameters": {
+    "name": "weather-indy-enabled-021308-a1",
+    "enabled": true,
+    "location": "Indianapolis, IN, USA",
+    "time": "08:30",
+    "timezone": "America/New_York",
+    "report_frequency": "daily",
+    "destination": "Telegram",
+    "recipient_channel_or_user": null
+  },
+  "missing_fields": [
+    "recipient_username_or_chat_id"
+  ],
+  "question": "Please provide the Telegram recipient identifier (username or chat_id) for the daily weather report in Indianapolis to finalize scheduling.",
+  "success_condition": "The cron job is created with the given name, enabled status, daily 08:30 America/New_York schedule, targeting Telegram delivery, and returns a valid job_id confirming creation."
+}

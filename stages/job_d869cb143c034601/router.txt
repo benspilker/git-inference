@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.58,
+"requires_local_execution": true,
+"reason": "User requests creation of a scheduled cron job (cron-like task) to send daily weather reports via Telegram, including naming and timezone details, which implies configuring a system action rather than seeking information."
+}
