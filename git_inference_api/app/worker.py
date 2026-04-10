@@ -572,6 +572,7 @@ class JobWorker:
         time_value = self._first_nonempty(
             normalized.get("time"),
             normalized.get("send_time"),
+            normalized.get("time_of_day"),
             normalized.get("time_of_delivery"),
             schedule_dict.get("time"),
         )
