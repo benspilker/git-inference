@@ -1,0 +1,10 @@
+{
+  "job_id": "job_ac7590a777c24837",
+  "message": {
+    "role": "assistant",
+    "content": "Current weather in Indianapolis, IN: Clear skies with a comfortable evening. Temperature around 65°F (18°C), humidity ~47%, light wind from the south at about 2 mph, visibility excellent, and no precipitation anticipated right now.\n\nToday’s outlook: Expect showers later in the day and temperatures staying warm but a bit cooler than recent days. Highs near the upper 60s to low 70s°F (around 19–22°C); evening showers with a lingering chance of rain overnight. Winds remain light, with occasionally gusty bursts near any shower activity.\n\nIf you’d like, I can provide hourly details or a short 48-hour forecast for Indianapolis."
+  },
+  "done": true,
+  "started_at": "2026-04-10T03:32:29Z",
+  "completed_at": "2026-04-10T03:33:06Z"
+}
