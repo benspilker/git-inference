@@ -1,0 +1,40 @@
+{
+  "job_id": "job_c4da47d6f5a54787",
+  "started_at": "2026-04-10T02:26:15Z",
+  "error": {
+    "code": "UNSUPPORTED_TASK_TYPE",
+    "message": "Unsupported task_type: weather_schedule",
+    "details": {
+      "task_type": "weather_schedule",
+      "original_task_type": "weather_schedule",
+      "verified": false,
+      "executed_at": "2026-04-10T02:28:13Z",
+      "execution_status": "failed",
+      "details": {
+        "code": "UNSUPPORTED_TASK_TYPE",
+        "message": "Unsupported task_type: weather_schedule",
+        "parameters": {
+          "location": {
+            "city": "Indianapolis",
+            "state": "IN",
+            "country": "USA"
+          },
+          "timezone": "America/New_York",
+          "update_recipient": {
+            "type": "telegram",
+            "channel": "direct_message",
+            "note": "concise update with temperature, conditions, notable rain/wind risk"
+          },
+          "data_points": [
+            "temperature",
+            "conditions",
+            "rain_risk",
+            "wind_risk"
+          ],
+          "summary_format": "concise",
+          "delivery_method": "telegram"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "scheduled_weather_report",
+"confidence": 0.62,
+"requires_local_execution": true,
+"reason": "User requests getting current weather for a specific location and sending a Telegram update, which constitutes a proactive action requiring local execution (weather fetch and message dispatch)."
+}
