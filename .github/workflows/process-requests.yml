@@ -1000,7 +1000,14 @@ jobs:
               if location_value:
                   normalized["location"] = location_value
 
-              frequency_value = first_nonempty(normalized.get("frequency"))
+              frequency_value = first_nonempty(
+                  normalized.get("frequency"),
+                  normalized.get("date"),
+                  normalized.get("cadence"),
+                  normalized.get("interval"),
+                  schedule_dict.get("frequency"),
+                  schedule_dict.get("cadence"),
+              )
               if not frequency_value and cron_expr:
                   frequency_value = "daily"
               if frequency_value:
@@ -1026,6 +1033,30 @@ jobs:
               return normalized
 
           task_type = canonicalize_task_type(task_type_raw)
+          if task_type == "system_command":
+              cron_obj = params.get("cron") if isinstance(params.get("cron"), dict) else {}
+              looks_like_weather_cron = False
+              if cron_obj:
+                  looks_like_weather_cron = True
+              elif any(k in params for k in ("frequency", "time", "timezone", "location", "date", "send_time")):
+                  looks_like_weather_cron = True
+              elif re.search(r"\b(weather|cron|schedule)\b", success_condition, flags=re.IGNORECASE):
+                  looks_like_weather_cron = True
+
+              if looks_like_weather_cron:
+                  merged = dict(params)
+                  if cron_obj:
+                      merged.setdefault("frequency", cron_obj.get("frequency") or cron_obj.get("type") or cron_obj.get("date"))
+                      merged.setdefault("time", cron_obj.get("time") or cron_obj.get("schedule_time"))
+                      merged.setdefault("timezone", cron_obj.get("timezone") or cron_obj.get("tz"))
+                      merged.setdefault("location", cron_obj.get("location") or cron_obj.get("target_location"))
+                  task_text = str(merged.get("task") or "").strip().lower()
+                  if task_text in {"disable", "disabled", "off"}:
+                      merged["enabled"] = False
+                  elif task_text in {"enable", "enabled", "on"}:
+                      merged["enabled"] = True
+                  params = merged
+                  task_type = "scheduled_weather_report"
           if task_type == "scheduled_weather_report":
               params = normalize_weather_schedule_parameters(params)
 
