@@ -18,6 +18,7 @@ FALSEY = {"0", "false", "no", "off", "n"}
 QUESTION_ROUTE_HINTS = ("what", "which", "when", "where", "why", "how", "?")
 JOB_ROUTE_HINTS = ("set up", "schedule", "remind me", "configure", "create", "cron", "run this daily")
 RESEARCH_ROUTE_HINTS = ("research", "investigate", "deeply compare", "build a report", "from many angles")
+DEFAULT_OPENCLAW_COMPAT_MODELS = ("git-chatgpt", "git-perplexity", "git-grok")
 
 
 def _env_enabled(name: str, default: bool = True) -> bool:
@@ -25,6 +26,20 @@ def _env_enabled(name: str, default: bool = True) -> bool:
     if value is None:
         return default
     return value.strip().lower() not in FALSEY
+
+
+def _openclaw_compat_model_tails() -> set[str]:
+    configured = os.getenv("OPENCLAW_COMPAT_MODELS", "")
+    if configured.strip():
+        names = [n.strip().lower() for n in configured.split(",") if n.strip()]
+    else:
+        names = list(DEFAULT_OPENCLAW_COMPAT_MODELS)
+    tails = set()
+    for name in names:
+        if not name:
+            continue
+        tails.add(name.split("/")[-1])
+    return tails
 
 
 def _read_json(path: Path) -> dict | None:
@@ -257,7 +272,7 @@ def main() -> None:
 
     normalized_model = model_name.strip().lower()
     model_tail = normalized_model.split("/")[-1] if normalized_model else ""
-    is_openclaw_compat = model_tail in {"git-chatgpt", "git-perplexity"}
+    is_openclaw_compat = model_tail in _openclaw_compat_model_tails()
     continuity_enabled = _env_enabled("SIMPLE_MODEL_CARRY_PREVIOUS_QA", default=False)
 
     parts = [x for x in (system_prompt, user_prompt) if x]
