@@ -1,0 +1,26 @@
+{
+  "job_id": "job_e227e8078d6149f4",
+  "status": {
+    "job_id": "job_e227e8078d6149f4",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-13T13:56:27Z",
+    "created_at": "2026-04-13T13:54:32Z"
+  },
+  "response": {
+    "job_id": "job_e227e8078d6149f4",
+    "message": {
+      "role": "assistant",
+      "content": "Today in Indianapolis (April 13, 2026): Warm and mostly cloudy with a slight chance of showers or isolated thunderstorms.⁠Weather\n\nCurrent conditions (mid-morning): Around 68–69°F, overcast/mostly cloudy with light winds.⁠Fox59\nHigh: Near 80°F (possibly approaching 81°F).⁠Accuweather\nLow (tonight): Around 68°F.⁠Weather\nWinds: Breezy from the southwest, 10–20 mph with gusts.⁠Wthr\nPrecipitation: 15–30% chance of scattered showers/storms during the day; rain chances increase tonight.⁠Weather\n\nIt will feel humid and warm for mid-April, with dry periods mixed in."
+    },
+    "done": true,
+    "started_at": "2026-04-13T13:54:32Z",
+    "completed_at": "2026-04-13T13:56:27Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-13T13:56:27Z"
+}
