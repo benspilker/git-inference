@@ -1,0 +1,36 @@
+{
+  "job_id": "job_e227e8078d6149f4",
+  "created_at": "2026-04-13T13:53:24Z",
+  "chunking": {
+    "enabled": false,
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "max_chunks": 5,
+    "word_count": 9
+  },
+  "request": {
+    "model": "git-grok",
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "What is the weather like in Indianapolis today?",
+    "user_prompt_chunks": [
+      "What is the weather like in Indianapolis today?"
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are Juniper, a concise assistant. Use live web for current weather."
+      },
+      {
+        "role": "user",
+        "content": "What is the weather like in Indianapolis today?"
+      }
+    ]
+  },
+  "system_prompt": "You are Juniper, a concise assistant. Use live web for current weather.",
+  "type": "chat",
+  "user_prompt": "What is the weather like in Indianapolis today?",
+  "user_prompt_chunks": [
+    "What is the weather like in Indianapolis today?"
+  ]
+}
