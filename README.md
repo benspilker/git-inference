@@ -44,6 +44,11 @@ This is a V1 prototype for the architecture you described:
 }
 ```
 
+Supported browser-backed model ids include:
+- `git-chatgpt`
+- `git-perplexity`
+- `git-grok`
+
 ## Response behavior
 
 ### Completed within API timeout

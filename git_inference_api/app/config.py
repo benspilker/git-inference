@@ -65,8 +65,8 @@ class Settings:
     old_responses_dir: str = os.getenv("OLD_RESPONSES_DIR", "responses/old-responses")
 
     # Model config
-    available_models_csv: str = env_csv("AVAILABLE_MODELS", "git-chatgpt-json,git-chatgpt,git-perplexity")
-    openclaw_compat_models_csv: str = env_csv("OPENCLAW_COMPAT_MODELS", "git-chatgpt,git-perplexity")
+    available_models_csv: str = env_csv("AVAILABLE_MODELS", "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok")
+    openclaw_compat_models_csv: str = env_csv("OPENCLAW_COMPAT_MODELS", "git-chatgpt,git-perplexity,git-grok")
 
     # Prompt / chunking
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))
