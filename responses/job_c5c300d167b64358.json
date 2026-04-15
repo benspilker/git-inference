@@ -1,0 +1,10 @@
+{
+  "job_id": "job_c5c300d167b64358",
+  "message": {
+    "role": "assistant",
+    "content": "QWEN_TG_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-15T21:38:14Z",
+  "completed_at": "2026-04-15T21:38:36Z"
+}

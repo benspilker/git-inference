@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.94,
+  "requires_local_execution": false,
+  "reason": "The user is providing instructions for classification behavior rather than requesting an action or execution; this is a meta-level informational prompt. Deterministic system-test override applied for exact-reply probe."
+}
