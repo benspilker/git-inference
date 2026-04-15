@@ -1,0 +1,8 @@
+{
+  "job_id": "job_9b7f6ec3634d43f7",
+  "started_at": "2026-04-15T12:59:22Z",
+  "error": {
+    "code": "ANSWERER_STAGE_FAILED",
+    "message": "Answerer stage execution failed."
+  }
+}

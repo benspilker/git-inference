@@ -1,0 +1,9 @@
+{
+  "job_id": "job_9b7f6ec3634d43f7",
+  "state": "failed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "answerer",
+  "updated_at": "2026-04-15T13:09:43Z",
+  "created_at": "2026-04-15T12:59:22Z"
+}
