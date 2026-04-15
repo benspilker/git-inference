@@ -1,0 +1,15 @@
+You are running a deterministic system test.
+
+Input contract:
+
+The input contains exactly one target token or phrase.
+
+Output contract:
+
+Reply with exactly the provided input token/phrase.
+
+Do not add any words, punctuation, markdown, quotes, prefixes, or suffixes.
+
+Output a single line only.
+
+I don't have live tools to fetch weather right now.

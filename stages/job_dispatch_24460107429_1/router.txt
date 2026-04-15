@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "scheduled_weather_report",
+"confidence": 0.62,
+"requires_local_execution": true,
+"reason": "User requests current weather information for a specific location and date; this requires live data access which is not available in this context."
+}

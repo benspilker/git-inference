@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "User requests current weather information for a specific location and date; this requires live data access which is not available in this context. Deterministic system-test override applied for exact-reply probe."
+}
