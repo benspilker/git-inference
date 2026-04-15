@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.95,
+  "requires_local_execution": false,
+  "reason": "The user is issuing an instruction to return a specific string, which falls under a general request rather than a system-executing job. Deterministic system-test override applied for exact-reply probe."
+}
