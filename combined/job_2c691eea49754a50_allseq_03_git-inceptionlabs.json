@@ -1,0 +1,26 @@
+{
+  "job_id": "job_2c691eea49754a50_allseq_03_git-inceptionlabs",
+  "status": {
+    "job_id": "job_2c691eea49754a50_allseq_03_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-15T23:26:03Z",
+    "created_at": "2026-04-15T23:25:54Z"
+  },
+  "response": {
+    "job_id": "job_2c691eea49754a50_allseq_03_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "2 + 2 equals 4."
+    },
+    "done": true,
+    "started_at": "2026-04-15T23:25:54Z",
+    "completed_at": "2026-04-15T23:26:03Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-15T23:26:03Z"
+}
