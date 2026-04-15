@@ -1,0 +1,10 @@
+{
+  "job_id": "job_62611ea2e6c04a89",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis is currently cloudy and about 74°F, with a RealFeel near 70°F. Winds are light at around 5 mph, and there’s some rain/thunder risk later based on nearby forecast data."
+  },
+  "done": true,
+  "started_at": "2026-04-15T14:21:55Z",
+  "completed_at": "2026-04-15T14:22:50Z"
+}
