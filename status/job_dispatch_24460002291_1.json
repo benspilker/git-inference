@@ -1,0 +1,9 @@
+{
+  "job_id": "job_dispatch_24460002291_1",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "complete",
+  "updated_at": "2026-04-15T14:24:24Z",
+  "created_at": "2026-04-15T14:23:40Z"
+}

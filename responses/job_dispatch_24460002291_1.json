@@ -1,0 +1,10 @@
+{
+  "job_id": "job_dispatch_24460002291_1",
+  "message": {
+    "role": "assistant",
+    "content": "In Indianapolis today, it’s mostly cloudy and about 72°F right now, with 72% humidity and light SSW wind around 5 mph. The forecast also calls for showers and thunderstorms later today, with breezy conditions."
+  },
+  "done": true,
+  "started_at": "2026-04-15T14:23:40Z",
+  "completed_at": "2026-04-15T14:24:24Z"
+}
