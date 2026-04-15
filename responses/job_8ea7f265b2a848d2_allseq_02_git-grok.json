@@ -1,0 +1,10 @@
+{
+  "job_id": "job_8ea7f265b2a848d2_allseq_02_git-grok",
+  "message": {
+    "role": "assistant",
+    "content": "2 + 2 equals 4."
+  },
+  "done": true,
+  "started_at": "2026-04-15T23:48:43Z",
+  "completed_at": "2026-04-15T23:49:09Z"
+}
