@@ -1,0 +1,47 @@
+{
+  "chunking": {
+    "enabled": false,
+    "chunk_count": 1,
+    "chunk_size_words": 2000,
+    "max_chunks": 5,
+    "word_count": 45
+  },
+  "created_at": "2026-04-15T13:32:36Z",
+  "job_id": "job_cron_weather_20260415093236_2d884cb7",
+  "request": {
+    "chunking": {
+      "enabled": false,
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "max_chunks": 5,
+      "word_count": 45
+    },
+    "combined_in_message": true,
+    "messages": [
+      {
+        "content": "You are Juniper, a concise research-and-build assistant.",
+        "role": "system"
+      },
+      {
+        "content": "[cron:manual-once weather-job_cron_weather_20260415093236_2d884cb7] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Wednesday, April 15th, 2026. Return plain text only.",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "options": {
+      "num_ctx": 128000
+    },
+    "request_type": "chat",
+    "stream": true,
+    "user_prompt": "[cron:manual-once weather-job_cron_weather_20260415093236_2d884cb7] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Wednesday, April 15th, 2026. Return plain text only.",
+    "user_prompt_chunks": [
+      "[cron:manual-once weather-job_cron_weather_20260415093236_2d884cb7] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Wednesday, April 15th, 2026. Return plain text only."
+    ]
+  },
+  "system_prompt": "You are Juniper, a concise research-and-build assistant.",
+  "type": "chat",
+  "user_prompt": "[cron:manual-once weather-job_cron_weather_20260415093236_2d884cb7] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Wednesday, April 15th, 2026. Return plain text only.",
+  "user_prompt_chunks": [
+    "[cron:manual-once weather-job_cron_weather_20260415093236_2d884cb7] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Wednesday, April 15th, 2026. Return plain text only."
+  ]
+}
