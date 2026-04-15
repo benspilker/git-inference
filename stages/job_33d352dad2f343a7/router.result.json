@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 1.0,
+  "requires_local_execution": false,
+  "reason": "The user explicitly instructs to reply with the exact string 'OLLAMA_OK', which is a simple directive rather than a substantive question, job, research, or clarification need. Deterministic system-test override applied for exact-reply probe."
+}
