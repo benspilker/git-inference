@@ -48,6 +48,7 @@ Supported browser-backed model ids include:
 - `git-chatgpt`
 - `git-perplexity`
 - `git-grok`
+- `git-inceptionlabs`
 
 ## Response behavior
 
