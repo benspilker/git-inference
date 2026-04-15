@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.94,
+  "requires_local_execution": false,
+  "reason": "The user is asking for classification of a request, which is an informational/meta task rather than requesting execution of a local action. Deterministic system-test override applied for exact-reply probe."
+}
