@@ -1,0 +1,26 @@
+{
+  "job_id": "job_3cd1d0fab5074e5f",
+  "status": {
+    "job_id": "job_3cd1d0fab5074e5f",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-15T18:42:12Z",
+    "created_at": "2026-04-15T18:41:41Z"
+  },
+  "response": {
+    "job_id": "job_3cd1d0fab5074e5f",
+    "message": {
+      "role": "assistant",
+      "content": "Simple homemade pizza (makes one 12-inch pizza):\n\nQuick ingredients:\n\nDough:\n\n1 ½ cups (190g) all-purpose flour\n1 tsp instant yeast\n½ tsp salt\n½ cup (120ml) warm water\n1 tbsp olive oil\n\nSauce:\n\n½ cup canned crushed tomatoes or pizza sauce\n1 garlic clove (minced), salt, oregano, pinch of sugar\n\nToppings (classic Margherita style):\n\n1–1½ cups shredded mozzarella\nFresh basil leaves (after baking)\nOlive oil, optional extras like pepperoni, veggies, etc.\nSteps:\nMake dough: Mix flour, yeast, and salt. Add warm water + oil. Stir until it forms a shaggy ball. Knead 5–7 minutes until smooth. Let rest 20–30 minutes (or use store-bought dough to skip this).\nPrep sauce: Mix tomatoes/sauce with garlic, salt, oregano.\nPreheat oven as hot as it goes (ideally 475–500°F / 245–260°C). Use a pizza stone or baking sheet (preheat the sheet too).\nShape: Stretch dough on floured surface into a circle. Transfer to parchment or cornmeal-dusted peel/sheet.\nAssemble: Spread thin layer of sauce, add cheese and toppings. Drizzle lightly with oil.\nBake: 10–15 minutes until crust is golden and cheese bubbles. Rotate halfway if needed.\nFinish: Let cool 2 minutes, add fresh basil, slice.\n\nTips for better results:\n\nLess sauce = crispier crust.\nRoom-temp dough stretches easier.\nHigh heat is key for good char and chew.\n\nWant a specific style (Neapolitan, deep dish, no-knead, gluten-free)? Let me know!"
+    },
+    "done": true,
+    "started_at": "2026-04-15T18:41:41Z",
+    "completed_at": "2026-04-15T18:42:12Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-15T18:42:12Z"
+}
