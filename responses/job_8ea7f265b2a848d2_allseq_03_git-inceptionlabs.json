@@ -1,0 +1,10 @@
+{
+  "job_id": "job_8ea7f265b2a848d2_allseq_03_git-inceptionlabs",
+  "message": {
+    "role": "assistant",
+    "content": "2 + 2 equals 4."
+  },
+  "done": true,
+  "started_at": "2026-04-15T23:50:16Z",
+  "completed_at": "2026-04-15T23:50:26Z"
+}
