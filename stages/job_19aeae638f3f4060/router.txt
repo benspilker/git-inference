@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "job", "task_type": "system_command", "confidence": 0.95, "requires_local_execution": true, "reason": "User explicitly requests the system to output a specific string, which is an action rather than a question or research." }
