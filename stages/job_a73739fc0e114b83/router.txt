@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "job", "task_type": "system_command", "confidence": 0.9, "requires_local_execution": true, "reason": "The user explicitly requests the system to output a specific string (OLLAMA_OK), which is a direct system action rather than a question or research." }
