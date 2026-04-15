@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2c691eea49754a50_allseq_01_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "2 + 2 equals 4."
+  },
+  "done": true,
+  "started_at": "2026-04-15T23:21:07Z",
+  "completed_at": "2026-04-15T23:21:48Z"
+}
