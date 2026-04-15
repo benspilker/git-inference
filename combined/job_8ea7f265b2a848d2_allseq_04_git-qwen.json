@@ -1,0 +1,26 @@
+{
+  "job_id": "job_8ea7f265b2a848d2_allseq_04_git-qwen",
+  "status": {
+    "job_id": "job_8ea7f265b2a848d2_allseq_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-15T23:52:14Z",
+    "created_at": "2026-04-15T23:51:30Z"
+  },
+  "response": {
+    "job_id": "job_8ea7f265b2a848d2_allseq_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "2+2 equals 4."
+    },
+    "done": true,
+    "started_at": "2026-04-15T23:51:29Z",
+    "completed_at": "2026-04-15T23:52:14Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-15T23:52:14Z"
+}
