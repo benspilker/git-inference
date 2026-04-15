@@ -50,6 +50,7 @@ Supported browser-backed model ids include:
 - `git-grok`
 - `git-inceptionlabs`
 - `git-qwen`
+- `git-allsequential` (API fan-out: runs multiple models sequentially and returns one ordered combined answer)
 
 ## Response behavior
 
@@ -145,6 +146,7 @@ Copy `.env.example` and set at least:
 - `DB_PATH` - SQLite database path
 - `GIT_AUTHOR_NAME`
 - `GIT_AUTHOR_EMAIL`
+- `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-perplexity,git-grok,git-inceptionlabs,git-qwen`)
 
 The code assumes `origin/<branch>` already exists unless `AUTO_INIT_REPO=true`.
 

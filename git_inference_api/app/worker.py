@@ -79,8 +79,13 @@ class JobWorker:
         routing = self._extract_routing_metadata(job)
         intent_type = routing.get("intent_type")
         task_type = routing.get("task_type")
+        request_model = self._extract_request_model(job)
 
         try:
+            if self._is_allsequential_model(request_model):
+                self._process_job_allsequential(job, intent_type=intent_type, task_type=task_type)
+                return
+
             if not settings.enable_stage_orchestration:
                 self._process_job_single_run(job, intent_type=intent_type, task_type=task_type)
                 return
@@ -267,6 +272,207 @@ class JobWorker:
             "one-shot workflow completed",
             extra={"job_id": job_id, "status": "completed", "intent_type": intent_type, "task_type": task_type},
         )
+
+    def _extract_request_model(self, job: dict[str, Any]) -> str:
+        request_json = job.get("request_json")
+        if isinstance(request_json, dict):
+            return str(request_json.get("model") or "").strip()
+        return ""
+
+    @staticmethod
+    def _is_allsequential_model(model_name: str) -> bool:
+        normalized = str(model_name or "").strip().lower()
+        if not normalized:
+            return False
+        if normalized == "git-allsequential":
+            return True
+        return normalized.split("/")[-1] == "git-allsequential"
+
+    def _resolve_allsequential_targets(self) -> list[str]:
+        targets: list[str] = []
+        for model_name in settings.all_sequential_models():
+            normalized = str(model_name or "").strip()
+            if not normalized:
+                continue
+            if self._is_allsequential_model(normalized):
+                continue
+            if normalized not in targets:
+                targets.append(normalized)
+        return targets
+
+    @staticmethod
+    def _sanitize_model_tail(model_name: str) -> str:
+        tail = str(model_name or "").strip().split("/")[-1]
+        return re.sub(r"[^a-zA-Z0-9_-]+", "-", tail)[:40] or "model"
+
+    def _run_one_shot_request(self, job_id: str, request_payload: dict[str, Any]) -> dict[str, Any]:
+        with REPO_LOCK:
+            sync_repo_to_remote_head()
+            request_path = write_request_artifact(job_id, request_payload)
+            commit_and_push_request(job_id, request_path)
+
+        result = wait_for_result(job_id, timeout_seconds=settings.job_timeout_seconds)
+        return self._apply_runtime_handoff_if_configured(job_id=job_id, result=result)
+
+    def _process_job_allsequential(
+        self,
+        job: dict[str, Any],
+        intent_type: str | None = None,
+        task_type: str | None = None,
+    ) -> None:
+        """
+        Fan out one API request to multiple configured models, run sequentially,
+        and return an ordered combined answer.
+        """
+        job_id = job["job_id"]
+        request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+        requested_intent = str(intent_type or "").strip().lower()
+        requested_task = str(task_type or "").strip().lower()
+
+        if requested_intent == "job" or requested_task in {"scheduled_weather_report", "reminder"}:
+            self._update_status(job_id, "failed", intent_type="job", task_type=task_type or "allsequential")
+            db.mark_failed(
+                job_id,
+                {
+                    "code": "ALLSEQUENTIAL_UNSUPPORTED_TASK",
+                    "message": "git-allsequential is for question-style prompts and is not enabled for job execution.",
+                },
+                status="failed",
+            )
+            return
+
+        targets = self._resolve_allsequential_targets()
+        if not targets:
+            self._update_status(job_id, "failed", intent_type="question", task_type="allsequential")
+            db.mark_failed(
+                job_id,
+                {
+                    "code": "ALLSEQUENTIAL_NO_TARGETS",
+                    "message": "No target models configured for git-allsequential.",
+                },
+                status="failed",
+            )
+            return
+
+        self._update_status(job_id, "routing", intent_type="question", task_type="allsequential")
+        base_prompt = str(
+            request_payload.get("user_prompt")
+            or request_payload.get("prompt")
+            or ""
+        ).strip()
+
+        aggregated_results: list[dict[str, Any]] = []
+        success_count = 0
+
+        for idx, target_model in enumerate(targets, start=1):
+            child_job_id = f"{job_id}_allseq_{idx:02d}_{self._sanitize_model_tail(target_model)}"
+            self._update_status(
+                job_id,
+                "executing",
+                intent_type="question",
+                task_type=f"allsequential:{target_model}",
+            )
+
+            child_payload = json.loads(json.dumps(request_payload))
+            child_payload["model"] = target_model
+            child_payload["allsequential_parent_job_id"] = job_id
+            child_payload["allsequential_index"] = idx
+            child_payload["allsequential_total"] = len(targets)
+
+            try:
+                raw_result = self._run_one_shot_request(child_job_id, child_payload)
+                normalized_result = self._normalize_response_payload(
+                    raw_result,
+                    router_result={"intent_type": "question", "task_type": "information"},
+                )
+                message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
+                content = ""
+                if isinstance(message, dict):
+                    content = str(message.get("content") or "").strip()
+                if not content:
+                    content = str(raw_result or "").strip()
+
+                aggregated_results.append(
+                    {
+                        "index": idx,
+                        "model": target_model,
+                        "job_id": child_job_id,
+                        "status": "completed",
+                        "content": content,
+                    }
+                )
+                success_count += 1
+            except Exception as exc:
+                aggregated_results.append(
+                    {
+                        "index": idx,
+                        "model": target_model,
+                        "job_id": child_job_id,
+                        "status": "failed",
+                        "error": str(exc),
+                    }
+                )
+                logger.warning(
+                    "allsequential child failed",
+                    extra={"parent_job_id": job_id, "child_job_id": child_job_id, "model": target_model, "error": str(exc)},
+                )
+
+        if success_count <= 0:
+            self._update_status(job_id, "failed", intent_type="question", task_type="allsequential")
+            db.mark_failed(
+                job_id,
+                {
+                    "code": "ALLSEQUENTIAL_ALL_FAILED",
+                    "message": "All models failed in git-allsequential.",
+                    "details": {"results": aggregated_results},
+                },
+                status="failed",
+            )
+            return
+
+        combined_content = self._format_allsequential_response(base_prompt=base_prompt, results=aggregated_results)
+        execution_meta = {
+            "mode": "allsequential",
+            "targets": targets,
+            "results": aggregated_results,
+            "success_count": success_count,
+            "failure_count": len(aggregated_results) - success_count,
+        }
+        final_payload = {
+            "message": {"role": "assistant", "content": combined_content},
+            "intent_type": "question",
+            "task_type": "allsequential",
+            "current_stage": "completed",
+            "execution": execution_meta,
+            "stages": {"allsequential": "complete"},
+            "done": True,
+        }
+        db.mark_completed(job_id, final_payload, execution_json=execution_meta, stages_json={"allsequential": "complete"})
+        logger.info(
+            "allsequential workflow completed",
+            extra={"job_id": job_id, "status": "completed", "success_count": success_count, "total": len(aggregated_results)},
+        )
+
+    def _format_allsequential_response(self, base_prompt: str, results: list[dict[str, Any]]) -> str:
+        lines: list[str] = []
+        if base_prompt:
+            lines.append(f"Prompt: {base_prompt}")
+            lines.append("")
+        lines.append("Sequential model results:")
+        lines.append("")
+        for item in results:
+            idx = item.get("index")
+            model_name = item.get("model")
+            status = str(item.get("status") or "unknown")
+            lines.append(f"{idx}. [{model_name}] ({status})")
+            if status == "completed":
+                content = str(item.get("content") or "").strip()
+                lines.append(content or "(empty response)")
+            else:
+                err = str(item.get("error") or "unknown error").strip()
+                lines.append(f"Error: {err}")
+            lines.append("")
+        return "\n".join(lines).strip()
 
     def _apply_runtime_handoff_if_configured(self, job_id: str, result: dict[str, Any]) -> dict[str, Any]:
         if not settings.enable_runtime_handoff_executor:

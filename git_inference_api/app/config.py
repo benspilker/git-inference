@@ -65,8 +65,18 @@ class Settings:
     old_responses_dir: str = os.getenv("OLD_RESPONSES_DIR", "responses/old-responses")
 
     # Model config
-    available_models_csv: str = env_csv("AVAILABLE_MODELS", "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen")
-    openclaw_compat_models_csv: str = env_csv("OPENCLAW_COMPAT_MODELS", "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen")
+    available_models_csv: str = env_csv(
+        "AVAILABLE_MODELS",
+        "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential",
+    )
+    openclaw_compat_models_csv: str = env_csv(
+        "OPENCLAW_COMPAT_MODELS",
+        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential",
+    )
+    all_sequential_models_csv: str = env_csv(
+        "ALL_SEQUENTIAL_MODELS",
+        "git-perplexity,git-grok,git-inceptionlabs,git-qwen",
+    )
 
     # Prompt / chunking
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))
@@ -151,6 +161,14 @@ class Settings:
 
     def openclaw_compat_models(self) -> list[str]:
         names = [name.strip() for name in self.openclaw_compat_models_csv.split(",")]
+        deduped: list[str] = []
+        for name in names:
+            if name and name not in deduped:
+                deduped.append(name)
+        return deduped
+
+    def all_sequential_models(self) -> list[str]:
+        names = [name.strip() for name in self.all_sequential_models_csv.split(",")]
         deduped: list[str] = []
         for name in names:
             if name and name not in deduped:
