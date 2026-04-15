@@ -50,7 +50,7 @@ Supported browser-backed model ids include:
 - `git-grok`
 - `git-inceptionlabs`
 - `git-qwen`
-- `git-allsequential` (API fan-out: runs multiple models sequentially and returns one ordered combined answer)
+- `git-allsequential` (API fan-out: runs multiple models sequentially and returns ordered source-labeled sections)
 
 ## Response behavior
 
@@ -147,6 +147,19 @@ Copy `.env.example` and set at least:
 - `GIT_AUTHOR_NAME`
 - `GIT_AUTHOR_EMAIL`
 - `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-perplexity,git-grok,git-inceptionlabs,git-qwen`)
+
+### Telegram display note for `git-allsequential`
+
+If you want `git-allsequential` output to arrive as multiple Telegram messages (one or more source blocks per chunk) instead of one long post, set OpenClaw Telegram chunking to paragraph mode and a smaller limit:
+
+```bash
+openclaw config set channels.telegram.chunkMode newline
+openclaw config set channels.telegram.textChunkLimit 900
+```
+
+Each source section is labeled in the response as:
+
+`[index/total] Source: <model> | Status: <status>`
 
 The code assumes `origin/<branch>` already exists unless `AUTO_INIT_REPO=true`.
 

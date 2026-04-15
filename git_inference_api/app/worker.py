@@ -430,11 +430,17 @@ class JobWorker:
             )
             return
 
-        combined_content = self._format_allsequential_response(base_prompt=base_prompt, results=aggregated_results)
+        source_messages = self._build_allsequential_source_messages(aggregated_results)
+        combined_content = self._format_allsequential_response(
+            base_prompt=base_prompt,
+            results=aggregated_results,
+            source_messages=source_messages,
+        )
         execution_meta = {
             "mode": "allsequential",
             "targets": targets,
             "results": aggregated_results,
+            "source_messages": source_messages,
             "success_count": success_count,
             "failure_count": len(aggregated_results) - success_count,
         }
@@ -445,6 +451,7 @@ class JobWorker:
             "current_stage": "completed",
             "execution": execution_meta,
             "stages": {"allsequential": "complete"},
+            "source_messages": source_messages,
             "done": True,
         }
         db.mark_completed(job_id, final_payload, execution_json=execution_meta, stages_json={"allsequential": "complete"})
@@ -453,24 +460,44 @@ class JobWorker:
             extra={"job_id": job_id, "status": "completed", "success_count": success_count, "total": len(aggregated_results)},
         )
 
-    def _format_allsequential_response(self, base_prompt: str, results: list[dict[str, Any]]) -> str:
+    def _build_allsequential_source_messages(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        total = len(results)
+        source_messages: list[dict[str, Any]] = []
+        for item in results:
+            idx = item.get("index")
+            model_name = str(item.get("model") or "unknown").strip() or "unknown"
+            status = str(item.get("status") or "unknown").strip() or "unknown"
+            if status == "completed":
+                content = str(item.get("content") or "").strip() or "(empty response)"
+            else:
+                err = str(item.get("error") or "unknown error").strip() or "unknown error"
+                content = f"Error: {err}"
+            header = f"[{idx}/{total}] Source: {model_name} | Status: {status}"
+            source_messages.append(
+                {
+                    "index": idx,
+                    "source": model_name,
+                    "status": status,
+                    "content": content,
+                    "text": f"{header}\n{content}",
+                }
+            )
+        return source_messages
+
+    def _format_allsequential_response(
+        self,
+        base_prompt: str,
+        results: list[dict[str, Any]],
+        source_messages: list[dict[str, Any]] | None = None,
+    ) -> str:
         lines: list[str] = []
         if base_prompt:
             lines.append(f"Prompt: {base_prompt}")
             lines.append("")
-        lines.append("Sequential model results:")
+        lines.append("Sequential model results (source-labeled):")
         lines.append("")
-        for item in results:
-            idx = item.get("index")
-            model_name = item.get("model")
-            status = str(item.get("status") or "unknown")
-            lines.append(f"{idx}. [{model_name}] ({status})")
-            if status == "completed":
-                content = str(item.get("content") or "").strip()
-                lines.append(content or "(empty response)")
-            else:
-                err = str(item.get("error") or "unknown error").strip()
-                lines.append(f"Error: {err}")
+        for entry in source_messages or self._build_allsequential_source_messages(results):
+            lines.append(str(entry.get("text") or "").strip())
             lines.append("")
         return "\n".join(lines).strip()
 
