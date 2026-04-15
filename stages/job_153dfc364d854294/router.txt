@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "question", "task_type": "general_question", "confidence": 0.95, "requires_local_execution": false, "reason": "User requested the exact response string INCEPTION_TG_OK, which is a direct request for information rather than a job or research task." }

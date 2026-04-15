@@ -1,0 +1,10 @@
+{
+  "job_id": "job_153dfc364d854294",
+  "message": {
+    "role": "assistant",
+    "content": "INCEPTION_TG_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-15T21:00:22Z",
+  "completed_at": "2026-04-15T21:00:42Z"
+}
