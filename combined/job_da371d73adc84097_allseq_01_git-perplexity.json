@@ -1,0 +1,26 @@
+{
+  "job_id": "job_da371d73adc84097_allseq_01_git-perplexity",
+  "status": {
+    "job_id": "job_da371d73adc84097_allseq_01_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-15T22:23:12Z",
+    "created_at": "2026-04-15T22:21:45Z"
+  },
+  "response": {
+    "job_id": "job_da371d73adc84097_allseq_01_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a simple homemade pizza recipe.\n\nDough\n\n2 1/2 cups all-purpose flour.\n\n1 tsp salt.\n\n1 tsp sugar.\n\n1 packet active dry yeast.\n\n1 cup warm water.\n\n2 tbsp olive oil.\n\nSauce\n\n1 cup canned tomato sauce or crushed tomatoes.\n\n1 clove garlic, minced.\n\n1 tsp dried oregano.\n\n1/2 tsp salt.\n\n1/2 tsp sugar, optional.\n\nToppings\n\n1 to 2 cups shredded mozzarella.\n\nPepperoni, vegetables, olives, mushrooms, or whatever you like.\n\nSteps\n\nMix warm water, sugar, and yeast. Let it sit 5 to 10 minutes until foamy.\n\nIn a large bowl, combine flour and salt.\n\nAdd the yeast mixture and olive oil. Stir until a dough forms.\n\nKnead for 8 to 10 minutes until smooth and elastic.\n\nPut the dough in a lightly oiled bowl, cover it, and let it rise for 1 to 2 hours, until doubled.\n\nMix the sauce ingredients together.\n\nHeat oven to 475°F.\n\nRoll out the dough, spread sauce, add cheese and toppings.\n\nBake for 12 to 15 minutes, until the crust is golden and the cheese is bubbling.\n\nHelpful tips\n\nPreheat the oven fully for a better crust.\n\nUse a pizza stone if you have one.\n\nDon’t overload the pizza with toppings.\n\nA no-rise pizza dough can also be made in about 20 minutes using a quick recipe with yeast, flour, water, oil, salt, and sugar, then baked right away.\nhappyhooligans\n\nWould you like a super quick no-rise version next?"
+    },
+    "done": true,
+    "started_at": "2026-04-15T22:21:45Z",
+    "completed_at": "2026-04-15T22:23:12Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-15T22:23:12Z"
+}
