@@ -6,21 +6,21 @@
     "intent_type": "question",
     "task_type": "information",
     "current_stage": "complete",
-    "updated_at": "2026-04-15T23:31:02Z",
+    "updated_at": "2026-04-15T23:46:44Z",
     "created_at": "2026-04-15T23:30:36Z"
   },
   "response": {
     "job_id": "job_318f270d644d46a4_allseq_02_git-grok",
     "message": {
       "role": "assistant",
-      "content": "To make basic pizza dough, combine 3½ cups (450g) all-purpose flour, 1 tsp salt, 1 tsp sugar, and 2¼ tsp (1 packet) active dry yeast in a bowl. Gradually mix in 1 cup (240ml) warm water (about 110°F/43°C) and 2 tbsp olive oil until a shaggy dough forms, then knead on a floured surface for 5–7 minutes until smooth and elastic. Place in an oiled bowl, cover, and let rise in a warm spot for 1–1½ hours until doubled. Punch down, divide into 2 balls, and let rest 10–15 minutes before rolling out."
+      "content": "To make pizza dough, combine 3½ cups all-purpose flour, 1 teaspoon salt, and 2 teaspoons instant yeast in a large bowl. Stir in 1 cup warm water (about 110°F) and 2 tablespoons olive oil until a shaggy dough forms, then knead on a floured surface for 5–7 minutes until smooth and elastic. Place in an oiled bowl, cover, and let rise in a warm spot for 1–1½ hours until doubled. Punch down, divide into 2–3 balls, and let rest 15–30 minutes before rolling out."
     },
     "done": true,
-    "started_at": "2026-04-15T23:30:36Z",
-    "completed_at": "2026-04-15T23:31:02Z"
+    "started_at": "2026-04-15T23:44:49Z",
+    "completed_at": "2026-04-15T23:46:44Z"
   },
   "evaluation": null,
   "error": null,
   "execution": null,
-  "generated_at": "2026-04-15T23:31:02Z"
+  "generated_at": "2026-04-15T23:46:44Z"
 }
