@@ -1,0 +1,26 @@
+{
+  "job_id": "job_de45162e55574121_allseq_01_git-perplexity",
+  "status": {
+    "job_id": "job_de45162e55574121_allseq_01_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-15T23:54:07Z",
+    "created_at": "2026-04-15T23:53:24Z"
+  },
+  "response": {
+    "job_id": "job_de45162e55574121_allseq_01_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "2+2 equals 4."
+    },
+    "done": true,
+    "started_at": "2026-04-15T23:53:24Z",
+    "completed_at": "2026-04-15T23:54:07Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-15T23:54:07Z"
+}
