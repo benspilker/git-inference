@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.9,
+"requires_local_execution": true,
+"reason": "User instructs to reply with exactly a specific string, which is a direct request for information or conversational response without implying any local action, scheduling, configuration, or deeper research."
+}
