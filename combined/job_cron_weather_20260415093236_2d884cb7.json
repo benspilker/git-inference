@@ -1,0 +1,26 @@
+{
+  "job_id": "job_cron_weather_20260415093236_2d884cb7",
+  "status": {
+    "job_id": "job_cron_weather_20260415093236_2d884cb7",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-15T13:34:11Z",
+    "created_at": "2026-04-15T13:33:24Z"
+  },
+  "response": {
+    "job_id": "job_cron_weather_20260415093236_2d884cb7",
+    "message": {
+      "role": "assistant",
+      "content": "Current weather in Indianapolis, IN: 65°F cloudy with a light breeze. There is a moderate rain risk later today and gusty winds possible.\n\nTelegram update (concise):\n\nIndianapolis, IN: 65°F, cloudy. Rain risk increasing this afternoon; wind gusts up to around 20-25 mph possible. Stay prepared for possible showers."
+    },
+    "done": true,
+    "started_at": "2026-04-15T13:33:23Z",
+    "completed_at": "2026-04-15T13:34:11Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-15T13:34:11Z"
+}
