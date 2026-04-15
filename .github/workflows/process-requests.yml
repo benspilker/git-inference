@@ -23,6 +23,7 @@ on:
           - "perplexity"
           - "grok"
           - "inceptionlabs"
+          - "qwen"
       upload_artifacts:
         description: "Upload diagnostics artifacts even on success"
         required: false
@@ -89,6 +90,8 @@ jobs:
             PLAYWRIGHT_RUNNER_FILE="grok_file_playwright_anonymous_ci.py"
           elif [[ "$PLAYWRIGHT_ENGINE" == "inceptionlabs" ]]; then
             PLAYWRIGHT_RUNNER_FILE="inceptionlabs_file_playwright_anonymous_ci.py"
+          elif [[ "$PLAYWRIGHT_ENGINE" == "qwen" ]]; then
+            PLAYWRIGHT_RUNNER_FILE="qwen_file_playwright_anonymous_ci.py"
           fi
           PLAYWRIGHT_RUNNER_FILE_OVERRIDE=""
           WEATHER_FALLBACK_SCRIPT="tools/weather_fallback_openmeteo.py"
@@ -213,6 +216,9 @@ jobs:
               git-inceptionlabs|*/git-inceptionlabs)
                 echo "inceptionlabs_file_playwright_anonymous_ci.py"
                 ;;
+              git-qwen|*/git-qwen)
+                echo "qwen_file_playwright_anonymous_ci.py"
+                ;;
               *)
                 echo "chatgpt_file_playwright_anonymous_ci.py"
                 ;;
@@ -230,6 +236,9 @@ jobs:
                 ;;
               inceptionlabs_file_playwright_anonymous_ci.py)
                 echo "inceptionlabs"
+                ;;
+              qwen_file_playwright_anonymous_ci.py)
+                echo "qwen"
                 ;;
               *)
                 echo "chatgpt"
@@ -1989,6 +1998,8 @@ jobs:
             grok_network.log
             inceptionlabs_playwright_error*
             inceptionlabs_network.log
+            qwen_playwright_error*
+            qwen_network.log
             tmp/*.out.txt
             errors/*.json
             status/*.json

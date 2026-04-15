@@ -49,6 +49,7 @@ Supported browser-backed model ids include:
 - `git-perplexity`
 - `git-grok`
 - `git-inceptionlabs`
+- `git-qwen`
 
 ## Response behavior
 

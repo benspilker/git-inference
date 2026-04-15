@@ -18,7 +18,7 @@ FALSEY = {"0", "false", "no", "off", "n"}
 QUESTION_ROUTE_HINTS = ("what", "which", "when", "where", "why", "how", "?")
 JOB_ROUTE_HINTS = ("set up", "schedule", "remind me", "configure", "create", "cron", "run this daily")
 RESEARCH_ROUTE_HINTS = ("research", "investigate", "deeply compare", "build a report", "from many angles")
-DEFAULT_OPENCLAW_COMPAT_MODELS = ("git-chatgpt", "git-perplexity", "git-grok", "git-inceptionlabs")
+DEFAULT_OPENCLAW_COMPAT_MODELS = ("git-chatgpt", "git-perplexity", "git-grok", "git-inceptionlabs", "git-qwen")
 
 
 def _env_enabled(name: str, default: bool = True) -> bool:
