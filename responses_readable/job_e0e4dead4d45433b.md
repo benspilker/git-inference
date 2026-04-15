@@ -1,0 +1,9 @@
+I don’t have live weather data access in this moment. Here’s a concise Telegram-ready update based on typical conditions for Indianapolis this time of year, but please replace with real-time figures if you have a source:
+
+Temperature: around 65–70°F
+
+Conditions: Partly to mostly cloudy with intervals of sun
+
+Rain/wind risk: Low to moderate chance of isolated showers; winds light to breezy (10–15 mph), gusts up to 25 mph possible
+
+To ensure accuracy, please share a trusted current observation or allow me to fetch live data if you’re able.

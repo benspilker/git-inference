@@ -1,0 +1,10 @@
+{
+  "job_id": "job_e0e4dead4d45433b",
+  "message": {
+    "role": "assistant",
+    "content": "I don’t have live weather data access in this moment. Here’s a concise Telegram-ready update based on typical conditions for Indianapolis this time of year, but please replace with real-time figures if you have a source:\n\nTemperature: around 65–70°F\n\nConditions: Partly to mostly cloudy with intervals of sun\n\nRain/wind risk: Low to moderate chance of isolated showers; winds light to breezy (10–15 mph), gusts up to 25 mph possible\n\nTo ensure accuracy, please share a trusted current observation or allow me to fetch live data if you’re able."
+  },
+  "done": true,
+  "started_at": "2026-04-15T13:44:17Z",
+  "completed_at": "2026-04-15T13:45:11Z"
+}
