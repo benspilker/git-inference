@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 
 from .diagnostics import save_failure_diagnostics
-from .perplexity_recovery import click_retry_if_visible, refresh_chat
+from .perplexity_recovery import click_retry_if_visible, ensure_perplexity_surface, refresh_chat
 from .perplexity_session import (
     assistant_turns,
     find_chat_composer,
@@ -28,6 +28,7 @@ def run_stage_once(
     refresh_before_retry: bool = False,
     stage_name: str = "generic",
     error_screenshot: Path | None = None,
+    home_url: str = "https://www.perplexity.ai/",
 ) -> tuple[str, dict]:
     metadata = {
         "attempt": 1,
@@ -72,9 +73,12 @@ def run_stage_once(
             pass
 
     def _single_attempt():
+        nonlocal page
+        page = ensure_perplexity_surface(page, timeout_ms=timeout_ms, home_url=home_url)
         composer = find_chat_composer(page, timeout_ms=timeout_ms)
         if composer is None:
-            raise RuntimeError("Could not find composer for stage execution.")
+            current_url = page.url or "unknown"
+            raise RuntimeError(f"Could not find composer for stage execution. current_url={current_url}")
         assistant_messages = assistant_turns(page)
         before_count = assistant_messages.count()
         before_last_text = ""
@@ -117,7 +121,7 @@ def run_stage_once(
         retried_with_click = click_retry_if_visible(page)
         metadata["retry_clicked"] = bool(retried_with_click)
         if refresh_before_retry or True:
-            refresh_chat(page, timeout_ms)
+            refresh_chat(page, timeout_ms, home_url=home_url)
             metadata["page_refreshed"] = True
         try:
             response = _single_attempt()

@@ -303,8 +303,9 @@ jobs:
 
               local extra_flags=()
               if (( attempt > 1 )); then
-                extra_flags+=(--refresh-before-send --start-new-chat)
-              else
+                extra_flags+=(--refresh-before-send)
+              fi
+              if [[ "${STAGE_START_NEW_CHAT:-false}" == "true" ]]; then
                 extra_flags+=(--start-new-chat)
               fi
 

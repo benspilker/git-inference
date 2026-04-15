@@ -8,11 +8,9 @@ import importlib
 import subprocess
 import sys
 from pathlib import Path
-from urllib.parse import urlparse
-
 from playwright_runner.chunk_orchestrator import run_chunk_plan
 from playwright_runner.diagnostics import enable_network_logging, save_failure_diagnostics
-from playwright_runner.perplexity_recovery import refresh_chat, start_new_chat_if_available
+from playwright_runner.perplexity_recovery import ensure_perplexity_surface, refresh_chat, start_new_chat_if_available
 from playwright_runner.perplexity_stage_runner import run_stage_once, write_stage_outputs
 from playwright_runner.prompt_contracts import build_prompt_text, extract_json_payload
 
@@ -63,13 +61,6 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def assert_perplexity_domain(page) -> None:
-    current_url = page.url or ""
-    host = (urlparse(current_url).netloc or "").lower()
-    if "perplexity.ai" not in host:
-        raise RuntimeError(f"Unexpected browser destination: {current_url} (expected host containing perplexity.ai)")
-
-
 def run() -> int:
     args = parse_args()
     playwright_sync_api = ensure_package("playwright.sync_api")
@@ -106,16 +97,16 @@ def run() -> int:
         try:
             enable_network_logging(page, network_log_file, enabled=args.network_log)
             page.goto(args.url, wait_until="domcontentloaded", timeout=args.timeout_ms)
-            assert_perplexity_domain(page)
+            page = ensure_perplexity_surface(page, timeout_ms=args.timeout_ms, home_url=args.url)
 
             if args.refresh_before_send:
-                refresh_chat(page, args.timeout_ms)
-                assert_perplexity_domain(page)
+                refresh_chat(page, args.timeout_ms, home_url=args.url)
+                page = ensure_perplexity_surface(page, timeout_ms=args.timeout_ms, home_url=args.url)
 
             started_new_chat = False
             if args.start_new_chat:
-                started_new_chat = start_new_chat_if_available(page, args.timeout_ms)
-                assert_perplexity_domain(page)
+                started_new_chat = start_new_chat_if_available(page, args.timeout_ms, home_url=args.url)
+                page = ensure_perplexity_surface(page, timeout_ms=args.timeout_ms, home_url=args.url)
 
             if args.chunk_mode != "none" and args.chunks > 1:
                 response_text = run_chunk_plan(
@@ -154,6 +145,7 @@ def run() -> int:
                     refresh_before_retry=args.refresh_before_retry,
                     stage_name=args.stage_name,
                     error_screenshot=error_screenshot,
+                    home_url=args.url,
                 )
                 run_metadata["page_refreshed"] = bool(run_metadata.get("page_refreshed")) or bool(args.refresh_before_send)
                 run_metadata["thread_reused"] = not started_new_chat
