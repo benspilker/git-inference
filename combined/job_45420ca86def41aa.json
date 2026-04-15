@@ -1,0 +1,26 @@
+{
+  "job_id": "job_45420ca86def41aa",
+  "status": {
+    "job_id": "job_45420ca86def41aa",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "system_command",
+    "current_stage": "complete",
+    "updated_at": "2026-04-15T21:20:56Z",
+    "created_at": "2026-04-15T21:20:35Z"
+  },
+  "response": {
+    "job_id": "job_45420ca86def41aa",
+    "message": {
+      "role": "assistant",
+      "content": "QWEN_TG_OK2"
+    },
+    "done": true,
+    "started_at": "2026-04-15T21:20:34Z",
+    "completed_at": "2026-04-15T21:20:56Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-15T21:20:56Z"
+}

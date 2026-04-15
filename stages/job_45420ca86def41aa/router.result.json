@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "The message provides system instructions and context but does not include a specific user request to classify or act upon. Deterministic system-test override applied for exact-reply probe."
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "general_question",
+"confidence": 0.63,
+"requires_local_execution": false,
+"reason": "The message provides system instructions and context but does not include a specific user request to classify or act upon."
+}
