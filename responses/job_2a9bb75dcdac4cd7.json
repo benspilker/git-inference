@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2a9bb75dcdac4cd7",
+  "message": {
+    "role": "assistant",
+    "content": "Current weather in Indianapolis, IN: Mostly cloudy, 73°F (23°C). Humidity about 65%, wind 5 mph from the SSW, visibility ~10 miles, pressure around 30.0 inches, and no precipitation."
+  },
+  "done": true,
+  "started_at": "2026-04-15T13:39:47Z",
+  "completed_at": "2026-04-15T13:40:33Z"
+}
