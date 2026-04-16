@@ -1,0 +1,9 @@
+{
+  "job_id": "job_e7052d4d78684924_allseq_03_git-grok",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "complete",
+  "updated_at": "2026-04-16T17:31:46Z",
+  "created_at": "2026-04-16T17:31:14Z"
+}
