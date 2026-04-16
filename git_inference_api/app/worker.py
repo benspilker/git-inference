@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import concurrent.futures
 import hashlib
 import json
 import logging
@@ -21,13 +22,17 @@ from .git_ops import (
     REPO_LOCK,
     ResultNotFoundError,
     commit_and_push_request,
+    commit_and_push_request_for,
     ensure_repo_ready,
     normalize_failure_payload,
     sync_repo_to_remote_head,
+    sync_repo_to_remote_head_for,
     try_read_result,
     wait_for_result,
+    wait_for_result_for,
     wait_for_stage_result,
     write_request_artifact,
+    write_request_artifact_for,
 )
 from .task_registry import canonicalize_task_type, get_task, validate_required_fields
 
@@ -49,6 +54,8 @@ class JobWorker:
         self._stop_event = threading.Event()
         self._virtual_turn_threads_lock = threading.Lock()
         self._virtual_turn_active_jobs: set[str] = set()
+        self._workspace_setup_lock = threading.Lock()
+        self._base_repo_origin_url: str | None = None
 
     def start(self) -> None:
         if self._thread and self._thread.is_alive():
@@ -56,6 +63,7 @@ class JobWorker:
         self._thread = threading.Thread(target=self._run_loop, name="job-worker-v2", daemon=True)
         self._thread.start()
         self._resume_allsequential_virtual_turns()
+        self._resume_allparallel_virtual_turns()
         logger.info("worker started")
 
     def stop(self) -> None:
@@ -82,6 +90,20 @@ class JobWorker:
             extra={"recovered_jobs": [str(job.get("job_id")) for job in jobs if job.get("job_id")]},
         )
 
+    def _resume_allparallel_virtual_turns(self) -> None:
+        jobs = db.list_allparallel_virtual_turns_in_progress_jobs(limit=100)
+        if not jobs:
+            return
+        for job in jobs:
+            job_id = str(job.get("job_id") or "").strip()
+            if not job_id:
+                continue
+            self._spawn_allparallel_virtual_turns_background(job_id)
+        logger.info(
+            "queued allparallel virtual-turn recovery",
+            extra={"recovered_jobs": [str(job.get("job_id")) for job in jobs if job.get("job_id")]},
+        )
+
     def _spawn_allsequential_virtual_turns_background(self, job_id: str) -> None:
         with self._virtual_turn_threads_lock:
             if job_id in self._virtual_turn_active_jobs:
@@ -97,6 +119,24 @@ class JobWorker:
         bg_thread.start()
         logger.info(
             "allsequential virtual turns background worker spawned",
+            extra={"job_id": job_id, "thread_name": bg_thread.name},
+        )
+
+    def _spawn_allparallel_virtual_turns_background(self, job_id: str) -> None:
+        with self._virtual_turn_threads_lock:
+            if job_id in self._virtual_turn_active_jobs:
+                return
+            self._virtual_turn_active_jobs.add(job_id)
+
+        bg_thread = threading.Thread(
+            target=self._run_allparallel_virtual_turns_background,
+            name=f"allpar-vturn-{job_id[:8]}",
+            daemon=True,
+            args=(job_id,),
+        )
+        bg_thread.start()
+        logger.info(
+            "allparallel virtual turns background worker spawned",
             extra={"job_id": job_id, "thread_name": bg_thread.name},
         )
 
@@ -128,6 +168,10 @@ class JobWorker:
         request_model = self._extract_request_model(job)
 
         try:
+            if self._is_allparallel_model(request_model):
+                self._process_job_allparallel(job, intent_type=intent_type, task_type=task_type)
+                return
+
             if self._is_allsequential_model(request_model):
                 self._process_job_allsequential(job, intent_type=intent_type, task_type=task_type)
                 return
@@ -345,6 +389,15 @@ class JobWorker:
             return True
         return normalized.split("/")[-1] == "git-allsequential"
 
+    @staticmethod
+    def _is_allparallel_model(model_name: str) -> bool:
+        normalized = str(model_name or "").strip().lower()
+        if not normalized:
+            return False
+        if normalized == "git-parallel":
+            return True
+        return normalized.split("/")[-1] == "git-parallel"
+
     def _resolve_allsequential_targets(self) -> list[str]:
         targets: list[str] = []
         for model_name in settings.all_sequential_models():
@@ -352,6 +405,22 @@ class JobWorker:
             if not normalized:
                 continue
             if self._is_allsequential_model(normalized):
+                continue
+            if self._is_allparallel_model(normalized):
+                continue
+            if normalized not in targets:
+                targets.append(normalized)
+        return targets
+
+    def _resolve_allparallel_targets(self) -> list[str]:
+        targets: list[str] = []
+        for model_name in settings.all_parallel_models():
+            normalized = str(model_name or "").strip()
+            if not normalized:
+                continue
+            if self._is_allsequential_model(normalized):
+                continue
+            if self._is_allparallel_model(normalized):
                 continue
             if normalized not in targets:
                 targets.append(normalized)
@@ -441,10 +510,123 @@ class JobWorker:
         child_payload["allsequential_total"] = total
         return child_payload
 
+    def _build_allparallel_child_payload(
+        self,
+        parent_payload: dict[str, Any],
+        *,
+        target_model: str,
+        parent_job_id: str,
+        index: int,
+        total: int,
+    ) -> dict[str, Any]:
+        parent_routing = parent_payload.get("routing_metadata") if isinstance(parent_payload, dict) else None
+        parent_intent = str(parent_routing.get("intent_type") or "").strip() if isinstance(parent_routing, dict) else ""
+        parent_task = str(parent_routing.get("task_type") or "").strip() if isinstance(parent_routing, dict) else ""
+
+        child_payload = self._coerce_routing_metadata(
+            parent_payload,
+            default_intent_type=parent_intent or "question",
+            default_task_type=parent_task or settings.default_question_task_type,
+            requires_local_execution=False,
+            default_route_state="received",
+        )
+        child_routing = child_payload.get("routing_metadata")
+        if isinstance(child_routing, dict):
+            child_routing["route_state"] = "received"
+        child_payload["model"] = target_model
+        child_payload["allparallel_parent_job_id"] = parent_job_id
+        child_payload["allparallel_index"] = index
+        child_payload["allparallel_total"] = total
+        return child_payload
+
     @staticmethod
     def _sanitize_model_tail(model_name: str) -> str:
         tail = str(model_name or "").strip().split("/")[-1]
         return re.sub(r"[^a-zA-Z0-9_-]+", "-", tail)[:40] or "model"
+
+    @staticmethod
+    def _sanitize_branch_token(branch_name: str) -> str:
+        token = re.sub(r"[^a-zA-Z0-9._-]+", "-", str(branch_name or "").strip())
+        token = token.strip(".-")
+        return token[:80] or "branch"
+
+    def _resolve_branch_for_model(self, model_name: str) -> str:
+        tail = str(model_name or "").strip().split("/")[-1]
+        if not tail:
+            return settings.branch
+        normalized = tail.lower()
+        if normalized in {"git-allsequential", "git-parallel"}:
+            return settings.branch
+        return tail
+
+    def _resolve_origin_url(self) -> str:
+        if self._base_repo_origin_url:
+            return self._base_repo_origin_url
+        result = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            cwd=settings.repo_path,
+            text=True,
+            capture_output=True,
+        )
+        if result.returncode != 0:
+            detail = (result.stderr or result.stdout).strip() or "unknown git error"
+            raise GitError(f"Unable to resolve origin URL from {settings.repo_path}: {detail}")
+        url = str(result.stdout or "").strip()
+        if not url:
+            raise GitError(f"Origin URL is empty in {settings.repo_path}")
+        self._base_repo_origin_url = url
+        return url
+
+    def _resolve_repo_context_for_model(self, model_name: str) -> tuple[Path, str, Any]:
+        branch_name = self._resolve_branch_for_model(model_name)
+        if branch_name == settings.branch:
+            return settings.repo_path, settings.branch, REPO_LOCK
+
+        branch_token = self._sanitize_branch_token(branch_name)
+        repo_path = settings.repo_path.parent / f"{settings.repo_path.name}__{branch_token}"
+        lock_path = settings.repo_lock_path.parent / f"{settings.repo_lock_path.name}.{branch_token}"
+        repo_lock = REPO_LOCK if repo_path == settings.repo_path else type(REPO_LOCK)(lock_path)
+
+        with self._workspace_setup_lock:
+            if not (repo_path / ".git").is_dir():
+                origin_url = self._resolve_origin_url()
+                clone = subprocess.run(
+                    ["git", "clone", "--branch", branch_name, "--single-branch", origin_url, str(repo_path)],
+                    text=True,
+                    capture_output=True,
+                )
+                if clone.returncode != 0:
+                    detail = (clone.stderr or clone.stdout).strip() or "unknown git clone error"
+                    logger.warning(
+                        "falling back to default branch workspace",
+                        extra={"model": model_name, "requested_branch": branch_name, "error": detail},
+                    )
+                    return settings.repo_path, settings.branch, REPO_LOCK
+
+            subprocess.run(
+                ["git", "config", "user.name", settings.git_author_name],
+                cwd=repo_path,
+                text=True,
+                capture_output=True,
+            )
+            subprocess.run(
+                ["git", "config", "user.email", settings.git_author_email],
+                cwd=repo_path,
+                text=True,
+                capture_output=True,
+            )
+            for rel in (
+                settings.requests_dir,
+                settings.responses_dir,
+                settings.errors_dir,
+                settings.combined_dir,
+                settings.status_dir,
+                settings.stages_dir,
+                settings.execution_dir,
+            ):
+                (repo_path / rel).mkdir(parents=True, exist_ok=True)
+
+        return repo_path, branch_name, repo_lock
 
     @staticmethod
     def _compact_for_telegram_chunking(text: str) -> str:
@@ -489,14 +671,117 @@ class JobWorker:
 
         return chunks or [raw]
 
-    def _run_one_shot_request(self, job_id: str, request_payload: dict[str, Any]) -> dict[str, Any]:
-        with REPO_LOCK:
-            sync_repo_to_remote_head()
-            request_path = write_request_artifact(job_id, request_payload)
-            commit_and_push_request(job_id, request_path)
+    def _run_one_shot_request(
+        self,
+        job_id: str,
+        request_payload: dict[str, Any],
+        *,
+        target_model: str | None = None,
+    ) -> dict[str, Any]:
+        model_name = str(target_model or request_payload.get("model") or "").strip()
+        repo_path, repo_branch, repo_lock = self._resolve_repo_context_for_model(model_name)
 
-        result = wait_for_result(job_id, timeout_seconds=settings.job_timeout_seconds)
+        with repo_lock:
+            sync_repo_to_remote_head_for(repo_path, repo_branch)
+            request_path = write_request_artifact_for(job_id, request_payload, repo_path)
+            commit_and_push_request_for(job_id, request_path, repo_path, repo_branch)
+
+        result = wait_for_result_for(
+            job_id,
+            timeout_seconds=settings.job_timeout_seconds,
+            repo_path=repo_path,
+            branch=repo_branch,
+            repo_lock=repo_lock,
+        )
         return self._apply_runtime_handoff_if_configured(job_id=job_id, result=result)
+
+    def _execute_fanout_child(
+        self,
+        *,
+        parent_job_id: str,
+        child_job_id: str,
+        target_model: str,
+        index: int,
+        child_payload: dict[str, Any],
+        fanout_kind: str,
+    ) -> dict[str, Any]:
+        child_routing = child_payload.get("routing_metadata") if isinstance(child_payload.get("routing_metadata"), dict) else {}
+        try:
+            raw_result = self._run_one_shot_request(
+                child_job_id,
+                child_payload,
+                target_model=target_model,
+            )
+            normalized_result = self._normalize_response_payload(
+                raw_result,
+                router_result={
+                    "intent_type": child_routing.get("intent_type"),
+                    "task_type": child_routing.get("task_type"),
+                },
+            )
+            content = self._extract_assistant_text(normalized_result)
+            if not content:
+                content = self._extract_assistant_text(raw_result)
+            if not content:
+                content = "(completed without response text)"
+            return {
+                "index": index,
+                "model": target_model,
+                "job_id": child_job_id,
+                "status": "completed",
+                "content": content,
+            }
+        except Exception as exc:
+            logger.warning(
+                f"{fanout_kind} child failed",
+                extra={"parent_job_id": parent_job_id, "child_job_id": child_job_id, "model": target_model, "error": str(exc)},
+            )
+            return {
+                "index": index,
+                "model": target_model,
+                "job_id": child_job_id,
+                "status": "failed",
+                "error": str(exc),
+            }
+
+    @staticmethod
+    def _extract_assistant_text(raw: Any) -> str:
+        if raw is None:
+            return ""
+        if isinstance(raw, str):
+            return raw.strip()
+        if isinstance(raw, (int, float, bool)):
+            return str(raw)
+        if isinstance(raw, list):
+            parts = [JobWorker._extract_assistant_text(item) for item in raw]
+            joined = "\n".join(part for part in parts if part)
+            return joined.strip()
+        if not isinstance(raw, dict):
+            return ""
+
+        message = raw.get("message")
+        if isinstance(message, dict):
+            content = JobWorker._extract_assistant_text(message.get("content"))
+            if content:
+                return content
+        elif isinstance(message, str):
+            content = message.strip()
+            if content:
+                return content
+
+        for key in ("response", "content", "text"):
+            if key in raw:
+                content = JobWorker._extract_assistant_text(raw.get(key))
+                if content:
+                    return content
+
+        nested = raw.get("data")
+        if isinstance(nested, dict):
+            content = JobWorker._extract_assistant_text(nested)
+            if content:
+                return content
+
+        return ""
 
     def _process_job_allsequential(
         self,
@@ -573,48 +858,17 @@ class JobWorker:
                 index=idx,
                 total=len(targets),
             )
-            child_routing = child_payload.get("routing_metadata") if isinstance(child_payload.get("routing_metadata"), dict) else {}
-
-            try:
-                raw_result = self._run_one_shot_request(child_job_id, child_payload)
-                normalized_result = self._normalize_response_payload(
-                    raw_result,
-                    router_result={
-                        "intent_type": child_routing.get("intent_type"),
-                        "task_type": child_routing.get("task_type"),
-                    },
-                )
-                message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
-                content = ""
-                if isinstance(message, dict):
-                    content = str(message.get("content") or "").strip()
-                if not content:
-                    content = str(raw_result or "").strip()
-
-                aggregated_results.append(
-                    {
-                        "index": idx,
-                        "model": target_model,
-                        "job_id": child_job_id,
-                        "status": "completed",
-                        "content": content,
-                    }
-                )
+            item = self._execute_fanout_child(
+                parent_job_id=job_id,
+                child_job_id=child_job_id,
+                target_model=target_model,
+                index=idx,
+                child_payload=child_payload,
+                fanout_kind="allsequential",
+            )
+            aggregated_results.append(item)
+            if str(item.get("status") or "").strip().lower() == "completed":
                 success_count += 1
-            except Exception as exc:
-                aggregated_results.append(
-                    {
-                        "index": idx,
-                        "model": target_model,
-                        "job_id": child_job_id,
-                        "status": "failed",
-                        "error": str(exc),
-                    }
-                )
-                logger.warning(
-                    "allsequential child failed",
-                    extra={"parent_job_id": job_id, "child_job_id": child_job_id, "model": target_model, "error": str(exc)},
-                )
 
         if success_count <= 0:
             self._update_status(job_id, "failed", intent_type="question", task_type="allsequential")
@@ -658,6 +912,419 @@ class JobWorker:
             "allsequential workflow completed",
             extra={"job_id": job_id, "status": "completed", "success_count": success_count, "total": len(aggregated_results)},
         )
+
+    def _process_job_allparallel(
+        self,
+        job: dict[str, Any],
+        intent_type: str | None = None,
+        task_type: str | None = None,
+    ) -> None:
+        """
+        Fan out one API request to multiple configured models and run them in parallel.
+        """
+        job_id = job["job_id"]
+        request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+        requested_intent = str(intent_type or "").strip().lower()
+        requested_task = str(task_type or "").strip().lower()
+
+        if requested_intent == "job" or requested_task in {"scheduled_weather_report", "reminder"}:
+            self._update_status(job_id, "failed", intent_type="job", task_type=task_type or "allparallel")
+            db.mark_failed(
+                job_id,
+                {
+                    "code": "ALLPARALLEL_UNSUPPORTED_TASK",
+                    "message": "git-parallel is for question-style prompts and is not enabled for job execution.",
+                },
+                status="failed",
+            )
+            return
+
+        targets = self._resolve_allparallel_targets()
+        if not targets:
+            self._update_status(job_id, "failed", intent_type="question", task_type="allparallel")
+            db.mark_failed(
+                job_id,
+                {
+                    "code": "ALLPARALLEL_NO_TARGETS",
+                    "message": "No target models configured for git-parallel.",
+                },
+                status="failed",
+            )
+            return
+
+        self._update_status(job_id, "routing", intent_type="question", task_type="allparallel")
+        base_prompt = str(
+            request_payload.get("user_prompt")
+            or request_payload.get("prompt")
+            or ""
+        ).strip()
+
+        if self._allparallel_virtual_turns_enabled():
+            self._process_job_allparallel_virtual_turns(
+                job_id=job_id,
+                request_payload=request_payload,
+                targets=targets,
+                base_prompt=base_prompt,
+            )
+            return
+
+        self._update_status(job_id, "executing", intent_type="question", task_type="allparallel")
+        aggregated_results: list[dict[str, Any]] = []
+        max_workers = max(1, min(len(targets), 8))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures: list[concurrent.futures.Future[dict[str, Any]]] = []
+            for idx, target_model in enumerate(targets, start=1):
+                child_job_id = f"{job_id}_allpar_{idx:02d}_{self._sanitize_model_tail(target_model)}"
+                child_payload = self._build_allparallel_child_payload(
+                    request_payload,
+                    target_model=target_model,
+                    parent_job_id=job_id,
+                    index=idx,
+                    total=len(targets),
+                )
+                futures.append(
+                    executor.submit(
+                        self._execute_fanout_child,
+                        parent_job_id=job_id,
+                        child_job_id=child_job_id,
+                        target_model=target_model,
+                        index=idx,
+                        child_payload=child_payload,
+                        fanout_kind="allparallel",
+                    )
+                )
+            for future in concurrent.futures.as_completed(futures):
+                aggregated_results.append(future.result())
+
+        ordered_results = sorted(
+            aggregated_results,
+            key=lambda item: int(item.get("index") or 0),
+        )
+        success_count = sum(1 for item in ordered_results if str(item.get("status") or "").strip().lower() == "completed")
+        if success_count <= 0:
+            self._update_status(job_id, "failed", intent_type="question", task_type="allparallel")
+            db.mark_failed(
+                job_id,
+                {
+                    "code": "ALLPARALLEL_ALL_FAILED",
+                    "message": "All models failed in git-parallel.",
+                    "details": {"results": ordered_results},
+                },
+                status="failed",
+            )
+            return
+
+        source_messages = self._build_allsequential_source_messages(ordered_results)
+        combined_content = self._format_allsequential_response(
+            base_prompt=base_prompt,
+            results=ordered_results,
+            source_messages=source_messages,
+        )
+        execution_meta = {
+            "mode": "allparallel",
+            "targets": targets,
+            "results": ordered_results,
+            "source_messages": source_messages,
+            "success_count": success_count,
+            "failure_count": len(ordered_results) - success_count,
+        }
+        final_payload = {
+            "message": {"role": "assistant", "content": combined_content},
+            "intent_type": "question",
+            "task_type": "allparallel",
+            "current_stage": "completed",
+            "execution": execution_meta,
+            "stages": {"allparallel": "complete"},
+            "source_messages": source_messages,
+            "done": True,
+        }
+        db.mark_completed(job_id, final_payload, execution_json=execution_meta, stages_json={"allparallel": "complete"})
+        logger.info(
+            "allparallel workflow completed",
+            extra={"job_id": job_id, "status": "completed", "success_count": success_count, "total": len(ordered_results)},
+        )
+
+    def _allparallel_virtual_turns_enabled(self) -> bool:
+        return bool(settings.allparallel_virtual_turns_enabled)
+
+    def _process_job_allparallel_virtual_turns(
+        self,
+        job_id: str,
+        request_payload: dict[str, Any],
+        targets: list[str],
+        base_prompt: str,
+    ) -> None:
+        send_followups = self._allsequential_followup_delivery_enabled()
+        kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
+        kickoff_execution = self._build_allparallel_virtual_turns_execution(
+            request_payload=request_payload,
+            targets=targets,
+            aggregated_results=[],
+            delivery_errors=[],
+            stage="virtual_turns_in_progress",
+            kickoff_content=kickoff_content,
+            base_prompt=base_prompt,
+        )
+        self._persist_allparallel_virtual_turns_state(job_id=job_id, execution_meta=kickoff_execution)
+        logger.info(
+            "allparallel virtual turns started",
+            extra={"job_id": job_id, "status": "completed", "total": len(targets)},
+        )
+        self._spawn_allparallel_virtual_turns_background(job_id)
+
+    def _build_allparallel_virtual_turns_execution(
+        self,
+        *,
+        request_payload: dict[str, Any],
+        targets: list[str],
+        aggregated_results: list[dict[str, Any]],
+        delivery_errors: list[dict[str, Any]],
+        stage: str,
+        kickoff_content: str,
+        base_prompt: str,
+        error: str | None = None,
+    ) -> dict[str, Any]:
+        ordered_results = sorted(
+            aggregated_results,
+            key=lambda item: int(item.get("index") or 0),
+        )
+        source_messages = self._build_allsequential_source_messages(ordered_results)
+        success_count = sum(1 for item in ordered_results if str(item.get("status") or "").strip().lower() == "completed")
+        completed_indexes = [
+            int(item.get("index") or 0)
+            for item in ordered_results
+            if int(item.get("index") or 0) > 0
+        ]
+        execution_meta: dict[str, Any] = {
+            "mode": "allparallel_virtual_turns",
+            "request_payload": request_payload,
+            "base_prompt": base_prompt,
+            "kickoff_content": kickoff_content,
+            "targets": targets,
+            "results": ordered_results,
+            "source_messages": source_messages,
+            "success_count": success_count,
+            "failure_count": len(ordered_results) - success_count,
+            "delivery_errors": delivery_errors,
+            "completed_indexes": completed_indexes,
+            "stage": stage,
+        }
+        if error:
+            execution_meta["error"] = str(error)
+        if stage == "virtual_turns_complete":
+            execution_meta["allparallel_summary"] = self._format_allsequential_response(
+                base_prompt=base_prompt,
+                results=ordered_results,
+                source_messages=source_messages,
+            )
+        return execution_meta
+
+    def _persist_allparallel_virtual_turns_state(self, *, job_id: str, execution_meta: dict[str, Any]) -> None:
+        stage = str(execution_meta.get("stage") or "virtual_turns_in_progress").strip().lower()
+        kickoff_content = str(execution_meta.get("kickoff_content") or "").strip()
+        if not kickoff_content:
+            target_count = len(execution_meta.get("targets") or [])
+            kickoff_content = self._build_virtual_turns_kickoff_content(
+                target_count,
+                self._allsequential_followup_delivery_enabled(),
+            )
+        payload: dict[str, Any] = {
+            "message": {"role": "assistant", "content": kickoff_content},
+            "intent_type": "question",
+            "task_type": "allparallel",
+            "current_stage": stage,
+            "execution": execution_meta,
+            "stages": {"allparallel": stage},
+            "source_messages": execution_meta.get("source_messages") or [],
+            "done": True,
+        }
+        if stage == "virtual_turns_complete":
+            payload["allparallel_summary"] = execution_meta.get("allparallel_summary")
+            payload["current_stage"] = "completed"
+        elif stage == "virtual_turns_error":
+            payload["current_stage"] = "completed"
+        db.mark_completed(
+            job_id,
+            payload,
+            execution_json=execution_meta,
+            stages_json={"allparallel": stage},
+        )
+
+    def _run_allparallel_virtual_turns_background(
+        self,
+        job_id: str,
+    ) -> None:
+        request_payload: dict[str, Any] = {}
+        targets: list[str] = []
+        base_prompt = ""
+        kickoff_content = ""
+        aggregated_results: list[dict[str, Any]] = []
+        delivery_errors: list[dict[str, Any]] = []
+        try:
+            ensure_repo_ready()
+            job = db.get_job(job_id) or {}
+            request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            response_json = job.get("response_json") if isinstance(job.get("response_json"), dict) else {}
+            execution = response_json.get("execution") if isinstance(response_json.get("execution"), dict) else None
+            if not isinstance(execution, dict):
+                execution = job.get("execution_json") if isinstance(job.get("execution_json"), dict) else None
+            if not isinstance(execution, dict):
+                logger.warning("missing virtual-turn state, skipping allparallel background run", extra={"job_id": job_id})
+                return
+
+            mode = str(execution.get("mode") or "").strip().lower()
+            stage = str(execution.get("stage") or "").strip().lower()
+            if mode != "allparallel_virtual_turns" or stage != "virtual_turns_in_progress":
+                return
+
+            targets = [str(item).strip() for item in execution.get("targets") or [] if str(item).strip()]
+            if not targets:
+                logger.warning("allparallel virtual-turn state has no targets", extra={"job_id": job_id})
+                return
+            send_followups = self._allsequential_followup_delivery_enabled()
+            if not send_followups:
+                logger.info(
+                    "allparallel virtual follow-up delivery disabled; progress is available via api job state",
+                    extra={"job_id": job_id},
+                )
+
+            request_from_state = execution.get("request_payload")
+            if isinstance(request_from_state, dict):
+                request_payload = dict(request_from_state)
+            base_prompt = str(
+                execution.get("base_prompt")
+                or request_payload.get("user_prompt")
+                or request_payload.get("prompt")
+                or ""
+            ).strip()
+            kickoff_content = str(execution.get("kickoff_content") or "").strip()
+            if not kickoff_content:
+                kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
+
+            aggregated_results = self._coerce_list_of_dicts(execution.get("results"))
+            delivery_errors = self._coerce_list_of_dicts(execution.get("delivery_errors"))
+            completed_indexes = {
+                int(item.get("index") or 0)
+                for item in aggregated_results
+                if int(item.get("index") or 0) > 0
+            }
+            pending: list[tuple[int, str]] = [
+                (idx, target_model)
+                for idx, target_model in enumerate(targets, start=1)
+                if idx not in completed_indexes
+            ]
+            if self._stop_event.is_set():
+                return
+            if pending:
+                max_workers = max(1, min(len(pending), 8))
+                with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+                    futures: dict[concurrent.futures.Future[dict[str, Any]], tuple[int, str]] = {}
+                    for idx, target_model in pending:
+                        child_job_id = f"{job_id}_allpar_{idx:02d}_{self._sanitize_model_tail(target_model)}"
+                        child_payload = self._build_allparallel_child_payload(
+                            request_payload,
+                            target_model=target_model,
+                            parent_job_id=job_id,
+                            index=idx,
+                            total=len(targets),
+                        )
+                        future = executor.submit(
+                            self._execute_fanout_child,
+                            parent_job_id=job_id,
+                            child_job_id=child_job_id,
+                            target_model=target_model,
+                            index=idx,
+                            child_payload=child_payload,
+                            fanout_kind="allparallel",
+                        )
+                        futures[future] = (idx, target_model)
+
+                    for future in concurrent.futures.as_completed(futures):
+                        item = future.result()
+                        idx = int(item.get("index") or 0)
+                        aggregated_results = [existing for existing in aggregated_results if int(existing.get("index") or 0) != idx]
+                        aggregated_results.append(item)
+
+                        item_status = str(item.get("status") or "").strip().lower()
+                        should_send_item = item_status == "completed" or settings.allparallel_virtual_turns_send_failures
+                        if send_followups and should_send_item:
+                            source_messages = self._build_allsequential_source_messages(
+                                [item],
+                                total_override=len(targets),
+                            )
+                            for source_msg in source_messages:
+                                ok, err = self._send_openclaw_channel_message(str(source_msg.get("text") or ""))
+                                if not ok:
+                                    delivery_errors.append(
+                                        {
+                                            "index": item.get("index"),
+                                            "model": item.get("model"),
+                                            "part_index": source_msg.get("part_index"),
+                                            "part_total": source_msg.get("part_total"),
+                                            "error": err or "unknown delivery error",
+                                        }
+                                    )
+                                    logger.warning(
+                                        "allparallel virtual delivery failed",
+                                        extra={
+                                            "job_id": job_id,
+                                            "model": item.get("model"),
+                                            "index": item.get("index"),
+                                            "error": err or "unknown delivery error",
+                                        },
+                                    )
+
+                        checkpoint_execution = self._build_allparallel_virtual_turns_execution(
+                            request_payload=request_payload,
+                            targets=targets,
+                            aggregated_results=aggregated_results,
+                            delivery_errors=delivery_errors,
+                            stage="virtual_turns_in_progress",
+                            kickoff_content=kickoff_content,
+                            base_prompt=base_prompt,
+                        )
+                        self._persist_allparallel_virtual_turns_state(job_id=job_id, execution_meta=checkpoint_execution)
+        except Exception as exc:
+            logger.exception(
+                "allparallel virtual background run failed",
+                extra={"job_id": job_id, "error": str(exc)},
+            )
+            error_execution = self._build_allparallel_virtual_turns_execution(
+                request_payload=request_payload if isinstance(request_payload, dict) else {},
+                targets=targets if isinstance(targets, list) else [],
+                aggregated_results=aggregated_results if isinstance(aggregated_results, list) else [],
+                delivery_errors=delivery_errors if isinstance(delivery_errors, list) else [],
+                stage="virtual_turns_error",
+                kickoff_content=kickoff_content if isinstance(kickoff_content, str) else "",
+                base_prompt=base_prompt if isinstance(base_prompt, str) else "",
+                error=str(exc),
+            )
+            self._persist_allparallel_virtual_turns_state(job_id=job_id, execution_meta=error_execution)
+        else:
+            if not self._stop_event.is_set():
+                final_execution = self._build_allparallel_virtual_turns_execution(
+                    request_payload=request_payload,
+                    targets=targets,
+                    aggregated_results=aggregated_results,
+                    delivery_errors=delivery_errors,
+                    stage="virtual_turns_complete",
+                    kickoff_content=kickoff_content,
+                    base_prompt=base_prompt,
+                )
+                self._persist_allparallel_virtual_turns_state(job_id=job_id, execution_meta=final_execution)
+                logger.info(
+                    "allparallel virtual turns completed",
+                    extra={
+                        "job_id": job_id,
+                        "status": "completed",
+                        "success_count": final_execution.get("success_count"),
+                        "total": len(aggregated_results),
+                        "delivery_failures": len(delivery_errors),
+                    },
+                )
+        finally:
+            with self._virtual_turn_threads_lock:
+                self._virtual_turn_active_jobs.discard(job_id)
 
     def _allsequential_virtual_turns_enabled(self) -> bool:
         return bool(settings.allsequential_virtual_turns_enabled)
@@ -866,12 +1533,11 @@ class JobWorker:
                             "task_type": child_routing.get("task_type"),
                         },
                     )
-                    message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
-                    content = ""
-                    if isinstance(message, dict):
-                        content = str(message.get("content") or "").strip()
+                    content = self._extract_assistant_text(normalized_result)
                     if not content:
-                        content = str(raw_result or "").strip()
+                        content = self._extract_assistant_text(raw_result)
+                    if not content:
+                        content = "(completed without response text)"
 
                     item = {
                         "index": idx,

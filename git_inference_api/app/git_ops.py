@@ -297,6 +297,222 @@ def commit_and_push_stage_request(job_id: str, stage_name: str, stage_path: Path
     commit_and_push_paths(job_id, [stage_path], f"submit {stage_name} stage for {job_id}")
 
 
+def _run_git_in_repo(
+    repo_path: Path,
+    *args: str,
+    check: bool = True,
+    retryable: bool = True,
+) -> subprocess.CompletedProcess[str]:
+    last_result: subprocess.CompletedProcess[str] | None = None
+    max_attempts = settings.git_max_retries if retryable else 1
+
+    for attempt in range(1, max_attempts + 1):
+        cmd = ["git", *args]
+        result = subprocess.run(
+            cmd,
+            cwd=repo_path,
+            text=True,
+            capture_output=True,
+            env={
+                **dict(os.environ),
+                "GIT_AUTHOR_NAME": settings.git_author_name,
+                "GIT_AUTHOR_EMAIL": settings.git_author_email,
+                "GIT_COMMITTER_NAME": settings.git_author_name,
+                "GIT_COMMITTER_EMAIL": settings.git_author_email,
+            },
+        )
+        last_result = result
+        if result.returncode == 0:
+            return result
+        if not check and attempt == max_attempts:
+            return result
+        if attempt < max_attempts:
+            time.sleep(settings.git_retry_delay_seconds * attempt)
+            continue
+
+        message = result.stderr.strip() or result.stdout.strip() or "unknown git error"
+        raise GitError(f"git {' '.join(args)} failed after {max_attempts} attempts in {repo_path}: {message}")
+
+    assert last_result is not None
+    return last_result
+
+
+def sync_repo_to_remote_head_for(repo_path: Path, branch: str) -> None:
+    repo = Path(repo_path)
+    branch_name = str(branch or settings.branch).strip() or settings.branch
+    _run_git_in_repo(repo, "fetch", "origin", branch_name)
+    _run_git_in_repo(repo, "checkout", "-B", branch_name, f"origin/{branch_name}", retryable=False)
+    _run_git_in_repo(repo, "reset", "--hard", f"origin/{branch_name}")
+    _run_git_in_repo(repo, "clean", "-fd")
+
+
+def write_request_artifact_for(job_id: str, request_json: dict[str, Any], repo_path: Path) -> Path:
+    repo = Path(repo_path)
+    request_path = repo / settings.requests_dir / f"{job_id}.json"
+    request_path.parent.mkdir(parents=True, exist_ok=True)
+
+    payload = {
+        "job_id": job_id,
+        "created_at": utcnow_iso(),
+        "type": str(request_json.get("request_type", "chat")),
+        "system_prompt": _extract_system_prompt(request_json),
+        "user_prompt": _extract_user_prompt(request_json),
+        "request": request_json,
+        "routing_metadata": request_json.get("routing_metadata"),
+        "transport": request_json.get("transport"),
+    }
+    request_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    logger.info("wrote request artifact", extra={"job_id": job_id, "path": str(request_path), "branch": "custom"})
+    return request_path
+
+
+def commit_and_push_request_for(job_id: str, request_path: Path, repo_path: Path, branch: str) -> None:
+    repo = Path(repo_path)
+    branch_name = str(branch or settings.branch).strip() or settings.branch
+    rel = str(Path(request_path).relative_to(repo))
+    _run_git_in_repo(repo, "add", rel)
+    commit_result = _run_git_in_repo(repo, "commit", "-m", f"submit inference job {job_id}", check=False, retryable=False)
+    combined = (commit_result.stdout + commit_result.stderr).lower()
+    if commit_result.returncode != 0 and "nothing to commit" not in combined:
+        raise GitError(commit_result.stderr.strip() or commit_result.stdout.strip())
+    _run_git_in_repo(repo, "push", "origin", f"HEAD:{branch_name}")
+    logger.info("pushed commit", extra={"job_id": job_id, "path": rel, "branch": branch_name, "repo_path": str(repo)})
+
+
+def _try_read_stage_result_in(repo_path: Path, job_id: str, stage_name: str) -> dict[str, Any] | None:
+    repo = Path(repo_path)
+    candidates = [
+        repo / "stages" / job_id / f"{stage_name}.result.json",
+        repo / "stages" / job_id / f"{stage_name}.json",
+    ]
+    for path in candidates:
+        if path.exists():
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            logger.info("stage result artifact found", extra={"job_id": job_id, "stage": stage_name, "path": str(path)})
+            return payload
+    txt_path = repo / "stages" / job_id / f"{stage_name}.txt"
+    if txt_path.exists():
+        raw = txt_path.read_text(encoding="utf-8")
+        payload = {"response": raw}
+        logger.info(
+            "stage text artifact found; wrapped as response",
+            extra={"job_id": job_id, "stage": stage_name, "path": str(txt_path)},
+        )
+        return payload
+    return None
+
+
+def _try_read_success_in(repo_path: Path, job_id: str) -> dict[str, Any] | None:
+    repo = Path(repo_path)
+    response_path = repo / settings.responses_dir / f"{job_id}.json"
+    status_path = repo / settings.status_dir / f"{job_id}.json"
+    combined_path = repo / settings.combined_dir / f"{job_id}.json"
+
+    if response_path.exists():
+        logger.info("result artifact found", extra={"job_id": job_id, "path": str(response_path)})
+        return json.loads(response_path.read_text(encoding="utf-8"))
+
+    if combined_path.exists():
+        payload = json.loads(combined_path.read_text(encoding="utf-8"))
+        if isinstance(payload, dict):
+            nested_response = payload.get("response")
+            if isinstance(nested_response, dict):
+                logger.info("combined response artifact found", extra={"job_id": job_id, "path": str(combined_path)})
+                return nested_response
+            if isinstance(nested_response, str) and nested_response.strip():
+                logger.info("combined string response artifact found", extra={"job_id": job_id, "path": str(combined_path)})
+                return {"message": {"role": "assistant", "content": nested_response}, "done": True}
+
+    if status_path.exists():
+        payload = json.loads(status_path.read_text(encoding="utf-8"))
+        if is_success_status_payload(payload):
+            logger.info("success status artifact found", extra={"job_id": job_id, "path": str(status_path)})
+            return payload
+
+    return None
+
+
+def _try_read_clarification_in(repo_path: Path, job_id: str) -> dict[str, Any] | None:
+    repo = Path(repo_path)
+    status_path = repo / settings.status_dir / f"{job_id}.json"
+    response_path = repo / settings.responses_dir / f"{job_id}.json"
+
+    for path in (status_path, response_path):
+        if not path.exists():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        state = str(payload.get("state", payload.get("status", ""))).lower()
+        if state in VISIBLE_NONTERMINAL_STATES:
+            logger.info("clarification artifact found", extra={"job_id": job_id, "path": str(path)})
+            return payload
+        if payload.get("needs_clarification") is True:
+            logger.info("clarification payload found", extra={"job_id": job_id, "path": str(path)})
+            return payload
+
+    return None
+
+
+def _try_read_failure_in(repo_path: Path, job_id: str) -> dict[str, Any] | None:
+    repo = Path(repo_path)
+    candidates = [
+        repo / settings.errors_dir / f"{job_id}.json",
+        repo / settings.status_dir / f"{job_id}.json",
+        repo / settings.responses_dir / f"{job_id}.json",
+    ]
+
+    for path in candidates:
+        if not path.exists():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        failure = parse_pipeline_failure_artifact(payload)
+        if failure is not None:
+            logger.warning("failure artifact found", extra={"job_id": job_id, "path": str(path)})
+            return failure
+    return None
+
+
+def wait_for_result_for(
+    job_id: str,
+    timeout_seconds: int,
+    *,
+    repo_path: Path,
+    branch: str,
+    repo_lock: RepoFileLock | None = None,
+) -> dict[str, Any]:
+    deadline = time.time() + timeout_seconds
+    repo = Path(repo_path)
+    branch_name = str(branch or settings.branch).strip() or settings.branch
+
+    while time.time() < deadline:
+        if repo_lock is None:
+            sync_repo_to_remote_head_for(repo, branch_name)
+            failure_payload = _try_read_failure_in(repo, job_id)
+            if failure_payload is not None:
+                raise JobFailedError(failure_payload)
+            clarification_payload = _try_read_clarification_in(repo, job_id)
+            if clarification_payload is not None:
+                return clarification_payload
+            response_payload = _try_read_success_in(repo, job_id)
+            if response_payload is not None:
+                return response_payload
+        else:
+            with repo_lock:
+                sync_repo_to_remote_head_for(repo, branch_name)
+                failure_payload = _try_read_failure_in(repo, job_id)
+                if failure_payload is not None:
+                    raise JobFailedError(failure_payload)
+                clarification_payload = _try_read_clarification_in(repo, job_id)
+                if clarification_payload is not None:
+                    return clarification_payload
+                response_payload = _try_read_success_in(repo, job_id)
+                if response_payload is not None:
+                    return response_payload
+
+        time.sleep(settings.result_poll_interval_seconds)
+
+    raise JobTimedOutError(f"job {job_id} did not finish within {timeout_seconds} seconds")
+
+
 def wait_for_result(job_id: str, timeout_seconds: int) -> dict[str, Any]:
     deadline = time.time() + timeout_seconds
 
@@ -383,10 +599,22 @@ def try_read_stage_result(job_id: str, stage_name: str) -> dict[str, Any] | None
 def try_read_success(job_id: str) -> dict[str, Any] | None:
     response_path = settings.repo_path / settings.responses_dir / f"{job_id}.json"
     status_path = settings.repo_path / settings.status_dir / f"{job_id}.json"
+    combined_path = settings.repo_path / settings.combined_dir / f"{job_id}.json"
 
     if response_path.exists():
         logger.info("result artifact found", extra={"job_id": job_id, "path": str(response_path)})
         return json.loads(response_path.read_text(encoding="utf-8"))
+
+    if combined_path.exists():
+        payload = json.loads(combined_path.read_text(encoding="utf-8"))
+        if isinstance(payload, dict):
+            nested_response = payload.get("response")
+            if isinstance(nested_response, dict):
+                logger.info("combined response artifact found", extra={"job_id": job_id, "path": str(combined_path)})
+                return nested_response
+            if isinstance(nested_response, str) and nested_response.strip():
+                logger.info("combined string response artifact found", extra={"job_id": job_id, "path": str(combined_path)})
+                return {"message": {"role": "assistant", "content": nested_response}, "done": True}
 
     if status_path.exists():
         payload = json.loads(status_path.read_text(encoding="utf-8"))
