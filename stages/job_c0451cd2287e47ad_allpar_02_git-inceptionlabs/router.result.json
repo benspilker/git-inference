@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "general_question",
+  "confidence": 0.92,
+  "requires_local_execution": true,
+  "reason": "The request 'ping' is ambiguous; it could be a health check, a command execution, or a simple test, but lacks sufficient context to determine the exact intent."
+}
