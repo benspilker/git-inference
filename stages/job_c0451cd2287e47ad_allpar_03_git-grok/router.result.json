@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.7,
+  "requires_local_execution": true,
+  "reason": "Minimal 'ping' request is a standard conversational test for system responsiveness or aliveness check, fitting general question intent."
+}
