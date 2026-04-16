@@ -1,0 +1,26 @@
+{
+  "job_id": "job_f940342eb815461f_allseq_02_git-inceptionlabs",
+  "status": {
+    "job_id": "job_f940342eb815461f_allseq_02_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T18:10:28Z",
+    "created_at": "2026-04-16T18:10:18Z"
+  },
+  "response": {
+    "job_id": "job_f940342eb815461f_allseq_02_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Mix dough, let it rise, shape it, top with sauce, cheese, and toppings, then bake in a hot oven until crust is golden and cheese bubbles.\n\nWould you like a more detailed step‑by‑step recipe?"
+    },
+    "done": true,
+    "started_at": "2026-04-16T18:10:18Z",
+    "completed_at": "2026-04-16T18:10:28Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T18:10:29Z"
+}
