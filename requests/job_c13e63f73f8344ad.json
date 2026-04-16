@@ -1,0 +1,62 @@
+{
+  "created_at": "2026-04-16T15:39:31Z",
+  "job_id": "job_c13e63f73f8344ad",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a concise assistant.",
+        "role": "system"
+      },
+      {
+        "content": "Routing smoke test (single model). Reply with exactly: SINGLE_OK",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "system_test",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "system_command"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 9
+      },
+      "user_prompt_chunks": [
+        "Routing smoke test (single model). Reply with exactly: SINGLE_OK"
+      ]
+    },
+    "user_prompt": "Routing smoke test (single model). Reply with exactly: SINGLE_OK"
+  },
+  "routing_metadata": {
+    "intent_type": "system_test",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "system_command"
+  },
+  "system_prompt": "You are a concise assistant.",
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 9
+    },
+    "user_prompt_chunks": [
+      "Routing smoke test (single model). Reply with exactly: SINGLE_OK"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Routing smoke test (single model). Reply with exactly: SINGLE_OK"
+}
