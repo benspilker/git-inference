@@ -1,0 +1,7 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 1.0,
+"reason": "The request is asking to execute a system command for routing a smoke test on a single model."
+}
