@@ -1,0 +1,26 @@
+{
+  "job_id": "job_2e2a8251a05d4407_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_2e2a8251a05d4407_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T19:54:46Z",
+    "created_at": "2026-04-16T19:52:17Z"
+  },
+  "response": {
+    "job_id": "job_2e2a8251a05d4407_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a simple way to make a basic homemade pizza.\n\nDough\n\nMix:\n\n2 ½ cups all-purpose flour\n\n1 tsp salt\n\n1 tsp sugar\n\n1 packet active dry yeast\n\n1 cup warm water\n\n2 tbsp olive oil\n\nSteps:\n\nStir the yeast and sugar into the warm water. Let it sit 5–10 minutes until foamy.\n\nMix flour and salt in a bowl.\n\nAdd the yeast mixture and olive oil, then stir until a dough forms.\n\nKnead on a floured surface for 8–10 minutes until smooth.\n\nPut the dough in an oiled bowl, cover it, and let it rise 1–2 hours until doubled.\n\nSauce\n\nMix:\n\n1 cup tomato sauce or crushed tomatoes\n\n1 minced garlic clove\n\n1 tsp dried oregano\n\n½ tsp salt\n\n½ tsp sugar, optional\n\nSimmer it for 10–15 minutes if you want a richer flavor.\n\nAssemble\n\nHeat your oven to 475°F.\n\nRoll out the dough and place it on a baking sheet or pizza stone.\n\nSpread sauce over the dough, leaving a border for the crust.\n\nAdd mozzarella and your toppings.\n\nBake\n\nBake for 12–15 minutes, until the crust is golden and the cheese is bubbling. Let it cool for a few minutes, slice, and serve.\n\nEasy tips\n\nPreheat the oven well for a better crust.\n\nUse fewer toppings so the pizza stays crisp.\n\nA pizza stone helps, but a baking sheet works too.\n\nWant a fast 20-minute version that skips the long dough rise?"
+    },
+    "done": true,
+    "started_at": "2026-04-16T19:52:17Z",
+    "completed_at": "2026-04-16T19:54:45Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T19:54:46Z"
+}
