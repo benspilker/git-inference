@@ -2072,11 +2072,11 @@ jobs:
           git add input requests responses errors responses_readable evaluations combined status stages execution
           git diff --cached --quiet && exit 0
           git commit -m "pipeline: process prompts with staged orchestration [skip ci]"
-          if git push origin HEAD:main; then
+          if git push origin "HEAD:${TARGET_BRANCH}"; then
             exit 0
           fi
           for attempt in 1 2 3; do
-            if git pull --rebase origin main && git push origin HEAD:main; then
+            if git pull --rebase origin "" && git push origin "HEAD:${TARGET_BRANCH}"; then
               exit 0
             fi
             echo "Push attempt ${attempt} failed; retrying..."
