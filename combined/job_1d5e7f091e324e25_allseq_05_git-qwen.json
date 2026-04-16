@@ -1,0 +1,24 @@
+{
+  "job_id": "job_1d5e7f091e324e25_allseq_05_git-qwen",
+  "status": {
+    "job_id": "job_1d5e7f091e324e25_allseq_05_git-qwen",
+    "state": "failed",
+    "intent_type": null,
+    "task_type": null,
+    "current_stage": "router",
+    "updated_at": "2026-04-16T03:03:41Z",
+    "created_at": "2026-04-16T03:02:58Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_1d5e7f091e324e25_allseq_05_git-qwen",
+    "started_at": "2026-04-16T03:02:58Z",
+    "error": {
+      "code": "ROUTER_STAGE_FAILED",
+      "message": "Router stage execution failed."
+    }
+  },
+  "execution": null,
+  "generated_at": "2026-04-16T03:03:41Z"
+}
