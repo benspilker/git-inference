@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "general_question",
+"confidence": 0.52,
+"requires_local_execution": false,
+"reason": "The request 'quick routing check' is too vague to determine the intended action or information; more context is needed."
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.78,
+"requires_local_execution": false,
+"reason": "The user input 'ping' appears to be a simple conversational or connectivity check with no actionable task."
+}
