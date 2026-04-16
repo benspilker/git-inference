@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.95,
+"requires_local_execution": true,
+"reason": "The user requests a specific system response ('VTURN_OK'), which implies performing a local command rather than asking for information or explanation."
+}
