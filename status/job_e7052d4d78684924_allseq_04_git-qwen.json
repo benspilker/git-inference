@@ -1,0 +1,9 @@
+{
+  "job_id": "job_e7052d4d78684924_allseq_04_git-qwen",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "complete",
+  "updated_at": "2026-04-16T17:35:24Z",
+  "created_at": "2026-04-16T17:35:04Z"
+}

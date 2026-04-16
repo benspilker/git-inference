@@ -1,0 +1,10 @@
+{
+  "job_id": "job_e7052d4d78684924_allseq_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "Basic Homemade Pizza Guide\nDough (makes 2 medium pizzas):\n500g bread flour (or all-purpose)\n325ml warm water (~110°F/43°C)\n7g instant yeast (1 packet)\n10g salt\n15ml olive oil\nOptional: 5g sugar for faster rise\nMix flour, yeast, salt (and sugar if using). Add water and oil.\nKnead 8–10 min until smooth and elastic.\nLet rise covered at room temp 1–2 hours (or refrigerate 24–72h for better flavor).\nSimple Sauce:\n400g canned crushed tomatoes\n2 cloves garlic, minced\n15ml olive oil, salt, oregano, black pepper to taste\nSimmer 10 min or use raw for a fresher taste.\nAssembly & Baking:\nPreheat oven to highest setting (500°F/260°C+). Use a pizza stone or inverted baking sheet if available.\nDivide dough, stretch (don't roll) into 12-inch rounds.\nLightly sauce, add cheese (low-moisture mozzarella works best), then toppings.\nBake 8–12 min until crust is golden and cheese bubbles.\nRest 2–3 min before slicing.\nPro tips:\nLess sauce/cheese = crispier crust.\nPre-cook wet veggies (mushrooms, spinach) to avoid sogginess.\nFor Neapolitan-style: use \"00\" flour and bake at 700°F+ if your oven allows.\nWant a specific style (NY, Chicago, Detroit) or dietary variation (gluten-free, vegan)? I can tailor the steps. 🍕"
+  },
+  "done": true,
+  "started_at": "2026-04-16T17:35:04Z",
+  "completed_at": "2026-04-16T17:35:24Z"
+}
