@@ -1,0 +1,26 @@
+{
+  "job_id": "job_2e2a8251a05d4407_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_2e2a8251a05d4407_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T20:12:00Z",
+    "created_at": "2026-04-16T20:11:31Z"
+  },
+  "response": {
+    "job_id": "job_2e2a8251a05d4407_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a clear, step-by-step guide to making a classic homemade pizza from scratch:\n\nIngredients (for one medium pizza)\n\nDough:\n\n2½ cups all-purpose flour\n1 tsp salt\n1 tsp sugar\n1 packet (2¼ tsp) active dry yeast\n1 cup warm water (~110°F / 43°C)\n2 tbsp olive oil\n\nSauce:\n\n1 cup canned tomato sauce or crushed tomatoes\n1 clove garlic, minced\n1 tsp dried oregano\n½ tsp salt\n½ tsp sugar (optional)\n\nToppings (suggested):\n\n1–2 cups shredded mozzarella\nPepperoni, veggies, olives, mushrooms, etc.\nFresh basil for garnish (optional)\nInstructions\nMake the dough:\nDissolve yeast and sugar in warm water. Let sit 5–10 min until foamy.\nMix flour and salt in a large bowl. Add yeast mixture + olive oil. Stir until dough forms, then knead on a floured surface 8–10 min until smooth and elastic.\nPlace in an oiled bowl, cover, and let rise 1–2 hours until doubled.\nMake the sauce:\nSimmer tomato sauce, garlic, oregano, salt, and sugar on low for 10–15 min. Set aside.\nAssemble:\nPreheat oven to 475°F (245°C) — use a pizza stone if you have one.\nPunch down dough, roll out to desired thickness on a baking sheet or stone.\nSpread sauce (leave a border), add cheese and toppings.\nBake:\n12–15 min until crust is golden and cheese is bubbly. Broil 1–2 min for extra browning if desired.\nServe:\nCool a few minutes, slice, and enjoy.\n\nTips for best results:\n\nHot oven + pizza stone = crispier crust.\nDon’t overload toppings (prevents sogginess).\nLess sauce and cheese often yields better texture.\n\nWant a quicker 20-minute version that skips the long rise? Just say the word."
+    },
+    "done": true,
+    "started_at": "2026-04-16T20:11:31Z",
+    "completed_at": "2026-04-16T20:12:00Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T20:12:00Z"
+}
