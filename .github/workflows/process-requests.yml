@@ -1435,7 +1435,6 @@ jobs:
               terminal_state="failed"
             fi
 
-            if [[ -z "$terminal_state" ]]; then
               : > "$memory_file"
               local memory_candidate_file="tmp/${job_id}.memory_candidate.json"
               find_memory_reuse_candidate "$user_prompt_file" "$job_id" "$memory_candidate_file" || true
