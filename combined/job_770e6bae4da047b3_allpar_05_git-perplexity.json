@@ -1,0 +1,26 @@
+{
+  "job_id": "job_770e6bae4da047b3_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_770e6bae4da047b3_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T20:55:14Z",
+    "created_at": "2026-04-16T20:53:37Z"
+  },
+  "response": {
+    "job_id": "job_770e6bae4da047b3_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a clear, step-by-step guide to making a classic homemade pizza from scratch:\n\nIngredients (for dough, sauce, and topping)\n\nDough (makes 1 medium pizza):\n\n2 ½ cups all-purpose flour\n\n1 tsp salt\n\n1 tsp sugar\n\n1 packet (2 ¼ tsp) active dry yeast\n\n1 cup warm water (~110°F / 43°C)\n\n2 tbsp olive oil\n\nSauce:\n\n1 cup canned tomato sauce or crushed tomatoes\n\n1 clove garlic, minced\n\n1 tsp dried oregano\n\n½ tsp salt\n\n½ tsp sugar (optional, balances acidity)\n\nToppings (suggested):\n\n1–2 cups shredded mozzarella\n\nPepperoni, vegetables, olives, mushrooms, or any favorite toppings\n\nFresh basil (optional, for garnish)\n\nInstructions\n\nPrepare the dough:\n\nIn a small bowl, dissolve yeast and sugar in warm water. Let sit 5–10 min until foamy.\n\nIn a large bowl, mix flour and salt.\n\nAdd yeast mixture and olive oil to flour. Mix until a dough forms.\n\nKnead on a floured surface for 8–10 min until smooth and elastic.\n\nPlace in a lightly oiled bowl, cover with a towel, and let rise 1–2 hours, until doubled in size.\n\nMake the sauce:\n\nCombine tomato sauce, garlic, oregano, salt, and sugar in a small saucepan.\n\nSimmer on low heat for 10–15 min, stirring occasionally. Set aside.\n\nAssemble the pizza:\n\nPreheat oven to 475°F (245°C). If using a pizza stone, place it in the oven while preheating.\n\nPunch down the dough and roll it out to your desired thickness. Transfer to a baking sheet or preheated stone.\n\nSpread sauce evenly over dough, leaving a small border around the edges.\n\nSprinkle cheese and add toppings.\n\nBake:\n\nBake for 12–15 min, or until crust is golden and cheese is bubbly.\n\nOptional: Broil 1–2 min at the end for extra browning.\n\nServe:\n\nLet the pizza cool for a few minutes, slice, and enjoy!\n\n💡 Tips for a great pizza:\n\nPreheat the oven thoroughly; a hot oven gives a crispier crust.\n\nUse a pizza stone or inverted baking sheet for better bottom crust.\n\nLess is more with toppings—overloading can make the pizza soggy.\n\nIf you want, I can also give a super quick 20-minute pizza recipe that skips the long dough rise but still tastes amazing. Do you want me to do that?"
+    },
+    "done": true,
+    "started_at": "2026-04-16T20:53:37Z",
+    "completed_at": "2026-04-16T20:55:14Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T20:55:14Z"
+}
