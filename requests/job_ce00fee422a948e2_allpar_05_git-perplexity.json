@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-04-16T20:30:22Z",
+  "job_id": "job_ce00fee422a948e2_allpar_05_git-perplexity",
+  "request": {
+    "allparallel_index": 5,
+    "allparallel_parent_job_id": "job_ce00fee422a948e2",
+    "allparallel_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are concise.",
+        "role": "system"
+      },
+      {
+        "content": "Tell me how to make a pizza? (bridge test 2026-04-16T16:30:21.7132460-04:00)",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 10
+      },
+      "user_prompt_chunks": [
+        "Tell me how to make a pizza? (bridge test 2026-04-16T16:30:21.7132460-04:00)"
+      ]
+    },
+    "user_prompt": "Tell me how to make a pizza? (bridge test 2026-04-16T16:30:21.7132460-04:00)"
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": "You are concise.",
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 10
+    },
+    "user_prompt_chunks": [
+      "Tell me how to make a pizza? (bridge test 2026-04-16T16:30:21.7132460-04:00)"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Tell me how to make a pizza? (bridge test 2026-04-16T16:30:21.7132460-04:00)"
+}
