@@ -1,0 +1,26 @@
+{
+  "job_id": "job_2e2a8251a05d4407_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_2e2a8251a05d4407_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T20:12:25Z",
+    "created_at": "2026-04-16T20:11:31Z"
+  },
+  "response": {
+    "job_id": "job_2e2a8251a05d4407_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Here's a clear, step-by-step guide to making a classic homemade pizza from scratch:\nIngredients\nDough (1 medium pizza):\n2½ cups all-purpose flour\n1 tsp salt, 1 tsp sugar\n1 packet (2¼ tsp) active dry yeast\n1 cup warm water (~110°F / 43°C)\n2 tbsp olive oil\nSauce:\n1 cup canned tomato sauce or crushed tomatoes"
+    },
+    "done": true,
+    "started_at": "2026-04-16T20:11:30Z",
+    "completed_at": "2026-04-16T20:12:25Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T20:12:25Z"
+}
