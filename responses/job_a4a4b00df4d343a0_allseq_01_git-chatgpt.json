@@ -1,0 +1,10 @@
+{
+  "job_id": "job_a4a4b00df4d343a0_allseq_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "VTURN_PIPELINE_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-16T03:09:04Z",
+  "completed_at": "2026-04-16T03:09:25Z"
+}
