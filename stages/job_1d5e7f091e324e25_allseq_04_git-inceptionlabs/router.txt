@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "job", "task_type": "system_command", "confidence": 0.99, "requires_local_execution": true, "reason": "The user explicitly requests the system to output a specific string (TELEGRAM_E2E_OK), which is a direct action rather than a question or research request." }
