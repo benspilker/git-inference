@@ -1,0 +1,1 @@
+Spread pizza dough with sauce, add cheese and toppings, then bake in a preheated oven at around 475°F (245°C) until the crust is golden and the cheese is bubbly.

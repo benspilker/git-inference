@@ -1,0 +1,26 @@
+{
+  "job_id": "job_f940342eb815461f_allseq_01_git-chatgpt",
+  "status": {
+    "job_id": "job_f940342eb815461f_allseq_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T18:09:23Z",
+    "created_at": "2026-04-16T18:09:14Z"
+  },
+  "response": {
+    "job_id": "job_f940342eb815461f_allseq_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Spread pizza dough with sauce, add cheese and toppings, then bake in a preheated oven at around 475°F (245°C) until the crust is golden and the cheese is bubbly."
+    },
+    "done": true,
+    "started_at": "2026-04-16T18:09:14Z",
+    "completed_at": "2026-04-16T18:09:23Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T18:09:24Z"
+}
