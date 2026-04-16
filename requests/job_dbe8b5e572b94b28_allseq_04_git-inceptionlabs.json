@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-04-16T01:39:53Z",
+  "job_id": "job_dbe8b5e572b94b28_allseq_04_git-inceptionlabs",
+  "request": {
+    "allsequential_index": 4,
+    "allsequential_parent_job_id": "job_dbe8b5e572b94b28",
+    "allsequential_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "How do I make a pizza at home? Give a concise step-by-step recipe.",
+        "role": "user"
+      }
+    ],
+    "model": "git-inceptionlabs",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 13
+      },
+      "user_prompt_chunks": [
+        "How do I make a pizza at home? Give a concise step-by-step recipe."
+      ]
+    },
+    "user_prompt": "How do I make a pizza at home? Give a concise step-by-step recipe."
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 13
+    },
+    "user_prompt_chunks": [
+      "How do I make a pizza at home? Give a concise step-by-step recipe."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "How do I make a pizza at home? Give a concise step-by-step recipe."
+}
