@@ -1,0 +1,26 @@
+{
+  "job_id": "job_dbe8b5e572b94b28_allseq_01_git-chatgpt",
+  "status": {
+    "job_id": "job_dbe8b5e572b94b28_allseq_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T01:34:46Z",
+    "created_at": "2026-04-16T01:34:31Z"
+  },
+  "response": {
+    "job_id": "job_dbe8b5e572b94b28_allseq_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a simple, reliable way to make pizza at home:\n\nIngredients\n\n2½ cups flour\n\n1 tsp salt\n\n1 tsp sugar\n\n1 packet (2¼ tsp) yeast\n\n¾ cup warm water\n\n1 tbsp olive oil\n\n½ cup pizza sauce\n\n1–2 cups shredded mozzarella\n\nToppings (pepperoni, veggies, etc.)\n\nSteps\n\nActivate yeast\nMix warm water, sugar, and yeast. Let sit 5–10 minutes until foamy.\n\nMake dough\nAdd flour, salt, and olive oil. Mix and knead 8–10 minutes until smooth.\n\nLet it rise\nCover and rest in a warm place for 1 hour (should double in size).\n\nPreheat oven\nSet to 475°F (245°C). Preheat a baking sheet or pizza stone if you have one.\n\nShape dough\nRoll or stretch into a 10–12 inch circle.\n\nAdd toppings\nSpread sauce, add cheese, then toppings.\n\nBake\nBake 10–15 minutes until crust is golden and cheese bubbles.\n\nCool & serve\nLet sit 2–3 minutes, slice, and eat.\n\nIf you want, I can give you a no-yeast version or a crispier “pizzeria-style” method."
+    },
+    "done": true,
+    "started_at": "2026-04-16T01:34:31Z",
+    "completed_at": "2026-04-16T01:34:46Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T01:34:46Z"
+}
