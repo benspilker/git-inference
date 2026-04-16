@@ -1,0 +1,26 @@
+{
+  "job_id": "job_9621c9f6f31a47fe_allseq_01_git-chatgpt",
+  "status": {
+    "job_id": "job_9621c9f6f31a47fe_allseq_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T17:36:49Z",
+    "created_at": "2026-04-16T17:36:31Z"
+  },
+  "response": {
+    "job_id": "job_9621c9f6f31a47fe_allseq_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a straightforward way to make a solid homemade pizza:\n\n1) Dough (simple version)\n\n2 ¼ tsp yeast (1 packet)\n\n1 cup warm water (not hot)\n\n2 ½ cups flour\n\n1 tsp salt\n\n1 tbsp olive oil\n\nSteps:\n\nDissolve yeast in warm water (5–10 min until foamy).\n\nMix in flour, salt, and oil.\n\nKnead ~8–10 minutes until smooth.\n\nLet it rise in a covered bowl for 1–2 hours (until doubled).\n\n(Shortcut: you can use store-bought dough.)\n\n2) Sauce\n\n1 cup canned crushed tomatoes\n\n1 clove garlic (minced)\n\n1 tsp olive oil\n\nSalt + oregano/basil to taste\n\nMix and simmer ~10 minutes (or use it raw for a fresher taste).\n\n3) Assemble\n\nPreheat oven to 475°F (245°C).\n\nRoll/stretch dough into a circle.\n\nAdd a thin layer of sauce.\n\nSprinkle mozzarella cheese.\n\nAdd toppings (pepperoni, veggies, etc.).\n\n4) Bake\n\nBake for 10–15 minutes until crust is golden and cheese is bubbling.\n\n5) Finish\n\nLet it cool a couple minutes, slice, and eat.\n\nIf you want, I can give you a specific style (New York, deep dish,"
+    },
+    "done": true,
+    "started_at": "2026-04-16T17:36:31Z",
+    "completed_at": "2026-04-16T17:36:49Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T17:36:49Z"
+}
