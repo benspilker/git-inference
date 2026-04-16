@@ -1,0 +1,52 @@
+Here’s a clear, step-by-step guide to making a classic homemade pizza from scratch:
+
+Ingredients (for dough, sauce, and toppings — makes 1 medium pizza)
+
+Dough:
+
+2 ½ cups all-purpose flour
+1 tsp salt
+1 tsp sugar
+1 packet (2 ¼ tsp) active dry yeast
+1 cup warm water (~110°F / 43°C)
+2 tbsp olive oil
+
+Sauce:
+
+1 cup canned tomato sauce or crushed tomatoes
+1 clove garlic, minced
+1 tsp dried oregano
+½ tsp salt
+½ tsp sugar (optional)
+
+Toppings (suggested):
+
+1–2 cups shredded mozzarella
+Pepperoni, vegetables, olives, mushrooms, or favorites
+Fresh basil (optional, for garnish)
+
+Instructions
+
+Prepare the dough:
+Dissolve yeast and sugar in warm water. Let sit 5–10 min until foamy.
+Mix flour and salt in a large bowl. Add yeast mixture and olive oil. Mix into a dough.
+Knead on floured surface 8–10 min until smooth and elastic.
+Place in oiled bowl, cover, and let rise 1–2 hours until doubled.
+Make the sauce:
+Combine tomato sauce, garlic, oregano, salt, and sugar. Simmer on low 10–15 min. Set aside.
+Assemble the pizza:
+Preheat oven to 475°F (245°C). (Use a pizza stone if you have one.)
+Punch down dough and roll out to desired thickness on a baking sheet or stone.
+Spread sauce evenly, leaving a border. Add cheese and toppings.
+Bake:
+Bake 12–15 min until crust is golden and cheese is bubbly. Optional: broil 1–2 min for extra browning.
+Serve:
+Cool a few minutes, slice, and enjoy!
+
+💡 Tips:
+
+Hot oven = crispier crust.
+Less is more with toppings to avoid sogginess.
+Pizza stone or inverted baking sheet helps the bottom crust.
+
+If you want a super quick 20-minute version that skips the long rise, let me know!
