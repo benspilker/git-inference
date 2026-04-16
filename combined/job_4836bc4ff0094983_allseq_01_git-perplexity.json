@@ -1,0 +1,26 @@
+{
+  "job_id": "job_4836bc4ff0094983_allseq_01_git-perplexity",
+  "status": {
+    "job_id": "job_4836bc4ff0094983_allseq_01_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T00:55:46Z",
+    "created_at": "2026-04-16T00:54:04Z"
+  },
+  "response": {
+    "job_id": "job_4836bc4ff0094983_allseq_01_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a solid, home-friendly Neapolitan pizza dough method.\n\nIngredients\n\nFor about 3–4 dough balls:\n\n500 g tipo “00” flour, or strong bread flour if needed.\n\n325 g water, room temperature.\n\n12–13 g fine salt.\n\n0.5–1 g instant yeast, or about 1.5–2 g active dry yeast.\n\nA classic Neapolitan dough is very simple: flour, water, salt, and a tiny amount of yeast. Typical versions use long fermentation to build flavor instead of oil, sugar, or a lot of yeast.\nthursdaynightpizza\n+2\n\nStep by step\n\nDissolve the salt in the water.\n\nAdd about 10% of the flour and mix.\n\nAdd the yeast, then gradually add the remaining flour.\n\nMix until no dry flour remains.\n\nRest the dough 15–20 minutes.\n\nKnead briefly until smooth and elastic, or use stretch-and-folds if you prefer gentler handling.\n\nCover and let it ferment.\n\nDivide into dough balls.\n\nBall the dough tightly.\n\nLet the balls proof until relaxed and airy.\n\nStretch, top lightly, and bake as hot as possible.\n\nThis kind of dough is usually mixed, briefly rested, then fermented slowly to develop extensibility and flavor.\npalapizza\n+1\n\nFermentation options\nOption A: Same-day-ish room temp plus cold rest\n\nBulk ferment at room temperature for about 12–20 hours.\n\nBall the dough.\n\nRefrigerate for 24–48 hours.\n\nBring back to room temperature for about 3–4 hours before baking.\n\nThis is a common home approach and gives good flavor with manageable timing.\nnordicdough\n+1\n\nOption B: Long cold fermentation\n\nMix and lightly knead.\n\nLet it sit 1–2 hours at room temperature.\n\nBall it.\n\nRefrigerate for 24–72 hours.\n\nWarm at room temperature before baking.\n\nLonger fermentation generally increases flavor complexity and improves texture.\nnordicdough\n+1\n\nOption C: Room-temp focused\n\nUse very little yeast.\n\nFerment mostly at room temperature for 8–12 hours.\n\nThis can work, but you need tighter control of yeast and room temperature so it doesn’t overproof.\nnordicdough\n\nDough cues\n\nLook for:\n\nA smooth, extensible dough.\n\nNoticeable rise, but not collapse.\n\nDough that feels airy and relaxed when shaped.\n\nWith slow-fermented dough, exact doubling is less important than good volume increase and a puffy, workable texture.\nthursdaynightpizza\n\nCommon mistakes\n\nUsing too much yeast. Long fermentation needs very little yeast.\npalapizza\n+1\n\nAdding oil or sugar if you want a traditional Neapolitan-style dough.\nthursdaynightpizza\n\nBaking in an oven that isn’t hot enough. Neapolitan pizza works best with very high heat.\n\nOverkneading. Too much mixing can make the dough tight.\n\nOverproofing. If it gets overly gassy, slack, and hard to shape, it has gone too far.\n\nUnder-resting before stretching. Cold dough will fight you and tear.\n\nPractical example\n\nIf you want a reliable home schedule:\n\nEvening 1: Mix dough.\n\nDay 2: Ball the dough.\n\nDay 3: Bake after a few hours at room temperature.\n\nThat gives you enough fermentation for flavor without making the process fussy.\nthursdaynightpizza\n+1\n\nIf you want, I can also give you:\n\na precise 4-ball recipe by grams,\n\na Neapolitan dough schedule for a 24-hour, 48-hour, or 72-hour ferment,\n\nor an oven-baking guide for a home oven or pizza oven."
+    },
+    "done": true,
+    "started_at": "2026-04-16T00:54:04Z",
+    "completed_at": "2026-04-16T00:55:46Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T00:55:46Z"
+}

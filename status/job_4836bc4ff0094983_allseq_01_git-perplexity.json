@@ -1,0 +1,9 @@
+{
+  "job_id": "job_4836bc4ff0094983_allseq_01_git-perplexity",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "complete",
+  "updated_at": "2026-04-16T00:55:46Z",
+  "created_at": "2026-04-16T00:54:04Z"
+}
