@@ -73,9 +73,11 @@ class Settings:
         "OPENCLAW_COMPAT_MODELS",
         "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential",
     )
+    openclaw_default_model: str = os.getenv("OPENCLAW_DEFAULT_MODEL", "git-allsequential")
+    openclaw_force_default_model: bool = env_bool("OPENCLAW_FORCE_DEFAULT_MODEL", False)
     all_sequential_models_csv: str = env_csv(
         "ALL_SEQUENTIAL_MODELS",
-        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen",
+        "git-chatgpt,git-inceptionlabs,git-grok,git-qwen,git-perplexity",
     )
     allsequential_virtual_turns_enabled: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED", False)
     allsequential_virtual_turns_send_failures: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES", True)

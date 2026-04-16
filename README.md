@@ -145,7 +145,9 @@ Copy `.env.example` and set at least:
 - `DB_PATH` - SQLite database path
 - `GIT_AUTHOR_NAME`
 - `GIT_AUTHOR_EMAIL`
-- `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen`)
+- `OPENCLAW_DEFAULT_MODEL` (optional, default `git-allsequential`; default model used when OpenAI-compatible/OpenClaw calls omit `model`)
+- `OPENCLAW_FORCE_DEFAULT_MODEL` (optional, default `false`; when `true`, OpenClaw-compatible model requests are forced to `OPENCLAW_DEFAULT_MODEL`)
+- `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-chatgpt,git-inceptionlabs,git-grok,git-qwen,git-perplexity`)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED` (optional, default `false`; if `true`, `git-allsequential` returns quickly and runs sources in the background)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES` (optional, default `true`; if `false`, failed sources are omitted from follow-up sends)
 - `ALLOW_UNSAFE_REPO_PATH` (optional, default `false`; safety bypass only, do not enable unless you intentionally accept destructive git sync on `REPO_PATH`)
@@ -176,6 +178,14 @@ When `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true`:
 4. If OpenClaw bridge values are set (`OPENCLAW_CRON_SSH_TARGET`, `OPENCLAW_CRON_CHANNEL`, `OPENCLAW_CRON_TO`), each source result is also sent as its own follow-up message.
 
 This keeps request latency low while still delivering source-by-source answers.
+
+To force OpenClaw traffic onto this workflow, set:
+
+```bash
+OPENCLAW_FORCE_DEFAULT_MODEL=true
+OPENCLAW_DEFAULT_MODEL=git-allsequential
+ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true
+```
 
 The code assumes `origin/<branch>` already exists unless `AUTO_INIT_REPO=true`.
 

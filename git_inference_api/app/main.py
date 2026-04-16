@@ -154,10 +154,23 @@ def chat(
     async_mode: bool = Query(default=False, alias="async"),
     idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"),
 ):
+    effective_model = resolve_openclaw_effective_model(request.model)
+    if effective_model != request.model:
+        logger.info(
+            "openclaw model override applied",
+            extra={"requested_model": request.model, "effective_model": effective_model},
+        )
+        request = ChatRequest(
+            model=effective_model,
+            messages=request.messages,
+            stream=request.stream,
+            format=request.format,
+            options=request.options,
+        )
     normalized_request = normalize_chat_request(request)
     return handle_submission(
         normalized_request=normalized_request,
-        model=request.model,
+        model=effective_model,
         stream=request.stream,
         response_type="chat",
         async_mode=async_mode,
@@ -172,11 +185,11 @@ def openai_chat_completions(
     async_mode: bool = Query(default=False, alias="async"),
     idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"),
 ):
-    model = str(request.get("model") or "").strip()
+    model = resolve_openclaw_effective_model(str(request.get("model") or "").strip())
     if not model:
         raise HTTPException(
             status_code=400,
-            detail={"code": "INVALID_REQUEST", "message": "model is required"},
+            detail={"code": "INVALID_REQUEST", "message": "model is required (or configure OPENCLAW_DEFAULT_MODEL)"},
         )
 
     raw_messages = request.get("messages")
@@ -608,6 +621,18 @@ def is_openclaw_compat_model(model_name: str) -> bool:
         return True
     tail = model.split("/")[-1]
     return tail in compat
+
+
+def resolve_openclaw_effective_model(model_name: str) -> str:
+    requested = str(model_name or "").strip()
+    configured_default = str(settings.openclaw_default_model or "").strip()
+    if not requested:
+        return configured_default
+    if not settings.openclaw_force_default_model:
+        return requested
+    if not is_openclaw_compat_model(requested):
+        return requested
+    return configured_default or requested
 
 
 def normalize_chat_role(raw_role: Any, compat_mode: bool) -> str:
