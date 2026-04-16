@@ -1,0 +1,10 @@
+{
+  "job_id": "job_76f2a6e83d204981_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s a simple homemade pizza method.\n\nIngredients\n\nFor the dough:\n\n2 1/2 cups all-purpose flour.\n\n1 packet active dry yeast, about 2 1/4 tsp.\n\n1 tsp salt.\n\n1 tsp sugar.\n\n1 cup warm water.\n\n2 tbsp olive oil.\n\nFor the sauce:\n\n1 cup tomato sauce or crushed tomatoes.\n\n1 clove garlic, minced.\n\n1 tsp dried oregano.\n\n1/2 tsp salt.\n\n1/2 tsp sugar, optional.\n\nFor toppings:\n\nShredded mozzarella.\n\nPepperoni, vegetables, olives, mushrooms, or anything you like.\n\nSteps\n\nMix warm water, yeast, and sugar. Let it sit 5–10 minutes until foamy.\n\nIn a large bowl, combine flour and salt.\n\nAdd the yeast mixture and olive oil. Stir until a dough forms.\n\nKnead for 8–10 minutes until smooth and elastic.\n\nPut the dough in a lightly oiled bowl, cover it, and let it rise for 1–2 hours until doubled.\n\nMake the sauce by simmering tomato sauce, garlic, oregano, salt, and sugar for 10–15 minutes.\n\nPreheat the oven to 475°F.\n\nRoll out the dough, place it on a baking sheet or pizza stone, add sauce, cheese, and toppings.\n\nBake for 12–15 minutes, until the crust is golden and the cheese is bubbly.\n\nHelpful tips\n\nPreheat the oven fully for a better crust.\n\nUse less sauce and fewer toppings to avoid a soggy pizza.\n\nA pizza stone or hot baking sheet helps the bottom crisp up.\n\nIf you want a faster version, I can give you a 20-minute no-yeast pizza recipe."
+  },
+  "done": true,
+  "started_at": "2026-04-16T21:01:11Z",
+  "completed_at": "2026-04-16T21:02:41Z"
+}
