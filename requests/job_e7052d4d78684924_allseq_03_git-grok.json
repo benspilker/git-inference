@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-04-16T17:30:36Z",
+  "job_id": "job_e7052d4d78684924_allseq_03_git-grok",
+  "request": {
+    "allsequential_index": 3,
+    "allsequential_parent_job_id": "job_e7052d4d78684924",
+    "allsequential_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Tell me how to make a pizza?",
+        "role": "user"
+      }
+    ],
+    "model": "git-grok",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 7
+      },
+      "user_prompt_chunks": [
+        "Tell me how to make a pizza?"
+      ]
+    },
+    "user_prompt": "Tell me how to make a pizza?"
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 7
+    },
+    "user_prompt_chunks": [
+      "Tell me how to make a pizza?"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Tell me how to make a pizza?"
+}
