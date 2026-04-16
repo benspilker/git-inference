@@ -2069,6 +2069,10 @@ jobs:
           git config --global --add safe.directory "$(pwd)"
           git config user.name "git-inference-pipeline"
           git config user.email "git-inference-pipeline@users.noreply.github.com"
+          TARGET_BRANCH="${GITHUB_REF_NAME:-main}"
+          if [[ -z "$TARGET_BRANCH" ]]; then
+            TARGET_BRANCH="main"
+          fi
           git add input requests responses errors responses_readable evaluations combined status stages execution
           git diff --cached --quiet && exit 0
           git commit -m "pipeline: process prompts with staged orchestration [skip ci]"
@@ -2076,7 +2080,7 @@ jobs:
             exit 0
           fi
           for attempt in 1 2 3; do
-            if git pull --rebase origin "" && git push origin "HEAD:${TARGET_BRANCH}"; then
+            if git pull --rebase origin "$TARGET_BRANCH" && git push origin "HEAD:${TARGET_BRANCH}"; then
               exit 0
             fi
             echo "Push attempt ${attempt} failed; retrying..."
