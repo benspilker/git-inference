@@ -162,6 +162,7 @@ Each source section is labeled in the response as:
 `[index/total] Source: <model> | Status: <status>`
 
 `git-allsequential` also compacts internal blank-line runs in each source reply so newline chunking prefers source boundaries.
+If one source reply is still too long for Telegram chunk limits, the API pre-splits it and repeats the source header with `Part x/y` on each segment.
 
 The code assumes `origin/<branch>` already exists unless `AUTO_INIT_REPO=true`.
 

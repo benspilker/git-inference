@@ -315,6 +315,39 @@ class JobWorker:
         normalized = re.sub(r"\n\s*\n+", "\n", normalized)
         return normalized.strip()
 
+    @staticmethod
+    def _split_for_transport(text: str, max_chars: int = 3400) -> list[str]:
+        """
+        Pre-split long text so downstream channel chunkers receive stable blocks.
+        This helps preserve source headers when a single source answer is lengthy.
+        """
+        raw = str(text or "").strip()
+        if not raw:
+            return [""]
+        if len(raw) <= max_chars:
+            return [raw]
+
+        chunks: list[str] = []
+        remaining = raw
+        while remaining:
+            if len(remaining) <= max_chars:
+                chunks.append(remaining.strip())
+                break
+
+            window = remaining[:max_chars]
+            split_idx = window.rfind("\n")
+            if split_idx < int(max_chars * 0.6):
+                split_idx = window.rfind(" ")
+            if split_idx < int(max_chars * 0.6):
+                split_idx = max_chars
+
+            head = remaining[:split_idx].strip()
+            if head:
+                chunks.append(head)
+            remaining = remaining[split_idx:].lstrip()
+
+        return chunks or [raw]
+
     def _run_one_shot_request(self, job_id: str, request_payload: dict[str, Any]) -> dict[str, Any]:
         with REPO_LOCK:
             sync_repo_to_remote_head()
@@ -482,16 +515,24 @@ class JobWorker:
             else:
                 err = str(item.get("error") or "unknown error").strip() or "unknown error"
                 content = f"Error: {err}"
-            header = f"[{idx}/{total}] Source: {model_name} | Status: {status}"
-            source_messages.append(
-                {
-                    "index": idx,
-                    "source": model_name,
-                    "status": status,
-                    "content": content,
-                    "text": f"{header}\n{content}",
-                }
-            )
+            parts = self._split_for_transport(content)
+            part_total = len(parts)
+            for part_idx, part_content in enumerate(parts, start=1):
+                if part_total > 1:
+                    header = f"[{idx}/{total}] Source: {model_name} | Status: {status} | Part {part_idx}/{part_total}"
+                else:
+                    header = f"[{idx}/{total}] Source: {model_name} | Status: {status}"
+                source_messages.append(
+                    {
+                        "index": idx,
+                        "source": model_name,
+                        "status": status,
+                        "part_index": part_idx,
+                        "part_total": part_total,
+                        "content": part_content,
+                        "text": f"{header}\n{part_content}",
+                    }
+                )
         return source_messages
 
     def _format_allsequential_response(
