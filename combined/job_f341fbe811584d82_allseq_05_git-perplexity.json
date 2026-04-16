@@ -1,0 +1,26 @@
+{
+  "job_id": "job_f341fbe811584d82_allseq_05_git-perplexity",
+  "status": {
+    "job_id": "job_f341fbe811584d82_allseq_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T16:53:19Z",
+    "created_at": "2026-04-16T16:49:15Z"
+  },
+  "response": {
+    "job_id": "job_f341fbe811584d82_allseq_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Bake 15–20 min until crust is golden and cheese bubbles.\nhappyhooligans"
+    },
+    "done": true,
+    "started_at": "2026-04-16T16:49:15Z",
+    "completed_at": "2026-04-16T16:53:19Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T16:53:19Z"
+}
