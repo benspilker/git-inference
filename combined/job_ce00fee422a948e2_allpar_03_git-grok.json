@@ -1,0 +1,26 @@
+{
+  "job_id": "job_ce00fee422a948e2_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_ce00fee422a948e2_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T20:31:29Z",
+    "created_at": "2026-04-16T20:31:00Z"
+  },
+  "response": {
+    "job_id": "job_ce00fee422a948e2_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Here's a simple, classic homemade pizza recipe for one large pizza (serves 2-4). Use store-bought dough or make a quick no-knead version if you want.\n\nIngredients\n\nDough (or buy fresh dough):\n\n2¼ tsp active dry yeast\n1 tsp sugar\n1 cup warm water (105-110°F)\n2½ cups all-purpose flour\n2 tbsp olive oil\n1 tsp salt\n\nSauce:\n\n1 can (15 oz) crushed tomatoes\n2 garlic cloves, minced\n1 tsp dried oregano\n½ tsp salt\nPinch of red pepper flakes (optional)\n\nToppings (customize):\n\n8-10 oz shredded mozzarella\nFresh basil, pepperoni, veggies, sausage, etc.\nExtra olive oil for drizzling\nSteps\nDough: Dissolve yeast + sugar in warm water. Let sit 5 min until foamy. Mix in flour, oil, salt. Knead 5-7 min until smooth. Cover and let rise 1 hour (or use immediately for thin crust).\nSauce: Simmer crushed tomatoes, garlic, oregano, salt, and flakes for 10-15 min. Cool slightly.\nAssemble:\nPreheat oven to 475-500°F (as hot as it goes). Place pizza stone or inverted baking sheet inside to heat.\nStretch dough into 12-14\" circle on floured surface/parchment.\nSpread thin layer of sauce, leaving ½\" border.\nAdd cheese and toppings sparingly (less is more for crispiness).\nBake: Slide onto hot stone/sheet. Bake 10-15 min until crust is golden and cheese bubbles. Rotate halfway if needed.\nFinish: Rest 2 min, slice, add fresh basil if using.\n\nTips:\n\nHot oven = better crust.\nDon't overload toppings or it gets soggy.\nFor crispier bottom, use cornmeal under dough.\n\nEnjoy! Customize freely."
+    },
+    "done": true,
+    "started_at": "2026-04-16T20:31:00Z",
+    "completed_at": "2026-04-16T20:31:29Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T20:31:29Z"
+}
