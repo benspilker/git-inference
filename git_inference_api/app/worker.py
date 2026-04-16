@@ -283,7 +283,13 @@ class JobWorker:
 
         with REPO_LOCK:
             sync_repo_to_remote_head()
-            request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            request_payload_raw = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            request_payload = self._coerce_routing_metadata(
+                request_payload_raw,
+                default_intent_type=intent_type,
+                default_task_type=task_type,
+                requires_local_execution=True if str(intent_type or "").strip().lower() == "job" else None,
+            )
             request_path = write_request_artifact(job_id, request_payload)
             commit_and_push_request(job_id, request_path)
 
@@ -350,6 +356,90 @@ class JobWorker:
             if normalized not in targets:
                 targets.append(normalized)
         return targets
+
+    @staticmethod
+    def _coerce_optional_bool(value: Any) -> bool | None:
+        if value is None:
+            return None
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, int):
+            return bool(value)
+        if isinstance(value, str):
+            lowered = value.strip().lower()
+            if lowered in {"1", "true", "yes", "y", "on"}:
+                return True
+            if lowered in {"0", "false", "no", "n", "off"}:
+                return False
+        return bool(value)
+
+    def _coerce_routing_metadata(
+        self,
+        request_payload: dict[str, Any] | None,
+        *,
+        default_intent_type: str | None = None,
+        default_task_type: str | None = None,
+        requires_local_execution: bool | None = None,
+        default_route_state: str = "received",
+    ) -> dict[str, Any]:
+        payload = json.loads(json.dumps(request_payload if isinstance(request_payload, dict) else {}))
+        routing_raw = payload.get("routing_metadata")
+        routing = dict(routing_raw) if isinstance(routing_raw, dict) else {}
+
+        intent_type = str(routing.get("intent_type") or default_intent_type or "").strip()
+        task_type = str(routing.get("task_type") or default_task_type or "").strip()
+        route_state = str(routing.get("route_state") or default_route_state or "received").strip() or "received"
+
+        if requires_local_execution is None:
+            requires_local_execution = self._coerce_optional_bool(routing.get("requires_local_execution"))
+        if requires_local_execution is None and intent_type:
+            requires_local_execution = intent_type.lower() == "job"
+        if requires_local_execution is None:
+            requires_local_execution = False
+
+        routing["schema_version"] = str(routing.get("schema_version") or "1.0")
+        routing["route_state"] = route_state
+        routing["requires_local_execution"] = bool(requires_local_execution)
+        if intent_type:
+            routing["intent_type"] = intent_type
+        else:
+            routing.pop("intent_type", None)
+        if task_type:
+            routing["task_type"] = task_type
+        else:
+            routing.pop("task_type", None)
+
+        payload["routing_metadata"] = routing
+        return payload
+
+    def _build_allsequential_child_payload(
+        self,
+        parent_payload: dict[str, Any],
+        *,
+        target_model: str,
+        parent_job_id: str,
+        index: int,
+        total: int,
+    ) -> dict[str, Any]:
+        parent_routing = parent_payload.get("routing_metadata") if isinstance(parent_payload, dict) else None
+        parent_intent = str(parent_routing.get("intent_type") or "").strip() if isinstance(parent_routing, dict) else ""
+        parent_task = str(parent_routing.get("task_type") or "").strip() if isinstance(parent_routing, dict) else ""
+
+        child_payload = self._coerce_routing_metadata(
+            parent_payload,
+            default_intent_type=parent_intent or "question",
+            default_task_type=parent_task or settings.default_question_task_type,
+            requires_local_execution=False,
+            default_route_state="received",
+        )
+        child_routing = child_payload.get("routing_metadata")
+        if isinstance(child_routing, dict):
+            child_routing["route_state"] = "received"
+        child_payload["model"] = target_model
+        child_payload["allsequential_parent_job_id"] = parent_job_id
+        child_payload["allsequential_index"] = index
+        child_payload["allsequential_total"] = total
+        return child_payload
 
     @staticmethod
     def _sanitize_model_tail(model_name: str) -> str:
@@ -476,17 +566,23 @@ class JobWorker:
                 task_type=f"allsequential:{target_model}",
             )
 
-            child_payload = json.loads(json.dumps(request_payload))
-            child_payload["model"] = target_model
-            child_payload["allsequential_parent_job_id"] = job_id
-            child_payload["allsequential_index"] = idx
-            child_payload["allsequential_total"] = len(targets)
+            child_payload = self._build_allsequential_child_payload(
+                request_payload,
+                target_model=target_model,
+                parent_job_id=job_id,
+                index=idx,
+                total=len(targets),
+            )
+            child_routing = child_payload.get("routing_metadata") if isinstance(child_payload.get("routing_metadata"), dict) else {}
 
             try:
                 raw_result = self._run_one_shot_request(child_job_id, child_payload)
                 normalized_result = self._normalize_response_payload(
                     raw_result,
-                    router_result={"intent_type": "question", "task_type": "information"},
+                    router_result={
+                        "intent_type": child_routing.get("intent_type"),
+                        "task_type": child_routing.get("task_type"),
+                    },
                 )
                 message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
                 content = ""
@@ -751,18 +847,24 @@ class JobWorker:
                     break
                 target_model = targets[idx - 1]
                 child_job_id = f"{job_id}_allseq_{idx:02d}_{self._sanitize_model_tail(target_model)}"
-                child_payload = json.loads(json.dumps(request_payload))
-                child_payload["model"] = target_model
-                child_payload["allsequential_parent_job_id"] = job_id
-                child_payload["allsequential_index"] = idx
-                child_payload["allsequential_total"] = len(targets)
+                child_payload = self._build_allsequential_child_payload(
+                    request_payload,
+                    target_model=target_model,
+                    parent_job_id=job_id,
+                    index=idx,
+                    total=len(targets),
+                )
+                child_routing = child_payload.get("routing_metadata") if isinstance(child_payload.get("routing_metadata"), dict) else {}
 
                 item: dict[str, Any]
                 try:
                     raw_result = self._run_one_shot_request(child_job_id, child_payload)
                     normalized_result = self._normalize_response_payload(
                         raw_result,
-                        router_result={"intent_type": "question", "task_type": "information"},
+                        router_result={
+                            "intent_type": child_routing.get("intent_type"),
+                            "task_type": child_routing.get("task_type"),
+                        },
                     )
                     message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
                     content = ""
@@ -1200,7 +1302,16 @@ class JobWorker:
         job_id = job["job_id"]
         with REPO_LOCK:
             sync_repo_to_remote_head()
-            request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            request_payload_raw = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            routing = self._extract_routing_metadata(job)
+            intent_type = str(routing.get("intent_type") or "").strip() or None
+            task_type = str(routing.get("task_type") or "").strip() or None
+            request_payload = self._coerce_routing_metadata(
+                request_payload_raw,
+                default_intent_type=intent_type,
+                default_task_type=task_type,
+                requires_local_execution=True if intent_type == "job" else None,
+            )
             request_path = write_request_artifact(job_id, request_payload)
             commit_and_push_request(job_id, request_path)
 
