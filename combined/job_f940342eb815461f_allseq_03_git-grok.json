@@ -1,0 +1,26 @@
+{
+  "job_id": "job_f940342eb815461f_allseq_03_git-grok",
+  "status": {
+    "job_id": "job_f940342eb815461f_allseq_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T18:11:46Z",
+    "created_at": "2026-04-16T18:11:21Z"
+  },
+  "response": {
+    "job_id": "job_f940342eb815461f_allseq_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "To make a pizza, spread pizza sauce on rolled-out dough, top with cheese and desired ingredients, then bake at 475°F for 10-15 minutes until the crust is golden and cheese is bubbly."
+    },
+    "done": true,
+    "started_at": "2026-04-16T18:11:21Z",
+    "completed_at": "2026-04-16T18:11:46Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T18:11:46Z"
+}
