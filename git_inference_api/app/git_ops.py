@@ -68,6 +68,25 @@ SUCCESS_STATES = {"completed", "succeeded", "success", "finished", "done"}
 FAILURE_STATES = {"failed", "error", "errored", "expired", "timeout", "timed_out", "cancelled", "canceled"}
 
 
+def _looks_like_source_repo(path: Path) -> bool:
+    return (
+        (path / ".github" / "workflows" / "process-requests.yml").exists()
+        and (path / "git_inference_api" / "app" / "main.py").exists()
+    )
+
+
+def ensure_repo_path_safety() -> None:
+    repo_path = settings.repo_path.resolve()
+    if settings.allow_unsafe_repo_path:
+        return
+    if _looks_like_source_repo(repo_path):
+        raise GitError(
+            "Unsafe REPO_PATH detected. REPO_PATH appears to be the source repository checkout, "
+            "but worker sync uses fetch/reset --hard/clean. Point REPO_PATH to a dedicated workrepo clone "
+            "or set ALLOW_UNSAFE_REPO_PATH=true to bypass intentionally."
+        )
+
+
 def _git_lock_candidates() -> list[Path]:
     git_dir = settings.repo_path / ".git"
     if not git_dir.exists():
@@ -197,6 +216,7 @@ def run_git(*args: str, check: bool = True, retryable: bool = True) -> subproces
 
 
 def ensure_repo_ready() -> None:
+    ensure_repo_path_safety()
     settings.ensure_directories()
     required_dirs = [
         settings.requests_dir,

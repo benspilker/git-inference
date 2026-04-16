@@ -12,15 +12,14 @@ This is a V1 prototype for the architecture you described:
 6. The worker fetches the result commit and stores the final result in SQLite.
 7. The API returns the result inline if it finishes within 180 seconds; otherwise it returns `202 Accepted` with `job_id`.
 
-## Current V1 constraints
+## Current behavior and constraints
 
 - Python + FastAPI
 - strict sequential processing
-- required `Idempotency-Key` header
-- one `user` message exactly
-- optional one `system` message
-- no assistant history
-- no streaming (`stream` must be `false`)
+- `Idempotency-Key` is optional (auto-generated when omitted)
+- accepts multi-message chat requests (role/content normalized for OpenClaw-compatible models)
+- no persistent server-side multi-turn memory
+- streaming is supported via NDJSON for `/api/chat` and `/api/generate`
 
 ## Files
 
@@ -146,9 +145,10 @@ Copy `.env.example` and set at least:
 - `DB_PATH` - SQLite database path
 - `GIT_AUTHOR_NAME`
 - `GIT_AUTHOR_EMAIL`
-- `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-perplexity,git-grok,git-inceptionlabs,git-qwen`)
+- `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen`)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED` (optional, default `false`; if `true`, `git-allsequential` returns quickly and sends each source as a separate follow-up message)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES` (optional, default `true`; if `false`, failed sources are omitted from follow-up sends)
+- `ALLOW_UNSAFE_REPO_PATH` (optional, default `false`; safety bypass only, do not enable unless you intentionally accept destructive git sync on `REPO_PATH`)
 
 ### Telegram display note for `git-allsequential`
 
@@ -183,6 +183,7 @@ The code assumes `origin/<branch>` already exists unless `AUTO_INIT_REPO=true`.
 ### 1. Create venv and install deps
 
 ```bash
+cd git_inference_api
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -191,17 +192,17 @@ pip install -r requirements.txt
 ### 2. Initialize a local demo remote/work repos
 
 ```bash
-bash tools/local_demo_setup.sh /tmp/git_inference_demo
+bash git_inference_api/tools/local_demo_setup.sh /tmp/git_inference_demo
 ```
 
 ### 3. Start the API
 
 ```bash
+cd git_inference_api
 export REPO_PATH=/tmp/git_inference_demo/api-workrepo
 export DB_PATH=/tmp/git_inference_demo/jobs.db
 export REPO_BRANCH=main
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --app-di
-r .
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --app-dir .
 ```
 
 ### 4. Send a test request
@@ -223,7 +224,7 @@ curl -X POST http://127.0.0.1:8000/api/chat \
 Or use the helper script:
 
 ```bash
-bash tools/send_chat.sh --api-base-url "http://127.0.0.1:8000" --prompt "Tell me a joke"
+bash git_inference_api/tools/send_chat.sh --api-base-url "http://127.0.0.1:8000" --prompt "Tell me a joke"
 ```
 
 ## Initialize, start, and test (PowerShell on Windows + WSL API)
@@ -275,10 +276,21 @@ This prototype avoids API-side Git conflicts by design:
 
 That said, your pipeline also writes to the repo. This is why the worker always refreshes from remote before reading results and before writing the next request.
 
+## Critical REPO_PATH safety rule
+
+Do not point `REPO_PATH` at your source/development checkout.
+
+The worker performs:
+- `git fetch`
+- `git reset --hard origin/<branch>`
+- `git clean -fd`
+
+on `REPO_PATH` before processing jobs. Use a dedicated workrepo clone for request/response artifacts.
+The startup scripts and worker now block source-repo `REPO_PATH` by default. You can bypass with `ALLOW_UNSAFE_REPO_PATH=true`, but that is intentionally unsafe.
+
 ## Known limitations
 
 - one process / one worker only
-- no streaming
 - no real multi-turn chat state
 - no auth layer
 - no cancellation endpoint
@@ -287,18 +299,17 @@ That said, your pipeline also writes to the repo. This is why the worker always 
 ## Recommended next steps
 
 1. Add auth.
-2. Add `/api/generate`.
-3. Add structured logging.
-4. Add recovery rules for stuck jobs.
-5. Add queue position in `POST /api/chat` responses.
-6. Add tests with a fake repo remote.
+2. Add cancellation endpoint.
+3. Add structured logging/metrics export.
+4. Expand research-specific orchestration beyond answerer lane fallback.
+5. Add integration tests with a fake repo remote.
 
 ## Local demo
 
 If you want to test this without your real pipeline:
 
 ```bash
-bash tools/local_demo_setup.sh /tmp/git_inference_demo
+bash git_inference_api/tools/local_demo_setup.sh /tmp/git_inference_demo
 ```
 
 Then run the API with:

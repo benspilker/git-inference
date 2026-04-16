@@ -97,6 +97,7 @@ jobs:
           WEATHER_FALLBACK_SCRIPT="tools/weather_fallback_openmeteo.py"
           WEB_FALLBACK_SCRIPT="tools/web_fallback_duckduckgo.py"
           EXTRACT_CONTEXT_SCRIPT=".github/workflows/extract_request_context.py"
+          SUPPORTED_REQUEST_MODELS_CSV="${SUPPORTED_REQUEST_MODELS_CSV:-git-chatgpt,git-chatgpt-json,git-perplexity,git-perplexity-json,git-grok,git-inceptionlabs,git-qwen}"
           echo "Playwright default engine (workflow-level): $PLAYWRIGHT_ENGINE"
           echo "Playwright default runner (workflow-level): $PLAYWRIGHT_RUNNER_FILE"
           echo "Per-job engine/runner is resolved from request.model (see [dispatch] log lines)."
@@ -207,6 +208,9 @@ jobs:
           resolve_playwright_runner_for_model() {
             local model_name="$1"
             case "$model_name" in
+              git-chatgpt|git-chatgpt-json|*/git-chatgpt|*/git-chatgpt-json)
+                echo "chatgpt_file_playwright_anonymous_ci.py"
+                ;;
               git-perplexity|git-perplexity-json|*/git-perplexity|*/git-perplexity-json)
                 echo "perplexity_file_playwright_anonymous_ci.py"
                 ;;
@@ -220,7 +224,7 @@ jobs:
                 echo "qwen_file_playwright_anonymous_ci.py"
                 ;;
               *)
-                echo "chatgpt_file_playwright_anonymous_ci.py"
+                echo ""
                 ;;
             esac
           }
@@ -239,6 +243,9 @@ jobs:
                 ;;
               qwen_file_playwright_anonymous_ci.py)
                 echo "qwen"
+                ;;
+              "")
+                echo "unsupported"
                 ;;
               *)
                 echo "chatgpt"
@@ -1377,6 +1384,26 @@ jobs:
               model_name="$(parse_context_value "$context_file" "model" | tr -d '\r')"
               if [[ -n "${model_name// }" ]]; then
                 PLAYWRIGHT_RUNNER_FILE_OVERRIDE="$(resolve_playwright_runner_for_model "$model_name")"
+                if [[ -z "${PLAYWRIGHT_RUNNER_FILE_OVERRIDE// }" ]]; then
+                  write_status "$job_id" "failed" "" "" "model_validation"
+                  python - "$job_id" "$started_at" "$model_name" "$SUPPORTED_REQUEST_MODELS_CSV" <<'PY'
+          import json, sys
+          from pathlib import Path
+          job_id, started_at, model_name, supported_csv = sys.argv[1:5]
+          supported_models = [item.strip() for item in str(supported_csv).split(",") if item.strip()]
+          payload = {
+              "job_id": job_id,
+              "started_at": started_at,
+              "error": {
+                  "code": "INVALID_MODEL",
+                  "message": f"Unsupported model: {model_name}",
+                  "supported_models": supported_models,
+              },
+          }
+          Path(f"errors/{job_id}.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          PY
+                  terminal_state="failed"
+                fi
               fi
 
               local chunk_info
@@ -1389,23 +1416,41 @@ jobs:
             local dispatch_engine
             dispatch_engine="$(resolve_playwright_engine_for_runner "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE")"
             echo "[dispatch] job=$job_id model=${model_name:-unknown} engine=$dispatch_engine runner=$PLAYWRIGHT_RUNNER_FILE_OVERRIDE"
-            [[ -f "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE" ]] || { echo "Missing runner $PLAYWRIGHT_RUNNER_FILE_OVERRIDE"; return 1; }
-
-            : > "$memory_file"
-            local memory_candidate_file="tmp/${job_id}.memory_candidate.json"
-            find_memory_reuse_candidate "$user_prompt_file" "$job_id" "$memory_candidate_file" || true
-            build_memory_reuse_context "$memory_candidate_file" "$memory_file" || true
-            render_request_payload "$user_prompt_file" "$memory_file" "$router_input"
-
-            local bypass_router="false"
-            if [[ "$(is_system_test_prompt "$user_prompt_file")" != "true" ]] && [[ "$(should_bypass_router_prompt "$user_prompt_file")" == "true" ]]; then
-              bypass_router="true"
+            if [[ "$terminal_state" != "failed" && ! -f "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE" ]]; then
+              write_status "$job_id" "failed" "" "" "model_validation"
+              python - "$job_id" "$started_at" "$PLAYWRIGHT_RUNNER_FILE_OVERRIDE" <<'PY'
+          import json, sys
+          from pathlib import Path
+          job_id, started_at, runner = sys.argv[1:4]
+          payload = {
+              "job_id": job_id,
+              "started_at": started_at,
+              "error": {
+                  "code": "RUNNER_NOT_FOUND",
+                  "message": f"Resolved runner file was missing: {runner}",
+              },
+          }
+          Path(f"errors/{job_id}.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          PY
+              terminal_state="failed"
             fi
 
-            local router_rc=0
-            write_status "$job_id" "routing" "" "" "router"
-            if [[ "$bypass_router" == "true" ]]; then
-              python - "$router_out" <<'PY'
+            if [[ -z "$terminal_state" ]]; then
+              : > "$memory_file"
+              local memory_candidate_file="tmp/${job_id}.memory_candidate.json"
+              find_memory_reuse_candidate "$user_prompt_file" "$job_id" "$memory_candidate_file" || true
+              build_memory_reuse_context "$memory_candidate_file" "$memory_file" || true
+              render_request_payload "$user_prompt_file" "$memory_file" "$router_input"
+
+              local bypass_router="false"
+              if [[ "$(is_system_test_prompt "$user_prompt_file")" != "true" ]] && [[ "$(should_bypass_router_prompt "$user_prompt_file")" == "true" ]]; then
+                bypass_router="true"
+              fi
+
+              local router_rc=0
+              write_status "$job_id" "routing" "" "" "router"
+              if [[ "$bypass_router" == "true" ]]; then
+                python - "$router_out" <<'PY'
           import json
           import sys
           from pathlib import Path
@@ -1421,14 +1466,14 @@ jobs:
           }
           out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
           PY
-              echo "[router] bypassed via tell-me fast path"
-            else
-              call_playwright_stage "router" "$ROUTER_PROMPT_FILE" "$router_input" "$router_out" true false || router_rc=$?
-            fi
+                echo "[router] bypassed via tell-me fast path"
+              else
+                call_playwright_stage "router" "$ROUTER_PROMPT_FILE" "$router_input" "$router_out" true false || router_rc=$?
+              fi
 
-            if (( router_rc != 0 )); then
-              write_status "$job_id" "failed" "" "" "router"
-              python - "$job_id" "$started_at" <<'PY'
+              if (( router_rc != 0 )); then
+                write_status "$job_id" "failed" "" "" "router"
+                python - "$job_id" "$started_at" <<'PY'
           import json, sys
           from pathlib import Path
           job_id, started_at = sys.argv[1:3]
@@ -1442,15 +1487,15 @@ jobs:
           }
           Path(f"errors/{job_id}.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
           PY
-              terminal_state="failed"
-            else
-              write_stage_output "$job_id" "router" "$router_out"
-              validate_json "$router_out" > "$router_json"
-              if validate_stage_contract "router" "$router_json" > "${router_json}.validated"; then
-                mv "${router_json}.validated" "$router_json"
+                terminal_state="failed"
               else
-                echo "[router] contract validation failed; applying metadata-aware fallback"
-                python - "$router_json" "$context_file" <<'PY'
+                write_stage_output "$job_id" "router" "$router_out"
+                validate_json "$router_out" > "$router_json"
+                if validate_stage_contract "router" "$router_json" > "${router_json}.validated"; then
+                  mv "${router_json}.validated" "$router_json"
+                else
+                  echo "[router] contract validation failed; applying metadata-aware fallback"
+                  python - "$router_json" "$context_file" <<'PY'
           import json
           import sys
           from pathlib import Path
@@ -1483,29 +1528,34 @@ jobs:
           }
           router_path.write_text(json.dumps(fallback, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
           PY
-              fi
-
-              intent_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("intent_type",""))' "$router_json")"
-              task_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("task_type",""))' "$router_json")"
-              if [[ "$task_type" == "system_command" ]]; then
-                local hinted_task
-                hinted_task="$(python -c 'import json,sys; d=json.load(open(sys.argv[1], "r", encoding="utf-8")); print((d.get("task_type") or ""))' "$context_file")"
-                if [[ "$hinted_task" == "scheduled_weather_report" ]]; then
-                  intent_type="job"
-                  task_type="scheduled_weather_report"
                 fi
-              fi
-              if [[ "$(is_system_test_prompt "$user_prompt_file")" == "true" ]]; then
-                apply_router_system_test_override "$router_json"
-                intent_type="question"
-                task_type="system_command"
-              fi
+
+                intent_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("intent_type",""))' "$router_json")"
+                task_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("task_type",""))' "$router_json")"
+                if [[ "$task_type" == "system_command" ]]; then
+                  local hinted_task
+                  hinted_task="$(python -c 'import json,sys; d=json.load(open(sys.argv[1], "r", encoding="utf-8")); print((d.get("task_type") or ""))' "$context_file")"
+                  if [[ "$hinted_task" == "scheduled_weather_report" ]]; then
+                    intent_type="job"
+                    task_type="scheduled_weather_report"
+                  fi
+                fi
+                if [[ "$(is_system_test_prompt "$user_prompt_file")" == "true" ]]; then
+                  apply_router_system_test_override "$router_json"
+                  intent_type="question"
+                  task_type="system_command"
+                fi
               write_stage_result_json "$job_id" "router" "$router_json" true
               write_status "$job_id" "routed" "$intent_type" "$task_type" "router"
 
-              if [[ "$intent_type" == "question" ]]; then
+              if [[ "$intent_type" == "question" || "$intent_type" == "research" ]]; then
                 local requires_live_web
-                requires_live_web="$(question_requires_live_web "$user_prompt_file")"
+                if [[ "$intent_type" == "research" ]]; then
+                  requires_live_web="true"
+                  [[ -z "${task_type// }" ]] && task_type="root_topic_research"
+                else
+                  requires_live_web="$(question_requires_live_web "$user_prompt_file")"
+                fi
                 write_status "$job_id" "planning" "$intent_type" "$task_type" "answerer"
                 if [[ "$(is_system_test_prompt "$user_prompt_file")" == "true" ]]; then
                   local exact_target
@@ -1755,24 +1805,6 @@ jobs:
                   fi
                 fi
 
-              elif [[ "$intent_type" == "research" ]]; then
-                write_status "$job_id" "failed" "$intent_type" "$task_type" "research_not_implemented"
-                python - "$job_id" "$started_at" <<'PY'
-          import json, sys
-          from pathlib import Path
-          job_id, started_at = sys.argv[1:3]
-          payload = {
-              "job_id": job_id,
-              "started_at": started_at,
-              "error": {
-                  "code": "RESEARCH_NOT_IMPLEMENTED",
-                  "message": "Research routing was detected but the dedicated research pipeline is not implemented in this workflow yet."
-              }
-          }
-          Path(f"errors/{job_id}.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-          PY
-                terminal_state="failed"
-
               else
                 write_status "$job_id" "failed" "$intent_type" "$task_type" "router_invalid"
                 python - "$job_id" "$started_at" <<'PY'
@@ -1866,6 +1898,7 @@ jobs:
             fi
 
             finalize_combined "$job_id"
+            PROCESS_REQUEST_TERMINAL_STATE="$terminal_state"
           }
 
           move_with_dedupe() {
@@ -1891,12 +1924,16 @@ jobs:
           }
 
           archive_old_request_response_files() {
-            local keep_request="$1"
+            local _keep_request="$1"
             local keep_response="$2"
+            local processed_requests_manifest="${3:-}"
             shopt -s nullglob
-            for req in requests/job_*.json; do
-              move_with_dedupe "$req" "requests/old-requests"
-            done
+            if [[ -n "${processed_requests_manifest// }" && -f "$processed_requests_manifest" ]]; then
+              while IFS= read -r req; do
+                [[ -z "${req// }" ]] && continue
+                move_with_dedupe "$req" "requests/old-requests"
+              done < "$processed_requests_manifest"
+            fi
             for resp in responses/job_*.json; do
               [[ "$resp" == "$keep_response" ]] && continue
               move_with_dedupe "$resp" "responses/old-responses"
@@ -1954,6 +1991,9 @@ jobs:
 
           LAST_REQUEST_FILE=""
           LAST_RESPONSE_FILE=""
+          PROCESSED_REQUESTS_MANIFEST="tmp/processed_requests.list"
+          : > "$PROCESSED_REQUESTS_MANIFEST"
+          PROCESS_REQUEST_TERMINAL_STATE=""
 
           while IFS= read -r req; do
             [[ -z "$req" ]] && continue
@@ -1965,8 +2005,17 @@ jobs:
               started_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
               context_file="tmp/${job_id}.context.json"
               python "$EXTRACT_CONTEXT_SCRIPT" "$req" "$prompt_file" "tmp/${job_id}.question.txt" "tmp/${job_id}.model.txt" "tmp/${job_id}.startup.txt" "$context_file"
+              PROCESS_REQUEST_TERMINAL_STATE=""
               process_request_option_b "$job_id" "$prompt_file" "$started_at" "$context_file"
-              LAST_REQUEST_FILE="$req"
+              case "$PROCESS_REQUEST_TERMINAL_STATE" in
+                completed|failed|needs_clarification)
+                  printf '%s\n' "$req" >> "$PROCESSED_REQUESTS_MANIFEST"
+                  LAST_REQUEST_FILE="$req"
+                  ;;
+                *)
+                  echo "Leaving request queued for retry: $req (terminal_state=${PROCESS_REQUEST_TERMINAL_STATE:-none})"
+                  ;;
+              esac
               [[ -f "responses/${job_id}.json" ]] && LAST_RESPONSE_FILE="responses/${job_id}.json"
             else
               base_name="$(basename "$req")"
@@ -1982,7 +2031,7 @@ jobs:
             fi
           done <<< "$CHANGED"
 
-          archive_old_request_response_files "$LAST_REQUEST_FILE" "$LAST_RESPONSE_FILE"
+          archive_old_request_response_files "$LAST_REQUEST_FILE" "$LAST_RESPONSE_FILE" "$PROCESSED_REQUESTS_MANIFEST"
 
       - name: Upload Playwright diagnostics
         if: ${{ failure() || (github.event_name == 'workflow_dispatch' && github.event.inputs.upload_artifacts == 'true') }}

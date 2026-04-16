@@ -9,6 +9,7 @@ REPO_BRANCH="${REPO_BRANCH:-main}"
 DB_PATH="${DB_PATH:-/tmp/git_inference_github/jobs.db}"
 HOST="${HOST:-0.0.0.0}"
 PORT="${PORT:-8000}"
+ALLOW_UNSAFE_REPO_PATH="${ALLOW_UNSAFE_REPO_PATH:-false}"
 
 if [[ -f "${APP_DIR}/.venv/bin/activate" ]]; then
   # shellcheck source=/dev/null
@@ -19,6 +20,15 @@ if [[ ! -d "${REPO_PATH}/.git" ]]; then
   echo "ERROR: REPO_PATH is not a git repo: ${REPO_PATH}" >&2
   echo "Set REPO_PATH to your api workrepo (for example /tmp/git_inference_github/api-workrepo)." >&2
   exit 1
+fi
+
+if [[ "${ALLOW_UNSAFE_REPO_PATH,,}" != "true" ]]; then
+  if [[ -f "${REPO_PATH}/.github/workflows/process-requests.yml" && -f "${REPO_PATH}/git_inference_api/app/main.py" ]]; then
+    echo "ERROR: REPO_PATH appears to be the source repo checkout: ${REPO_PATH}" >&2
+    echo "The worker runs destructive sync (fetch/reset --hard/clean) on REPO_PATH." >&2
+    echo "Use a dedicated workrepo clone. To bypass intentionally, set ALLOW_UNSAFE_REPO_PATH=true." >&2
+    exit 1
+  fi
 fi
 
 if ! git -C "${REPO_PATH}" fetch origin "${REPO_BRANCH}" >/dev/null 2>&1; then

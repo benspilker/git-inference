@@ -13,6 +13,7 @@ REPO_BRANCH = os.environ.get("REPO_BRANCH", "main")
 DB_PATH = os.environ.get("DB_PATH", "/tmp/git_inference_github/jobs.db")
 HOST = os.environ.get("HOST", "0.0.0.0")
 PORT = os.environ.get("PORT", "8000")
+ALLOW_UNSAFE_REPO_PATH = os.environ.get("ALLOW_UNSAFE_REPO_PATH", "false").strip().lower() == "true"
 
 
 def fail(message: str) -> int:
@@ -28,6 +29,18 @@ def main() -> int:
             "Set REPO_PATH to your api workrepo (for example /tmp/git_inference_github/api-workrepo)."
         )
 
+    if not ALLOW_UNSAFE_REPO_PATH:
+        looks_like_source_repo = (
+            (Path(REPO_PATH) / ".github" / "workflows" / "process-requests.yml").exists()
+            and (Path(REPO_PATH) / "git_inference_api" / "app" / "main.py").exists()
+        )
+        if looks_like_source_repo:
+            return fail(
+                "REPO_PATH appears to be the source repo checkout. "
+                "The worker performs destructive sync (fetch/reset --hard/clean) on REPO_PATH. "
+                "Use a dedicated workrepo clone, or set ALLOW_UNSAFE_REPO_PATH=true to bypass intentionally."
+            )
+
     fetch = subprocess.run(
         ["git", "-C", REPO_PATH, "fetch", "origin", REPO_BRANCH],
         capture_output=True,
@@ -41,6 +54,7 @@ def main() -> int:
     env["REPO_PATH"] = REPO_PATH
     env["REPO_BRANCH"] = REPO_BRANCH
     env["DB_PATH"] = DB_PATH
+    env["ALLOW_UNSAFE_REPO_PATH"] = "true" if ALLOW_UNSAFE_REPO_PATH else "false"
 
     print("Starting API with:")
     print(f"  REPO_PATH={REPO_PATH}")

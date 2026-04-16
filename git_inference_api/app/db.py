@@ -487,6 +487,39 @@ def get_active_job_id() -> str | None:
     return str(row["job_id"]) if row else None
 
 
+def list_allsequential_virtual_turns_in_progress_jobs(limit: int = 50) -> list[dict[str, Any]]:
+    safe_limit = max(1, int(limit))
+    with DB_LOCK, connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT *
+            FROM jobs
+            WHERE status = 'completed'
+              AND response_json IS NOT NULL
+            ORDER BY completed_at DESC, job_id DESC
+            LIMIT ?
+            """,
+            (safe_limit,),
+        ).fetchall()
+
+    matches: list[dict[str, Any]] = []
+    for row in rows:
+        data = row_to_dict(row)
+        if not isinstance(data, dict):
+            continue
+        response_json = data.get("response_json")
+        execution_json = data.get("execution_json")
+        if not isinstance(response_json, dict) or not isinstance(execution_json, dict):
+            continue
+        if str(execution_json.get("mode") or "").strip().lower() != "allsequential_virtual_turns":
+            continue
+        stage = str(execution_json.get("stage") or "").strip().lower()
+        if stage != "virtual_turns_in_progress":
+            continue
+        matches.append(data)
+    return matches
+
+
 def row_to_dict(row: sqlite3.Row | None) -> dict[str, Any] | None:
     if row is None:
         return None

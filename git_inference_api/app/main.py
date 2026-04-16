@@ -299,6 +299,31 @@ def get_tags() -> dict[str, Any]:
     return {"models": models}
 
 
+def is_supported_model(model_name: str) -> bool:
+    normalized = str(model_name or "").strip().lower()
+    if not normalized:
+        return False
+    available = [name.strip().lower() for name in settings.available_models() if str(name).strip()]
+    if normalized in available:
+        return True
+    tail = normalized.split("/")[-1]
+    available_tails = {name.split("/")[-1] for name in available}
+    return tail in available_tails
+
+
+def ensure_supported_model_or_raise(model_name: str) -> None:
+    if is_supported_model(model_name):
+        return
+    raise HTTPException(
+        status_code=400,
+        detail={
+            "code": "INVALID_MODEL",
+            "message": f"Unsupported model '{model_name}'.",
+            "supported_models": settings.available_models(),
+        },
+    )
+
+
 def handle_submission(
     normalized_request: dict[str, Any],
     model: str,
@@ -308,6 +333,7 @@ def handle_submission(
     idempotency_key: str | None,
     combined_in_message: bool = False,
 ):
+    ensure_supported_model_or_raise(model)
     request_hash = sha256_json(normalized_request)
     resolved_idempotency_key = resolve_idempotency_key(idempotency_key, request_hash)
 

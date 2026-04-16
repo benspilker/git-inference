@@ -47,12 +47,15 @@ class JobWorker:
         self._notify_event = threading.Event()
         self._thread: threading.Thread | None = None
         self._stop_event = threading.Event()
+        self._virtual_turn_threads_lock = threading.Lock()
+        self._virtual_turn_active_jobs: set[str] = set()
 
     def start(self) -> None:
         if self._thread and self._thread.is_alive():
             return
         self._thread = threading.Thread(target=self._run_loop, name="job-worker-v2", daemon=True)
         self._thread.start()
+        self._resume_allsequential_virtual_turns()
         logger.info("worker started")
 
     def stop(self) -> None:
@@ -64,6 +67,38 @@ class JobWorker:
 
     def notify(self) -> None:
         self._notify_event.set()
+
+    def _resume_allsequential_virtual_turns(self) -> None:
+        jobs = db.list_allsequential_virtual_turns_in_progress_jobs(limit=100)
+        if not jobs:
+            return
+        for job in jobs:
+            job_id = str(job.get("job_id") or "").strip()
+            if not job_id:
+                continue
+            self._spawn_allsequential_virtual_turns_background(job_id)
+        logger.info(
+            "queued allsequential virtual-turn recovery",
+            extra={"recovered_jobs": [str(job.get("job_id")) for job in jobs if job.get("job_id")]},
+        )
+
+    def _spawn_allsequential_virtual_turns_background(self, job_id: str) -> None:
+        with self._virtual_turn_threads_lock:
+            if job_id in self._virtual_turn_active_jobs:
+                return
+            self._virtual_turn_active_jobs.add(job_id)
+
+        bg_thread = threading.Thread(
+            target=self._run_allsequential_virtual_turns_background,
+            name=f"allseq-vturn-{job_id[:8]}",
+            daemon=True,
+            args=(job_id,),
+        )
+        bg_thread.start()
+        logger.info(
+            "allsequential virtual turns background worker spawned",
+            extra={"job_id": job_id, "thread_name": bg_thread.name},
+        )
 
     def _run_loop(self) -> None:
         repo_ready = False
@@ -193,14 +228,19 @@ class JobWorker:
                 return
 
             if intent_type == "research":
-                self._update_status(job_id, "failed", intent_type=intent_type, task_type=task_type)
-                db.mark_failed(
-                    job_id,
+                task_type = task_type or "root_topic_research"
+                self._update_status(job_id, "planning", intent_type=intent_type, task_type=task_type)
+                result = self._run_answerer_stage(
+                    job,
                     {
-                        "code": "RESEARCH_NOT_IMPLEMENTED",
-                        "message": "Research workflow is not implemented in worker.",
+                        "intent_type": intent_type,
+                        "task_type": task_type,
                     },
-                    status="failed",
+                )
+                db.mark_completed(job_id, result)
+                logger.info(
+                    "research workflow completed via answerer lane",
+                    extra={"job_id": job_id, "status": "completed", "task_type": task_type},
                 )
                 return
 
@@ -543,163 +583,288 @@ class JobWorker:
             f"Running this prompt across {len(targets)} sources now. "
             "I will send each source result as a separate follow-up message."
         )
-        kickoff_execution = {
-            "mode": "allsequential_virtual_turns",
-            "targets": targets,
-            "results": [],
-            "source_messages": [],
-            "success_count": 0,
-            "failure_count": 0,
-            "delivery_errors": [],
-            "stage": "virtual_turns_in_progress",
-        }
-        kickoff_payload = {
-            "message": {"role": "assistant", "content": kickoff_content},
-            "intent_type": "question",
-            "task_type": "allsequential",
-            "current_stage": "virtual_turns_in_progress",
-            "execution": kickoff_execution,
-            "stages": {"allsequential": "virtual_turns_in_progress"},
-            "done": True,
-        }
-        db.mark_completed(
-            job_id,
-            kickoff_payload,
-            execution_json=kickoff_execution,
-            stages_json={"allsequential": "virtual_turns_in_progress"},
+        kickoff_execution = self._build_allsequential_virtual_turns_execution(
+            request_payload=request_payload,
+            targets=targets,
+            aggregated_results=[],
+            delivery_errors=[],
+            stage="virtual_turns_in_progress",
+            kickoff_content=kickoff_content,
+            base_prompt=base_prompt,
         )
+        self._persist_allsequential_virtual_turns_state(job_id=job_id, execution_meta=kickoff_execution)
         logger.info(
             "allsequential virtual turns started",
             extra={"job_id": job_id, "status": "completed", "total": len(targets)},
         )
+        self._spawn_allsequential_virtual_turns_background(job_id)
 
-        aggregated_results: list[dict[str, Any]] = []
-        delivery_errors: list[dict[str, Any]] = []
-        success_count = 0
+    @staticmethod
+    def _coerce_list_of_dicts(value: Any) -> list[dict[str, Any]]:
+        if not isinstance(value, list):
+            return []
+        out: list[dict[str, Any]] = []
+        for item in value:
+            if isinstance(item, dict):
+                out.append(dict(item))
+        return out
 
-        for idx, target_model in enumerate(targets, start=1):
-            child_job_id = f"{job_id}_allseq_{idx:02d}_{self._sanitize_model_tail(target_model)}"
-            child_payload = json.loads(json.dumps(request_payload))
-            child_payload["model"] = target_model
-            child_payload["allsequential_parent_job_id"] = job_id
-            child_payload["allsequential_index"] = idx
-            child_payload["allsequential_total"] = len(targets)
-
-            item: dict[str, Any]
-            try:
-                raw_result = self._run_one_shot_request(child_job_id, child_payload)
-                normalized_result = self._normalize_response_payload(
-                    raw_result,
-                    router_result={"intent_type": "question", "task_type": "information"},
-                )
-                message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
-                content = ""
-                if isinstance(message, dict):
-                    content = str(message.get("content") or "").strip()
-                if not content:
-                    content = str(raw_result or "").strip()
-
-                item = {
-                    "index": idx,
-                    "model": target_model,
-                    "job_id": child_job_id,
-                    "status": "completed",
-                    "content": content,
-                }
-                success_count += 1
-            except Exception as exc:
-                item = {
-                    "index": idx,
-                    "model": target_model,
-                    "job_id": child_job_id,
-                    "status": "failed",
-                    "error": str(exc),
-                }
-                logger.warning(
-                    "allsequential child failed",
-                    extra={
-                        "parent_job_id": job_id,
-                        "child_job_id": child_job_id,
-                        "model": target_model,
-                        "error": str(exc),
-                    },
-                )
-
-            aggregated_results.append(item)
-
-            item_status = str(item.get("status") or "").strip().lower()
-            if item_status != "completed" and not settings.allsequential_virtual_turns_send_failures:
-                continue
-
-            source_messages = self._build_allsequential_source_messages(
-                [item],
-                total_override=len(targets),
-            )
-            for source_msg in source_messages:
-                ok, err = self._send_openclaw_channel_message(str(source_msg.get("text") or ""))
-                if not ok:
-                    delivery_errors.append(
-                        {
-                            "index": idx,
-                            "model": target_model,
-                            "part_index": source_msg.get("part_index"),
-                            "part_total": source_msg.get("part_total"),
-                            "error": err or "unknown delivery error",
-                        }
-                    )
-                    logger.warning(
-                        "allsequential virtual delivery failed",
-                        extra={
-                            "job_id": job_id,
-                            "model": target_model,
-                            "index": idx,
-                            "error": err or "unknown delivery error",
-                        },
-                    )
-
-        final_source_messages = self._build_allsequential_source_messages(aggregated_results)
-        final_content = self._format_allsequential_response(
-            base_prompt=base_prompt,
-            results=aggregated_results,
-            source_messages=final_source_messages,
-        )
-        execution_meta = {
+    def _build_allsequential_virtual_turns_execution(
+        self,
+        *,
+        request_payload: dict[str, Any],
+        targets: list[str],
+        aggregated_results: list[dict[str, Any]],
+        delivery_errors: list[dict[str, Any]],
+        stage: str,
+        kickoff_content: str,
+        base_prompt: str,
+        error: str | None = None,
+    ) -> dict[str, Any]:
+        source_messages = self._build_allsequential_source_messages(aggregated_results)
+        success_count = sum(1 for item in aggregated_results if str(item.get("status") or "").strip().lower() == "completed")
+        next_index = min(len(targets) + 1, len(aggregated_results) + 1)
+        execution_meta: dict[str, Any] = {
             "mode": "allsequential_virtual_turns",
+            "request_payload": request_payload,
+            "base_prompt": base_prompt,
+            "kickoff_content": kickoff_content,
             "targets": targets,
             "results": aggregated_results,
-            "source_messages": final_source_messages,
+            "source_messages": source_messages,
             "success_count": success_count,
             "failure_count": len(aggregated_results) - success_count,
             "delivery_errors": delivery_errors,
-            "stage": "virtual_turns_complete",
+            "next_index": next_index,
+            "stage": stage,
         }
-        final_payload = {
+        if error:
+            execution_meta["error"] = str(error)
+        if stage == "virtual_turns_complete":
+            execution_meta["allsequential_summary"] = self._format_allsequential_response(
+                base_prompt=base_prompt,
+                results=aggregated_results,
+                source_messages=source_messages,
+            )
+        return execution_meta
+
+    def _persist_allsequential_virtual_turns_state(self, *, job_id: str, execution_meta: dict[str, Any]) -> None:
+        stage = str(execution_meta.get("stage") or "virtual_turns_in_progress").strip().lower()
+        kickoff_content = str(execution_meta.get("kickoff_content") or "").strip()
+        if not kickoff_content:
+            target_count = len(execution_meta.get("targets") or [])
+            kickoff_content = (
+                f"Running this prompt across {target_count} sources now. "
+                "I will send each source result as a separate follow-up message."
+            )
+        payload: dict[str, Any] = {
             "message": {"role": "assistant", "content": kickoff_content},
             "intent_type": "question",
             "task_type": "allsequential",
-            "current_stage": "completed",
+            "current_stage": stage,
             "execution": execution_meta,
-            "stages": {"allsequential": "virtual_turns_complete"},
-            "source_messages": final_source_messages,
-            "allsequential_summary": final_content,
+            "stages": {"allsequential": stage},
+            "source_messages": execution_meta.get("source_messages") or [],
             "done": True,
         }
+        if stage == "virtual_turns_complete":
+            payload["allsequential_summary"] = execution_meta.get("allsequential_summary")
+            payload["current_stage"] = "completed"
+        elif stage == "virtual_turns_error":
+            payload["current_stage"] = "completed"
         db.mark_completed(
             job_id,
-            final_payload,
+            payload,
             execution_json=execution_meta,
-            stages_json={"allsequential": "virtual_turns_complete"},
+            stages_json={"allsequential": stage},
         )
-        logger.info(
-            "allsequential virtual turns completed",
-            extra={
-                "job_id": job_id,
-                "status": "completed",
-                "success_count": success_count,
-                "total": len(aggregated_results),
-                "delivery_failures": len(delivery_errors),
-            },
-        )
+
+    def _run_allsequential_virtual_turns_background(
+        self,
+        job_id: str,
+    ) -> None:
+        request_payload: dict[str, Any] = {}
+        targets: list[str] = []
+        base_prompt = ""
+        kickoff_content = ""
+        aggregated_results: list[dict[str, Any]] = []
+        delivery_errors: list[dict[str, Any]] = []
+        try:
+            ensure_repo_ready()
+            job = db.get_job(job_id) or {}
+            request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+            response_json = job.get("response_json") if isinstance(job.get("response_json"), dict) else {}
+            execution = response_json.get("execution") if isinstance(response_json.get("execution"), dict) else None
+            if not isinstance(execution, dict):
+                execution = job.get("execution_json") if isinstance(job.get("execution_json"), dict) else None
+            if not isinstance(execution, dict):
+                logger.warning("missing virtual-turn state, skipping background run", extra={"job_id": job_id})
+                return
+
+            mode = str(execution.get("mode") or "").strip().lower()
+            stage = str(execution.get("stage") or "").strip().lower()
+            if mode != "allsequential_virtual_turns" or stage != "virtual_turns_in_progress":
+                return
+
+            targets = [str(item).strip() for item in execution.get("targets") or [] if str(item).strip()]
+            if not targets:
+                logger.warning("virtual-turn state has no targets", extra={"job_id": job_id})
+                return
+
+            request_from_state = execution.get("request_payload")
+            if isinstance(request_from_state, dict):
+                request_payload = dict(request_from_state)
+            base_prompt = str(
+                execution.get("base_prompt")
+                or request_payload.get("user_prompt")
+                or request_payload.get("prompt")
+                or ""
+            ).strip()
+            kickoff_content = str(execution.get("kickoff_content") or "").strip()
+            if not kickoff_content:
+                kickoff_content = (
+                    f"Running this prompt across {len(targets)} sources now. "
+                    "I will send each source result as a separate follow-up message."
+                )
+
+            aggregated_results = self._coerce_list_of_dicts(execution.get("results"))
+            delivery_errors = self._coerce_list_of_dicts(execution.get("delivery_errors"))
+            next_index = int(execution.get("next_index") or (len(aggregated_results) + 1))
+            next_index = max(1, min(next_index, len(targets) + 1))
+
+            for idx in range(next_index, len(targets) + 1):
+                if self._stop_event.is_set():
+                    break
+                target_model = targets[idx - 1]
+                child_job_id = f"{job_id}_allseq_{idx:02d}_{self._sanitize_model_tail(target_model)}"
+                child_payload = json.loads(json.dumps(request_payload))
+                child_payload["model"] = target_model
+                child_payload["allsequential_parent_job_id"] = job_id
+                child_payload["allsequential_index"] = idx
+                child_payload["allsequential_total"] = len(targets)
+
+                item: dict[str, Any]
+                try:
+                    raw_result = self._run_one_shot_request(child_job_id, child_payload)
+                    normalized_result = self._normalize_response_payload(
+                        raw_result,
+                        router_result={"intent_type": "question", "task_type": "information"},
+                    )
+                    message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
+                    content = ""
+                    if isinstance(message, dict):
+                        content = str(message.get("content") or "").strip()
+                    if not content:
+                        content = str(raw_result or "").strip()
+
+                    item = {
+                        "index": idx,
+                        "model": target_model,
+                        "job_id": child_job_id,
+                        "status": "completed",
+                        "content": content,
+                    }
+                except Exception as exc:
+                    item = {
+                        "index": idx,
+                        "model": target_model,
+                        "job_id": child_job_id,
+                        "status": "failed",
+                        "error": str(exc),
+                    }
+                    logger.warning(
+                        "allsequential child failed",
+                        extra={
+                            "parent_job_id": job_id,
+                            "child_job_id": child_job_id,
+                            "model": target_model,
+                            "error": str(exc),
+                        },
+                    )
+
+                aggregated_results.append(item)
+
+                item_status = str(item.get("status") or "").strip().lower()
+                if item_status != "completed" and not settings.allsequential_virtual_turns_send_failures:
+                    continue
+
+                source_messages = self._build_allsequential_source_messages(
+                    [item],
+                    total_override=len(targets),
+                )
+                for source_msg in source_messages:
+                    ok, err = self._send_openclaw_channel_message(str(source_msg.get("text") or ""))
+                    if not ok:
+                        delivery_errors.append(
+                            {
+                                "index": idx,
+                                "model": target_model,
+                                "part_index": source_msg.get("part_index"),
+                                "part_total": source_msg.get("part_total"),
+                                "error": err or "unknown delivery error",
+                            }
+                        )
+                        logger.warning(
+                            "allsequential virtual delivery failed",
+                            extra={
+                                "job_id": job_id,
+                                "model": target_model,
+                                "index": idx,
+                                "error": err or "unknown delivery error",
+                            },
+                        )
+
+                checkpoint_execution = self._build_allsequential_virtual_turns_execution(
+                    request_payload=request_payload,
+                    targets=targets,
+                    aggregated_results=aggregated_results,
+                    delivery_errors=delivery_errors,
+                    stage="virtual_turns_in_progress",
+                    kickoff_content=kickoff_content,
+                    base_prompt=base_prompt,
+                )
+                self._persist_allsequential_virtual_turns_state(job_id=job_id, execution_meta=checkpoint_execution)
+        except Exception as exc:
+            logger.exception(
+                "allsequential virtual background run failed",
+                extra={"job_id": job_id, "error": str(exc)},
+            )
+            error_execution = self._build_allsequential_virtual_turns_execution(
+                request_payload=request_payload if isinstance(request_payload, dict) else {},
+                targets=targets if isinstance(targets, list) else [],
+                aggregated_results=aggregated_results if isinstance(aggregated_results, list) else [],
+                delivery_errors=delivery_errors if isinstance(delivery_errors, list) else [],
+                stage="virtual_turns_error",
+                kickoff_content=kickoff_content if isinstance(kickoff_content, str) else "",
+                base_prompt=base_prompt if isinstance(base_prompt, str) else "",
+                error=str(exc),
+            )
+            self._persist_allsequential_virtual_turns_state(job_id=job_id, execution_meta=error_execution)
+        else:
+            if not self._stop_event.is_set():
+                final_execution = self._build_allsequential_virtual_turns_execution(
+                    request_payload=request_payload,
+                    targets=targets,
+                    aggregated_results=aggregated_results,
+                    delivery_errors=delivery_errors,
+                    stage="virtual_turns_complete",
+                    kickoff_content=kickoff_content,
+                    base_prompt=base_prompt,
+                )
+                self._persist_allsequential_virtual_turns_state(job_id=job_id, execution_meta=final_execution)
+                logger.info(
+                    "allsequential virtual turns completed",
+                    extra={
+                        "job_id": job_id,
+                        "status": "completed",
+                        "success_count": final_execution.get("success_count"),
+                        "total": len(aggregated_results),
+                        "delivery_failures": len(delivery_errors),
+                    },
+                )
+        finally:
+            with self._virtual_turn_threads_lock:
+                self._virtual_turn_active_jobs.discard(job_id)
 
     def _build_allsequential_source_messages(
         self,

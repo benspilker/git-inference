@@ -75,10 +75,11 @@ class Settings:
     )
     all_sequential_models_csv: str = env_csv(
         "ALL_SEQUENTIAL_MODELS",
-        "git-perplexity,git-grok,git-inceptionlabs,git-qwen",
+        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen",
     )
     allsequential_virtual_turns_enabled: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED", False)
     allsequential_virtual_turns_send_failures: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES", True)
+    allow_unsafe_repo_path: bool = env_bool("ALLOW_UNSAFE_REPO_PATH", False)
 
     # Prompt / chunking
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))
