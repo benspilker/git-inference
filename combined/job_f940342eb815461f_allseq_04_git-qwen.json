@@ -1,0 +1,26 @@
+{
+  "job_id": "job_f940342eb815461f_allseq_04_git-qwen",
+  "status": {
+    "job_id": "job_f940342eb815461f_allseq_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T18:13:22Z",
+    "created_at": "2026-04-16T18:12:37Z"
+  },
+  "response": {
+    "job_id": "job_f940342eb815461f_allseq_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "To make a pizza, spread tomato sauce over rolled-out dough, top with cheese and your preferred ingredients, then bake in a preheated oven at 425–475°F (220–245°C) for 10–15 minutes until the crust is golden and the cheese is bubbly."
+    },
+    "done": true,
+    "started_at": "2026-04-16T18:12:37Z",
+    "completed_at": "2026-04-16T18:13:22Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T18:13:22Z"
+}
