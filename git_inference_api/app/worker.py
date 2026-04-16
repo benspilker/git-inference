@@ -564,8 +564,21 @@ class JobWorker:
         )
 
     def _allsequential_virtual_turns_enabled(self) -> bool:
-        if not settings.allsequential_virtual_turns_enabled:
-            return False
+        return bool(settings.allsequential_virtual_turns_enabled)
+
+    @staticmethod
+    def _build_virtual_turns_kickoff_content(target_count: int, send_followups: bool) -> str:
+        if send_followups:
+            return (
+                f"Running this prompt across {target_count} sources now. "
+                "I will send each source result as a separate follow-up message."
+            )
+        return (
+            f"Running this prompt across {target_count} sources now. "
+            "Follow-up delivery is not configured, so check /api/jobs/<job_id> for per-source progress and results."
+        )
+
+    def _allsequential_followup_delivery_enabled(self) -> bool:
         if not settings.openclaw_cron_ssh_target.strip():
             return False
         if not settings.openclaw_cron_to.strip():
@@ -579,10 +592,8 @@ class JobWorker:
         targets: list[str],
         base_prompt: str,
     ) -> None:
-        kickoff_content = (
-            f"Running this prompt across {len(targets)} sources now. "
-            "I will send each source result as a separate follow-up message."
-        )
+        send_followups = self._allsequential_followup_delivery_enabled()
+        kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
         kickoff_execution = self._build_allsequential_virtual_turns_execution(
             request_payload=request_payload,
             targets=targets,
@@ -653,9 +664,9 @@ class JobWorker:
         kickoff_content = str(execution_meta.get("kickoff_content") or "").strip()
         if not kickoff_content:
             target_count = len(execution_meta.get("targets") or [])
-            kickoff_content = (
-                f"Running this prompt across {target_count} sources now. "
-                "I will send each source result as a separate follow-up message."
+            kickoff_content = self._build_virtual_turns_kickoff_content(
+                target_count,
+                self._allsequential_followup_delivery_enabled(),
             )
         payload: dict[str, Any] = {
             "message": {"role": "assistant", "content": kickoff_content},
@@ -710,6 +721,12 @@ class JobWorker:
             if not targets:
                 logger.warning("virtual-turn state has no targets", extra={"job_id": job_id})
                 return
+            send_followups = self._allsequential_followup_delivery_enabled()
+            if not send_followups:
+                logger.info(
+                    "allsequential virtual follow-up delivery disabled; progress is available via api job state",
+                    extra={"job_id": job_id},
+                )
 
             request_from_state = execution.get("request_payload")
             if isinstance(request_from_state, dict):
@@ -722,10 +739,7 @@ class JobWorker:
             ).strip()
             kickoff_content = str(execution.get("kickoff_content") or "").strip()
             if not kickoff_content:
-                kickoff_content = (
-                    f"Running this prompt across {len(targets)} sources now. "
-                    "I will send each source result as a separate follow-up message."
-                )
+                kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
 
             aggregated_results = self._coerce_list_of_dicts(execution.get("results"))
             delivery_errors = self._coerce_list_of_dicts(execution.get("delivery_errors"))
@@ -785,34 +799,33 @@ class JobWorker:
                 aggregated_results.append(item)
 
                 item_status = str(item.get("status") or "").strip().lower()
-                if item_status != "completed" and not settings.allsequential_virtual_turns_send_failures:
-                    continue
-
-                source_messages = self._build_allsequential_source_messages(
-                    [item],
-                    total_override=len(targets),
-                )
-                for source_msg in source_messages:
-                    ok, err = self._send_openclaw_channel_message(str(source_msg.get("text") or ""))
-                    if not ok:
-                        delivery_errors.append(
-                            {
-                                "index": idx,
-                                "model": target_model,
-                                "part_index": source_msg.get("part_index"),
-                                "part_total": source_msg.get("part_total"),
-                                "error": err or "unknown delivery error",
-                            }
-                        )
-                        logger.warning(
-                            "allsequential virtual delivery failed",
-                            extra={
-                                "job_id": job_id,
-                                "model": target_model,
-                                "index": idx,
-                                "error": err or "unknown delivery error",
-                            },
-                        )
+                should_send_item = item_status == "completed" or settings.allsequential_virtual_turns_send_failures
+                if send_followups and should_send_item:
+                    source_messages = self._build_allsequential_source_messages(
+                        [item],
+                        total_override=len(targets),
+                    )
+                    for source_msg in source_messages:
+                        ok, err = self._send_openclaw_channel_message(str(source_msg.get("text") or ""))
+                        if not ok:
+                            delivery_errors.append(
+                                {
+                                    "index": idx,
+                                    "model": target_model,
+                                    "part_index": source_msg.get("part_index"),
+                                    "part_total": source_msg.get("part_total"),
+                                    "error": err or "unknown delivery error",
+                                }
+                            )
+                            logger.warning(
+                                "allsequential virtual delivery failed",
+                                extra={
+                                    "job_id": job_id,
+                                    "model": target_model,
+                                    "index": idx,
+                                    "error": err or "unknown delivery error",
+                                },
+                            )
 
                 checkpoint_execution = self._build_allsequential_virtual_turns_execution(
                     request_payload=request_payload,

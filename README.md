@@ -146,7 +146,7 @@ Copy `.env.example` and set at least:
 - `GIT_AUTHOR_NAME`
 - `GIT_AUTHOR_EMAIL`
 - `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen`)
-- `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED` (optional, default `false`; if `true`, `git-allsequential` returns quickly and sends each source as a separate follow-up message)
+- `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED` (optional, default `false`; if `true`, `git-allsequential` returns quickly and runs sources in the background)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES` (optional, default `true`; if `false`, failed sources are omitted from follow-up sends)
 - `ALLOW_UNSAFE_REPO_PATH` (optional, default `false`; safety bypass only, do not enable unless you intentionally accept destructive git sync on `REPO_PATH`)
 
@@ -168,11 +168,12 @@ If one source reply is still too long for Telegram chunk limits, the API pre-spl
 
 ### Virtual turns mode (`git-allsequential`)
 
-When `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true` and OpenClaw bridge values are set (`OPENCLAW_CRON_SSH_TARGET`, `OPENCLAW_CRON_CHANNEL`, `OPENCLAW_CRON_TO`):
+When `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true`:
 
 1. The parent API call completes immediately with a kickoff message.
 2. The API keeps running each source model sequentially in the background.
-3. Each source result is sent as its own OpenClaw follow-up message.
+3. Per-source progress and results are persisted on the job (`/api/jobs/<job_id>`).
+4. If OpenClaw bridge values are set (`OPENCLAW_CRON_SSH_TARGET`, `OPENCLAW_CRON_CHANNEL`, `OPENCLAW_CRON_TO`), each source result is also sent as its own follow-up message.
 
 This keeps request latency low while still delivering source-by-source answers.
 
