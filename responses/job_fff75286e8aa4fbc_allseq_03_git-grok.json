@@ -1,0 +1,10 @@
+{
+  "job_id": "job_fff75286e8aa4fbc_allseq_03_git-grok",
+  "message": {
+    "role": "assistant",
+    "content": "TELEGRAM_E2E_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-16T02:47:51Z",
+  "completed_at": "2026-04-16T02:50:11Z"
+}

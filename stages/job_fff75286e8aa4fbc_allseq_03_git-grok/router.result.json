@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.85,
+  "requires_local_execution": false,
+  "reason": "User is instructing a specific reply format (TELEGRAM_E2E_OK) which appears to be a test or verification request for a response, treated as seeking confirmation or conversational handling without deeper research or local action implied beyond reply. Deterministic system-test override applied for exact-reply probe."
+}
