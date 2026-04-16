@@ -1,0 +1,9 @@
+{
+  "job_id": "job_3fc8e1513486416d_allseq_04_git-inceptionlabs",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "complete",
+  "updated_at": "2026-04-16T16:19:11Z",
+  "created_at": "2026-04-16T16:19:00Z"
+}
