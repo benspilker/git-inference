@@ -1,0 +1,26 @@
+{
+  "job_id": "job_a802a49109bc4072_allseq_01_git-perplexity",
+  "status": {
+    "job_id": "job_a802a49109bc4072_allseq_01_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "system_command",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T12:15:46Z",
+    "created_at": "2026-04-16T12:14:19Z"
+  },
+  "response": {
+    "job_id": "job_a802a49109bc4072_allseq_01_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "VTURN_RESTART_OK"
+    },
+    "done": true,
+    "started_at": "2026-04-16T12:14:19Z",
+    "completed_at": "2026-04-16T12:15:46Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T12:15:46Z"
+}

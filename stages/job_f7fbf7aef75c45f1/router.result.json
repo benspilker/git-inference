@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.95,
+  "requires_local_execution": false,
+  "reason": "The user is instructing the system to output a specific response string, which indicates a command-type request rather than an informational query or research task. Deterministic system-test override applied for exact-reply probe."
+}

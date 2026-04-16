@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.98,
+  "requires_local_execution": false,
+  "reason": "The user is instructing the system to return a specific control token ('VTURN_RESTART_OK'), which constitutes a command rather than a question or research request. Deterministic system-test override applied for exact-reply probe."
+}

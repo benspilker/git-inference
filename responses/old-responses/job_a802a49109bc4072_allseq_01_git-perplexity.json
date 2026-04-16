@@ -1,0 +1,10 @@
+{
+  "job_id": "job_a802a49109bc4072_allseq_01_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "VTURN_RESTART_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-16T12:14:19Z",
+  "completed_at": "2026-04-16T12:15:46Z"
+}
