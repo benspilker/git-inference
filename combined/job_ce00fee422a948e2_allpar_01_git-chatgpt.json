@@ -1,0 +1,26 @@
+{
+  "job_id": "job_ce00fee422a948e2_allpar_01_git-chatgpt",
+  "status": {
+    "job_id": "job_ce00fee422a948e2_allpar_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T20:31:17Z",
+    "created_at": "2026-04-16T20:31:00Z"
+  },
+  "response": {
+    "job_id": "job_ce00fee422a948e2_allpar_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a straightforward, reliable way to make a good homemade pizza from scratch:\n\n1) Dough (about 2 medium pizzas)\n\nIngredients\n\n2 ¼ tsp (1 packet) active dry yeast\n\n1 ½ cups warm water (not hot)\n\n3 ½–4 cups all-purpose or bread flour\n\n2 tbsp olive oil\n\n1 tsp sugar\n\n1 tsp salt\n\nSteps\n\nMix warm water, sugar, and yeast. Let sit 5–10 min until foamy.\n\nAdd oil, salt, and 3½ cups flour. Mix until a dough forms.\n\nKnead 8–10 min until smooth (add a bit more flour if sticky).\n\nPlace in an oiled bowl, cover, and let rise 1–1.5 hours until doubled.\n\n2) Sauce (quick version)\n\n1 cup crushed tomatoes\n\n1–2 cloves garlic (minced)\n\n1 tbsp olive oil\n\nSalt + pepper\n\nOptional: oregano or basil\n\nSimmer everything for ~10–15 minutes to thicken slightly.\n\n3) Assemble\n\nPreheat oven to 475°F / 245°C (very hot is key).\n\nRoll or stretch dough into a circle.\n\nTransfer to a baking sheet or pizza stone.\n\nSpread a thin layer of sauce.\n\nAdd cheese (mozzarella works best).\n\nAdd toppings (pepperoni, veggies, etc.).\n\n4) Bake\n\nBake 10–15 minutes until crust is golden and cheese is bubbly.\n\n5) Finish\n\nLet cool a couple minutes, slice, and eat.\n\nPractical tip"
+    },
+    "done": true,
+    "started_at": "2026-04-16T20:31:00Z",
+    "completed_at": "2026-04-16T20:31:17Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T20:31:18Z"
+}
