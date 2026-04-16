@@ -150,16 +150,18 @@ Copy `.env.example` and set at least:
 
 ### Telegram display note for `git-allsequential`
 
-If you want `git-allsequential` output to arrive as multiple Telegram messages (one or more source blocks per chunk) instead of one long post, set OpenClaw Telegram chunking to paragraph mode and a smaller limit:
+If you want `git-allsequential` output to arrive as large per-source Telegram messages (instead of many small intra-source chunks), set OpenClaw Telegram chunking to paragraph mode with a high limit:
 
 ```bash
 openclaw config set channels.telegram.chunkMode newline
-openclaw config set channels.telegram.textChunkLimit 900
+openclaw config set channels.telegram.textChunkLimit 3800
 ```
 
 Each source section is labeled in the response as:
 
 `[index/total] Source: <model> | Status: <status>`
+
+`git-allsequential` also compacts internal blank-line runs in each source reply so newline chunking prefers source boundaries.
 
 The code assumes `origin/<branch>` already exists unless `AUTO_INIT_REPO=true`.
 

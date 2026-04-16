@@ -305,6 +305,16 @@ class JobWorker:
         tail = str(model_name or "").strip().split("/")[-1]
         return re.sub(r"[^a-zA-Z0-9_-]+", "-", tail)[:40] or "model"
 
+    @staticmethod
+    def _compact_for_telegram_chunking(text: str) -> str:
+        """
+        Keep each source response in one large paragraph block so Telegram newline
+        chunk mode prefers splitting between sources, not within a source answer.
+        """
+        normalized = str(text or "").replace("\r\n", "\n")
+        normalized = re.sub(r"\n\s*\n+", "\n", normalized)
+        return normalized.strip()
+
     def _run_one_shot_request(self, job_id: str, request_payload: dict[str, Any]) -> dict[str, Any]:
         with REPO_LOCK:
             sync_repo_to_remote_head()
@@ -468,7 +478,7 @@ class JobWorker:
             model_name = str(item.get("model") or "unknown").strip() or "unknown"
             status = str(item.get("status") or "unknown").strip() or "unknown"
             if status == "completed":
-                content = str(item.get("content") or "").strip() or "(empty response)"
+                content = self._compact_for_telegram_chunking(str(item.get("content") or "")) or "(empty response)"
             else:
                 err = str(item.get("error") or "unknown error").strip() or "unknown error"
                 content = f"Error: {err}"
@@ -491,11 +501,6 @@ class JobWorker:
         source_messages: list[dict[str, Any]] | None = None,
     ) -> str:
         lines: list[str] = []
-        if base_prompt:
-            lines.append(f"Prompt: {base_prompt}")
-            lines.append("")
-        lines.append("Sequential model results (source-labeled):")
-        lines.append("")
         for entry in source_messages or self._build_allsequential_source_messages(results):
             lines.append(str(entry.get("text") or "").strip())
             lines.append("")
