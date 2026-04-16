@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.98,
+  "requires_local_execution": false,
+  "reason": "The user commands the system to reply with a specific string, implying a direct local action rather than an informational query. Deterministic system-test override applied for exact-reply probe."
+}
