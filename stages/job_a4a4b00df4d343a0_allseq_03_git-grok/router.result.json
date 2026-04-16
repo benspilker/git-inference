@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.9,
+  "requires_local_execution": false,
+  "reason": "The user is instructing the intent classifier to reply with a specific string 'VTURN_PIPELINE_OK', which is a direct request for information or a specific response, fitting the definition of a question. Deterministic system-test override applied for exact-reply probe."
+}
