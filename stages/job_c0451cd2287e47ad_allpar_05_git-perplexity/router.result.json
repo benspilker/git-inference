@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "general_question",
+  "confidence": 0.6,
+  "requires_local_execution": false,
+  "reason": "The term 'ping' is ambiguous; it might be a test command or a simple check for responsiveness, but lacks details to classify definitively."
+}
