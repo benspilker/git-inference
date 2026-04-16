@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.84,
+"requires_local_execution": false,
+"reason": "The user is instructing the system to output a specific string exactly, which is an execution-style command rather than a question or research request."
+}
