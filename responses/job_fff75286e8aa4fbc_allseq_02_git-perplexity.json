@@ -1,0 +1,10 @@
+{
+  "job_id": "job_fff75286e8aa4fbc_allseq_02_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "TELEGRAM_E2E_OK"
+  },
+  "done": true,
+  "started_at": "2026-04-16T02:45:06Z",
+  "completed_at": "2026-04-16T02:46:41Z"
+}
