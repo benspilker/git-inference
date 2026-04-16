@@ -7,6 +7,7 @@ import re
 import shlex
 import subprocess
 import threading
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -65,14 +66,24 @@ class JobWorker:
         self._notify_event.set()
 
     def _run_loop(self) -> None:
-        ensure_repo_ready()
+        repo_ready = False
         while not self._stop_event.is_set():
-            job = db.next_queued_job()
-            if not job:
-                self._notify_event.wait(timeout=settings.worker_poll_interval_seconds)
+            try:
+                if not repo_ready:
+                    ensure_repo_ready()
+                    repo_ready = True
+
+                job = db.next_queued_job()
+                if not job:
+                    self._notify_event.wait(timeout=settings.worker_poll_interval_seconds)
+                    self._notify_event.clear()
+                    continue
+                self._process_job(job)
+            except Exception:
+                repo_ready = False
+                logger.exception("worker loop iteration failed")
                 self._notify_event.clear()
-                continue
-            self._process_job(job)
+                time.sleep(max(0.2, float(settings.worker_poll_interval_seconds)))
 
     def _process_job(self, job: dict[str, Any]) -> None:
         job_id = job["job_id"]
@@ -404,6 +415,15 @@ class JobWorker:
             or ""
         ).strip()
 
+        if self._allsequential_virtual_turns_enabled():
+            self._process_job_allsequential_virtual_turns(
+                job_id=job_id,
+                request_payload=request_payload,
+                targets=targets,
+                base_prompt=base_prompt,
+            )
+            return
+
         aggregated_results: list[dict[str, Any]] = []
         success_count = 0
 
@@ -503,8 +523,192 @@ class JobWorker:
             extra={"job_id": job_id, "status": "completed", "success_count": success_count, "total": len(aggregated_results)},
         )
 
-    def _build_allsequential_source_messages(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        total = len(results)
+    def _allsequential_virtual_turns_enabled(self) -> bool:
+        if not settings.allsequential_virtual_turns_enabled:
+            return False
+        if not settings.openclaw_cron_ssh_target.strip():
+            return False
+        if not settings.openclaw_cron_to.strip():
+            return False
+        return True
+
+    def _process_job_allsequential_virtual_turns(
+        self,
+        job_id: str,
+        request_payload: dict[str, Any],
+        targets: list[str],
+        base_prompt: str,
+    ) -> None:
+        kickoff_content = (
+            f"Running this prompt across {len(targets)} sources now. "
+            "I will send each source result as a separate follow-up message."
+        )
+        kickoff_execution = {
+            "mode": "allsequential_virtual_turns",
+            "targets": targets,
+            "results": [],
+            "source_messages": [],
+            "success_count": 0,
+            "failure_count": 0,
+            "delivery_errors": [],
+            "stage": "virtual_turns_in_progress",
+        }
+        kickoff_payload = {
+            "message": {"role": "assistant", "content": kickoff_content},
+            "intent_type": "question",
+            "task_type": "allsequential",
+            "current_stage": "virtual_turns_in_progress",
+            "execution": kickoff_execution,
+            "stages": {"allsequential": "virtual_turns_in_progress"},
+            "done": True,
+        }
+        db.mark_completed(
+            job_id,
+            kickoff_payload,
+            execution_json=kickoff_execution,
+            stages_json={"allsequential": "virtual_turns_in_progress"},
+        )
+        logger.info(
+            "allsequential virtual turns started",
+            extra={"job_id": job_id, "status": "completed", "total": len(targets)},
+        )
+
+        aggregated_results: list[dict[str, Any]] = []
+        delivery_errors: list[dict[str, Any]] = []
+        success_count = 0
+
+        for idx, target_model in enumerate(targets, start=1):
+            child_job_id = f"{job_id}_allseq_{idx:02d}_{self._sanitize_model_tail(target_model)}"
+            child_payload = json.loads(json.dumps(request_payload))
+            child_payload["model"] = target_model
+            child_payload["allsequential_parent_job_id"] = job_id
+            child_payload["allsequential_index"] = idx
+            child_payload["allsequential_total"] = len(targets)
+
+            item: dict[str, Any]
+            try:
+                raw_result = self._run_one_shot_request(child_job_id, child_payload)
+                normalized_result = self._normalize_response_payload(
+                    raw_result,
+                    router_result={"intent_type": "question", "task_type": "information"},
+                )
+                message = normalized_result.get("message") if isinstance(normalized_result, dict) else None
+                content = ""
+                if isinstance(message, dict):
+                    content = str(message.get("content") or "").strip()
+                if not content:
+                    content = str(raw_result or "").strip()
+
+                item = {
+                    "index": idx,
+                    "model": target_model,
+                    "job_id": child_job_id,
+                    "status": "completed",
+                    "content": content,
+                }
+                success_count += 1
+            except Exception as exc:
+                item = {
+                    "index": idx,
+                    "model": target_model,
+                    "job_id": child_job_id,
+                    "status": "failed",
+                    "error": str(exc),
+                }
+                logger.warning(
+                    "allsequential child failed",
+                    extra={
+                        "parent_job_id": job_id,
+                        "child_job_id": child_job_id,
+                        "model": target_model,
+                        "error": str(exc),
+                    },
+                )
+
+            aggregated_results.append(item)
+
+            item_status = str(item.get("status") or "").strip().lower()
+            if item_status != "completed" and not settings.allsequential_virtual_turns_send_failures:
+                continue
+
+            source_messages = self._build_allsequential_source_messages(
+                [item],
+                total_override=len(targets),
+            )
+            for source_msg in source_messages:
+                ok, err = self._send_openclaw_channel_message(str(source_msg.get("text") or ""))
+                if not ok:
+                    delivery_errors.append(
+                        {
+                            "index": idx,
+                            "model": target_model,
+                            "part_index": source_msg.get("part_index"),
+                            "part_total": source_msg.get("part_total"),
+                            "error": err or "unknown delivery error",
+                        }
+                    )
+                    logger.warning(
+                        "allsequential virtual delivery failed",
+                        extra={
+                            "job_id": job_id,
+                            "model": target_model,
+                            "index": idx,
+                            "error": err or "unknown delivery error",
+                        },
+                    )
+
+        final_source_messages = self._build_allsequential_source_messages(aggregated_results)
+        final_content = self._format_allsequential_response(
+            base_prompt=base_prompt,
+            results=aggregated_results,
+            source_messages=final_source_messages,
+        )
+        execution_meta = {
+            "mode": "allsequential_virtual_turns",
+            "targets": targets,
+            "results": aggregated_results,
+            "source_messages": final_source_messages,
+            "success_count": success_count,
+            "failure_count": len(aggregated_results) - success_count,
+            "delivery_errors": delivery_errors,
+            "stage": "virtual_turns_complete",
+        }
+        final_payload = {
+            "message": {"role": "assistant", "content": kickoff_content},
+            "intent_type": "question",
+            "task_type": "allsequential",
+            "current_stage": "completed",
+            "execution": execution_meta,
+            "stages": {"allsequential": "virtual_turns_complete"},
+            "source_messages": final_source_messages,
+            "allsequential_summary": final_content,
+            "done": True,
+        }
+        db.mark_completed(
+            job_id,
+            final_payload,
+            execution_json=execution_meta,
+            stages_json={"allsequential": "virtual_turns_complete"},
+        )
+        logger.info(
+            "allsequential virtual turns completed",
+            extra={
+                "job_id": job_id,
+                "status": "completed",
+                "success_count": success_count,
+                "total": len(aggregated_results),
+                "delivery_failures": len(delivery_errors),
+            },
+        )
+
+    def _build_allsequential_source_messages(
+        self,
+        results: list[dict[str, Any]],
+        total_override: int | None = None,
+    ) -> list[dict[str, Any]]:
+        total = int(total_override) if total_override else len(results)
+        if total <= 0:
+            total = len(results)
         source_messages: list[dict[str, Any]] = []
         for item in results:
             idx = item.get("index")
@@ -546,6 +750,71 @@ class JobWorker:
             lines.append(str(entry.get("text") or "").strip())
             lines.append("")
         return "\n".join(lines).strip()
+
+    def _send_openclaw_channel_message(self, text: str) -> tuple[bool, str]:
+        body = str(text or "").strip()
+        if not body:
+            return False, "empty message payload"
+        if not settings.openclaw_cron_ssh_target.strip():
+            return False, "OPENCLAW_CRON_SSH_TARGET is not configured"
+        if not settings.openclaw_cron_to.strip():
+            return False, "OPENCLAW_CRON_TO is not configured"
+
+        remote_arg_variants = [
+            [
+                settings.openclaw_cron_cli_path,
+                "message",
+                "send",
+                "--channel",
+                settings.openclaw_cron_channel,
+                "--target",
+                settings.openclaw_cron_to.strip(),
+                "--message",
+                body,
+                "--json",
+            ],
+            [
+                settings.openclaw_cron_cli_path,
+                "message",
+                "send",
+                "--channel",
+                settings.openclaw_cron_channel,
+                "--to",
+                settings.openclaw_cron_to.strip(),
+                "--message",
+                body,
+                "--json",
+            ],
+        ]
+
+        transport_attempts: list[tuple[str, list[str]]] = []
+        win_ssh = Path(settings.openclaw_cron_windows_ssh_path)
+        if win_ssh.exists():
+            transport_attempts.append(("windows_ssh", [str(win_ssh), settings.openclaw_cron_ssh_target]))
+        transport_attempts.append(("ssh", ["ssh", settings.openclaw_cron_ssh_target]))
+
+        errors: list[str] = []
+        for transport, ssh_cmd in transport_attempts:
+            for remote_args in remote_arg_variants:
+                remote_command = " ".join(shlex.quote(arg) for arg in remote_args)
+                cmd = [*ssh_cmd, remote_command]
+                try:
+                    proc = subprocess.run(
+                        cmd,
+                        capture_output=True,
+                        text=True,
+                        timeout=settings.openclaw_cron_timeout_seconds,
+                        check=False,
+                    )
+                except Exception as exc:
+                    errors.append(f"{transport}: {exc}")
+                    continue
+                if proc.returncode == 0:
+                    return True, ""
+                err_text = (proc.stderr or proc.stdout or "").strip() or f"exit {proc.returncode}"
+                errors.append(f"{transport}: {err_text}")
+
+        return False, " | ".join(errors) if errors else "OpenClaw message send failed"
 
     def _apply_runtime_handoff_if_configured(self, job_id: str, result: dict[str, Any]) -> dict[str, Any]:
         if not settings.enable_runtime_handoff_executor:

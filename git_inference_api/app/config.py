@@ -77,6 +77,8 @@ class Settings:
         "ALL_SEQUENTIAL_MODELS",
         "git-perplexity,git-grok,git-inceptionlabs,git-qwen",
     )
+    allsequential_virtual_turns_enabled: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED", False)
+    allsequential_virtual_turns_send_failures: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES", True)
 
     # Prompt / chunking
     prompt_chunk_words: int = int(os.getenv("PROMPT_CHUNK_WORDS", "2000"))

@@ -166,6 +166,91 @@ def chat(
     )
 
 
+@app.post("/v1/chat/completions")
+def openai_chat_completions(
+    request: dict[str, Any],
+    async_mode: bool = Query(default=False, alias="async"),
+    idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"),
+):
+    model = str(request.get("model") or "").strip()
+    if not model:
+        raise HTTPException(
+            status_code=400,
+            detail={"code": "INVALID_REQUEST", "message": "model is required"},
+        )
+
+    raw_messages = request.get("messages")
+    if not isinstance(raw_messages, list):
+        raise HTTPException(
+            status_code=400,
+            detail={"code": "INVALID_REQUEST", "message": "messages must be an array"},
+        )
+
+    chat_req = ChatRequest(
+        model=model,
+        messages=raw_messages,
+        stream=False,  # force non-stream for OpenAI/Aider compatibility
+        format=request.get("format"),
+        options=request.get("options") if isinstance(request.get("options"), dict) else None,
+    )
+
+    result = chat(chat_req, async_mode=async_mode, idempotency_key=idempotency_key)
+
+    if isinstance(result, JSONResponse):
+        body = result.body.decode("utf-8") if isinstance(result.body, (bytes, bytearray)) else str(result.body)
+        try:
+            data = json.loads(body)
+        except Exception:
+            data = {"response": body}
+    elif hasattr(result, "model_dump"):
+        data = result.model_dump()  # pragma: no cover
+    elif isinstance(result, dict):
+        data = result
+    else:
+        data = {"response": str(result)}
+
+    content = extract_assistant_content(data if isinstance(data, dict) else {"response": data})
+    finish_reason = "stop"
+
+    if isinstance(data, dict):
+        status = str(data.get("status") or "").strip().lower()
+        done_flag = bool(data.get("done", True))
+        if status in {"failed", "expired"}:
+            raise HTTPException(
+                status_code=500,
+                detail={"code": "MODEL_EXECUTION_ERROR", "message": content or f"job {status}"},
+            )
+        if not done_flag and status:
+            finish_reason = None
+
+    response_payload: dict[str, Any] = {
+        "id": f"chatcmpl-{uuid.uuid4().hex[:12]}",
+        "object": "chat.completion",
+        "created": int(time.time()),
+        "model": model,
+        "choices": [
+            {
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": content,
+                },
+                "finish_reason": finish_reason,
+            }
+        ],
+    }
+
+    if isinstance(data, dict):
+        if data.get("job_id"):
+            response_payload["job_id"] = data.get("job_id")
+        if data.get("status"):
+            response_payload["status"] = data.get("status")
+        if data.get("done") is not None:
+            response_payload["done"] = data.get("done")
+
+    return JSONResponse(status_code=200, content=response_payload)
+
+
 @app.post("/api/generate", response_model=GenerateResponse | AcceptedResponse)
 def generate(
     request: GenerateRequest,
