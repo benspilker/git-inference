@@ -1,0 +1,26 @@
+{
+  "job_id": "job_dbe8b5e572b94b28_allseq_02_git-perplexity",
+  "status": {
+    "job_id": "job_dbe8b5e572b94b28_allseq_02_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T01:36:30Z",
+    "created_at": "2026-04-16T01:35:44Z"
+  },
+  "response": {
+    "job_id": "job_dbe8b5e572b94b28_allseq_02_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a simple home pizza recipe:\n\nPreheat your oven to 475°F and place a pizza stone or baking sheet inside if you have one.\n\nRoll or stretch 1 ball of pizza dough into a thin round.\n\nPut the dough on parchment paper or a lightly floured pan.\n\nSpread on pizza sauce, then add shredded mozzarella and your toppings.\n\nBake for 10–15 minutes, until the crust is golden and the cheese is bubbling.\n\nLet it cool for 2 minutes, slice, and serve.\n\nEasy dough idea: use flour, warm water, yeast, salt, and a little olive oil. For a faster version, buy store-bought dough and just focus on toppings and baking."
+    },
+    "done": true,
+    "started_at": "2026-04-16T01:35:44Z",
+    "completed_at": "2026-04-16T01:36:30Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T01:36:30Z"
+}
