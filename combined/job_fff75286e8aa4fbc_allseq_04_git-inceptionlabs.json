@@ -1,0 +1,26 @@
+{
+  "job_id": "job_fff75286e8aa4fbc_allseq_04_git-inceptionlabs",
+  "status": {
+    "job_id": "job_fff75286e8aa4fbc_allseq_04_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "system_command",
+    "current_stage": "complete",
+    "updated_at": "2026-04-16T02:51:46Z",
+    "created_at": "2026-04-16T02:51:30Z"
+  },
+  "response": {
+    "job_id": "job_fff75286e8aa4fbc_allseq_04_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "TELEGRAM_E2E_OK"
+    },
+    "done": true,
+    "started_at": "2026-04-16T02:51:30Z",
+    "completed_at": "2026-04-16T02:51:46Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-16T02:51:46Z"
+}
