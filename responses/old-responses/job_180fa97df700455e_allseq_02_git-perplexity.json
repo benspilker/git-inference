@@ -1,0 +1,10 @@
+{
+  "job_id": "job_180fa97df700455e_allseq_02_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s a simple homemade pizza method:\n\nWhat you need\n\n2 ½ cups all-purpose flour\n\n1 packet active dry yeast\n\n1 cup warm water\n\n2 tbsp olive oil\n\n1 tsp salt\n\n1 tsp sugar\n\n1 cup tomato sauce\n\n1–2 cups shredded mozzarella\n\nYour favorite toppings\n\nDough\n\nMix warm water, yeast, and sugar. Let it sit 5–10 minutes until foamy.\n\nIn a bowl, combine flour and salt.\n\nAdd the yeast mixture and olive oil, then mix into a dough.\n\nKnead for 8–10 minutes until smooth.\n\nCover and let it rise for 1–2 hours, until doubled.\n\nSauce\n\nMix tomato sauce, minced garlic if you have it, oregano, salt, and a little sugar.\n\nSimmer for 10–15 minutes, then cool.\n\nAssemble\n\nHeat the oven to 475°F.\n\nRoll out the dough on a floured surface.\n\nPut it on a baking sheet or pizza stone.\n\nSpread sauce, add cheese, then toppings.\n\nBake\n\nBake for 12–15 minutes, until the crust is golden and the cheese is bubbly.\n\nLet it cool for a few minutes, then slice and serve.\n\nIf you want, I can also give you a quick 20-minute no-yeast pizza version."
+  },
+  "done": true,
+  "started_at": "2026-04-16T15:10:42Z",
+  "completed_at": "2026-04-16T15:12:13Z"
+}
