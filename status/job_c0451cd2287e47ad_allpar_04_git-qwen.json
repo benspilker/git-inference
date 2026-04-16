@@ -1,0 +1,9 @@
+{
+  "job_id": "job_c0451cd2287e47ad_allpar_04_git-qwen",
+  "state": "failed",
+  "intent_type": null,
+  "task_type": null,
+  "current_stage": "router",
+  "updated_at": "2026-04-16T23:30:36Z",
+  "created_at": "2026-04-16T23:29:23Z"
+}
