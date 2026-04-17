@@ -1,0 +1,51 @@
+How to Make a Classic Pizza (Margherita Style)
+
+Gather Ingredients
+
+Dough: 500 g (≈ 4 cups) all‑purpose flour, 300 ml warm water, 2 tsp active dry yeast, 1 tsp sugar, 2 tsp salt, 2 tbsp olive oil.
+Sauce: 1 can (400 g) crushed tomatoes, 1 clove garlic (minced), 1 tbsp olive oil, ½ tsp dried oregano, pinch of salt & pepper.
+Toppings: Fresh mozzarella (sliced), fresh basil leaves, extra‑virgin olive oil, optional grated Parmesan.
+
+Activate the Yeast
+
+Mix warm water, sugar, and yeast. Let sit 5–10 min until foamy.
+
+Make the Dough
+
+In a bowl, combine flour and salt. Add the yeast mixture and olive oil. Stir until a shaggy dough forms.
+Knead on a lightly floured surface 8–10 min until smooth and elastic.
+Place in a lightly oiled bowl, cover with a damp cloth, and let rise 1–1½ hrs (or until doubled).
+
+Prepare the Sauce
+
+Heat olive oil in a saucepan, sauté garlic 30 s, add crushed tomatoes, oregano, salt, and pepper. Simmer 10 min, then set aside.
+
+Preheat the Oven
+
+Place a pizza stone or inverted baking sheet on the middle rack. Preheat to 250 °C (475 °F) for at least 30 min.
+
+Shape the Pizza
+
+Punch down the risen dough, divide into 2 equal portions (for 12‑inch pizzas).
+On parchment paper, stretch or roll each portion into a thin circle, leaving a slightly thicker edge for the crust.
+
+Assemble
+
+Spread a thin layer of sauce (≈ ¼ cup) over the dough, leaving the edge bare.
+Arrange mozzarella slices evenly. Drizzle a little olive oil.
+
+Bake
+
+Slide the parchment‑paper‑on‑pizza onto the hot stone. Bake 10–12 min until the crust is golden and the cheese bubbles and lightly browns.
+
+Finish & Serve
+
+Remove pizza, scatter fresh basil leaves, drizzle a touch more olive oil, and sprinkle Parmesan if desired. Let rest 2 min, slice, and enjoy!
+
+Quick Tips
+
+Crispier crust: Use a pizza steel or pre‑heat a cast‑iron skillet and slide the pizza onto it.
+Flavor boost: Add a pinch of red‑pepper flakes to the sauce or a few drops of garlic‑infused oil before serving.
+Dough storage: Keep unused dough in the fridge for up to 3 days or freeze for longer storage.
+
+Do you have any dietary preferences or specific toppings you’d like to incorporate?
