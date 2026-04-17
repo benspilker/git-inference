@@ -1,0 +1,26 @@
+{
+  "job_id": "job_539161afdb9649d7_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_539161afdb9649d7_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-17T22:21:02Z",
+    "created_at": "2026-04-17T22:20:53Z"
+  },
+  "response": {
+    "job_id": "job_539161afdb9649d7_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "The world record for the oldest cat is held by Creme Puff, who lived 38 years and 3 days. Creme Puff was born on August 3, 1967, and passed away on August 6, 2005, in Austin, Texas, USA.\n\nIf you want, I can also give a few other notable long-lived cats for comparison—they can get surprisingly old!"
+    },
+    "done": true,
+    "started_at": "2026-04-17T22:20:53Z",
+    "completed_at": "2026-04-17T22:21:02Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-17T22:21:03Z"
+}
