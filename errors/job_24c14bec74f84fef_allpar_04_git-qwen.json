@@ -1,0 +1,8 @@
+{
+  "job_id": "job_24c14bec74f84fef_allpar_04_git-qwen",
+  "started_at": "2026-04-17T12:53:36Z",
+  "error": {
+    "code": "ROUTER_STAGE_FAILED",
+    "message": "Router stage execution failed."
+  }
+}
