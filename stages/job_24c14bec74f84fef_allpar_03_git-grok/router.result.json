@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "general_question",
+  "confidence": 0.4,
+  "requires_local_execution": true,
+  "reason": "The request 'ordering check' is ambiguous and lacks context. It could refer to checking an order status, verifying sorting/ordering logic, placing an order, or something else entirely. Critical details are missing to classify as question, job, or research."
+}

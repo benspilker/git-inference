@@ -1,0 +1,9 @@
+{
+  "job_id": "job_24c14bec74f84fef_allpar_03_git-grok",
+  "state": "failed",
+  "intent_type": "needs_clarification",
+  "task_type": "general_question",
+  "current_stage": "router_invalid",
+  "updated_at": "2026-04-17T12:54:01Z",
+  "created_at": "2026-04-17T12:53:36Z"
+}
