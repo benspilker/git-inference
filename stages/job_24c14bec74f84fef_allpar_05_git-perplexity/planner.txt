@@ -1,0 +1,12 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"mode": "local_action",
+"task_type": "system_command",
+"confidence": 0.40,
+"requires_local_execution": true,
+"parameters": {},
+"missing_fields": ["task_type", "parameters", "success_condition"],
+"question": "Please provide the exact task_type and any required parameters for the 'ordering check' task. If you intend a generic reminder or a specific file action, specify the target and deadline/timezone.",
+"success_condition": "Task parameters are complete and a deterministic local action can be executed without ambiguity (e.g., task_type: reminder with due_time, or file_write with path and content)."
+}
