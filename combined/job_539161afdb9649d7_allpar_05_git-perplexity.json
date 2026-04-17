@@ -1,0 +1,26 @@
+{
+  "job_id": "job_539161afdb9649d7_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_539161afdb9649d7_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-17T22:22:36Z",
+    "created_at": "2026-04-17T22:20:54Z"
+  },
+  "response": {
+    "job_id": "job_539161afdb9649d7_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "The world record for the oldest cat is Creme Puff, who lived 38 years and 3 days. She was born on August 3, 1967, and died on August 6, 2005.\nguinnessworldrecords"
+    },
+    "done": true,
+    "started_at": "2026-04-17T22:20:54Z",
+    "completed_at": "2026-04-17T22:22:36Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-17T22:22:36Z"
+}
