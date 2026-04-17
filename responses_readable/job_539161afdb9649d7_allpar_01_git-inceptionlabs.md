@@ -1,0 +1,7 @@
+The current Guinness World Record for the oldest cat ever documented is held by Creme Puff, a domestic cat from Austin, Texas, who lived 38 years 3 months (born 3 August 1967 – died 6 August 2005)
+1
+.
+
+If you’re interested in recent contenders, the “List of longest‑living cats” page notes a few cats that have approached or exceeded 30 years, but none have surpassed Creme Puff’s record as of the latest data.
+
+Would you like more details on how the record was verified or information about other long‑lived cats?
