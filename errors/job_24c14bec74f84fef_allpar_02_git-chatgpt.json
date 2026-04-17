@@ -1,0 +1,8 @@
+{
+  "job_id": "job_24c14bec74f84fef_allpar_02_git-chatgpt",
+  "started_at": "2026-04-17T12:53:50Z",
+  "error": {
+    "code": "ROUTER_INVALID_INTENT",
+    "message": "Router returned an unsupported intent_type."
+  }
+}

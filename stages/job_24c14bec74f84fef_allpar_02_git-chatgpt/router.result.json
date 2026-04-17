@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "string",
+  "confidence": 0.7,
+  "requires_local_execution": true,
+  "reason": "The user mentions 'ordering check' but does not specify whether they want to verify an order, perform a new order, or check data order. Critical details are missing to classify definitively."
+}
