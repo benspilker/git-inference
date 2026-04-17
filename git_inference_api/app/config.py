@@ -67,20 +67,26 @@ class Settings:
     # Model config
     available_models_csv: str = env_csv(
         "AVAILABLE_MODELS",
-        "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential",
+        "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel",
     )
     openclaw_compat_models_csv: str = env_csv(
         "OPENCLAW_COMPAT_MODELS",
-        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential",
+        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel",
     )
     openclaw_default_model: str = os.getenv("OPENCLAW_DEFAULT_MODEL", "git-allsequential")
     openclaw_force_default_model: bool = env_bool("OPENCLAW_FORCE_DEFAULT_MODEL", False)
     all_sequential_models_csv: str = env_csv(
         "ALL_SEQUENTIAL_MODELS",
-        "git-chatgpt,git-inceptionlabs,git-grok,git-qwen,git-perplexity",
+        "git-inceptionlabs,git-chatgpt,git-grok,git-qwen,git-perplexity",
+    )
+    all_parallel_models_csv: str = env_csv(
+        "ALL_PARALLEL_MODELS",
+        "git-inceptionlabs,git-chatgpt,git-grok,git-qwen,git-perplexity",
     )
     allsequential_virtual_turns_enabled: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED", False)
     allsequential_virtual_turns_send_failures: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES", True)
+    allparallel_virtual_turns_enabled: bool = env_bool("ALLPARALLEL_VIRTUAL_TURNS_ENABLED", True)
+    allparallel_virtual_turns_send_failures: bool = env_bool("ALLPARALLEL_VIRTUAL_TURNS_SEND_FAILURES", True)
     allow_unsafe_repo_path: bool = env_bool("ALLOW_UNSAFE_REPO_PATH", False)
 
     # Prompt / chunking
@@ -174,6 +180,14 @@ class Settings:
 
     def all_sequential_models(self) -> list[str]:
         names = [name.strip() for name in self.all_sequential_models_csv.split(",")]
+        deduped: list[str] = []
+        for name in names:
+            if name and name not in deduped:
+                deduped.append(name)
+        return deduped
+
+    def all_parallel_models(self) -> list[str]:
+        names = [name.strip() for name in self.all_parallel_models_csv.split(",")]
         deduped: list[str] = []
         for name in names:
             if name and name not in deduped:

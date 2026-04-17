@@ -15,7 +15,7 @@ This is a V1 prototype for the architecture you described:
 ## Current behavior and constraints
 
 - Python + FastAPI
-- strict sequential processing
+- single-worker queue processing (fan-out models may execute child requests sequentially or in parallel)
 - `Idempotency-Key` is optional (auto-generated when omitted)
 - accepts multi-message chat requests (role/content normalized for OpenClaw-compatible models)
 - no persistent server-side multi-turn memory
@@ -50,6 +50,7 @@ Supported browser-backed model ids include:
 - `git-inceptionlabs`
 - `git-qwen`
 - `git-allsequential` (API fan-out: runs multiple models sequentially and returns ordered source-labeled sections)
+- `git-parallel` (API fan-out: runs multiple models in parallel and returns ordered source-labeled sections)
 
 ## Response behavior
 
@@ -147,14 +148,17 @@ Copy `.env.example` and set at least:
 - `GIT_AUTHOR_EMAIL`
 - `OPENCLAW_DEFAULT_MODEL` (optional, default `git-allsequential`; default model used when OpenAI-compatible/OpenClaw calls omit `model`)
 - `OPENCLAW_FORCE_DEFAULT_MODEL` (optional, default `false`; when `true`, OpenClaw-compatible model requests are forced to `OPENCLAW_DEFAULT_MODEL`)
-- `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-chatgpt,git-inceptionlabs,git-grok,git-qwen,git-perplexity`)
+- `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-inceptionlabs,git-chatgpt,git-grok,git-qwen,git-perplexity`)
+- `ALL_PARALLEL_MODELS` (optional, comma-separated model list used by `git-parallel`; default: `git-inceptionlabs,git-chatgpt,git-grok,git-qwen,git-perplexity`)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED` (optional, default `false`; if `true`, `git-allsequential` returns quickly and runs sources in the background)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES` (optional, default `true`; if `false`, failed sources are omitted from follow-up sends)
+- `ALLPARALLEL_VIRTUAL_TURNS_ENABLED` (optional, default `true`; if `true`, `git-parallel` returns quickly and runs sources in the background)
+- `ALLPARALLEL_VIRTUAL_TURNS_SEND_FAILURES` (optional, default `true`; if `false`, failed sources are omitted from follow-up sends)
 - `ALLOW_UNSAFE_REPO_PATH` (optional, default `false`; safety bypass only, do not enable unless you intentionally accept destructive git sync on `REPO_PATH`)
 
-### Telegram display note for `git-allsequential`
+### Telegram display note for fan-out models
 
-If you want `git-allsequential` output to arrive as large per-source Telegram messages (instead of many small intra-source chunks), set OpenClaw Telegram chunking to paragraph mode with a high limit:
+If you want `git-allsequential` or `git-parallel` output to arrive as large per-source Telegram messages (instead of many small intra-source chunks), set OpenClaw Telegram chunking to paragraph mode with a high limit:
 
 ```bash
 openclaw config set channels.telegram.chunkMode newline
@@ -165,15 +169,15 @@ Each source section is labeled in the response as:
 
 `[index/total] Source: <model> | Status: <status>`
 
-`git-allsequential` also compacts internal blank-line runs in each source reply so newline chunking prefers source boundaries.
+Both fan-out models also compact internal blank-line runs in each source reply so newline chunking prefers source boundaries.
 If one source reply is still too long for Telegram chunk limits, the API pre-splits it and repeats the source header with `Part x/y` on each segment.
 
-### Virtual turns mode (`git-allsequential`)
+### Virtual turns mode (`git-allsequential` and `git-parallel`)
 
-When `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true`:
+When virtual turns are enabled (`ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true` and/or `ALLPARALLEL_VIRTUAL_TURNS_ENABLED=true`):
 
 1. The parent API call completes immediately with a kickoff message.
-2. The API keeps running each source model sequentially in the background.
+2. The API keeps running each source model in the background (sequential for `git-allsequential`, parallel for `git-parallel`).
 3. Per-source progress and results are persisted on the job (`/api/jobs/<job_id>`).
 4. If OpenClaw bridge values are set (`OPENCLAW_CRON_SSH_TARGET`, `OPENCLAW_CRON_CHANNEL`, `OPENCLAW_CRON_TO`), each source result is also sent as its own follow-up message.
 
@@ -183,8 +187,8 @@ To force OpenClaw traffic onto this workflow, set:
 
 ```bash
 OPENCLAW_FORCE_DEFAULT_MODEL=true
-OPENCLAW_DEFAULT_MODEL=git-allsequential
-ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true
+OPENCLAW_DEFAULT_MODEL=git-parallel
+ALLPARALLEL_VIRTUAL_TURNS_ENABLED=true
 ```
 
 The code assumes `origin/<branch>` already exists unless `AUTO_INIT_REPO=true`.
