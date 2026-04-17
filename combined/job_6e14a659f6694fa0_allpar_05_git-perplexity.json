@@ -1,0 +1,26 @@
+{
+  "job_id": "job_6e14a659f6694fa0_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_6e14a659f6694fa0_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-17T12:31:33Z",
+    "created_at": "2026-04-17T12:30:41Z"
+  },
+  "response": {
+    "job_id": "job_6e14a659f6694fa0_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis is currently about 57°F and clear, with a RealFeel around 60°F. Rain risk looks low right now, and winds are light at about 5 mph, so the main notable risk is minimal wind rather than rain.\naccuweather\n\nSend this to Telegram as a concise update:\nIndianapolis weather update: 57°F and clear, feels like 60°F. Light winds around 5 mph. No notable rain risk right now."
+    },
+    "done": true,
+    "started_at": "2026-04-17T12:30:41Z",
+    "completed_at": "2026-04-17T12:31:33Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-17T12:31:33Z"
+}

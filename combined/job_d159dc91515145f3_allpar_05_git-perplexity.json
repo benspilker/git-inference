@@ -1,0 +1,44 @@
+{
+  "job_id": "job_d159dc91515145f3_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_d159dc91515145f3_allpar_05_git-perplexity",
+    "state": "needs_clarification",
+    "intent_type": "job",
+    "task_type": "system_command",
+    "current_stage": "planner",
+    "updated_at": "2026-04-17T12:33:30Z",
+    "created_at": "2026-04-17T12:31:33Z"
+  },
+  "response": {
+    "job_id": "job_d159dc91515145f3_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "What do you want checked for routing, and which system or route should I use?"
+    },
+    "done": false,
+    "started_at": "2026-04-17T12:31:33Z",
+    "needs_clarification": true,
+    "planner": {
+      "schema_version": "1.0",
+      "intent_type": "needs_clarification",
+      "mode": "local_action",
+      "task_type": "system_command",
+      "confidence": 0.42,
+      "requires_local_execution": true,
+      "parameters": {
+        "query": "quick routing check"
+      },
+      "missing_fields": [
+        "target_system_or_resource",
+        "requested_action",
+        "routing_number_or_route_context"
+      ],
+      "question": "What do you want checked for routing, and which system or route should I use?",
+      "success_condition": "The task is fully specified with a target system or route context and a clear routing check action so a local planner can determine the exact command or validation to perform."
+    }
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-17T12:33:30Z"
+}

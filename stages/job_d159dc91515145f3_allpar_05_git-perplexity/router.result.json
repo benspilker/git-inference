@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "general_question",
+  "confidence": 0.93,
+  "requires_local_execution": true,
+  "reason": "The user appears to be requesting a routing-number-related check or validation, which is an action-oriented task rather than a pure informational question. The phrasing is brief and ambiguous, but it most likely refers to performing a quick routing check."
+}
