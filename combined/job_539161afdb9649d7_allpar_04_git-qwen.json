@@ -1,0 +1,26 @@
+{
+  "job_id": "job_539161afdb9649d7_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_539161afdb9649d7_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-17T22:21:41Z",
+    "created_at": "2026-04-17T22:20:55Z"
+  },
+  "response": {
+    "job_id": "job_539161afdb9649d7_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Searching the web\nSkip"
+    },
+    "done": true,
+    "started_at": "2026-04-17T22:20:55Z",
+    "completed_at": "2026-04-17T22:21:41Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-17T22:21:41Z"
+}
