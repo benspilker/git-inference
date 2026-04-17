@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "needs_clarification", "task_type": "general_question", "confidence": 0.85, "requires_local_execution": true, "reason": "The request 'ordering check' is ambiguous and lacks essential details such as an order ID or context needed to perform a verification or provide a specific answer." }
