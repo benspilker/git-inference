@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.6,
+"requires_local_execution": true,
+"reason": "User's message 'quick routing check' appears to be testing or inquiring about routing/intent classification itself in a meta or system-check manner, which fits as a simple information-seeking question without implying any action, scheduling, editing, or deeper research."
+}
