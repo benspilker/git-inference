@@ -1,0 +1,10 @@
+{
+  "job_id": "job_1990e86885404bdb_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "Searching the web\nSkip"
+  },
+  "done": true,
+  "started_at": "2026-04-17T12:48:41Z",
+  "completed_at": "2026-04-17T12:49:28Z"
+}
