@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-04-17T12:52:59Z",
+  "job_id": "job_24c14bec74f84fef_allpar_05_git-perplexity",
+  "request": {
+    "allparallel_index": 5,
+    "allparallel_parent_job_id": "job_24c14bec74f84fef",
+    "allparallel_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "ordering check",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 2
+      },
+      "user_prompt_chunks": [
+        "ordering check"
+      ]
+    },
+    "user_prompt": "ordering check"
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 2
+    },
+    "user_prompt_chunks": [
+      "ordering check"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "ordering check"
+}
