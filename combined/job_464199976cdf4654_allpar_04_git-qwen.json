@@ -1,0 +1,26 @@
+{
+  "job_id": "job_464199976cdf4654_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_464199976cdf4654_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-18T12:32:45Z",
+    "created_at": "2026-04-18T12:30:38Z"
+  },
+  "response": {
+    "job_id": "job_464199976cdf4654_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "I could not extract live web results for \"[cron:f9fee8f8-1df5-4e37-919d-c317996e5acd weather-job_d869] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Saturday, April 18th, 2026 — 12:30 PM (UTC) / 2026-04-18 12:30 UTC\n\nReturn your summary as plain text; it will be delivered automatically. If the task explicitly calls for messaging a specific external recipient, note who/where it should go instead of sending it yourself.\". Source attempted: DuckDuckGo HTML at 2026-04-18 12:32 UTC."
+    },
+    "done": true,
+    "started_at": "2026-04-18T12:30:38Z",
+    "completed_at": "2026-04-18T12:32:45Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-18T12:32:45Z"
+}
