@@ -21,6 +21,7 @@ from .git_ops import (
     JobTimedOutError,
     REPO_LOCK,
     ResultNotFoundError,
+    commit_and_push_paths,
     commit_and_push_request,
     commit_and_push_request_for,
     ensure_repo_ready,
@@ -1038,6 +1039,12 @@ class JobWorker:
             "source_messages": source_messages,
             "done": True,
         }
+        self._publish_allparallel_audit_artifact(
+            job_id=job_id,
+            request_payload=request_payload,
+            execution_meta=execution_meta,
+            combined_content=combined_content,
+        )
         db.mark_completed(job_id, final_payload, execution_json=execution_meta, stages_json={"allparallel": "complete"})
         logger.info(
             "allparallel workflow completed",
@@ -1310,6 +1317,12 @@ class JobWorker:
                     stage="virtual_turns_complete",
                     kickoff_content=kickoff_content,
                     base_prompt=base_prompt,
+                )
+                self._publish_allparallel_audit_artifact(
+                    job_id=job_id,
+                    request_payload=request_payload,
+                    execution_meta=final_execution,
+                    combined_content=str(final_execution.get("allparallel_summary") or ""),
                 )
                 self._persist_allparallel_virtual_turns_state(job_id=job_id, execution_meta=final_execution)
                 logger.info(
@@ -1696,6 +1709,63 @@ class JobWorker:
             lines.append(str(entry.get("text") or "").strip())
             lines.append("")
         return "\n".join(lines).strip()
+
+    def _publish_allparallel_audit_artifact(
+        self,
+        *,
+        job_id: str,
+        request_payload: dict[str, Any],
+        execution_meta: dict[str, Any],
+        combined_content: str,
+    ) -> None:
+        if str(execution_meta.get("mode") or "").strip().lower() not in {"allparallel", "allparallel_virtual_turns"}:
+            return
+
+        summary_text = str(combined_content or "").strip()
+        if not summary_text:
+            return
+
+        stage = str(execution_meta.get("stage") or "complete").strip().lower()
+        now_iso = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+        combined_payload = {
+            "job_id": job_id,
+            "status": {
+                "job_id": job_id,
+                "state": "completed",
+                "intent_type": "question",
+                "task_type": "allparallel",
+                "current_stage": stage,
+                "updated_at": now_iso,
+                "created_at": now_iso,
+            },
+            "response": {
+                "job_id": job_id,
+                "message": {"role": "assistant", "content": summary_text},
+                "done": True,
+                "completed_at": now_iso,
+            },
+            "execution": execution_meta,
+            "request": request_payload,
+            "evaluation": None,
+            "generated_at": now_iso,
+        }
+
+        combined_path = settings.repo_path / settings.combined_dir / f"{job_id}.json"
+        combined_path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            with REPO_LOCK:
+                sync_repo_to_remote_head()
+                combined_path.write_text(
+                    json.dumps(combined_payload, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
+                commit_and_push_paths(job_id, [combined_path], f"audit: aggregate git-parallel results for {job_id} [skip ci]")
+            logger.info("allparallel audit artifact pushed", extra={"job_id": job_id, "path": str(combined_path)})
+        except Exception as exc:
+            logger.warning(
+                "allparallel audit artifact push failed",
+                extra={"job_id": job_id, "path": str(combined_path), "error": str(exc)},
+            )
 
     def _send_openclaw_channel_message(self, text: str) -> tuple[bool, str]:
         body = str(text or "").strip()
