@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.85,
+  "requires_local_execution": true,
+  "reason": "The user is asking for information about whether specific forms of cryptocurrency exist in 2026 that AI can mine, which is a factual inquiry requiring explanation or lookup, not any local action, scheduling, configuration, or deep multi-angle research report."
+}
