@@ -1,0 +1,8 @@
+{
+  "job_id": "job_536f77f6ed2f4f0e_allpar_04_git-qwen",
+  "started_at": "2026-04-18T23:02:29Z",
+  "error": {
+    "code": "ANSWERER_STAGE_FAILED",
+    "message": "Answerer stage execution failed."
+  }
+}

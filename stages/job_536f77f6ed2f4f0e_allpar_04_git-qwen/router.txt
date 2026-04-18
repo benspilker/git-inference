@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.92,
+"requires_local_execution": false,
+"reason": "User is asking for informational content about cryptocurrency mining capabilities of AI systems in 2026. This is a knowledge-seeking query that does not require scheduling, configuration, file operations, or deep multi-angle research."
+}
