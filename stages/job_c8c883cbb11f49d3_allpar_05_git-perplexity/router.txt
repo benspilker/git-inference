@@ -1,0 +1,1 @@
+{"schema_version":"1.0","intent_type":"question","task_type":"general_question","confidence":0.98,"requires_local_execution":false,"reason":"The user is asking for information about whether any cryptocurrency can be mined by AI in 2026, which is a factual lookup/explanation rather than a request to perform a system action."}
