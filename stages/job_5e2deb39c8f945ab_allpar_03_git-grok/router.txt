@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.75,
+"requires_local_execution": true,
+"reason": "User explicitly requests to build a Python script and then run it in the local environment to obtain and display IP-based geolocation results, which requires performing a system-level code creation and execution action rather than just providing information."
+}
