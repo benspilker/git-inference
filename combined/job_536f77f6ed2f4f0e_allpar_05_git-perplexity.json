@@ -1,0 +1,26 @@
+{
+  "job_id": "job_536f77f6ed2f4f0e_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_536f77f6ed2f4f0e_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-04-18T23:05:17Z",
+    "created_at": "2026-04-18T23:02:51Z"
+  },
+  "response": {
+    "job_id": "job_536f77f6ed2f4f0e_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "There are no mainstream crypto mining methods that specifically require or rely on AI to mine new coins in 2026. However, AI is increasingly used to optimize and manage mining operations, which can improve efficiency and profitability.\n\nKey points:\n\nTraditional proof-of-work coins (like Bitcoin) continue to be mined with specialized hardware; AI does not change the fundamental mining process itself.\nainvest\n+1\n\nAI is being applied to optimize energy usage, hardware placement, thermals, and payout forecasting in mining operations, helping operators run more cost-efficient rigs or shift toward more profitable workflows (e.g., AI/HPC workloads) rather than pure coin mining.\nmineasic\n+2\n\nSome miners are diversifying into AI/HPC services or AI-driven cloud mining models to capture new revenue streams beyond pure BTC mining, reflecting a broader trend rather than a new crypto form that AI itself mines.\naiminers.co\nyoutube\nainvest\n\nPractical implications for you:\n\nIf you’re a miner, consider investing in AI-driven monitoring and optimization tools to reduce energy and hardware costs, rather than seeking an “AI-mineable” coin.\n\nFor exposure to AI-related mining gains, watch for operators that repurpose data-center or cloud compute capacity toward AI workloads while keeping traditional mining active, rather than a new coin designed to be mined by AI agents.\nainvest\n+1\n\nIllustrative example:\n\nA miner might run Bitcoin mining rigs but pair them with AI-based dynamic energy management and predictive maintenance to extend hardware life and reduce downtime, effectively improving margins without changing the underlying coin being mined.\nainvest\n\nIf you want, I can pull up the latest analyses or forecasts on AI-enhanced mining profitability and any notable shifts in 2026."
+    },
+    "done": true,
+    "started_at": "2026-04-18T23:02:51Z",
+    "completed_at": "2026-04-18T23:05:17Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-18T23:05:17Z"
+}

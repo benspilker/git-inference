@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.62,
+"requires_local_execution": false,
+"reason": "User asks whether in 2026 there are forms of cryptocurrency that AI can mine, which is a factual information inquiry about current technologies and trends. No scheduling or action is requested."
+}
