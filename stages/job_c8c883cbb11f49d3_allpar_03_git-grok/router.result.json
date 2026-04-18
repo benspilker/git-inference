@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.85,
+  "requires_local_execution": true,
+  "reason": "User is seeking factual information and explanation about cryptocurrencies mineable by AI in 2026, which fits the question category for lookup and conversational help. No scheduling, configuration, or deep multi-angle research indicated."
+}
