@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.9,
+  "requires_local_execution": false,
+  "reason": "User is asking to build/provide a Python script for IP-based geolocation. This fits the definition of wanting information or conversational help (code example/explanation), not performing a local file write, system action, scheduling, or deep research."
+}
