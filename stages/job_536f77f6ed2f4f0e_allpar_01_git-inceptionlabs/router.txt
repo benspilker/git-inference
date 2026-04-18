@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "question", "task_type": "general_question", "confidence": 0.99, "requires_local_execution": false, "reason": "The user is asking for information about cryptocurrency that AI can mine in 2026, which is a request for knowledge rather than a system action." }
