@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "root_topic_research",
+  "confidence": 0.42,
+  "requires_local_execution": true,
+  "reason": "The user requests a Python script to obtain approximate geolocation from IP, which is a technical request requiring code creation. It involves guidance to implement a specific solution rather than a simple factual answer, fitting as root topic research with likely follow-up steps. Classification chosen reflects need for a code-oriented deliverable."
+}
