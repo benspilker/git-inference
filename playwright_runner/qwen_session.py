@@ -87,7 +87,21 @@ def extract_response_text(assistant_messages, before_count: int, before_last_tex
         cleaned = re.sub(r"^\s*qwen\s+said:\s*\n+", "", cleaned, flags=re.IGNORECASE)
         cleaned = re.sub(r"^\s*qwen\s*:\s*\n+", "", cleaned, flags=re.IGNORECASE)
         cleaned = re.sub(r"^\s*thinking completed\s*", "", cleaned, flags=re.IGNORECASE)
-        return cleaned.strip()
+        lines = [line.strip() for line in cleaned.splitlines()]
+
+        # Qwen transient UI status can appear at the top of assistant bubbles before
+        # the actual answer is ready (for example "Searching the web" + "Skip").
+        while lines:
+            head = lines[0].strip().lower()
+            if head in {"searching the web", "searching web", "web search in progress"}:
+                lines.pop(0)
+                continue
+            if head == "skip":
+                lines.pop(0)
+                continue
+            break
+
+        return "\n".join(lines).strip()
 
     after_count = assistant_messages.count()
     if after_count == 0:
@@ -104,6 +118,10 @@ def looks_like_non_answer_text(text: str) -> bool:
     lowered = (text or "").strip().lower()
     if not lowered:
         return True
+    if lowered in {"searching the web", "searching web", "skip"}:
+        return True
+    if lowered.startswith("searching the web\nskip"):
+        return True
     blocked_markers = [
         "new session started",
         "internal automation issue",
@@ -113,6 +131,8 @@ def looks_like_non_answer_text(text: str) -> bool:
         "network error",
         "connection error",
         "please try again",
+        "searching the web",
+        "web search in progress",
     ]
     return any(marker in lowered for marker in blocked_markers)
 
@@ -288,6 +308,8 @@ def stabilize_response(
             break
         page.wait_for_timeout(1000)
         waited += 1
-    return _normalize(previous)
-
+    final_text = _normalize(previous)
+    if looks_like_non_answer_text(final_text):
+        return ""
+    return final_text
 
