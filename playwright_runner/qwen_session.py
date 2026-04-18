@@ -4,6 +4,42 @@ import re
 import time
 
 
+_TRANSIENT_STATUS_EXACT = {
+    "searching the web",
+    "searching web",
+    "web search in progress",
+    "reading sources",
+    "reading source",
+}
+
+_TRANSIENT_STATUS_PREFIXES = (
+    "searching the web",
+    "searching web",
+    "web search in progress",
+    "reading sources",
+    "reading source",
+    "assessing ",
+    "analyzing ",
+    "gathering ",
+)
+
+
+def _normalize_status_line(text: str) -> str:
+    line = (text or "").strip().lower()
+    line = re.sub(r"[.!…]+$", "", line)
+    line = re.sub(r"\s+", " ", line).strip()
+    return line
+
+
+def _is_transient_status_line(text: str) -> bool:
+    normalized = _normalize_status_line(text)
+    if not normalized:
+        return False
+    if normalized in _TRANSIENT_STATUS_EXACT:
+        return True
+    return any(normalized.startswith(prefix) for prefix in _TRANSIENT_STATUS_PREFIXES)
+
+
 def first_visible_locator(page, selectors: list[str], timeout_ms: int):
     per_selector_timeout = min(700, max(250, int(timeout_ms / max(1, len(selectors)))))
     for selector in selectors:
@@ -92,11 +128,11 @@ def extract_response_text(assistant_messages, before_count: int, before_last_tex
         # Qwen transient UI status can appear at the top of assistant bubbles before
         # the actual answer is ready (for example "Searching the web" + "Skip").
         while lines:
-            head = lines[0].strip().lower()
-            if head in {"searching the web", "searching web", "web search in progress"}:
+            head = lines[0].strip()
+            if _is_transient_status_line(head):
                 lines.pop(0)
                 continue
-            if head == "skip":
+            if _normalize_status_line(head) == "skip":
                 lines.pop(0)
                 continue
             break
@@ -118,9 +154,14 @@ def looks_like_non_answer_text(text: str) -> bool:
     lowered = (text or "").strip().lower()
     if not lowered:
         return True
+    lines = [line.strip() for line in lowered.splitlines() if line.strip()]
+    if not lines:
+        return True
     if lowered in {"searching the web", "searching web", "skip"}:
         return True
-    if lowered.startswith("searching the web\nskip"):
+    if all(_is_transient_status_line(line) or _normalize_status_line(line) == "skip" for line in lines):
+        return True
+    if len(lines) <= 2 and _normalize_status_line(lines[-1]) == "skip" and _is_transient_status_line(lines[0]):
         return True
     blocked_markers = [
         "new session started",
@@ -133,6 +174,8 @@ def looks_like_non_answer_text(text: str) -> bool:
         "please try again",
         "searching the web",
         "web search in progress",
+        "reading sources",
+        "assessing hardware suitability",
     ]
     return any(marker in lowered for marker in blocked_markers)
 
