@@ -40,6 +40,13 @@ def _is_transient_status_line(text: str) -> bool:
     return any(normalized.startswith(prefix) for prefix in _TRANSIENT_STATUS_PREFIXES)
 
 
+def _looks_like_transient_progress_text(text: str) -> bool:
+    lines = [line.strip() for line in (text or "").splitlines() if line.strip()]
+    if not lines:
+        return False
+    return all(_is_transient_status_line(line) or _normalize_status_line(line) == "skip" for line in lines)
+
+
 def first_visible_locator(page, selectors: list[str], timeout_ms: int):
     per_selector_timeout = min(700, max(250, int(timeout_ms / max(1, len(selectors)))))
     for selector in selectors:
@@ -175,7 +182,6 @@ def looks_like_non_answer_text(text: str) -> bool:
         "searching the web",
         "web search in progress",
         "reading sources",
-        "assessing hardware suitability",
     ]
     return any(marker in lowered for marker in blocked_markers)
 
@@ -303,12 +309,37 @@ def wait_for_valid_response(
     before_last_text: str,
     wait_seconds: int,
 ) -> str:
-    deadline = time.time() + max(1, wait_seconds)
-    while time.time() < deadline:
+    base_wait_seconds = max(1, int(wait_seconds))
+    extended_wait_seconds = max(base_wait_seconds, 120)
+    start = time.time()
+    base_deadline = start + base_wait_seconds
+    hard_deadline = start + extended_wait_seconds
+
+    while time.time() < hard_deadline:
         text = extract_response_text(assistant_messages, before_count, before_last_text)
         lowered = text.lower()
         if text and "something went wrong" not in lowered and not looks_like_non_answer_text(text):
             return text
+
+        latest_raw_text = ""
+        try:
+            if assistant_messages.count() > 0:
+                latest_raw_text = (assistant_messages.last.inner_text() or "").strip()
+        except Exception:
+            latest_raw_text = ""
+
+        transient_in_progress = _looks_like_transient_progress_text(latest_raw_text)
+        generation_active = False
+        try:
+            generation_active = page.locator(
+                "button[data-testid='stop-button'], button:has-text('Stop generating'), button:has-text('Stop')"
+            ).first.is_visible()
+        except Exception:
+            generation_active = False
+
+        if time.time() >= base_deadline and not transient_in_progress and not generation_active:
+            break
+
         page.wait_for_timeout(1000)
     return ""
 
