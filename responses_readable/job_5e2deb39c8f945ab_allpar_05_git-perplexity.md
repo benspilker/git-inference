@@ -1,0 +1,1 @@
+To proceed safely, please confirm: should the script perform purely local IP-based geolocation using a public service, or should it avoid external network calls entirely? Also, do you want the script to print results to stdout, save to a file, or both, and in what format (JSON, text, or CSV)?

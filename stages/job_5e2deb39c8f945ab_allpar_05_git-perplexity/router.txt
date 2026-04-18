@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "file_write",
+"confidence": 0.62,
+"requires_local_execution": true,
+"reason": "The user requests building and running a Python script in your environment to obtain approximate geolocation from IP, which implies generating code and executing it within the system (local execution)."
+}
