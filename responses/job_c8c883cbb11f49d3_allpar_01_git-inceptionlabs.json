@@ -1,0 +1,10 @@
+{
+  "job_id": "job_c8c883cbb11f49d3_allpar_01_git-inceptionlabs",
+  "message": {
+    "role": "assistant",
+    "content": "Yes. In 2026 AI‑driven hardware (GPUs, TPUs, ASICs optimized for machine‑learning workloads) can still be used to mine traditional proof‑of‑work (PoW) cryptocurrencies such as Bitcoin and the remaining PoW‑based coins. Several mining operations have already pivoted to AI‑focused businesses while continuing to earn BTC, as reported in March 2026 \n1\n.\n\nIn addition, a growing niche of “AI‑oriented” tokens rewards participants for providing AI compute rather than for solving hash puzzles. Projects such as SingularityNET (AGIX), Fetch.ai (FET), and newer AI‑crypto hybrids listed among the top AI coins in April 2026 \n2\n3\n let users earn tokens by contributing AI workloads, but they are not mined in the classic PoW sense—they use proof‑of‑stake or utility‑based reward models.\n\nBottom line\n\nCategory\tCan AI hardware mine it?\tTypical reward model\nTraditional PoW coins (e.g., Bitcoin)\t✅ Yes – AI‑optimized ASICs/GPUs can solve hashes\tBlock rewards + transaction fees\nAI‑focused utility tokens (e.g., AGIX, FET)\t❌ Not mined via hashing; you earn by providing AI compute\tStaking / utility‑based payouts\n\nSo, while AI can still mine conventional PoW cryptocurrencies, the “AI‑mined” tokens that reward AI work use different mechanisms.\n\nDo you want more details on how to set up an AI‑optimized mining rig for Bitcoin, or on the specific AI‑compute reward programs?"
+  },
+  "done": true,
+  "started_at": "2026-04-18T23:12:25Z",
+  "completed_at": "2026-04-18T23:12:47Z"
+}

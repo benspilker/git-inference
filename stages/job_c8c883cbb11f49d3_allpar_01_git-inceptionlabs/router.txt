@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "question", "task_type": "general_question", "confidence": 0.96, "requires_local_execution": false, "reason": "User asks for information about AI-mineable cryptocurrencies in 2026, which is a straightforward informational request." }
