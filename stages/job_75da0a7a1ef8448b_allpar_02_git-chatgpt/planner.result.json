@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "mode": "local_action",
+  "task_type": "system_command",
+  "confidence": 0.9,
+  "requires_local_execution": true,
+  "parameters": {
+    "script_language": "python",
+    "function": "geolocation_from_ip",
+    "method": "IP-based geolocation"
+  },
+  "missing_fields": [],
+  "question": "Do you need a specific library to be used (e.g., requests, geopy)?",
+  "success_condition": "A Python script is created that successfully fetches approximate geolocation based on an IP address."
+}

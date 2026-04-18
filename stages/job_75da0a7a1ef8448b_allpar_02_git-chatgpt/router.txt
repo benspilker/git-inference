@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "file_write",
+"confidence": 0.95,
+"requires_local_execution": true,
+"reason": "The user is explicitly asking to create a Python script, which involves performing a local file creation task."
+}
