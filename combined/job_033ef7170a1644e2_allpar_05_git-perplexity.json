@@ -1,0 +1,26 @@
+{
+  "job_id": "job_033ef7170a1644e2_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_033ef7170a1644e2_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-18T19:34:17Z",
+    "created_at": "2026-04-18T19:32:51Z"
+  },
+  "response": {
+    "job_id": "job_033ef7170a1644e2_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a simple homemade pizza method.\n\nDough\n\n2 1/2 cups all-purpose flour\n\n1 tsp salt\n\n1 tsp sugar\n\n1 packet active dry yeast\n\n1 cup warm water\n\n2 tbsp olive oil\n\nMix the yeast, sugar, and warm water, then let it sit 5–10 minutes until foamy. Stir in the flour, salt, and olive oil, then knead 8–10 minutes until smooth. Cover and let it rise 1–2 hours, until doubled.\n\nSauce\n\n1 cup tomato sauce or crushed tomatoes\n\n1 clove garlic, minced\n\n1 tsp dried oregano\n\n1/2 tsp salt\n\nOptional: 1/2 tsp sugar\n\nSimmer everything together for 10–15 minutes.\n\nAssemble\n\nPreheat the oven to 475°F. Roll out the dough, place it on a baking sheet or pizza stone, spread on sauce, then add mozzarella and any toppings you like.\n\nBake\n\nBake 12–15 minutes, until the crust is golden and the cheese is bubbling. Let it cool a few minutes before slicing.\n\nEasy tips\n\nUse less topping than you think.\n\nA very hot oven helps the crust.\n\nA pizza stone or preheated baking sheet improves the bottom crust.\n\nFor a faster version, use store-bought dough and sauce."
+    },
+    "done": true,
+    "started_at": "2026-04-18T19:32:51Z",
+    "completed_at": "2026-04-18T19:34:17Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-18T19:34:17Z"
+}
