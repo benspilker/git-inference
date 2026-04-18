@@ -1,0 +1,26 @@
+{
+  "job_id": "job_2b9ebff10dc94929_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_2b9ebff10dc94929_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-18T00:29:26Z",
+    "created_at": "2026-04-18T00:26:18Z"
+  },
+  "response": {
+    "job_id": "job_2b9ebff10dc94929_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "The record for the oldest dog ever was held by Bobi, a Portuguese Rafeiro do Alentejo, who was initially verified by Guinness World Records as reaching 30 years and 266 days. Guinness later reviewed and revoked that title after questions arose about his age, and the previous long-standing record had belonged to Bluey at 29 years and 5 months.\nguinnessworldrecords\n+1\n\nIf you meant the oldest living dog rather than the oldest ever, that title can change over time."
+    },
+    "done": true,
+    "started_at": "2026-04-18T00:26:18Z",
+    "completed_at": "2026-04-18T00:29:26Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-18T00:29:26Z"
+}
