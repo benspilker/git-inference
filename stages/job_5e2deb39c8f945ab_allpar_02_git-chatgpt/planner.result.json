@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "mode": "local_action",
+  "task_type": "file_write",
+  "confidence": 0.8,
+  "requires_local_execution": true,
+  "parameters": {},
+  "missing_fields": [
+    "file_name",
+    "script_contents"
+  ],
+  "question": "Could you specify the filename for the Python script and any preferred libraries or API services for IP-based geolocation?",
+  "success_condition": "The Python script file is created successfully with code that can retrieve approximate geolocation based on the IP address."
+}
