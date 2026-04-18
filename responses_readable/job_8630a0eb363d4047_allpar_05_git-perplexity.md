@@ -1,0 +1,3 @@
+The first 64-bit PC released to market was AMD’s Athlon 64, which became available to customers in January 2003 (with broader availability continuing through 2003–2005). Intel released 64-bit desktop processors later in 2004, but the earliest widely available 64-bit PC processor for consumers was AMD64/Athlon 64. If you want a quick milestone: AMD announced and shipped the Athlon 64 in 2003, marking the first mainstream 64-bit PC processor.
+reddit
++1
