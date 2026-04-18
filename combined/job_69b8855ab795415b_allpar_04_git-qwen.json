@@ -1,0 +1,26 @@
+{
+  "job_id": "job_69b8855ab795415b_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_69b8855ab795415b_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-18T20:03:00Z",
+    "created_at": "2026-04-18T20:02:14Z"
+  },
+  "response": {
+    "job_id": "job_69b8855ab795415b_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Assessing hardware suitability for running quantized large language models at scale\nSkip"
+    },
+    "done": true,
+    "started_at": "2026-04-18T20:02:14Z",
+    "completed_at": "2026-04-18T20:03:00Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-18T20:03:00Z"
+}

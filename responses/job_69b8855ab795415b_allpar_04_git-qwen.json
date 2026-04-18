@@ -1,0 +1,10 @@
+{
+  "job_id": "job_69b8855ab795415b_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "Assessing hardware suitability for running quantized large language models at scale\nSkip"
+  },
+  "done": true,
+  "started_at": "2026-04-18T20:02:14Z",
+  "completed_at": "2026-04-18T20:03:00Z"
+}
