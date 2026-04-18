@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2b9ebff10dc94929_allpar_03_git-grok",
+  "message": {
+    "role": "assistant",
+    "content": "The current Guinness World Records holder for the oldest dog ever is Bluey, an Australian cattle dog (speckled heeler) who lived 29 years and 160 days (or about 29 years and 5 months). She was born on June 7, 1910, and died on November 14, 1939, in Australia.⁠Wikipedia\n\nQuick background:\nBluey held the record for decades until 2023, when a Portuguese dog named Bobi (a Rafeiro do Alentejo) was certified by Guinness at 30 years and 266 days (later claimed to have reached ~31 years and 165 days at death in October 2023).\nIn February 2024, Guinness posthumously stripped Bobi of the title after a review found insufficient conclusive evidence to verify his age (despite initial documentation like a microchip). They have not named a new record holder since.⁠NPR\n\nBluey’s verified longevity therefore stands as the official benchmark again by default.\n\n(Note: Separate from the “ever” record, the oldest living dog title is currently held by dogs like Spike, a chihuahua mix reported around 26 years old as of late 2025/early 2026, but that’s not the all-time record.)\n\nFor the absolute latest official status, check the Guinness World Records site directly, as titles can be reviewed or updated."
+  },
+  "done": true,
+  "started_at": "2026-04-18T00:26:35Z",
+  "completed_at": "2026-04-18T00:27:02Z"
+}
