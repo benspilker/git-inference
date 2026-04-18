@@ -1,0 +1,9 @@
+September 23, 2003 (with mainstream adoption starting that year).⁠Wikipedia
+
+The first 64-bit processors for personal computers (mainstream x86-compatible desktops/laptops) were AMD's Athlon 64 and Opteron (x86-64 architecture), released on September 23, 2003. Apple also introduced 64-bit PowerPC G5-based Macs around the same time.⁠Wikipedia
+
+Key context:
+Earlier 64-bit systems existed in workstations, servers, and supercomputers (e.g., MIPS R4000 in 1991, DEC Alpha in 1992, Intel Itanium in 2001), but these were not for general-purpose PCs.⁠Stanford
+The 2003 releases marked the shift to 64-bit in consumer PCs, enabling larger memory addressing and better performance for modern software.⁠Wikipedia
+
+This is when 64-bit computing truly entered the PC market.
