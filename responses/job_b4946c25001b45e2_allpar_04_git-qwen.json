@@ -1,0 +1,10 @@
+{
+  "job_id": "job_b4946c25001b45e2_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "Reading sources…\nSkip"
+  },
+  "done": true,
+  "started_at": "2026-04-18T22:31:55Z",
+  "completed_at": "2026-04-18T22:32:22Z"
+}
