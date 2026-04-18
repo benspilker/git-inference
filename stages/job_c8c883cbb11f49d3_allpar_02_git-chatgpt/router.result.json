@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.9,
+  "requires_local_execution": false,
+  "reason": "The user is asking for information about the state of cryptocurrency mining by AI in 2026, which is a factual inquiry."
+}
