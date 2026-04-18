@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-04-18T23:01:52Z",
+  "job_id": "job_536f77f6ed2f4f0e_allpar_02_git-chatgpt",
+  "request": {
+    "allparallel_index": 2,
+    "allparallel_parent_job_id": "job_536f77f6ed2f4f0e",
+    "allparallel_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.",
+        "role": "system"
+      },
+      {
+        "content": "In 2026 are there any forms of cryptocurrency that AI can mine?",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 12
+      },
+      "user_prompt_chunks": [
+        "In 2026 are there any forms of cryptocurrency that AI can mine?"
+      ]
+    },
+    "user_prompt": "In 2026 are there any forms of cryptocurrency that AI can mine?"
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": "You are a retrieval-first assistant.",
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 12
+    },
+    "user_prompt_chunks": [
+      "In 2026 are there any forms of cryptocurrency that AI can mine?"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "In 2026 are there any forms of cryptocurrency that AI can mine?"
+}
