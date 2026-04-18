@@ -319,6 +319,19 @@ jobs:
                     max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_ANSWERER:-10}"
                     timeout_ms="${STAGE_TIMEOUT_MS_ANSWERER:-110000}"
                   fi
+                  if [[ "$runner_file" == "qwen_file_playwright_anonymous_ci.py" ]]; then
+                    if [[ "$require_live_web" == "true" ]]; then
+                      wait_seconds="${STAGE_WAIT_SECONDS_ANSWERER_WEB_QWEN:-70}"
+                      settle_seconds="${STAGE_SETTLE_SECONDS_ANSWERER_WEB_QWEN:-3}"
+                      max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_ANSWERER_WEB_QWEN:-24}"
+                      timeout_ms="${STAGE_TIMEOUT_MS_ANSWERER_WEB_QWEN:-210000}"
+                    else
+                      wait_seconds="${STAGE_WAIT_SECONDS_ANSWERER_QWEN:-55}"
+                      settle_seconds="${STAGE_SETTLE_SECONDS_ANSWERER_QWEN:-3}"
+                      max_settle_wait_seconds="${STAGE_MAX_SETTLE_WAIT_SECONDS_ANSWERER_QWEN:-18}"
+                      timeout_ms="${STAGE_TIMEOUT_MS_ANSWERER_QWEN:-170000}"
+                    fi
+                  fi
                   ;;
               esac
 
@@ -335,6 +348,11 @@ jobs:
               local extra_flags=()
               if (( attempt > 1 )); then
                 extra_flags+=(--refresh-before-send)
+              fi
+              if [[ "$runner_file" == "qwen_file_playwright_anonymous_ci.py" ]] && (( attempt > 1 )); then
+                if [[ "${STAGE_START_NEW_CHAT_QWEN_RETRY:-true}" == "true" ]]; then
+                  extra_flags+=(--start-new-chat)
+                fi
               fi
               if [[ "${STAGE_START_NEW_CHAT:-false}" == "true" ]]; then
                 extra_flags+=(--start-new-chat)
