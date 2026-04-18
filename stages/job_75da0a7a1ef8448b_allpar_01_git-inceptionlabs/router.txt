@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "job", "task_type": "file_write", "confidence": 0.99, "requires_local_execution": true, "reason": "The user requests a Python script to obtain approximate geolocation from an IP address, which is a request to create a file (script). This aligns with the 'file_write' task type." }

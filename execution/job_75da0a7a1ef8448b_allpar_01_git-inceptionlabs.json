@@ -1,0 +1,20 @@
+{
+  "task_type": "file_write",
+  "original_task_type": "file_write",
+  "verified": false,
+  "executed_at": "2026-04-18T20:06:13Z",
+  "execution_status": "needs_clarification",
+  "details": {
+    "code": "MISSING_REQUIRED_FIELDS",
+    "message": "Task parameters are missing required fields.",
+    "missing_fields": [
+      "path",
+      "content"
+    ],
+    "parameters": {
+      "filename": "geolocation.py",
+      "language": "python",
+      "description": "Python script that retrieves approximate geolocation based on the machine's public IP address."
+    }
+  }
+}
