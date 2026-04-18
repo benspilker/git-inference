@@ -1,0 +1,26 @@
+{
+  "job_id": "job_69b8855ab795415b_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_69b8855ab795415b_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-18T20:02:22Z",
+    "created_at": "2026-04-18T20:02:09Z"
+  },
+  "response": {
+    "job_id": "job_69b8855ab795415b_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Graphics cards that can comfortably run a quantized ~11 B‑parameter LLM (e.g., Llama 3.2) in 8‑bit or 4‑bit precision\n\nPrecision\tApprox. VRAM needed*\tRecommended GPUs (VRAM)\tWhy it works\n8‑bit (INT8)\t~22 GB\t• NVIDIA RTX 4090 – 24 GB GDDR6X\n• NVIDIA RTX 4090 Ti (if available) – 24 GB\n• NVIDIA RTX A6000 / RTX 6000 Ada – 48 GB\n• AMD Instinct MI250X – 128 GB HBM2\t8‑bit quantization cuts the FP16 memory footprint by ~4×, so a 22 GB model fits in 24 GB‑class cards with headroom for the model’s KV cache and batch size.\n4‑bit (INT4)\t~11 GB\t• NVIDIA RTX 4090 – 24 GB (plenty of margin)\n• NVIDIA RTX 4080 – 16 GB (tight but workable)\n• NVIDIA RTX A5000 – 24 GB\n• AMD Radeon RX 7900 XTX – 24 GB GDDR6\n• AMD Instinct MI250X – 128 GB\t4‑bit quantization reduces memory ~8×, so an 11 GB model easily fits on most modern 16‑GB‑plus GPUs.\nMixed‑precision (FP8/INT8 hybrid)\t~14 GB\t• NVIDIA RTX 4090 – 24 GB\n• NVIDIA RTX 4090 Ti – 24 GB\n• NVIDIA RTX A6000 – 48 GB\tHybrid schemes keep the KV cache in higher precision while quantizing the weights, landing in the 14‑GB range.\n\n*These numbers are rough estimates based on the typical size of an 11 B‑parameter model after quantization (weights ≈ 4 bytes × 11 B ÷ quantization factor) plus additional memory for the KV cache, optimizer state (if fine‑tuning), and the runtime framework.\n\nPractical tips for running Llama 3.2‑style models\n\nChoose a quantization scheme\n\nINT8 (e.g., bitsandbytes load_in_8bit=True) → works on 24 GB GPUs.\nINT4 (e.g., bitsandbytes load_in_4bit=True) → can run on 16 GB GPUs, though you may need to reduce batch size or sequence length.\n\nFramework support\n\nPyTorch + bitsandbytes for 8‑bit/4‑bit loading.\nvLLM also supports INT8/INT4 and can efficiently manage the KV cache.\n\nBatch size & context length\n\nKV cache scales with batch_size × context_len × hidden_dim.\nOn a 24 GB card, a batch of 1–2 with a 4 k context is safe; larger batches may require a 48 GB card.\n\nCPU‑offload fallback\n\nIf you only have a 12‑16 GB GPU, you can offload part of the KV cache to RAM (e.g., using accelerate’s cpu_offload), but latency will increase.\n\nPower & cooling\n\nHigh‑end GPUs (RTX 4090/6000) draw 350 W+; ensure adequate PSU and airflow.\nExample hardware shortlist\nGPU\tVRAM\tApprox. price (USD, 2024)\tGood for\nRTX 4090\t24 GB GDDR6X\t1,600–1,800\t8‑bit & 4‑bit LLMs, single‑GPU inference\nRTX 4080\t16 GB GDDR6X\t1,200–1,300\t4‑bit inference, modest batch size\nRTX A6000 / RTX 6000 Ada\t48 GB GDDR6\t4,500–5,000\t8‑bit with large KV cache, multi‑user serving\nAMD Instinct MI250X\t128 GB HBM2\t7,000–8,000\tEnterprise‑grade, multi‑model hosting\nRX 7900 XTX\t24 GB GDDR6\t1,000–1,200\t4‑bit inference, gaming‑oriented builds\n\nNext step: Do you need guidance on how to set up the quantization pipeline (e.g., using bitsandbytes or vLLM) on one of these GPUs, or are you looking for a specific purchase recommendation based on a budget?"
+    },
+    "done": true,
+    "started_at": "2026-04-18T20:02:09Z",
+    "completed_at": "2026-04-18T20:02:22Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-18T20:02:22Z"
+}
