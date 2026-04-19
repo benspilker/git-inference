@@ -1,0 +1,26 @@
+{
+  "job_id": "job_9ebb42cff0c44759_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_9ebb42cff0c44759_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-19T15:57:03Z",
+    "created_at": "2026-04-19T15:56:36Z"
+  },
+  "response": {
+    "job_id": "job_9ebb42cff0c44759_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN weather update (as of ~4 PM EDT, April 19, 2026):\nSunny to mostly clear, 52°F (feels like ~47°F). Light winds (WSW 5-14 mph). Low rain risk today (0% chance, dry conditions). High near 58-60°F.⁠Wrtv\n\nTelegram message to send:\n\"Indy weather now: 52°F sunny, feels 47°F. Light WSW winds. No rain risk today. High ~59°F. Stay cozy! ☀️\""
+    },
+    "done": true,
+    "started_at": "2026-04-19T15:56:35Z",
+    "completed_at": "2026-04-19T15:57:03Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-19T15:57:03Z"
+}
