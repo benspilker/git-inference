@@ -1,0 +1,10 @@
+{
+  "job_id": "job_547bb1be2ec545bc_allpar_02_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN — Current weather (Apr 20, ~9:10 AM EDT):\n🌡️ Temp: ~64°F (18°C)\n🌥️ Conditions: Partly cloudy\n💨 Wind: Light–moderate (~8–12 mph)\n🌧️ Rain risk: Low right now; slight chance of showers later today\n\nTelegram-ready update:\nIndianapolis: 64°F, partly cloudy. Light breeze (~10 mph). Low immediate rain risk, but a few showers possible later."
+  },
+  "done": true,
+  "started_at": "2026-04-20T13:12:07Z",
+  "completed_at": "2026-04-20T13:12:22Z"
+}
