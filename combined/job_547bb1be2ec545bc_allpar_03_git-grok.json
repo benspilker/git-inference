@@ -1,0 +1,26 @@
+{
+  "job_id": "job_547bb1be2ec545bc_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_547bb1be2ec545bc_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-20T13:12:31Z",
+    "created_at": "2026-04-20T13:12:03Z"
+  },
+  "response": {
+    "job_id": "job_547bb1be2ec545bc_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN current weather (as of ~1 PM EDT on April 20, 2026):\nSunny / clear skies, 36–38°F (feels like ~36–40°F, chilly). High today ~59°F. Light winds (1–5 mph, variable/NNE), humidity ~80%. No rain or precipitation expected (0% chance). Low wind/rain risk.⁠Accuweather\n\nTelegram update:\n\"🌞 Indy now: 37°F sunny & chilly (feels 36°F). High ~59°F today. Light winds, dry — no rain/wind risk. Jacket weather!\""
+    },
+    "done": true,
+    "started_at": "2026-04-20T13:12:03Z",
+    "completed_at": "2026-04-20T13:12:31Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-20T13:12:31Z"
+}
