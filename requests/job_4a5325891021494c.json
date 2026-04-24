@@ -1,0 +1,56 @@
+{
+  "created_at": "2026-04-24T12:51:20Z",
+  "job_id": "job_4a5325891021494c",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Tell me about BemenderferLLC",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "routing_metadata": {
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 4
+      },
+      "user_prompt_chunks": [
+        "Tell me about BemenderferLLC"
+      ]
+    },
+    "user_prompt": "Tell me about BemenderferLLC"
+  },
+  "routing_metadata": {
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 4
+    },
+    "user_prompt_chunks": [
+      "Tell me about BemenderferLLC"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Tell me about BemenderferLLC"
+}
