@@ -1,0 +1,26 @@
+{
+  "job_id": "job_8c4332c916ae45fd_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_8c4332c916ae45fd_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-24T18:41:57Z",
+    "created_at": "2026-04-24T18:40:16Z"
+  },
+  "response": {
+    "job_id": "job_8c4332c916ae45fd_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC is a small, Indianapolis-based software consulting firm founded in 2008 that specializes in Epicor ERP/Kinetic solutions. \nthemanifest.com\nCore Services\nEpicor ERP consulting, training, implementation, streamlining, and integration \n领英企业服务\nCustom software development for business process optimization \nthemanifest.com\nProprietary Data Portal: A mobile-friendly front-end for Epicor that enables real-time data integration and IoT connectivity \nwww.bemenderfer.com\nBusiness process analysis aligned with client goals \nwww.bemenderfer.com\nKey Details\nAttribute\n\t\nDetails\n\n\nFounded\n\t\n2008 \nthemanifest.com\n\n\nHeadquarters\n\t\nIndianapolis, Indiana \nrocketreach.co\n\n\nTeam Size\n\t\n2–10 employees \n领英企业服务\n\n\nIndustries Served\n\t\nAerospace, automotive, food production, industrial manufacturing, structural manufacturing, component distribution \nwww.bemenderfer.com\n\n\nLeadership\n\t\nDavid Bemenderfer (Owner/President), 20+ years Epicor experience \nwww.bemenderfer.com\nNotable Differentiators\nEthics-first consulting approach, founded to counter industry practices that compromised client trust \nwww.bemenderfer.com\nTeam includes both external consultants and former in-house Epicor users for practical, user-centered solutions \nwww.bemenderfer.com\nProven ROI examples: reduced manual engineering time from 24 hours to ~54 seconds; cut shipping errors from 17% to 0.25% \nwww.bemenderfer.com\nOnline Presence\nWebsite: bemenderfer.com\n \n领英企业服务\nLinkedIn: BEMENDERFER LLC\n \n领英企业服务\nBBB Accredited (since 3/2025) \nwww.bbb.org\nLooking for Epicor ERP support or custom integration work? They offer a free initial consultation to assess your needs. \nwww.bemenderfer.com\n+30"
+    },
+    "done": true,
+    "started_at": "2026-04-24T18:40:16Z",
+    "completed_at": "2026-04-24T18:41:57Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-24T18:41:57Z"
+}
