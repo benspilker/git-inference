@@ -1,0 +1,123 @@
+{
+  "job_id": "job_c96a1df12e104315",
+  "status": {
+    "job_id": "job_c96a1df12e104315",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "allparallel",
+    "current_stage": "virtual_turns_complete",
+    "updated_at": "2026-04-24T18:58:10.630659Z",
+    "created_at": "2026-04-24T18:58:10.630659Z"
+  },
+  "response": {
+    "job_id": "job_c96a1df12e104315",
+    "message": {
+      "role": "assistant",
+      "content": "[1/1] Source: git-chatgpt | Status: completed\nIt seems that I couldn't find information on \"Bemenderfer LLC\" in the current search. It might be a smaller or more localized entity, or it could be under a different name or spelling.\nIf you have any more specifics about the company, like its industry or location, I could try narrowing down the search or offer alternative suggestions!"
+    },
+    "done": true,
+    "completed_at": "2026-04-24T18:58:10.630659Z"
+  },
+  "execution": {
+    "mode": "allparallel_virtual_turns",
+    "request_payload": {
+      "combined_in_message": false,
+      "messages": [
+        {
+          "content": "Tell me about BemenderferLLC",
+          "role": "user"
+        }
+      ],
+      "model": "git-parallel",
+      "request_type": "chat",
+      "routing_metadata": {
+        "intent_type": null,
+        "requires_local_execution": false,
+        "route_state": "received",
+        "schema_version": "1.0",
+        "task_type": "general_question"
+      },
+      "stream": false,
+      "transport": {
+        "chunking": {
+          "chunk_count": 1,
+          "chunk_size_words": 2000,
+          "enabled": false,
+          "max_chunks": 5,
+          "word_count": 4
+        },
+        "user_prompt_chunks": [
+          "Tell me about BemenderferLLC"
+        ]
+      },
+      "user_prompt": "Tell me about BemenderferLLC"
+    },
+    "base_prompt": "Tell me about BemenderferLLC",
+    "kickoff_content": "Running this prompt across 1 sources now. I will send each source result as a separate follow-up message.",
+    "targets": [
+      "git-chatgpt"
+    ],
+    "results": [
+      {
+        "index": 1,
+        "model": "git-chatgpt",
+        "job_id": "job_c96a1df12e104315_allpar_01_git-chatgpt",
+        "status": "completed",
+        "content": "It seems that I couldn't find information on \"Bemenderfer LLC\" in the current search. It might be a smaller or more localized entity, or it could be under a different name or spelling.\n\nIf you have any more specifics about the company, like its industry or location, I could try narrowing down the search or offer alternative suggestions!"
+      }
+    ],
+    "source_messages": [
+      {
+        "index": 1,
+        "source": "git-chatgpt",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "It seems that I couldn't find information on \"Bemenderfer LLC\" in the current search. It might be a smaller or more localized entity, or it could be under a different name or spelling.\nIf you have any more specifics about the company, like its industry or location, I could try narrowing down the search or offer alternative suggestions!",
+        "text": "[1/1] Source: git-chatgpt | Status: completed\nIt seems that I couldn't find information on \"Bemenderfer LLC\" in the current search. It might be a smaller or more localized entity, or it could be under a different name or spelling.\nIf you have any more specifics about the company, like its industry or location, I could try narrowing down the search or offer alternative suggestions!"
+      }
+    ],
+    "success_count": 1,
+    "failure_count": 0,
+    "delivery_errors": [],
+    "completed_indexes": [
+      1
+    ],
+    "stage": "virtual_turns_complete",
+    "allparallel_summary": "[1/1] Source: git-chatgpt | Status: completed\nIt seems that I couldn't find information on \"Bemenderfer LLC\" in the current search. It might be a smaller or more localized entity, or it could be under a different name or spelling.\nIf you have any more specifics about the company, like its industry or location, I could try narrowing down the search or offer alternative suggestions!"
+  },
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Tell me about BemenderferLLC",
+        "role": "user"
+      }
+    ],
+    "model": "git-parallel",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": null,
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 4
+      },
+      "user_prompt_chunks": [
+        "Tell me about BemenderferLLC"
+      ]
+    },
+    "user_prompt": "Tell me about BemenderferLLC"
+  },
+  "evaluation": null,
+  "generated_at": "2026-04-24T18:58:10.630659Z"
+}
