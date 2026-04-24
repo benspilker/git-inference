@@ -1,0 +1,26 @@
+{
+  "job_id": "job_865ecfa689ab49ab_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_865ecfa689ab49ab_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-24T18:00:14Z",
+    "created_at": "2026-04-24T17:53:53Z"
+  },
+  "response": {
+    "job_id": "job_865ecfa689ab49ab_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC appears to be a small software/ERP consulting firm, with a focus on Epicor ERP and related process optimization services. Based on publicly listed profiles, they have operated since around 2008 and are based in Indianapolis, Indiana, with a small team (roughly 2–10 employees). Their offerings typically include ERP implementation, training, business process improvement, data/reporting solutions (e.g., SSRS, BAQs), and system integration work. A job listing and third-party profiles also indicate ongoing Epicor consulting activities and related technical capabilities, suggesting they serve manufacturing and finance/operations clients that use Epicor Kinetic/ERP. Some listings mention a website (bemenderfer.com) for more details, though available summaries emphasize Epicor expertise and custom integration/optimization services. Note: several third-party sources provide limited or variably detailed information, so contacting the company directly or reviewing their official site would yield the most current picture. If you’d like, I can try to pull the latest details from their site or professional profiles and summarize any recent client engagements or service areas.\nlinkedin\n+2"
+    },
+    "done": true,
+    "started_at": "2026-04-24T17:53:53Z",
+    "completed_at": "2026-04-24T18:00:14Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-24T18:00:14Z"
+}
