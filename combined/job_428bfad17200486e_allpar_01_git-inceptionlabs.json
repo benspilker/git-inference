@@ -1,0 +1,26 @@
+{
+  "job_id": "job_428bfad17200486e_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_428bfad17200486e_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-24T18:57:30Z",
+    "created_at": "2026-04-24T18:56:33Z"
+  },
+  "response": {
+    "job_id": "job_428bfad17200486e_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC is a software‑development and consulting firm headquartered in Indianapolis, IN.\n\nCore focus: Providing ERP (Enterprise Resource Planning) solutions and consulting, especially around Epicor ERP.\nKey services: ERP consulting, ERP implementation, and a data‑portal offering to help businesses manage and analyze operational data.\nOnline presence: The company’s website highlights its mission to “empower businesses with advanced ERP solutions & expert consulting” and provides a “Get Started” portal for new clients.\nProfessional profile: On LinkedIn, Bemenderfer LLC is listed under “Software Development” and has a modest follower base, indicating a specialized niche in ERP and software services.\n\nOverall, Bemenderfer LLC positions itself as a specialist partner for organizations looking to implement or optimize ERP systems, with a particular emphasis on Epicor technology.\n\nSources: \n1\n, \n2\n, \n3"
+    },
+    "done": true,
+    "started_at": "2026-04-24T18:56:33Z",
+    "completed_at": "2026-04-24T18:57:30Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-24T18:57:30Z"
+}
