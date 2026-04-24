@@ -1,0 +1,26 @@
+{
+  "job_id": "job_b8653739e26b468a_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_b8653739e26b468a_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-24T19:01:54Z",
+    "created_at": "2026-04-24T19:00:17Z"
+  },
+  "response": {
+    "job_id": "job_b8653739e26b468a_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC is a small, Indianapolis, Indiana-based software development and ERP consulting firm founded in 2008 by David Bemenderfer \nthemanifest.com\nwww.bemenderfer.com\n.\nCore Focus\nEpicor ERP specialization: Consulting, training, implementation, streamlining, and integration for Epicor Kinetic, Vantage, and Vista systems \n领英企业服务\n领英企业服务\nCustom software development: Building tailored solutions to extend ERP functionality \nthemanifest.com\nProprietary product: Data Portal — a mobile-friendly front-end platform for Epicor that enables real-time data integration and API generation \nwww.bemenderfer.com\nwww.bemenderfer.com\nTeam & Approach\nSmall team (2–10 employees) with decades of combined Epicor experience \nrocketreach.co\n领英企业服务\nLed by David Bemenderfer (Owner/President), with specialists in project management, report engineering, and development \nwww.bemenderfer.com\nEmphasizes ethical consulting, long-term client relationships, and business process analysis \nwww.bemenderfer.com\nwww.bemenderfer.com\nIndustries Served\nAerospace, automotive, food production, industrial manufacturing, component distribution, and structural manufacturing \nwww.bemenderfer.com\nwww.bemenderfer.com\nNotable Results\nReduced recurring engineering time from 24 hours to ~54 seconds for an automotive client \nwww.bemenderfer.com\nCut shipping error rates from 17% to 0.25% for a component distributor \nwww.bemenderfer.com\nSaved ~440 detailer man-hours/week for a structural manufacturing client \nwww.bemenderfer.com\nWebsite: bemenderfer.com\n | BBB Accredited: Since March 2025 \nwww.bbb.org\nLet me know if you'd like contact details, service pricing, or help evaluating them for a specific project.\n+30"
+    },
+    "done": true,
+    "started_at": "2026-04-24T19:00:17Z",
+    "completed_at": "2026-04-24T19:01:54Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-24T19:01:54Z"
+}
