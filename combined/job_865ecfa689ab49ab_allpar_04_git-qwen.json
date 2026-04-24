@@ -1,0 +1,26 @@
+{
+  "job_id": "job_865ecfa689ab49ab_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_865ecfa689ab49ab_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-24T17:55:39Z",
+    "created_at": "2026-04-24T17:53:50Z"
+  },
+  "response": {
+    "job_id": "job_865ecfa689ab49ab_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC is a small, Indianapolis-based software consulting firm founded in 2008 that specializes in Epicor ERP/Kinetic solutions \nthemanifest.com\n领英企业服务\n.\nCore Services\nEpicor ERP consulting, training, implementation, and integration \n领英企业服务\nCustom software development and business process optimization \nthemanifest.com\nProprietary Data Portal product for mobile-friendly ERP data access and IoT integration \nwww.bemenderfer.com\nwww.bemenderfer.com\nProspect Map tool for sales teams to identify and manage geographic leads \nwww.bemenderfer.com\nLeadership & Team\nDavid Bemenderfer (Owner/President): 20+ years of Epicor ERP consulting experience; founded the company on a commitment to ethical business practices \nwww.bemenderfer.com\nwww.bemenderfer.com\nSmall team (2–10 employees) including specialists in project management, report engineering, development, and operations \nrocketreach.co\nwww.bemenderfer.com\nIndustries Served\nAerospace, automotive, food production, industrial manufacturing, structural manufacturing, and component distribution \nwww.bemenderfer.com\nNotable Results\nReduced manual engineering time from 24 hours to ~54 seconds for an automotive client \nwww.bemenderfer.com\nCut shipping errors from 17% to 0.25% for a component distributor \nwww.bemenderfer.com\nSaved ~440 detailer man-hours/week for a structural manufacturing client \nwww.bemenderfer.com\nContact\nWebsite: bemenderfer.com\nPhone: 317-643-2386 \nwww.signalhire.com\nHeadquarters: Indianapolis, IN 46220 \nwww.signalhire.com\nThe company emphasizes ethical consulting, long-term client relationships, and practical ROI-focused implementations \nwww.bemenderfer.com\nwww.bemenderfer.com\n. If you're evaluating Epicor ERP support or integration services, they offer a free initial consultation \nwww.bemenderfer.com\n.\n+30"
+    },
+    "done": true,
+    "started_at": "2026-04-24T17:53:50Z",
+    "completed_at": "2026-04-24T17:55:39Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-24T17:55:39Z"
+}
