@@ -1,0 +1,26 @@
+{
+  "job_id": "job_7ef2c1824ab842f8_allseq_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_7ef2c1824ab842f8_allseq_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-24T14:05:00Z",
+    "created_at": "2026-04-24T14:04:49Z"
+  },
+  "response": {
+    "job_id": "job_7ef2c1824ab842f8_allseq_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC is a software‑development and ERP‑consulting firm based in Indianapolis, IN. The company focuses on delivering advanced ERP solutions and expert consulting services, helping businesses streamline operations and improve efficiency.\n\nCore services: ERP consulting, ERP implementation, and custom software development.\nIndustry focus: They position themselves as “Software Made Smarter,” targeting enterprises that need robust ERP platforms and integration support.\nOnline presence: Their website highlights a “Get Started” portal for new clients, and their LinkedIn page lists the firm under the “Software Development” category with a modest follower base.\n\nKey points\n\nHeadquarters: Indianapolis, IN\n2\n.\nPrimary offering: End‑to‑end ERP consulting and implementation, plus custom software solutions\n1\n.\nMarket positioning: Emphasizes empowering businesses with advanced ERP tools and expert guidance\n1\n.\n\nIf you need more specific details—such as contact information, case studies, or pricing—let me know!"
+    },
+    "done": true,
+    "started_at": "2026-04-24T14:04:49Z",
+    "completed_at": "2026-04-24T14:05:00Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-24T14:05:00Z"
+}
