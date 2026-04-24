@@ -1,16 +1,9 @@
-Bemenderfer, LLC is a software‑development and consulting firm based in Indianapolis, Indiana.
+Bemenderfer LLC is a consulting firm based in Indianapolis, IN that specializes in Enterprise Resource Planning (ERP) solutions.
 
-Core services: ERP consulting and implementation (especially Epicor), custom software development, and data‑portal solutions 
-1
-.
-Industry focus: They position themselves as “Software Made Smarter,” helping businesses streamline operations with advanced ERP tools 
-2
-.
-Public presence: The company maintains a website (bemenderfer.com) and a LinkedIn page that lists software development as a primary activity 
-2
-.
-Reputation: Listed on the Better Business Bureau with a profile for Bemenderfer LLC, indicating a formal business registration and consumer‑facing credibility 
-3
-.
+Core services – ERP consulting, ERP implementation, and data‑portal development, with a focus on platforms such as Epicor.
+Industry focus – They help businesses “unlock the full potential of their operations” by delivering advanced ERP consulting and implementation services.
+Online presence – Their public website (bemenderfer.com) highlights the above services and includes a “Get Started” call‑to‑action.
+Reputation – The Better Business Bureau lists Bemenderfer LLC with a profile confirming its status as a software‑development and consulting business in Indianapolis.
+LinkedIn – The company’s LinkedIn page describes it as a “Software Development” firm and indicates it has a following of professionals in the region.
 
-In short, Bemenderfer, LLC offers ERP‑focused consulting and custom software development services from Indianapolis, targeting enterprises that need to modernize and integrate their operational systems.
+Overall, Bemenderfer LLC positions itself as a regional ERP specialist helping enterprises modernize and streamline their operations.
