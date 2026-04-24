@@ -1,0 +1,26 @@
+{
+  "job_id": "job_8c4332c916ae45fd_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_8c4332c916ae45fd_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-24T18:40:22Z",
+    "created_at": "2026-04-24T18:40:13Z"
+  },
+  "response": {
+    "job_id": "job_8c4332c916ae45fd_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "I wasn’t able to find specific information about Bemenderfer LLC. Could you clarify whether it’s a business, law firm, or another type of company, and its location? That will help narrow the search."
+    },
+    "done": true,
+    "started_at": "2026-04-24T18:40:13Z",
+    "completed_at": "2026-04-24T18:40:22Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-24T18:40:22Z"
+}
