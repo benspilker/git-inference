@@ -1,0 +1,10 @@
+{
+  "job_id": "job_fcb2e1bfac5f46ca_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "I could not extract live web results for \"[cron:f9fee8f8-1df5-4e37-919d-c317996e5acd weather-job_d869] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Saturday, April 25th, 2026 — 2:16 PM (UTC) / 2026-04-25 14:16 UTC\n\nReturn your summary as plain text; it will be delivered automatically. If the task explicitly calls for messaging a specific external recipient, note who/where it should go instead of sending it yourself.\". Source attempted: DuckDuckGo HTML at 2026-04-25 14:23 UTC."
+  },
+  "done": true,
+  "started_at": "2026-04-25T14:17:19Z",
+  "completed_at": "2026-04-25T14:23:39Z"
+}
