@@ -1,10 +1,21 @@
 🌤️ Indianapolis, IN — Weather Update
-Sat, Apr 25, 2:16 PM UTC
-• Current: 57°F (14°C), Overcast [[NWS]]
-• Today: High 75°F, Mostly Sunny; Low 49°F tonight [[NWS]]
-• Wind: N @ 10 mph, gusts to 25 mph possible Mon [[NWS]]
-• Rain Risk: Low today (3–15%); significant chance returns Mon PM with storms, 0.75–1" possible [[NWS]][[weather.com]]
-No immediate rain/wind hazards. Monitor Mon for severe storm potential.
-—
-Telegram update ready for delivery. No external recipient specified; send to user's configured Telegram channel/chat.
-+19
+Sat, Apr 25 • 2:16 PM UTC
+• Current: 57–61°F, Cloudy → clearing to sunny this afternoon 
+www.accuweather.com
+天气预报
+
+• Today's Range: High 75°F / Low 48°F 
+www.accuweather.com
+
+• Wind: N 4–10 mph, gusts to 16 mph 
+www.accuweather.com
+
+• Rain Risk: 0–15% today — negligible precipitation expected 
+www.accuweather.com
+天气预报
+
+• Notable: Low humidity shift (92% → 55%), UV index rising to 7–8 (high) this afternoon 
+www.accuweather.com
+✅ Summary: Pleasant spring day ahead. No meaningful rain or wind risk. Light jacket recommended for morning; sunny and mild by afternoon.
+Deliver to: Telegram channel/recipient as specified in cron job config
++20
