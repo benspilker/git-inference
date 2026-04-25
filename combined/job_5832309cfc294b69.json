@@ -1,0 +1,26 @@
+{
+  "job_id": "job_5832309cfc294b69",
+  "status": {
+    "job_id": "job_5832309cfc294b69",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-04-25T14:15:58Z",
+    "created_at": "2026-04-25T14:15:40Z"
+  },
+  "response": {
+    "job_id": "job_5832309cfc294b69",
+    "message": {
+      "role": "assistant",
+      "content": "It looks like you just sent \"ping.\" Could you clarify what you're looking for? Are you testing the connection, or do you need help with something specific?"
+    },
+    "done": true,
+    "started_at": "2026-04-25T14:15:40Z",
+    "completed_at": "2026-04-25T14:15:58Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-25T14:15:58Z"
+}

@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.95,
+"requires_local_execution": true,
+"reason": "The user typed 'ping', which implies they want the system to perform a network or local connectivity check, a command execution task."
+}

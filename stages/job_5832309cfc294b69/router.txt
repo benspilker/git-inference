@@ -1,0 +1,7 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "system_command",
+"confidence": 0.8,
+"reason": "The request is ambiguous and may be a system command, but lacks necessary context to be classified as a job or question."
+}
