@@ -1,0 +1,5 @@
+Indianapolis, IN weather update (as of ~2 PM EDT, April 25, 2026):
+
+Mostly sunny to partly cloudy, around 66-70°F (feels like mid-60s). High today near 74-77°F. Light north/northwest winds 5-10 mph. Low rain risk (0-1% chance this afternoon), no notable wind or precipitation concerns. Clearing trend into a pleasant evening.
+
+(Telegram-ready summary)
