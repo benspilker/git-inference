@@ -1,8 +1,12 @@
-Indianapolis, IN — Apr 25, ~morning/early afternoon update:
+Current weather in Indianapolis, IN, USA (April 25, 2026, 2:16 PM UTC / 10:16 AM local time):
 
-Temp: ~60°F (16°C)
-Conditions: Cloudy, turning to showers
-Rain risk: High this afternoon (steady rain, possible thunder)
-Wind: Moderate, occasional gusts with storms
+Temperature: 63°F (17°C)
 
-Summary: Cool and overcast now, with rain and possible thunderstorms developing later today—expect wet conditions and some gusty winds.
+Conditions: Mostly cloudy
+
+Wind: 10 mph from the northwest
+
+Precipitation: Low chance of rain today
+
+Telegram update (concise version):
+"Indianapolis: 63°F, mostly cloudy. Light NW wind 10 mph, low rain risk."
