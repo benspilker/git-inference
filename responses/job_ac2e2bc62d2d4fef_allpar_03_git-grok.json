@@ -1,0 +1,10 @@
+{
+  "job_id": "job_ac2e2bc62d2d4fef_allpar_03_git-grok",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN current weather (as of ~12:40 PM EDT, April 26, 2026):\nMostly cloudy to partly cloudy, 53-56°F (feels like ~49-53°F). High today ~74-75°F.\n\nWinds: ENE/NE 7-10 mph (gusts up to 15 mph).\nHumidity: ~84-87%.\nPrecipitation/rain risk: 0-2% today — no notable rain. Low wind risk.\n\nTelegram update text:\n\"Indianapolis weather now: 54°F, mostly cloudy. High ~75°F today. Light NE winds 8 mph, no rain risk.\""
+  },
+  "done": true,
+  "started_at": "2026-04-26T12:40:36Z",
+  "completed_at": "2026-04-26T12:40:48Z"
+}
