@@ -1,0 +1,26 @@
+{
+  "job_id": "job_36067aeb6b264792_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_36067aeb6b264792_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-26T12:41:13Z",
+    "created_at": "2026-04-26T12:40:37Z"
+  },
+  "response": {
+    "job_id": "job_36067aeb6b264792_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "I could not extract live web results for \"[cron:f9fee8f8-1df5-4e37-919d-c317996e5acd weather-job_d869] Tell me the current weather in Indianapolis, IN, USA. Send a concise Telegram update with temperature, conditions, and notable rain/wind risk.\nCurrent time: Saturday, April 25th, 2026 — 2:18 PM (UTC) / 2026-04-25 14:18 UTC\n\nReturn your summary as plain text; it will be delivered automatically. If the task explicitly calls for messaging a specific external recipient, note who/where it should go instead of sending it yourself.\". Source attempted: DuckDuckGo HTML at 2026-04-26 12:41 UTC."
+    },
+    "done": true,
+    "started_at": "2026-04-26T12:40:37Z",
+    "completed_at": "2026-04-26T12:41:13Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-26T12:41:13Z"
+}
