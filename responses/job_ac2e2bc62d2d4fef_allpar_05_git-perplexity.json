@@ -1,0 +1,10 @@
+{
+  "job_id": "job_ac2e2bc62d2d4fef_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s a concise update you can send via Telegram:\n\nCurrent weather in Indianapolis, IN: 62°F, partly cloudy. Light winds around 1 mph from the south. No significant rain expected in the next few hours; low risk of brief showers later today.\n\nIf you’d like, I can tailor this for a specific Telegram format or adjust temperatures to Celsius."
+  },
+  "done": true,
+  "started_at": "2026-04-26T12:41:30Z",
+  "completed_at": "2026-04-26T12:43:14Z"
+}
