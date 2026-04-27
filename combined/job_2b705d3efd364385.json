@@ -1,0 +1,203 @@
+{
+  "job_id": "job_2b705d3efd364385",
+  "status": {
+    "job_id": "job_2b705d3efd364385",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "allparallel",
+    "current_stage": "virtual_turns_complete",
+    "updated_at": "2026-04-27T14:44:57.801500Z",
+    "created_at": "2026-04-27T14:44:57.801500Z"
+  },
+  "response": {
+    "job_id": "job_2b705d3efd364385",
+    "message": {
+      "role": "assistant",
+      "content": "[1/5] Source: git-inceptionlabs | Status: completed\nWeather for Indianapolis, Indiana, United States: Current 18.3C (64.9F), Overcast. Today high/low: 23.6C/12.2C (74.5F/54.0F). Wind: 20.7 km/h. Source: Open-Meteo live API on 2026-04-27 14:39 UTC\n\n[2/5] Source: git-chatgpt | Status: completed\nHere’s the current (today, Apr 27, 2026) weather for Indianapolis, Indiana based on the latest available forecast:\nTemperature: ~59 °F (15 °C) high, ~43 °F (6 °C) low \nWeatherShogun\nWind: ~9 mph (light breeze) \nWeatherShogun\nRain risk: ~20% chance of precipitation \nWeatherShogun\nSummary:\nCool and relatively mild today with light winds. Rain is possible but not likely for most of the day (low chance).\n\n[3/5] Source: git-grok | Status: completed\nCurrent weather in Indianapolis, IN (as of ~9-10 AM EDT on April 27, 2026):\nTemperature: Around 57–61°F (14–16°C), with a RealFeel near 55–63°F.\nConditions: Mostly cloudy to partly cloudy.⁠Weather\nToday's forecast (Monday, April 27):\nHigh: 72–78°F (22–26°C).\nLow: Around 60–65°F (16–18°C).\nWind: SSE/SE at 10–25 mph, with gusts possible up to 30+ mph (breezy).\nRain risk: 60–75% chance of showers and thunderstorms, especially this afternoon/evening into tonight. Some storms could be strong or severe (possible hail/damaging winds); rainfall amounts of ¼–1 inch likely in spots.⁠Forecast.weather\nExpect increasing clouds and storm development later today. For the most precise real-time updates, check a local source like the National Weather Service or AccuWeather.\n\n[4/5] Source: git-qwen | Status: completed\nCurrent Weather – Indianapolis, IN (as of ~9:10 AM EDT, Apr 27)\nMetric\nValue\nCurrent Temp\n59°F / 15°C\nFeels Like\n64°F / 18°C\nToday's High/Low\n76°F / 61°F (24°C / 16°C)\nConditions\nMostly cloudy, turning to scattered thunderstorms this afternoon/evening \nwww.accuweather.com\nWind\nSE at 4 mph now; increasing to SSE 15–25 mph with gusts to 36 mph this afternoon \nwww.accuweather.com\nRain Risk Today\n65% chance this afternoon, rising to 100% tonight; expected rainfall 0.05–1.5 in \nwww.accuweather.com\nThunderstorm Risk\n36% this afternoon, 60% tonight; some storms may be severe \nwww.accuweather.com\nToday's Outlook: Breezy and warm with clouds and sun early. Scattered showers and thunderstorms developing this afternoon, becoming more widespread and potentially heavy tonight. If outdoors, plan for wet conditions after midday and monitor for severe weather alerts. \nwww.accuweather.com\nwww.wunderground.com\nSource: AccuWeather, Weather.com – retrieved live\n+20\n\n[5/5] Source: git-perplexity | Status: completed\nLive web fallback results for \"What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.\":\n1. Today's Weather in Indianapolis - Hourly Forecast and Conditions (Source: https://www.easeweather.com/north-america/united-states/indiana/marion-county/indianapolis/today)\n2. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)\n3. Indianapolis, Indiana 46234 Weather (Source: https://weather.com/weather/today/l/Indianapolis+Indiana+46234?canonicalCityId=f5857de26976b7888a3c32050a1e9ab7)\n4. Indianapolis Weather Forecast (Source: https://www.weather-forecast.com/locations/Indianapolis/forecasts/latest)\n5. Indianapolis, IN Current Weather - The Weather Network (Source: https://www.theweathernetwork.com/en/city/us/indiana/indianapolis/current)\nRetrieved via DuckDuckGo HTML on 2026-04-27 14:44 UTC."
+    },
+    "done": true,
+    "completed_at": "2026-04-27T14:44:57.801500Z"
+  },
+  "execution": {
+    "mode": "allparallel_virtual_turns",
+    "request_payload": {
+      "combined_in_message": false,
+      "messages": [
+        {
+          "content": "You are a retrieval-first assistant.",
+          "role": "system"
+        },
+        {
+          "content": "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.",
+          "role": "user"
+        }
+      ],
+      "model": "git-parallel",
+      "request_type": "chat",
+      "routing_metadata": {
+        "intent_type": "question",
+        "requires_local_execution": false,
+        "route_state": "received",
+        "schema_version": "1.0",
+        "task_type": "information"
+      },
+      "stream": false,
+      "transport": {
+        "chunking": {
+          "chunk_count": 1,
+          "chunk_size_words": 2000,
+          "enabled": false,
+          "max_chunks": 5,
+          "word_count": 20
+        },
+        "user_prompt_chunks": [
+          "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today."
+        ]
+      },
+      "user_prompt": "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today."
+    },
+    "base_prompt": "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.",
+    "kickoff_content": "Running this prompt across 5 sources now. I will send each source result as a separate follow-up message.",
+    "targets": [
+      "git-inceptionlabs",
+      "git-chatgpt",
+      "git-grok",
+      "git-qwen",
+      "git-perplexity"
+    ],
+    "results": [
+      {
+        "index": 1,
+        "model": "git-inceptionlabs",
+        "job_id": "job_2b705d3efd364385_allpar_01_git-inceptionlabs",
+        "status": "completed",
+        "content": "Weather for Indianapolis, Indiana, United States: Current 18.3C (64.9F), Overcast. Today high/low: 23.6C/12.2C (74.5F/54.0F). Wind: 20.7 km/h. Source: Open-Meteo live API on 2026-04-27 14:39 UTC"
+      },
+      {
+        "index": 2,
+        "model": "git-chatgpt",
+        "job_id": "job_2b705d3efd364385_allpar_02_git-chatgpt",
+        "status": "completed",
+        "content": "Here’s the current (today, Apr 27, 2026) weather for Indianapolis, Indiana based on the latest available forecast:\n\nTemperature: ~59 °F (15 °C) high, ~43 °F (6 °C) low \nWeatherShogun\n\nWind: ~9 mph (light breeze) \nWeatherShogun\n\nRain risk: ~20% chance of precipitation \nWeatherShogun\n\nSummary:\nCool and relatively mild today with light winds. Rain is possible but not likely for most of the day (low chance)."
+      },
+      {
+        "index": 3,
+        "model": "git-grok",
+        "job_id": "job_2b705d3efd364385_allpar_03_git-grok",
+        "status": "completed",
+        "content": "Current weather in Indianapolis, IN (as of ~9-10 AM EDT on April 27, 2026):\n\nTemperature: Around 57–61°F (14–16°C), with a RealFeel near 55–63°F.\nConditions: Mostly cloudy to partly cloudy.⁠Weather\n\nToday's forecast (Monday, April 27):\n\nHigh: 72–78°F (22–26°C).\nLow: Around 60–65°F (16–18°C).\nWind: SSE/SE at 10–25 mph, with gusts possible up to 30+ mph (breezy).\nRain risk: 60–75% chance of showers and thunderstorms, especially this afternoon/evening into tonight. Some storms could be strong or severe (possible hail/damaging winds); rainfall amounts of ¼–1 inch likely in spots.⁠Forecast.weather\n\nExpect increasing clouds and storm development later today. For the most precise real-time updates, check a local source like the National Weather Service or AccuWeather."
+      },
+      {
+        "index": 4,
+        "model": "git-qwen",
+        "job_id": "job_2b705d3efd364385_allpar_04_git-qwen",
+        "status": "completed",
+        "content": "Current Weather – Indianapolis, IN (as of ~9:10 AM EDT, Apr 27)\nMetric\n\t\nValue\n\n\nCurrent Temp\n\t\n59°F / 15°C\n\n\nFeels Like\n\t\n64°F / 18°C\n\n\nToday's High/Low\n\t\n76°F / 61°F (24°C / 16°C)\n\n\nConditions\n\t\nMostly cloudy, turning to scattered thunderstorms this afternoon/evening \nwww.accuweather.com\n\n\nWind\n\t\nSE at 4 mph now; increasing to SSE 15–25 mph with gusts to 36 mph this afternoon \nwww.accuweather.com\n\n\nRain Risk Today\n\t\n65% chance this afternoon, rising to 100% tonight; expected rainfall 0.05–1.5 in \nwww.accuweather.com\n\n\nThunderstorm Risk\n\t\n36% this afternoon, 60% tonight; some storms may be severe \nwww.accuweather.com\nToday's Outlook: Breezy and warm with clouds and sun early. Scattered showers and thunderstorms developing this afternoon, becoming more widespread and potentially heavy tonight. If outdoors, plan for wet conditions after midday and monitor for severe weather alerts. \nwww.accuweather.com\nwww.wunderground.com\nSource: AccuWeather, Weather.com – retrieved live\n+20"
+      },
+      {
+        "index": 5,
+        "model": "git-perplexity",
+        "job_id": "job_2b705d3efd364385_allpar_05_git-perplexity",
+        "status": "completed",
+        "content": "Live web fallback results for \"What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.\":\n1. Today's Weather in Indianapolis - Hourly Forecast and Conditions (Source: https://www.easeweather.com/north-america/united-states/indiana/marion-county/indianapolis/today)\n2. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)\n3. Indianapolis, Indiana 46234 Weather (Source: https://weather.com/weather/today/l/Indianapolis+Indiana+46234?canonicalCityId=f5857de26976b7888a3c32050a1e9ab7)\n4. Indianapolis Weather Forecast (Source: https://www.weather-forecast.com/locations/Indianapolis/forecasts/latest)\n5. Indianapolis, IN Current Weather - The Weather Network (Source: https://www.theweathernetwork.com/en/city/us/indiana/indianapolis/current)\nRetrieved via DuckDuckGo HTML on 2026-04-27 14:44 UTC."
+      }
+    ],
+    "source_messages": [
+      {
+        "index": 1,
+        "source": "git-inceptionlabs",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Weather for Indianapolis, Indiana, United States: Current 18.3C (64.9F), Overcast. Today high/low: 23.6C/12.2C (74.5F/54.0F). Wind: 20.7 km/h. Source: Open-Meteo live API on 2026-04-27 14:39 UTC",
+        "text": "[1/5] Source: git-inceptionlabs | Status: completed\nWeather for Indianapolis, Indiana, United States: Current 18.3C (64.9F), Overcast. Today high/low: 23.6C/12.2C (74.5F/54.0F). Wind: 20.7 km/h. Source: Open-Meteo live API on 2026-04-27 14:39 UTC"
+      },
+      {
+        "index": 2,
+        "source": "git-chatgpt",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Here’s the current (today, Apr 27, 2026) weather for Indianapolis, Indiana based on the latest available forecast:\nTemperature: ~59 °F (15 °C) high, ~43 °F (6 °C) low \nWeatherShogun\nWind: ~9 mph (light breeze) \nWeatherShogun\nRain risk: ~20% chance of precipitation \nWeatherShogun\nSummary:\nCool and relatively mild today with light winds. Rain is possible but not likely for most of the day (low chance).",
+        "text": "[2/5] Source: git-chatgpt | Status: completed\nHere’s the current (today, Apr 27, 2026) weather for Indianapolis, Indiana based on the latest available forecast:\nTemperature: ~59 °F (15 °C) high, ~43 °F (6 °C) low \nWeatherShogun\nWind: ~9 mph (light breeze) \nWeatherShogun\nRain risk: ~20% chance of precipitation \nWeatherShogun\nSummary:\nCool and relatively mild today with light winds. Rain is possible but not likely for most of the day (low chance)."
+      },
+      {
+        "index": 3,
+        "source": "git-grok",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Current weather in Indianapolis, IN (as of ~9-10 AM EDT on April 27, 2026):\nTemperature: Around 57–61°F (14–16°C), with a RealFeel near 55–63°F.\nConditions: Mostly cloudy to partly cloudy.⁠Weather\nToday's forecast (Monday, April 27):\nHigh: 72–78°F (22–26°C).\nLow: Around 60–65°F (16–18°C).\nWind: SSE/SE at 10–25 mph, with gusts possible up to 30+ mph (breezy).\nRain risk: 60–75% chance of showers and thunderstorms, especially this afternoon/evening into tonight. Some storms could be strong or severe (possible hail/damaging winds); rainfall amounts of ¼–1 inch likely in spots.⁠Forecast.weather\nExpect increasing clouds and storm development later today. For the most precise real-time updates, check a local source like the National Weather Service or AccuWeather.",
+        "text": "[3/5] Source: git-grok | Status: completed\nCurrent weather in Indianapolis, IN (as of ~9-10 AM EDT on April 27, 2026):\nTemperature: Around 57–61°F (14–16°C), with a RealFeel near 55–63°F.\nConditions: Mostly cloudy to partly cloudy.⁠Weather\nToday's forecast (Monday, April 27):\nHigh: 72–78°F (22–26°C).\nLow: Around 60–65°F (16–18°C).\nWind: SSE/SE at 10–25 mph, with gusts possible up to 30+ mph (breezy).\nRain risk: 60–75% chance of showers and thunderstorms, especially this afternoon/evening into tonight. Some storms could be strong or severe (possible hail/damaging winds); rainfall amounts of ¼–1 inch likely in spots.⁠Forecast.weather\nExpect increasing clouds and storm development later today. For the most precise real-time updates, check a local source like the National Weather Service or AccuWeather."
+      },
+      {
+        "index": 4,
+        "source": "git-qwen",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Current Weather – Indianapolis, IN (as of ~9:10 AM EDT, Apr 27)\nMetric\nValue\nCurrent Temp\n59°F / 15°C\nFeels Like\n64°F / 18°C\nToday's High/Low\n76°F / 61°F (24°C / 16°C)\nConditions\nMostly cloudy, turning to scattered thunderstorms this afternoon/evening \nwww.accuweather.com\nWind\nSE at 4 mph now; increasing to SSE 15–25 mph with gusts to 36 mph this afternoon \nwww.accuweather.com\nRain Risk Today\n65% chance this afternoon, rising to 100% tonight; expected rainfall 0.05–1.5 in \nwww.accuweather.com\nThunderstorm Risk\n36% this afternoon, 60% tonight; some storms may be severe \nwww.accuweather.com\nToday's Outlook: Breezy and warm with clouds and sun early. Scattered showers and thunderstorms developing this afternoon, becoming more widespread and potentially heavy tonight. If outdoors, plan for wet conditions after midday and monitor for severe weather alerts. \nwww.accuweather.com\nwww.wunderground.com\nSource: AccuWeather, Weather.com – retrieved live\n+20",
+        "text": "[4/5] Source: git-qwen | Status: completed\nCurrent Weather – Indianapolis, IN (as of ~9:10 AM EDT, Apr 27)\nMetric\nValue\nCurrent Temp\n59°F / 15°C\nFeels Like\n64°F / 18°C\nToday's High/Low\n76°F / 61°F (24°C / 16°C)\nConditions\nMostly cloudy, turning to scattered thunderstorms this afternoon/evening \nwww.accuweather.com\nWind\nSE at 4 mph now; increasing to SSE 15–25 mph with gusts to 36 mph this afternoon \nwww.accuweather.com\nRain Risk Today\n65% chance this afternoon, rising to 100% tonight; expected rainfall 0.05–1.5 in \nwww.accuweather.com\nThunderstorm Risk\n36% this afternoon, 60% tonight; some storms may be severe \nwww.accuweather.com\nToday's Outlook: Breezy and warm with clouds and sun early. Scattered showers and thunderstorms developing this afternoon, becoming more widespread and potentially heavy tonight. If outdoors, plan for wet conditions after midday and monitor for severe weather alerts. \nwww.accuweather.com\nwww.wunderground.com\nSource: AccuWeather, Weather.com – retrieved live\n+20"
+      },
+      {
+        "index": 5,
+        "source": "git-perplexity",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Live web fallback results for \"What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.\":\n1. Today's Weather in Indianapolis - Hourly Forecast and Conditions (Source: https://www.easeweather.com/north-america/united-states/indiana/marion-county/indianapolis/today)\n2. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)\n3. Indianapolis, Indiana 46234 Weather (Source: https://weather.com/weather/today/l/Indianapolis+Indiana+46234?canonicalCityId=f5857de26976b7888a3c32050a1e9ab7)\n4. Indianapolis Weather Forecast (Source: https://www.weather-forecast.com/locations/Indianapolis/forecasts/latest)\n5. Indianapolis, IN Current Weather - The Weather Network (Source: https://www.theweathernetwork.com/en/city/us/indiana/indianapolis/current)\nRetrieved via DuckDuckGo HTML on 2026-04-27 14:44 UTC.",
+        "text": "[5/5] Source: git-perplexity | Status: completed\nLive web fallback results for \"What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.\":\n1. Today's Weather in Indianapolis - Hourly Forecast and Conditions (Source: https://www.easeweather.com/north-america/united-states/indiana/marion-county/indianapolis/today)\n2. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)\n3. Indianapolis, Indiana 46234 Weather (Source: https://weather.com/weather/today/l/Indianapolis+Indiana+46234?canonicalCityId=f5857de26976b7888a3c32050a1e9ab7)\n4. Indianapolis Weather Forecast (Source: https://www.weather-forecast.com/locations/Indianapolis/forecasts/latest)\n5. Indianapolis, IN Current Weather - The Weather Network (Source: https://www.theweathernetwork.com/en/city/us/indiana/indianapolis/current)\nRetrieved via DuckDuckGo HTML on 2026-04-27 14:44 UTC."
+      }
+    ],
+    "success_count": 5,
+    "failure_count": 0,
+    "delivery_errors": [],
+    "completed_indexes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "stage": "virtual_turns_complete",
+    "allparallel_summary": "[1/5] Source: git-inceptionlabs | Status: completed\nWeather for Indianapolis, Indiana, United States: Current 18.3C (64.9F), Overcast. Today high/low: 23.6C/12.2C (74.5F/54.0F). Wind: 20.7 km/h. Source: Open-Meteo live API on 2026-04-27 14:39 UTC\n\n[2/5] Source: git-chatgpt | Status: completed\nHere’s the current (today, Apr 27, 2026) weather for Indianapolis, Indiana based on the latest available forecast:\nTemperature: ~59 °F (15 °C) high, ~43 °F (6 °C) low \nWeatherShogun\nWind: ~9 mph (light breeze) \nWeatherShogun\nRain risk: ~20% chance of precipitation \nWeatherShogun\nSummary:\nCool and relatively mild today with light winds. Rain is possible but not likely for most of the day (low chance).\n\n[3/5] Source: git-grok | Status: completed\nCurrent weather in Indianapolis, IN (as of ~9-10 AM EDT on April 27, 2026):\nTemperature: Around 57–61°F (14–16°C), with a RealFeel near 55–63°F.\nConditions: Mostly cloudy to partly cloudy.⁠Weather\nToday's forecast (Monday, April 27):\nHigh: 72–78°F (22–26°C).\nLow: Around 60–65°F (16–18°C).\nWind: SSE/SE at 10–25 mph, with gusts possible up to 30+ mph (breezy).\nRain risk: 60–75% chance of showers and thunderstorms, especially this afternoon/evening into tonight. Some storms could be strong or severe (possible hail/damaging winds); rainfall amounts of ¼–1 inch likely in spots.⁠Forecast.weather\nExpect increasing clouds and storm development later today. For the most precise real-time updates, check a local source like the National Weather Service or AccuWeather.\n\n[4/5] Source: git-qwen | Status: completed\nCurrent Weather – Indianapolis, IN (as of ~9:10 AM EDT, Apr 27)\nMetric\nValue\nCurrent Temp\n59°F / 15°C\nFeels Like\n64°F / 18°C\nToday's High/Low\n76°F / 61°F (24°C / 16°C)\nConditions\nMostly cloudy, turning to scattered thunderstorms this afternoon/evening \nwww.accuweather.com\nWind\nSE at 4 mph now; increasing to SSE 15–25 mph with gusts to 36 mph this afternoon \nwww.accuweather.com\nRain Risk Today\n65% chance this afternoon, rising to 100% tonight; expected rainfall 0.05–1.5 in \nwww.accuweather.com\nThunderstorm Risk\n36% this afternoon, 60% tonight; some storms may be severe \nwww.accuweather.com\nToday's Outlook: Breezy and warm with clouds and sun early. Scattered showers and thunderstorms developing this afternoon, becoming more widespread and potentially heavy tonight. If outdoors, plan for wet conditions after midday and monitor for severe weather alerts. \nwww.accuweather.com\nwww.wunderground.com\nSource: AccuWeather, Weather.com – retrieved live\n+20\n\n[5/5] Source: git-perplexity | Status: completed\nLive web fallback results for \"What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.\":\n1. Today's Weather in Indianapolis - Hourly Forecast and Conditions (Source: https://www.easeweather.com/north-america/united-states/indiana/marion-county/indianapolis/today)\n2. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)\n3. Indianapolis, Indiana 46234 Weather (Source: https://weather.com/weather/today/l/Indianapolis+Indiana+46234?canonicalCityId=f5857de26976b7888a3c32050a1e9ab7)\n4. Indianapolis Weather Forecast (Source: https://www.weather-forecast.com/locations/Indianapolis/forecasts/latest)\n5. Indianapolis, IN Current Weather - The Weather Network (Source: https://www.theweathernetwork.com/en/city/us/indiana/indianapolis/current)\nRetrieved via DuckDuckGo HTML on 2026-04-27 14:44 UTC."
+  },
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.",
+        "role": "system"
+      },
+      {
+        "content": "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.",
+        "role": "user"
+      }
+    ],
+    "model": "git-parallel",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "information"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 20
+      },
+      "user_prompt_chunks": [
+        "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today."
+      ]
+    },
+    "user_prompt": "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today."
+  },
+  "evaluation": null,
+  "generated_at": "2026-04-27T14:44:57.801500Z"
+}
