@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2e8f546fab1348a5_allpar_03_git-grok",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN (as of ~12:40 PM EDT on 4/27/2026):\n59–63°F, mostly cloudy to partly cloudy, feels like mid-50s.\n\nWinds SE 10–14 mph. Low rain risk this morning (scattered showers/thunderstorms possible this afternoon/evening with 20–60% chance; some heavy rain or storms overnight). No immediate wind risk beyond breezy conditions. High today near 72–78°F.⁠Forecast.weather\n\nTelegram update draft:\n\"Indy weather now: 60°F, mostly cloudy. SE winds 10-14 mph. Low rain chance morning; scattered showers/t-storms possible afternoon/evening. Stay tuned for updates.\""
+  },
+  "done": true,
+  "started_at": "2026-04-27T12:40:42Z",
+  "completed_at": "2026-04-27T12:41:24Z"
+}
