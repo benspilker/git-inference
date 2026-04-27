@@ -1120,13 +1120,29 @@ def stream_response_for_job(
 
             status = str(job.get("status") or "")
             if status in TERMINAL_JOB_STATUSES or status in NON_TERMINAL_VISIBLE_STATUSES:
-                final = build_response_for_job(
-                    job=job,
-                    model=model,
-                    stream=False,
-                    response_type=response_type,
-                    combined_in_message=combined_in_message,
-                )
+                try:
+                    final = build_response_for_job(
+                        job=job,
+                        model=model,
+                        stream=False,
+                        response_type=response_type,
+                        combined_in_message=combined_in_message,
+                    )
+                except HTTPException as exc:
+                    detail = exc.detail if isinstance(exc.detail, dict) else {"message": str(exc.detail)}
+                    message_text = str(detail.get("message") or detail.get("error") or "request failed")
+                    payload = {
+                        "job_id": job_id,
+                        "status": status,
+                        "done": True,
+                        "error": detail,
+                    }
+                    if response_type == "chat":
+                        payload["message"] = {"role": "assistant", "content": message_text}
+                    else:
+                        payload["response"] = message_text
+                    yield json.dumps(payload) + "\n"
+                    return
                 if hasattr(final, "body"):
                     try:
                         body = final.body.decode("utf-8")
