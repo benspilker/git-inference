@@ -1,0 +1,26 @@
+{
+  "job_id": "job_d85be137d8684742_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_d85be137d8684742_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T17:48:27Z",
+    "created_at": "2026-04-27T17:48:11Z"
+  },
+  "response": {
+    "job_id": "job_d85be137d8684742_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana.⁠LinkedIn\n\nKey Details\nFounded: 2008 (about 18 years in operation as of 2026) by David Bemenderfer, who serves as Founder and President.⁠Rocketreach\nSize: 2–10 employees (reports vary between ~5).⁠LinkedIn\nFocus: Specialized Epicor ERP (including Kinetic, Vantage, and Vista) consulting, implementation, training, streamlining, integration, and optimization. They also provide general business process analysis, improvement, and custom software solutions.⁠Bemenderfer\nProprietary Product: DataPortal — a mobile-friendly tool for giving field/mobile teams real-time access to ERP data and functions.⁠Bemenderfer\nServices\n\nThey help manufacturers and other businesses maximize their Epicor ERP investment through:\n\nERP consulting and implementation\nProcess optimization and gap analysis\nTraining and troubleshooting\nIntegrations (e.g., CAD/BOM, web systems, SQL reporting)\nCustom automation and reporting (Crystal Reports, SSRS, Method/ Data Directives)\n\nThey serve clients across industries including aerospace, food production, industrial manufacturing, and automotive.⁠Bemenderfer\n\nOther Notes\nBBB-accredited (A+ rating) with a focus on ethical practices.⁠Bbb\nOfficial website: bemenderfer.com\nLinkedIn: BEMENDERFER LLC (Indianapolis area)\n\nNote: There is a separate individual named Neil Bemenderfer who is a mediator in Indianapolis, but he is not connected to this LLC.\n\nIf you're looking for specifics (e.g., case studies, pricing, or contact), let me know."
+    },
+    "done": true,
+    "started_at": "2026-04-27T17:48:11Z",
+    "completed_at": "2026-04-27T17:48:26Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T17:48:27Z"
+}
