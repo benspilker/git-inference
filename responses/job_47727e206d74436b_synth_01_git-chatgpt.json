@@ -1,0 +1,44 @@
+{
+  "job_id": "job_47727e206d74436b_synth_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "I still need these fields to continue: frequency, time."
+  },
+  "done": false,
+  "started_at": "2026-04-27T14:24:46Z",
+  "needs_clarification": true,
+  "execution": {
+    "task_type": "scheduled_weather_report",
+    "original_task_type": "scheduled_weather_report",
+    "verified": false,
+    "executed_at": "2026-04-27T14:25:10Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "frequency",
+        "time"
+      ],
+      "parameters": {
+        "location": "Indianapolis, IN, USA",
+        "average_temperature_f": 64.9,
+        "average_temperature_c": 18.3,
+        "temperature_range_f": [
+          58.0,
+          76.0
+        ],
+        "average_wind_mph": 13.8,
+        "wind_range_mph": [
+          12.5,
+          15.0
+        ],
+        "rain_risk": "moderate",
+        "max_precip_chance_pct": 97.0,
+        "dominant_condition": "stormy",
+        "source_job_id": "job_4d8aca2fb0114f78",
+        "aggregate_completed_sources": 5
+      }
+    }
+  }
+}
