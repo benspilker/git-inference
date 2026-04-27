@@ -1,0 +1,14 @@
+Bemenderfer LLC appears to be an Indianapolis-based software consultancy focused on Epicor ERP implementations and related process optimization. They offer services in ERP consulting, training, integration, and custom solutions, and have emphasized Epicor-specific work since around 2008. The company is described as a small private firm with 2–10 employees, headquartered in Indianapolis, IN, and highlights capabilities in project management, data analysis, and end-user training.
+linkedin
+
+If you’re evaluating them for a project, consider:
+
+Core focus: Epicor ERP optimization, reporting (SSRS/Crystal Reports), and system integration
+
+Services: BAQs, dashboards, data harvesting, and custom solutions
+
+Client fit: manufacturing, finance, and operations environments typical of Epicor users
+
+Location: Indianapolis area; potential for onsite engagements or regional remote work
+
+Would you like me to narrow this to current client industries, typical project scopes, or verify latest client testimonials? If you have a location preference or project type (e.g., ERP upgrade, BAQ development), I can tailor what to ask or prepare a vendor questions list.
