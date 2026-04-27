@@ -1,0 +1,26 @@
+{
+  "job_id": "job_af423c7d76444756_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_af423c7d76444756_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T18:29:57Z",
+    "created_at": "2026-04-27T18:29:26Z"
+  },
+  "response": {
+    "job_id": "job_af423c7d76444756_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis is the capital and most populous city of Indiana, renowned worldwide as the host of the Indianapolis 500, one of the most prestigious automobile races in motorsports."
+    },
+    "done": true,
+    "started_at": "2026-04-27T18:29:25Z",
+    "completed_at": "2026-04-27T18:29:57Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T18:29:57Z"
+}
