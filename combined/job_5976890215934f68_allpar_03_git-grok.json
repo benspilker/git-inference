@@ -1,0 +1,26 @@
+{
+  "job_id": "job_5976890215934f68_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_5976890215934f68_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T13:22:09Z",
+    "created_at": "2026-04-27T13:21:45Z"
+  },
+  "response": {
+    "job_id": "job_5976890215934f68_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Current weather in Indianapolis, IN (as of early morning, April 27, 2026):\n\nAround 56–61°F, mostly cloudy to overcast or partly cloudy, with light winds (around 5–13 mph from the east/southeast). Feels-like temperature is roughly 53–60°F. Humidity is in the 70–78% range.⁠Accuweather\n\nToday's outlook: High near 72–78°F, with increasing chance of showers and possible thunderstorms later in the day (some forecasts mention scattered strong storms and heavy rain potential tonight). Low around 60–61°F.⁠Weather\n\nConditions can shift quickly with approaching storms—check a live source like the National Weather Service or local radar for the latest updates."
+    },
+    "done": true,
+    "started_at": "2026-04-27T13:21:44Z",
+    "completed_at": "2026-04-27T13:22:09Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T13:22:09Z"
+}
