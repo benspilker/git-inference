@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.72,
+"requires_local_execution": false,
+"reason": "The user asks for a brief factual sentence about a city; no local action or integration required."
+}

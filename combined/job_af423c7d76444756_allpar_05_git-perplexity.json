@@ -1,0 +1,26 @@
+{
+  "job_id": "job_af423c7d76444756_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_af423c7d76444756_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T18:30:57Z",
+    "created_at": "2026-04-27T18:29:21Z"
+  },
+  "response": {
+    "job_id": "job_af423c7d76444756_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis is the capital and largest city of Indiana, located near the White River and known for its planning, diverse economy, and major cultural events like the Indy 500."
+    },
+    "done": true,
+    "started_at": "2026-04-27T18:29:21Z",
+    "completed_at": "2026-04-27T18:30:57Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T18:30:57Z"
+}

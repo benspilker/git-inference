@@ -1,0 +1,1 @@
+Indianapolis is the capital and largest city of Indiana, located near the White River and known for its planning, diverse economy, and major cultural events like the Indy 500.
