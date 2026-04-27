@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2b705d3efd364385_allpar_02_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s the current (today, Apr 27, 2026) weather for Indianapolis, Indiana based on the latest available forecast:\n\nTemperature: ~59 °F (15 °C) high, ~43 °F (6 °C) low \nWeatherShogun\n\nWind: ~9 mph (light breeze) \nWeatherShogun\n\nRain risk: ~20% chance of precipitation \nWeatherShogun\n\nSummary:\nCool and relatively mild today with light winds. Rain is possible but not likely for most of the day (low chance)."
+  },
+  "done": true,
+  "started_at": "2026-04-27T14:39:01Z",
+  "completed_at": "2026-04-27T14:39:15Z"
+}
