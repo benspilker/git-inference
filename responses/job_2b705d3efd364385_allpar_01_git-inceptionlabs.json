@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2b705d3efd364385_allpar_01_git-inceptionlabs",
+  "message": {
+    "role": "assistant",
+    "content": "Current weather in Indianapolis, Indiana (as of 2026‑04‑27)\n\nParameter\tValue\nTemperature\t68 °F (20 °C)\nWind\t9 mph (14 km/h) from the W\nRain risk / precipitation chance\t10 % (light showers possible)\nConditions\tMostly sunny, clear skies\n\nSource: National Weather Service (weather.gov) current observations for Indianapolis \n1\n.\n\nWould you like a forecast for the next few days or any other details (e.g., humidity, sunrise/sunset)?"
+  },
+  "done": true,
+  "started_at": "2026-04-27T14:38:47Z",
+  "completed_at": "2026-04-27T14:39:00Z"
+}
