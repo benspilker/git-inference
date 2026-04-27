@@ -1,0 +1,26 @@
+{
+  "job_id": "job_95b2748e99bf4e97_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_95b2748e99bf4e97_synth_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T15:40:57Z",
+    "created_at": "2026-04-27T15:40:47Z"
+  },
+  "response": {
+    "job_id": "job_95b2748e99bf4e97_synth_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Here's the synthesized weather summary for Indianapolis on April 27, 2026:\n\nTemperature: The weighted average temperature is around 60.4°F (15.8°C), with a low of 59°F (15°C) and a high of 64.9°F (18.3°C).\n\nWind: The weighted average wind speed is about 16.1 mph, with gusts up to 20 mph at times.\n\nConditions: The consensus is stormy, with a high likelihood of thunderstorms, especially in the afternoon and evening. Cloudiness and rain are expected, with a strong emphasis on stormy weather.\n\nRain Risk: There is a high risk of rain today, with chances of precipitation reaching up to 75%.\n\nThe weather is expected to be stormy, with potential severe weather later in the day."
+    },
+    "done": true,
+    "started_at": "2026-04-27T15:40:47Z",
+    "completed_at": "2026-04-27T15:40:57Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T15:40:58Z"
+}
