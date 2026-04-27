@@ -1,0 +1,3 @@
+{
+  "response": "LIVE_WEB_UNAVAILABLE\\n\\nCurrent request:\\n\\nWhat is 2+2?\"\n    },\n    {\n      \"source\": \"git-qwen\",\n      \"source_job_id\": \"job_29fd78b1a4104106\",\n      \"status\": \"completed\",\n      \"excerpt\": \"2+2 = 4\"\n    },\n    {\n      \"source\": \"git-perplexity\",\n      \"source_job_id\": \"job_29fd78b1a4104106\",\n      \"status\": \"completed\",\n      \"excerpt\": \"2+2 = 4.\"\n    }\n  ]\n}"
+}

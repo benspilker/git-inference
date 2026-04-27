@@ -1,0 +1,26 @@
+{
+  "job_id": "job_29fd78b1a4104106_autosynth_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_29fd78b1a4104106_autosynth_synth_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "system_command",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T18:40:06Z",
+    "created_at": "2026-04-27T18:35:59Z"
+  },
+  "response": {
+    "job_id": "job_29fd78b1a4104106_autosynth_synth_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "LIVE_WEB_UNAVAILABLE\\n\\nCurrent request:\\n\\nWhat is 2+2?\"\n    },\n    {\n      \"source\": \"git-qwen\",\n      \"source_job_id\": \"job_29fd78b1a4104106\",\n      \"status\": \"completed\",\n      \"excerpt\": \"2+2 = 4\"\n    },\n    {\n      \"source\": \"git-perplexity\",\n      \"source_job_id\": \"job_29fd78b1a4104106\",\n      \"status\": \"completed\",\n      \"excerpt\": \"2+2 = 4.\"\n    }\n  ]\n}"
+    },
+    "done": true,
+    "started_at": "2026-04-27T18:35:59Z",
+    "completed_at": "2026-04-27T18:40:06Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T18:40:06Z"
+}

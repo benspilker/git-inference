@@ -1,0 +1,7 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 1.0,
+"reason": "The user is asking for a simple arithmetic result, which is a direct question."
+}
