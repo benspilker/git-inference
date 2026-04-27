@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "question", "task_type": "general_question", "confidence": 0.97, "requires_local_execution": false, "reason": "The user is asking for information and recommendations about lucrative jobs on Fiverr and Upwork, which is a typical informational query rather than a request to perform a system action." }
