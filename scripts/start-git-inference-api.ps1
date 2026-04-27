@@ -46,7 +46,7 @@ if [ -d "/tmp/git_inference_github/api-workrepo/.git" ]; then
   DB_PATH_CANDIDATE="/tmp/git_inference_github/jobs.db"
 elif [ -d "$HOME/git-inference-api-workrepo/.git" ]; then
   REPO_PATH_CANDIDATE="$HOME/git-inference-api-workrepo"
-  DB_PATH_CANDIDATE="$HOME/git-inference-api-workrepo/jobs.db"
+  DB_PATH_CANDIDATE="$HOME/.local/state/git-inference/jobs.db"
 else
   echo "ERROR: Missing workrepo. Checked /tmp/git_inference_github/api-workrepo and $HOME/git-inference-api-workrepo" >&2
   exit 1
