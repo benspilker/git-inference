@@ -1,0 +1,318 @@
+{
+  "job_id": "job_e2b6e0f7405e4900",
+  "status": {
+    "job_id": "job_e2b6e0f7405e4900",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "allparallel",
+    "current_stage": "virtual_turns_complete",
+    "updated_at": "2026-04-27T18:28:36.571889Z",
+    "created_at": "2026-04-27T18:28:36.571889Z"
+  },
+  "response": {
+    "job_id": "job_e2b6e0f7405e4900",
+    "message": {
+      "role": "assistant",
+      "content": "[1/5] Source: git-inceptionlabs | Status: completed\nBemenderfer LLC is an Indiana‑based consulting firm that specializes in Epicor Kinetic/ERP services. Since its founding in 2008, the company provides:\nERP consulting, implementation, training, and integration – helping businesses streamline operations with Epicor solutions.\nData‑portal and workflow optimization – offering tools to improve data visibility and process efficiency.\nThe firm is headquartered in Indianapolis, Indiana, and markets itself as a “Premier ERP Solutions & Epicor Consulting” provider\n1\n. Its LinkedIn profile confirms the focus on Epicor Kinetic/ERP consulting and notes the company’s long‑standing experience in the space\n2\n. Additional business details, such as funding and corporate ranking, are listed on Crunchbase, which also highlights the company’s private status and location in Indianapolis\n3\n.\n\n[2/5] Source: git-chatgpt | Status: completed\nI can help find information about Bemenderfer LLC. Could you clarify if you want general company details, such as its industry and services, or more specific data like leadership, financials, or recent news?\n\n[3/5] Source: git-grok | Status: completed\nBemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer (Founder and President).⁠LinkedIn\nIt specializes in Epicor Kinetic (and earlier versions like Vantage/Vista) ERP systems, offering:\nConsulting\nImplementation\nTraining\nStreamlining\nIntegration\nCustomization\nBusiness process optimization\nThe company also develops its own DataPortal product, which provides mobile-friendly access to ERP data and tools for field/mobile workforces. Services extend to related areas like gap analysis, Crystal Reports/SSRS, method/data directives, automation, inventory systems, CAD BOM integration, and real-time data solutions.⁠Bemenderfer\nKey details:\nSize: 2–10 employees (reports vary around 5).\nFocus: Helping manufacturing and industrial clients (aerospace, food production, automotive, etc.) maximize ERP value through practical business process alignment rather than generic implementations.\nWebsite: bemenderfer.com\nBBB: Accredited; PO Box in Indianapolis.\nLinkedIn: BEMENDERFER LLC — emphasizes long-term relationships and hands-on experience (team has both consulting and internal ERP admin backgrounds).\nIt operates as a boutique partner for Epicor users seeking optimization, troubleshooting, and custom integrations rather than a large-scale systems integrator.\n(Note: There is a separate individual named Neil Bemenderfer involved in mediation/legal services in the same area, but he is not connected to this LLC.)\n\n[4/5] Source: git-qwen | Status: completed\nBemenderfer LLC is a privately-held software development and consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer, J.D. \n领英企业服务\nwww.privco.com\nCore Focus:\nSpecializes in Epicor Kinetic/ERP consulting, training, implementation, streamlining, and integration \nwww.bbb.org\nwww.crunchbase.com\nOffers proprietary Data Portal software for real-time data integration and IoT connectivity \nwww.bemenderfer.com\nwww.bemenderfer.com\nServices Include:\nEpicor & Business Process Consulting\nERP Implementation tailored to client needs\nCustom API/connectors built using Epicor's BAQ reporting tool\nBusiness advisory and web-integrated systems \nwww.bbb.org\nwww.bemenderfer.com\nCompany Profile:\nSize: 2–10 employees \n领英企业服务\nIndustries served: aerospace, food production, industrial manufacturing, automotive, and more \nwww.bemenderfer.com\nBBB Accredited (since 3/7/2025) with an A+ rating \nwww.bbb.org\nPrivately held; estimated revenue ~$428K, valuation ~$1.4M \nprospeo.io\nEthos: Founded on ethical business practices, with a mission to deliver effective, integrity-driven ERP solutions \nwww.bemenderfer.com\nwww.bemenderfer.com\nWebsite: bemenderfer.com\nwww.bemenderfer.com\nNeed details on a specific service, contact info, or client case studies? Let me know.\n+30\n\n[5/5] Source: git-perplexity | Status: completed\nBemenderfer LLC appears to be an Indianapolis-based software consultancy focused on Epicor ERP implementations and related process optimization. They offer services in ERP consulting, training, integration, and custom solutions, and have emphasized Epicor-specific work since around 2008. The company is described as a small private firm with 2–10 employees, headquartered in Indianapolis, IN, and highlights capabilities in project management, data analysis, and end-user training.\nlinkedin\nIf you’re evaluating them for a project, consider:\nCore focus: Epicor ERP optimization, reporting (SSRS/Crystal Reports), and system integration\nServices: BAQs, dashboards, data harvesting, and custom solutions\nClient fit: manufacturing, finance, and operations environments typical of Epicor users\nLocation: Indianapolis area; potential for onsite engagements or regional remote work\nWould you like me to narrow this to current client industries, typical project scopes, or verify latest client testimonials? If you have a location preference or project type (e.g., ERP upgrade, BAQ development), I can tailor what to ask or prepare a vendor questions list."
+    },
+    "done": true,
+    "completed_at": "2026-04-27T18:28:36.571889Z"
+  },
+  "execution": {
+    "mode": "allparallel_virtual_turns",
+    "request_payload": {
+      "combined_in_message": false,
+      "messages": [
+        {
+          "content": "You are a retrieval-first assistant.",
+          "role": "system"
+        },
+        {
+          "content": "Tell me about BemenderferLLC",
+          "role": "user"
+        }
+      ],
+      "model": "git-parallel",
+      "request_type": "chat",
+      "routing_metadata": {
+        "intent_type": null,
+        "requires_local_execution": false,
+        "route_state": "received",
+        "schema_version": "1.0",
+        "task_type": "general_question"
+      },
+      "stream": false,
+      "transport": {
+        "chunking": {
+          "chunk_count": 1,
+          "chunk_size_words": 2000,
+          "enabled": false,
+          "max_chunks": 5,
+          "word_count": 4
+        },
+        "user_prompt_chunks": [
+          "Tell me about BemenderferLLC"
+        ]
+      },
+      "user_prompt": "Tell me about BemenderferLLC"
+    },
+    "base_prompt": "Tell me about BemenderferLLC",
+    "kickoff_content": "Running this prompt across 5 sources now. I will send each source result as a separate follow-up message. After all sources finish, I will also send one synthesized follow-up.",
+    "targets": [
+      "git-inceptionlabs",
+      "git-chatgpt",
+      "git-grok",
+      "git-qwen",
+      "git-perplexity"
+    ],
+    "results": [
+      {
+        "index": 1,
+        "model": "git-inceptionlabs",
+        "job_id": "job_e2b6e0f7405e4900_allpar_01_git-inceptionlabs",
+        "status": "completed",
+        "content": "Bemenderfer LLC is an Indiana‑based consulting firm that specializes in Epicor Kinetic/ERP services. Since its founding in 2008, the company provides:\n\nERP consulting, implementation, training, and integration – helping businesses streamline operations with Epicor solutions.\nData‑portal and workflow optimization – offering tools to improve data visibility and process efficiency.\n\nThe firm is headquartered in Indianapolis, Indiana, and markets itself as a “Premier ERP Solutions & Epicor Consulting” provider\n1\n. Its LinkedIn profile confirms the focus on Epicor Kinetic/ERP consulting and notes the company’s long‑standing experience in the space\n2\n. Additional business details, such as funding and corporate ranking, are listed on Crunchbase, which also highlights the company’s private status and location in Indianapolis\n3\n."
+      },
+      {
+        "index": 2,
+        "model": "git-chatgpt",
+        "job_id": "job_e2b6e0f7405e4900_allpar_02_git-chatgpt",
+        "status": "completed",
+        "content": "I can help find information about Bemenderfer LLC. Could you clarify if you want general company details, such as its industry and services, or more specific data like leadership, financials, or recent news?"
+      },
+      {
+        "index": 3,
+        "model": "git-grok",
+        "job_id": "job_e2b6e0f7405e4900_allpar_03_git-grok",
+        "status": "completed",
+        "content": "Bemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer (Founder and President).⁠LinkedIn\n\nIt specializes in Epicor Kinetic (and earlier versions like Vantage/Vista) ERP systems, offering:\n\nConsulting\nImplementation\nTraining\nStreamlining\nIntegration\nCustomization\nBusiness process optimization\n\nThe company also develops its own DataPortal product, which provides mobile-friendly access to ERP data and tools for field/mobile workforces. Services extend to related areas like gap analysis, Crystal Reports/SSRS, method/data directives, automation, inventory systems, CAD BOM integration, and real-time data solutions.⁠Bemenderfer\n\nKey details:\nSize: 2–10 employees (reports vary around 5).\nFocus: Helping manufacturing and industrial clients (aerospace, food production, automotive, etc.) maximize ERP value through practical business process alignment rather than generic implementations.\nWebsite: bemenderfer.com\nBBB: Accredited; PO Box in Indianapolis.\nLinkedIn: BEMENDERFER LLC — emphasizes long-term relationships and hands-on experience (team has both consulting and internal ERP admin backgrounds).\n\nIt operates as a boutique partner for Epicor users seeking optimization, troubleshooting, and custom integrations rather than a large-scale systems integrator.\n\n(Note: There is a separate individual named Neil Bemenderfer involved in mediation/legal services in the same area, but he is not connected to this LLC.)"
+      },
+      {
+        "index": 4,
+        "model": "git-qwen",
+        "job_id": "job_e2b6e0f7405e4900_allpar_04_git-qwen",
+        "status": "completed",
+        "content": "Bemenderfer LLC is a privately-held software development and consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer, J.D. \n领英企业服务\n \nwww.privco.com\nCore Focus:\nSpecializes in Epicor Kinetic/ERP consulting, training, implementation, streamlining, and integration \nwww.bbb.org\n \nwww.crunchbase.com\nOffers proprietary Data Portal software for real-time data integration and IoT connectivity \nwww.bemenderfer.com\n \nwww.bemenderfer.com\nServices Include:\nEpicor & Business Process Consulting\nERP Implementation tailored to client needs\nCustom API/connectors built using Epicor's BAQ reporting tool\nBusiness advisory and web-integrated systems \nwww.bbb.org\n \nwww.bemenderfer.com\nCompany Profile:\nSize: 2–10 employees \n领英企业服务\nIndustries served: aerospace, food production, industrial manufacturing, automotive, and more \nwww.bemenderfer.com\nBBB Accredited (since 3/7/2025) with an A+ rating \nwww.bbb.org\nPrivately held; estimated revenue ~$428K, valuation ~$1.4M \nprospeo.io\nEthos: Founded on ethical business practices, with a mission to deliver effective, integrity-driven ERP solutions \nwww.bemenderfer.com\n \nwww.bemenderfer.com\nWebsite: bemenderfer.com\n \nwww.bemenderfer.com\nNeed details on a specific service, contact info, or client case studies? Let me know.\n+30"
+      },
+      {
+        "index": 5,
+        "model": "git-perplexity",
+        "job_id": "job_e2b6e0f7405e4900_allpar_05_git-perplexity",
+        "status": "completed",
+        "content": "Bemenderfer LLC appears to be an Indianapolis-based software consultancy focused on Epicor ERP implementations and related process optimization. They offer services in ERP consulting, training, integration, and custom solutions, and have emphasized Epicor-specific work since around 2008. The company is described as a small private firm with 2–10 employees, headquartered in Indianapolis, IN, and highlights capabilities in project management, data analysis, and end-user training.\nlinkedin\n\nIf you’re evaluating them for a project, consider:\n\nCore focus: Epicor ERP optimization, reporting (SSRS/Crystal Reports), and system integration\n\nServices: BAQs, dashboards, data harvesting, and custom solutions\n\nClient fit: manufacturing, finance, and operations environments typical of Epicor users\n\nLocation: Indianapolis area; potential for onsite engagements or regional remote work\n\nWould you like me to narrow this to current client industries, typical project scopes, or verify latest client testimonials? If you have a location preference or project type (e.g., ERP upgrade, BAQ development), I can tailor what to ask or prepare a vendor questions list."
+      }
+    ],
+    "source_messages": [
+      {
+        "index": 1,
+        "source": "git-inceptionlabs",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Bemenderfer LLC is an Indiana‑based consulting firm that specializes in Epicor Kinetic/ERP services. Since its founding in 2008, the company provides:\nERP consulting, implementation, training, and integration – helping businesses streamline operations with Epicor solutions.\nData‑portal and workflow optimization – offering tools to improve data visibility and process efficiency.\nThe firm is headquartered in Indianapolis, Indiana, and markets itself as a “Premier ERP Solutions & Epicor Consulting” provider\n1\n. Its LinkedIn profile confirms the focus on Epicor Kinetic/ERP consulting and notes the company’s long‑standing experience in the space\n2\n. Additional business details, such as funding and corporate ranking, are listed on Crunchbase, which also highlights the company’s private status and location in Indianapolis\n3\n.",
+        "text": "[1/5] Source: git-inceptionlabs | Status: completed\nBemenderfer LLC is an Indiana‑based consulting firm that specializes in Epicor Kinetic/ERP services. Since its founding in 2008, the company provides:\nERP consulting, implementation, training, and integration – helping businesses streamline operations with Epicor solutions.\nData‑portal and workflow optimization – offering tools to improve data visibility and process efficiency.\nThe firm is headquartered in Indianapolis, Indiana, and markets itself as a “Premier ERP Solutions & Epicor Consulting” provider\n1\n. Its LinkedIn profile confirms the focus on Epicor Kinetic/ERP consulting and notes the company’s long‑standing experience in the space\n2\n. Additional business details, such as funding and corporate ranking, are listed on Crunchbase, which also highlights the company’s private status and location in Indianapolis\n3\n."
+      },
+      {
+        "index": 2,
+        "source": "git-chatgpt",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "I can help find information about Bemenderfer LLC. Could you clarify if you want general company details, such as its industry and services, or more specific data like leadership, financials, or recent news?",
+        "text": "[2/5] Source: git-chatgpt | Status: completed\nI can help find information about Bemenderfer LLC. Could you clarify if you want general company details, such as its industry and services, or more specific data like leadership, financials, or recent news?"
+      },
+      {
+        "index": 3,
+        "source": "git-grok",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Bemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer (Founder and President).⁠LinkedIn\nIt specializes in Epicor Kinetic (and earlier versions like Vantage/Vista) ERP systems, offering:\nConsulting\nImplementation\nTraining\nStreamlining\nIntegration\nCustomization\nBusiness process optimization\nThe company also develops its own DataPortal product, which provides mobile-friendly access to ERP data and tools for field/mobile workforces. Services extend to related areas like gap analysis, Crystal Reports/SSRS, method/data directives, automation, inventory systems, CAD BOM integration, and real-time data solutions.⁠Bemenderfer\nKey details:\nSize: 2–10 employees (reports vary around 5).\nFocus: Helping manufacturing and industrial clients (aerospace, food production, automotive, etc.) maximize ERP value through practical business process alignment rather than generic implementations.\nWebsite: bemenderfer.com\nBBB: Accredited; PO Box in Indianapolis.\nLinkedIn: BEMENDERFER LLC — emphasizes long-term relationships and hands-on experience (team has both consulting and internal ERP admin backgrounds).\nIt operates as a boutique partner for Epicor users seeking optimization, troubleshooting, and custom integrations rather than a large-scale systems integrator.\n(Note: There is a separate individual named Neil Bemenderfer involved in mediation/legal services in the same area, but he is not connected to this LLC.)",
+        "text": "[3/5] Source: git-grok | Status: completed\nBemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer (Founder and President).⁠LinkedIn\nIt specializes in Epicor Kinetic (and earlier versions like Vantage/Vista) ERP systems, offering:\nConsulting\nImplementation\nTraining\nStreamlining\nIntegration\nCustomization\nBusiness process optimization\nThe company also develops its own DataPortal product, which provides mobile-friendly access to ERP data and tools for field/mobile workforces. Services extend to related areas like gap analysis, Crystal Reports/SSRS, method/data directives, automation, inventory systems, CAD BOM integration, and real-time data solutions.⁠Bemenderfer\nKey details:\nSize: 2–10 employees (reports vary around 5).\nFocus: Helping manufacturing and industrial clients (aerospace, food production, automotive, etc.) maximize ERP value through practical business process alignment rather than generic implementations.\nWebsite: bemenderfer.com\nBBB: Accredited; PO Box in Indianapolis.\nLinkedIn: BEMENDERFER LLC — emphasizes long-term relationships and hands-on experience (team has both consulting and internal ERP admin backgrounds).\nIt operates as a boutique partner for Epicor users seeking optimization, troubleshooting, and custom integrations rather than a large-scale systems integrator.\n(Note: There is a separate individual named Neil Bemenderfer involved in mediation/legal services in the same area, but he is not connected to this LLC.)"
+      },
+      {
+        "index": 4,
+        "source": "git-qwen",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Bemenderfer LLC is a privately-held software development and consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer, J.D. \n领英企业服务\nwww.privco.com\nCore Focus:\nSpecializes in Epicor Kinetic/ERP consulting, training, implementation, streamlining, and integration \nwww.bbb.org\nwww.crunchbase.com\nOffers proprietary Data Portal software for real-time data integration and IoT connectivity \nwww.bemenderfer.com\nwww.bemenderfer.com\nServices Include:\nEpicor & Business Process Consulting\nERP Implementation tailored to client needs\nCustom API/connectors built using Epicor's BAQ reporting tool\nBusiness advisory and web-integrated systems \nwww.bbb.org\nwww.bemenderfer.com\nCompany Profile:\nSize: 2–10 employees \n领英企业服务\nIndustries served: aerospace, food production, industrial manufacturing, automotive, and more \nwww.bemenderfer.com\nBBB Accredited (since 3/7/2025) with an A+ rating \nwww.bbb.org\nPrivately held; estimated revenue ~$428K, valuation ~$1.4M \nprospeo.io\nEthos: Founded on ethical business practices, with a mission to deliver effective, integrity-driven ERP solutions \nwww.bemenderfer.com\nwww.bemenderfer.com\nWebsite: bemenderfer.com\nwww.bemenderfer.com\nNeed details on a specific service, contact info, or client case studies? Let me know.\n+30",
+        "text": "[4/5] Source: git-qwen | Status: completed\nBemenderfer LLC is a privately-held software development and consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer, J.D. \n领英企业服务\nwww.privco.com\nCore Focus:\nSpecializes in Epicor Kinetic/ERP consulting, training, implementation, streamlining, and integration \nwww.bbb.org\nwww.crunchbase.com\nOffers proprietary Data Portal software for real-time data integration and IoT connectivity \nwww.bemenderfer.com\nwww.bemenderfer.com\nServices Include:\nEpicor & Business Process Consulting\nERP Implementation tailored to client needs\nCustom API/connectors built using Epicor's BAQ reporting tool\nBusiness advisory and web-integrated systems \nwww.bbb.org\nwww.bemenderfer.com\nCompany Profile:\nSize: 2–10 employees \n领英企业服务\nIndustries served: aerospace, food production, industrial manufacturing, automotive, and more \nwww.bemenderfer.com\nBBB Accredited (since 3/7/2025) with an A+ rating \nwww.bbb.org\nPrivately held; estimated revenue ~$428K, valuation ~$1.4M \nprospeo.io\nEthos: Founded on ethical business practices, with a mission to deliver effective, integrity-driven ERP solutions \nwww.bemenderfer.com\nwww.bemenderfer.com\nWebsite: bemenderfer.com\nwww.bemenderfer.com\nNeed details on a specific service, contact info, or client case studies? Let me know.\n+30"
+      },
+      {
+        "index": 5,
+        "source": "git-perplexity",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Bemenderfer LLC appears to be an Indianapolis-based software consultancy focused on Epicor ERP implementations and related process optimization. They offer services in ERP consulting, training, integration, and custom solutions, and have emphasized Epicor-specific work since around 2008. The company is described as a small private firm with 2–10 employees, headquartered in Indianapolis, IN, and highlights capabilities in project management, data analysis, and end-user training.\nlinkedin\nIf you’re evaluating them for a project, consider:\nCore focus: Epicor ERP optimization, reporting (SSRS/Crystal Reports), and system integration\nServices: BAQs, dashboards, data harvesting, and custom solutions\nClient fit: manufacturing, finance, and operations environments typical of Epicor users\nLocation: Indianapolis area; potential for onsite engagements or regional remote work\nWould you like me to narrow this to current client industries, typical project scopes, or verify latest client testimonials? If you have a location preference or project type (e.g., ERP upgrade, BAQ development), I can tailor what to ask or prepare a vendor questions list.",
+        "text": "[5/5] Source: git-perplexity | Status: completed\nBemenderfer LLC appears to be an Indianapolis-based software consultancy focused on Epicor ERP implementations and related process optimization. They offer services in ERP consulting, training, integration, and custom solutions, and have emphasized Epicor-specific work since around 2008. The company is described as a small private firm with 2–10 employees, headquartered in Indianapolis, IN, and highlights capabilities in project management, data analysis, and end-user training.\nlinkedin\nIf you’re evaluating them for a project, consider:\nCore focus: Epicor ERP optimization, reporting (SSRS/Crystal Reports), and system integration\nServices: BAQs, dashboards, data harvesting, and custom solutions\nClient fit: manufacturing, finance, and operations environments typical of Epicor users\nLocation: Indianapolis area; potential for onsite engagements or regional remote work\nWould you like me to narrow this to current client industries, typical project scopes, or verify latest client testimonials? If you have a location preference or project type (e.g., ERP upgrade, BAQ development), I can tailor what to ask or prepare a vendor questions list."
+      }
+    ],
+    "success_count": 5,
+    "failure_count": 0,
+    "delivery_errors": [],
+    "completed_indexes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "stage": "virtual_turns_complete",
+    "allparallel_summary": "[1/5] Source: git-inceptionlabs | Status: completed\nBemenderfer LLC is an Indiana‑based consulting firm that specializes in Epicor Kinetic/ERP services. Since its founding in 2008, the company provides:\nERP consulting, implementation, training, and integration – helping businesses streamline operations with Epicor solutions.\nData‑portal and workflow optimization – offering tools to improve data visibility and process efficiency.\nThe firm is headquartered in Indianapolis, Indiana, and markets itself as a “Premier ERP Solutions & Epicor Consulting” provider\n1\n. Its LinkedIn profile confirms the focus on Epicor Kinetic/ERP consulting and notes the company’s long‑standing experience in the space\n2\n. Additional business details, such as funding and corporate ranking, are listed on Crunchbase, which also highlights the company’s private status and location in Indianapolis\n3\n.\n\n[2/5] Source: git-chatgpt | Status: completed\nI can help find information about Bemenderfer LLC. Could you clarify if you want general company details, such as its industry and services, or more specific data like leadership, financials, or recent news?\n\n[3/5] Source: git-grok | Status: completed\nBemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer (Founder and President).⁠LinkedIn\nIt specializes in Epicor Kinetic (and earlier versions like Vantage/Vista) ERP systems, offering:\nConsulting\nImplementation\nTraining\nStreamlining\nIntegration\nCustomization\nBusiness process optimization\nThe company also develops its own DataPortal product, which provides mobile-friendly access to ERP data and tools for field/mobile workforces. Services extend to related areas like gap analysis, Crystal Reports/SSRS, method/data directives, automation, inventory systems, CAD BOM integration, and real-time data solutions.⁠Bemenderfer\nKey details:\nSize: 2–10 employees (reports vary around 5).\nFocus: Helping manufacturing and industrial clients (aerospace, food production, automotive, etc.) maximize ERP value through practical business process alignment rather than generic implementations.\nWebsite: bemenderfer.com\nBBB: Accredited; PO Box in Indianapolis.\nLinkedIn: BEMENDERFER LLC — emphasizes long-term relationships and hands-on experience (team has both consulting and internal ERP admin backgrounds).\nIt operates as a boutique partner for Epicor users seeking optimization, troubleshooting, and custom integrations rather than a large-scale systems integrator.\n(Note: There is a separate individual named Neil Bemenderfer involved in mediation/legal services in the same area, but he is not connected to this LLC.)\n\n[4/5] Source: git-qwen | Status: completed\nBemenderfer LLC is a privately-held software development and consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer, J.D. \n领英企业服务\nwww.privco.com\nCore Focus:\nSpecializes in Epicor Kinetic/ERP consulting, training, implementation, streamlining, and integration \nwww.bbb.org\nwww.crunchbase.com\nOffers proprietary Data Portal software for real-time data integration and IoT connectivity \nwww.bemenderfer.com\nwww.bemenderfer.com\nServices Include:\nEpicor & Business Process Consulting\nERP Implementation tailored to client needs\nCustom API/connectors built using Epicor's BAQ reporting tool\nBusiness advisory and web-integrated systems \nwww.bbb.org\nwww.bemenderfer.com\nCompany Profile:\nSize: 2–10 employees \n领英企业服务\nIndustries served: aerospace, food production, industrial manufacturing, automotive, and more \nwww.bemenderfer.com\nBBB Accredited (since 3/7/2025) with an A+ rating \nwww.bbb.org\nPrivately held; estimated revenue ~$428K, valuation ~$1.4M \nprospeo.io\nEthos: Founded on ethical business practices, with a mission to deliver effective, integrity-driven ERP solutions \nwww.bemenderfer.com\nwww.bemenderfer.com\nWebsite: bemenderfer.com\nwww.bemenderfer.com\nNeed details on a specific service, contact info, or client case studies? Let me know.\n+30\n\n[5/5] Source: git-perplexity | Status: completed\nBemenderfer LLC appears to be an Indianapolis-based software consultancy focused on Epicor ERP implementations and related process optimization. They offer services in ERP consulting, training, integration, and custom solutions, and have emphasized Epicor-specific work since around 2008. The company is described as a small private firm with 2–10 employees, headquartered in Indianapolis, IN, and highlights capabilities in project management, data analysis, and end-user training.\nlinkedin\nIf you’re evaluating them for a project, consider:\nCore focus: Epicor ERP optimization, reporting (SSRS/Crystal Reports), and system integration\nServices: BAQs, dashboards, data harvesting, and custom solutions\nClient fit: manufacturing, finance, and operations environments typical of Epicor users\nLocation: Indianapolis area; potential for onsite engagements or regional remote work\nWould you like me to narrow this to current client industries, typical project scopes, or verify latest client testimonials? If you have a location preference or project type (e.g., ERP upgrade, BAQ development), I can tailor what to ask or prepare a vendor questions list.",
+    "auto_synthesis": {
+      "enabled": true,
+      "status": "completed",
+      "content": "Bemenderfer LLC is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer. It specializes in Epicor Kinetic/ERP systems and offers consulting, implementation, training, integration, and process optimization services. The firm also develops a proprietary DataPortal product for mobile-friendly ERP data access and real-time integration.\n\nKey details:\n\nEmployees: 2–10\n\nFocus industries: Manufacturing, aerospace, food production, automotive, and other industrial sectors\n\nServices: ERP consulting, project management, BAQs, dashboards, Crystal Reports/SSRS, CAD/BOM integration, automation, and custom API/connectors\n\nReputation: BBB accredited (A+ rating), emphasizes ethical, practical ERP solutions\n\nRevenue/valuation (est.): ~$428K revenue, ~$1.4M valuation\n\nWebsite: bemenderfer.com\n\nThe company emphasizes hands-on Epicor expertise, business process alignment, and long-term client relationships.",
+      "execution": {
+        "mode": "synthesis",
+        "source_job_id": "job_e2b6e0f7405e4900",
+        "source_job_ids": [
+          "job_e2b6e0f7405e4900"
+        ],
+        "child_job_ids": [
+          "job_e2b6e0f7405e4900_autosynth_synth_01_git-chatgpt"
+        ],
+        "target_model": "git-chatgpt",
+        "aggregate": {
+          "completed_sources": 5,
+          "failed_sources": [],
+          "temperature": {
+            "weighted_avg_f": null,
+            "weighted_avg_c": null,
+            "min_f": null,
+            "max_f": null
+          },
+          "wind": {
+            "weighted_avg_mph": null,
+            "min_mph": null,
+            "max_mph": null
+          },
+          "rain": {
+            "consensus_risk": "unknown",
+            "max_precip_chance_pct": null
+          },
+          "conditions": {
+            "consensus": "rainy",
+            "weighted_scores": {
+              "rainy": 4.0,
+              "unknown": 1.0
+            }
+          },
+          "prefer_best_sources": false,
+          "per_source": [
+            {
+              "source": "git-inceptionlabs",
+              "source_job_id": "job_e2b6e0f7405e4900",
+              "weight": 1.0,
+              "temperature_f": null,
+              "temperature_c": null,
+              "wind_mph": null,
+              "precip_chance_pct": null,
+              "condition": "rainy",
+              "rain_risk": "unknown"
+            },
+            {
+              "source": "git-chatgpt",
+              "source_job_id": "job_e2b6e0f7405e4900",
+              "weight": 1.0,
+              "temperature_f": null,
+              "temperature_c": null,
+              "wind_mph": null,
+              "precip_chance_pct": null,
+              "condition": "unknown",
+              "rain_risk": "unknown"
+            },
+            {
+              "source": "git-grok",
+              "source_job_id": "job_e2b6e0f7405e4900",
+              "weight": 1.0,
+              "temperature_f": null,
+              "temperature_c": null,
+              "wind_mph": null,
+              "precip_chance_pct": null,
+              "condition": "rainy",
+              "rain_risk": "unknown"
+            },
+            {
+              "source": "git-qwen",
+              "source_job_id": "job_e2b6e0f7405e4900",
+              "weight": 1.0,
+              "temperature_f": null,
+              "temperature_c": null,
+              "wind_mph": null,
+              "precip_chance_pct": null,
+              "condition": "rainy",
+              "rain_risk": "unknown"
+            },
+            {
+              "source": "git-perplexity",
+              "source_job_id": "job_e2b6e0f7405e4900",
+              "weight": 1.0,
+              "temperature_f": null,
+              "temperature_c": null,
+              "wind_mph": null,
+              "precip_chance_pct": null,
+              "condition": "rainy",
+              "rain_risk": "unknown"
+            }
+          ]
+        },
+        "source_count": 5,
+        "requested_source_job_ids": [
+          "job_e2b6e0f7405e4900"
+        ],
+        "source_mode": "allparallel_virtual_turns",
+        "source_modes": [
+          "allparallel_virtual_turns"
+        ],
+        "synthesis_mode": "general",
+        "map_reduce_used": false,
+        "chunk_count": 1,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "followup_delivery_enabled": true,
+        "delivery_errors": []
+      }
+    }
+  },
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.",
+        "role": "system"
+      },
+      {
+        "content": "Tell me about BemenderferLLC",
+        "role": "user"
+      }
+    ],
+    "model": "git-parallel",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": null,
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 4
+      },
+      "user_prompt_chunks": [
+        "Tell me about BemenderferLLC"
+      ]
+    },
+    "user_prompt": "Tell me about BemenderferLLC"
+  },
+  "evaluation": null,
+  "generated_at": "2026-04-27T18:28:36.571889Z"
+}
