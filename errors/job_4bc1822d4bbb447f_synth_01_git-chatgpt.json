@@ -1,0 +1,8 @@
+{
+  "job_id": "job_4bc1822d4bbb447f_synth_01_git-chatgpt",
+  "started_at": "2026-04-27T14:22:17Z",
+  "error": {
+    "code": "PLANNER_STAGE_FAILED",
+    "message": "Planner stage execution failed."
+  }
+}

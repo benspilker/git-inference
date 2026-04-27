@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.72,
+"requires_local_execution": false,
+"reason": "The user requests synthesis of structured data into a weather summary, which is a processing task rather than a simple question or research inquiry."
+}
