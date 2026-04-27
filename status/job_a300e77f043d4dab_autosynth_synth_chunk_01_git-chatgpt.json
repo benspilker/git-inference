@@ -1,0 +1,9 @@
+{
+  "job_id": "job_a300e77f043d4dab_autosynth_synth_chunk_01_git-chatgpt",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "complete",
+  "updated_at": "2026-04-27T20:15:25Z",
+  "created_at": "2026-04-27T20:15:12Z"
+}
