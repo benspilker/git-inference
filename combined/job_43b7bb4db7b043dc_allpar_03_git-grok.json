@@ -1,0 +1,26 @@
+{
+  "job_id": "job_43b7bb4db7b043dc_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_43b7bb4db7b043dc_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T14:52:11Z",
+    "created_at": "2026-04-27T14:51:36Z"
+  },
+  "response": {
+    "job_id": "job_43b7bb4db7b043dc_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Homemade Pizza at Home (Simple, Reliable Method)\n\n1. Dough (makes 2 × 12–14\" pizzas)\n\nIngredients (basic no-knead or quick version):\n\n500 g (4 cups) bread flour or all-purpose flour\n300–325 ml (1¼–1⅓ cups) lukewarm water\n2 tsp instant yeast (or 7 g packet)\n2 tsp salt\n2 tbsp olive oil\n\nQuick steps:\n\nMix dry ingredients (flour, yeast, salt).\nAdd water + olive oil. Stir until shaggy dough forms (no heavy kneading needed).\nCover and let rise 1–2 hours at room temp (or overnight in fridge for better flavor).\nDivide into 2 balls, rest 15–20 min, then stretch by hand into thin rounds (don't use rolling pin if possible — it deflates air pockets).\n\nTip: For crispier crust, use bread flour and let dough cold-ferment in fridge 24–48 hrs.\n\n2. Sauce (simple classic)\n1 can (400 g / 14 oz) crushed tomatoes or passata\n1–2 garlic cloves, minced\n1 tsp dried oregano\n½ tsp salt\nPinch of sugar + black pepper\nOptional: fresh basil, red pepper flakes\n\nMix everything cold — no cooking needed for fresh flavor. Spread thinly (too much sauce makes soggy pizza).\n\n3. Assembly & Toppings\nPreheat oven as hot as it goes (ideally 475–550°F / 245–290°C). Use a pizza stone or steel if you have one; otherwise a heavy baking sheet flipped upside-down.\nStretch dough on floured parchment or semolina.\nAdd thin layer of sauce, then cheese (fresh mozzarella torn into pieces + low-moisture mozzarella for melt), then toppings.\nPractical tip: Less is more — overload = soggy. Add delicate items (basil, prosciutto) after baking.\n4. Baking\nTemperature: 475–550°F (245–290°C) — the hotter the better for home ovens.\nTiming:\nWith pizza stone/steel: 8–12 minutes (rotate halfway).\nOn regular baking sheet: 12–15 minutes.\nPizza is done when crust is golden-brown with some char spots and cheese is bubbling.\n\nBest home hack: Preheat stone/sheet for 45–60 min at max temp. Launch pizza on parchment for first 5 min, then slide parchment out so bottom crisps directly on stone.\n\nPractical Tips for Success\nCrust issues: Too thick? Stretch thinner next time. Soggy bottom? Hotter oven + preheat longer + less sauce.\nCheese: Mix fresh mozzarella (flavor) with low-moisture shredded (less water release).\nOven variation: Gas vs electric matters — watch the first pizza closely and adjust.\nMake-ahead: Dough and sauce keep 2–3 days in fridge. Freeze dough balls after first rise.\nNo stone? Use cast-iron skillet or grill (outdoor grill at high heat gives great results).\nScale toppings to your taste: Margherita (sauce, mozzarella, basil, olive oil drizzle after bake) is the easiest winner.\n\nStart simple with Margherita for your first try — it teaches you the fundamentals fast. Once comfortable, experiment with toppings.\n\nEnjoy your pizza night!"
+    },
+    "done": true,
+    "started_at": "2026-04-27T14:51:36Z",
+    "completed_at": "2026-04-27T14:52:11Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T14:52:11Z"
+}
