@@ -1,0 +1,26 @@
+{
+  "job_id": "job_a300e77f043d4dab_autosynth_synth_chunk_02_git-chatgpt",
+  "status": {
+    "job_id": "job_a300e77f043d4dab_autosynth_synth_chunk_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T20:16:17Z",
+    "created_at": "2026-04-27T20:16:07Z"
+  },
+  "response": {
+    "job_id": "job_a300e77f043d4dab_autosynth_synth_chunk_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "The most lucrative jobs on Fiverr and Upwork typically involve skills that are in high demand, such as:\n\nAI and Data-Driven Services\n\nExamples: AI-driven copywriting, data cleaning and analysis, chatbots, custom prompts, predictive modeling, and automation scripts.\n\nHow to do it: Build a portfolio with templates like one-page data analysis reports or ready-to-use Python automation scripts. Emphasize the ROI, such as time saved or accuracy improvements. Start with mid-range projects to gather reviews, and then gradually increase rates as you build your reputation.\n\nWeb Design and Development (WordPress, E-commerce, Landing Pages)\n\nExamples: WordPress site builds, theme customization, e-commerce storefronts, responsive landing pages.\n\nHow to do it: Offer niche packages like “WordPress site + essential plugins, 3 pages, mobile-responsive.” Use live demos or video walkthroughs of past work. Offer add-ons such as speed optimization and SEO basics.\n\nVideo Editing and Post-Production\n\nExamples: Promotional videos, social media cuts, YouTube editing, motion graphics.\n\nHow to do it: Showcase before/after samples and offer different turnaround times with clear pricing (e.g., 24h, 3 days).\n\nThese paths combine high demand with opportunities to scale, especially as you gain experience and positive reviews."
+    },
+    "done": true,
+    "started_at": "2026-04-27T20:16:07Z",
+    "completed_at": "2026-04-27T20:16:17Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T20:16:17Z"
+}
