@@ -1,0 +1,68 @@
+{
+  "created_at": "2026-04-27T18:28:47Z",
+  "job_id": "job_af423c7d76444756_allpar_05_git-perplexity",
+  "request": {
+    "allparallel_index": 5,
+    "allparallel_parent_job_id": "job_af423c7d76444756",
+    "allparallel_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.",
+        "role": "system"
+      },
+      {
+        "content": "Give me one sentence about Indianapolis.",
+        "role": "user"
+      }
+    ],
+    "model": "git-perplexity",
+    "options": {
+      "auto_synthesis": false
+    },
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 6
+      },
+      "user_prompt_chunks": [
+        "Give me one sentence about Indianapolis."
+      ]
+    },
+    "user_prompt": "Give me one sentence about Indianapolis."
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": "You are a retrieval-first assistant.",
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 6
+    },
+    "user_prompt_chunks": [
+      "Give me one sentence about Indianapolis."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Give me one sentence about Indianapolis."
+}
