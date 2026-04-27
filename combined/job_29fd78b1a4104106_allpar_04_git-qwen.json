@@ -1,0 +1,26 @@
+{
+  "job_id": "job_29fd78b1a4104106_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_29fd78b1a4104106_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T18:34:47Z",
+    "created_at": "2026-04-27T18:33:32Z"
+  },
+  "response": {
+    "job_id": "job_29fd78b1a4104106_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "2+2 = 4"
+    },
+    "done": true,
+    "started_at": "2026-04-27T18:33:32Z",
+    "completed_at": "2026-04-27T18:34:47Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T18:34:47Z"
+}
