@@ -1,0 +1,10 @@
+{
+  "job_id": "job_4d8aca2fb0114f78_allpar_02_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN: 58°F, mostly cloudy. Light rain possible this afternoon. Winds S at 10–15 mph.\n\n(Telegram update ready for delivery.)"
+  },
+  "done": true,
+  "started_at": "2026-04-27T13:27:02Z",
+  "completed_at": "2026-04-27T13:27:13Z"
+}
