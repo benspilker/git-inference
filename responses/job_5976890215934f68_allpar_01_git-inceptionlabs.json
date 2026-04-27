@@ -1,0 +1,10 @@
+{
+  "job_id": "job_5976890215934f68_allpar_01_git-inceptionlabs",
+  "message": {
+    "role": "assistant",
+    "content": "Current Weather in Indianapolis, IN, USA (as of April 27 2026)\n\nTemperature: 68 °F (20 °C)\nCondition: Partly Cloudy\nHigh / Low: 73 °F / 55 °F (23 °C / 13 °C)\nWind: NW 12 mph (19 km/h)\nPrecipitation: 0 % chance of rain, no measurable precipitation at the moment\n\nSources: AccuWeather’s current conditions page for Indianapolis shows a temperature of 68 °F, partly cloudy skies, a high of 73 °F, a low of 55 °F, and a northwest wind of 12 mph \n1\n. The National Weather Service also reports the same temperature and wind details, confirming the data \n3\n."
+  },
+  "done": true,
+  "started_at": "2026-04-27T13:24:27Z",
+  "completed_at": "2026-04-27T13:25:17Z"
+}
