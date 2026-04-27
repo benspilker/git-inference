@@ -1,0 +1,10 @@
+{
+  "job_id": "job_5976890215934f68_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "Live web fallback results for \"Tell me the current weather in Indianapolis, IN, USA.\":\n1. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)\n2. Weather Forecast and Conditions for Indianapolis, Indiana | weather.com (Source: https://weather.com/weather/today/l/b068439054adafbcda0bb38fdca39eb820afb6066aade432c59692ec437126f0)\n3. Today's Weather in Indianapolis - Hourly Forecast and Conditions (Source: https://www.easeweather.com/north-america/united-states/indiana/marion-county/indianapolis/today)\n4. 7-Day Forecast 39.77N 86.16W - National Weather Service (Source: https://forecast.weather.gov/zipcity.php?inputstring=Indianapolis,IN)\n5. Downtown, Indianapolis, IN Current Weather - The Weather Network (Source: https://www.theweathernetwork.com/en/city/us/indiana/downtown-indianapolis/current)\nRetrieved via DuckDuckGo HTML on 2026-04-27 13:24 UTC."
+  },
+  "done": true,
+  "started_at": "2026-04-27T13:22:29Z",
+  "completed_at": "2026-04-27T13:24:53Z"
+}

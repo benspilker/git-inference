@@ -1,0 +1,10 @@
+{
+  "job_id": "job_44dda1b5d7f645ef_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "🌤️ Indianapolis, IN — Weather Update\nMon, Apr 27, 1:20 PM UTC\n• Current: 57–61°F, mostly/partly cloudy\n• Today's Range: High 72–76°F | Low 60–61°F\n• Conditions: Scattered thunderstorms developing this afternoon; heavier storms likely tonight\n• Rain Risk: 70–81% today; 1–2\" possible overnight \nwww.wunderground.com\nwww.accuweather.com\n\n• Wind: SE 10–15 mph now, gusting to 25–35 mph tonight \n天气预报\nwww.accuweather.com\n\n• ⚠️ Notable: Some storms may be severe—hail and damaging winds possible. Keep alerts enabled.\nTelegram update ready for delivery.\n+18"
+  },
+  "done": true,
+  "started_at": "2026-04-27T13:21:50Z",
+  "completed_at": "2026-04-27T13:22:29Z"
+}
