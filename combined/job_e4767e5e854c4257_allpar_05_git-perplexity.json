@@ -1,0 +1,26 @@
+{
+  "job_id": "job_e4767e5e854c4257_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_e4767e5e854c4257_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T13:10:29Z",
+    "created_at": "2026-04-27T13:08:47Z"
+  },
+  "response": {
+    "job_id": "job_e4767e5e854c4257_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "INDIANAPOLIS WEATHER UPDATE\n\nTemperature: around 62°F (about 17°C)\n\nConditions: Partly cloudy with light breeze\n\nRain/wind risk: Small chance of isolated showers this afternoon; brief t-storm risk higher this evening; winds generally light (near 5-10 mph), gusts possible with any storms\n\nTelegram-style: Indianapolis, IN — 62°F, partly cloudy, isolated afternoon showers possible; risk of a late-evening thunderstorm with brief gusty winds. Stay tuned for updates."
+    },
+    "done": true,
+    "started_at": "2026-04-27T13:08:47Z",
+    "completed_at": "2026-04-27T13:10:29Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T13:10:29Z"
+}
