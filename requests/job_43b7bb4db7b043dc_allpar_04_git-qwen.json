@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-04-27T14:50:56Z",
+  "job_id": "job_43b7bb4db7b043dc_allpar_04_git-qwen",
+  "request": {
+    "allparallel_index": 4,
+    "allparallel_parent_job_id": "job_43b7bb4db7b043dc",
+    "allparallel_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.",
+        "role": "system"
+      },
+      {
+        "content": "Tell me how to make a pizza at home. Include dough, sauce, bake temperature, timing, and practical tips.",
+        "role": "user"
+      }
+    ],
+    "model": "git-qwen",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "information"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 18
+      },
+      "user_prompt_chunks": [
+        "Tell me how to make a pizza at home. Include dough, sauce, bake temperature, timing, and practical tips."
+      ]
+    },
+    "user_prompt": "Tell me how to make a pizza at home. Include dough, sauce, bake temperature, timing, and practical tips."
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "information"
+  },
+  "system_prompt": "You are a retrieval-first assistant.",
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 18
+    },
+    "user_prompt_chunks": [
+      "Tell me how to make a pizza at home. Include dough, sauce, bake temperature, timing, and practical tips."
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Tell me how to make a pizza at home. Include dough, sauce, bake temperature, timing, and practical tips."
+}
