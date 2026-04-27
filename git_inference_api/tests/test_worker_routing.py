@@ -255,6 +255,36 @@ class WorkerRoutingTests(unittest.TestCase):
         self.assertIn("Cross-source synthesis (deterministic fallback)", text)
         self.assertIn("git-chatgpt:", text)
 
+    def test_build_synthesis_entries_from_fanout_results_orders_and_keeps_errors(self) -> None:
+        entries = JobWorker._build_synthesis_entries_from_fanout_results(
+            source_job_id="job_parent",
+            results=[
+                {"index": 2, "model": "git-chatgpt", "status": "failed", "error": "timeout"},
+                {"index": 1, "model": "git-grok", "status": "completed", "content": "answer"},
+            ],
+        )
+        self.assertEqual([entry.get("source") for entry in entries], ["git-grok", "git-chatgpt"])
+        self.assertEqual(entries[0].get("content"), "answer")
+        self.assertEqual(entries[1].get("content"), "Error: timeout")
+        self.assertEqual(entries[1].get("source_job_id"), "job_parent")
+
+    def test_fanout_auto_synthesis_request_flag_can_disable(self) -> None:
+        worker = JobWorker()
+        worker._allsequential_followup_delivery_enabled = lambda: True  # type: ignore[method-assign]
+        enabled = worker._fanout_auto_synthesis_enabled_for_request(
+            {"options": {"auto_synthesis": False}},
+        )
+        self.assertFalse(enabled)
+
+    def test_kickoff_content_mentions_auto_synthesis_when_enabled(self) -> None:
+        content = JobWorker._build_virtual_turns_kickoff_content(
+            5,
+            send_followups=True,
+            include_auto_synthesis_note=True,
+        )
+        self.assertIn("each source result as a separate follow-up", content)
+        self.assertIn("synthesized follow-up", content)
+
 
 if __name__ == "__main__":
     unittest.main()

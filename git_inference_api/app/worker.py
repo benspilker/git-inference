@@ -722,6 +722,51 @@ class JobWorker:
         options = request_payload.get("options")
         return options if isinstance(options, dict) else {}
 
+    def _fanout_auto_synthesis_enabled_for_request(self, request_payload: dict[str, Any]) -> bool:
+        if not settings.fanout_auto_synthesis_enabled:
+            return False
+        if not self._allsequential_followup_delivery_enabled():
+            return False
+
+        options = self._extract_options_dict(request_payload)
+        for key in ("auto_synthesis", "auto_synth", "fanout_auto_synthesis", "synthesize_after_fanout"):
+            value = self._coerce_optional_bool(options.get(key))
+            if value is not None:
+                return bool(value)
+
+        for key in ("auto_synthesis", "auto_synth", "fanout_auto_synthesis", "synthesize_after_fanout"):
+            value = self._coerce_optional_bool(request_payload.get(key))
+            if value is not None:
+                return bool(value)
+
+        return True
+
+    @staticmethod
+    def _build_synthesis_entries_from_fanout_results(
+        *,
+        source_job_id: str,
+        results: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        ordered = sorted(results, key=lambda item: int(item.get("index") or 0))
+        entries: list[dict[str, Any]] = []
+        for item in ordered:
+            status = str(item.get("status") or "unknown").strip().lower() or "unknown"
+            if status == "completed":
+                content = str(item.get("content") or "").strip() or "(empty response)"
+            else:
+                err = str(item.get("error") or "unknown error").strip() or "unknown error"
+                content = f"Error: {err}"
+            entries.append(
+                {
+                    "source": str(item.get("model") or "unknown").strip() or "unknown",
+                    "status": status,
+                    "index": int(item.get("index") or 0),
+                    "content": content,
+                    "source_job_id": source_job_id,
+                }
+            )
+        return entries
+
     @staticmethod
     def _extract_job_ids_from_value(value: Any) -> list[str]:
         values: list[str] = []
@@ -1349,6 +1394,207 @@ class JobWorker:
         lines.append(f"Note: fallback synthesis used because git-chatgpt synthesis request failed ({child_error}).")
         return " ".join(lines).strip()
 
+    def _run_synthesis_from_entries(
+        self,
+        *,
+        synthesis_job_id: str,
+        base_prompt: str,
+        source_entries: list[dict[str, Any]],
+        source_job_ids: list[str],
+        source_modes: list[str],
+        requested_source_job_ids: list[str] | None,
+        combined_in_message: bool,
+        send_followups: bool,
+    ) -> tuple[str, dict[str, Any]]:
+        if not source_entries:
+            raise RuntimeError("Synthesis source data is empty after merging source messages.")
+
+        synthesis_mode = "weather" if self._is_weather_prompt(base_prompt) else "general"
+        prefer_best_sources = synthesis_mode == "weather"
+        aggregate = self._build_synthesis_aggregate(
+            source_entries,
+            prefer_best_sources=prefer_best_sources,
+        )
+        source_chunks = self._chunk_synthesis_entries(source_entries, max_words_per_chunk=2200)
+
+        fallback_reason = ""
+        child_job_ids: list[str] = []
+        map_reduce_used = len(source_chunks) > 1
+        synth_timeout_cap = max(60, int(settings.synthesis_child_timeout_seconds))
+        synth_timeout_seconds = max(60, min(int(settings.job_timeout_seconds), synth_timeout_cap))
+        try:
+            if not map_reduce_used:
+                system_prompt, user_prompt = self._build_synthesis_prompt(
+                    base_prompt=base_prompt,
+                    source_job_ids=source_job_ids,
+                    synthesis_mode=synthesis_mode,
+                    aggregate=aggregate,
+                    source_entries=source_chunks[0],
+                )
+                child_job_id = f"{synthesis_job_id}_synth_01_git-chatgpt"
+                child_job_ids.append(child_job_id)
+                content = self._run_synthesis_child_chatgpt(
+                    job_id=child_job_id,
+                    parent_job_id=synthesis_job_id,
+                    system_prompt=system_prompt,
+                    user_prompt=user_prompt,
+                    combined_in_message=combined_in_message,
+                    timeout_seconds=synth_timeout_seconds,
+                )
+            else:
+                chunk_summaries: list[dict[str, Any]] = []
+                total_chunks = len(source_chunks)
+                for idx, chunk in enumerate(source_chunks, start=1):
+                    system_prompt, user_prompt = self._build_synthesis_prompt(
+                        base_prompt=base_prompt,
+                        source_job_ids=source_job_ids,
+                        synthesis_mode=synthesis_mode,
+                        aggregate=aggregate,
+                        source_entries=chunk,
+                        chunk_label=f"{idx}/{total_chunks}",
+                    )
+                    child_job_id = f"{synthesis_job_id}_synth_chunk_{idx:02d}_git-chatgpt"
+                    child_job_ids.append(child_job_id)
+                    chunk_text = self._run_synthesis_child_chatgpt(
+                        job_id=child_job_id,
+                        parent_job_id=synthesis_job_id,
+                        system_prompt=system_prompt,
+                        user_prompt=user_prompt,
+                        combined_in_message=combined_in_message,
+                        timeout_seconds=synth_timeout_seconds,
+                    )
+                    chunk_summaries.append({"chunk_index": idx, "summary": chunk_text})
+
+                final_system_prompt = (
+                    "You synthesize one final response from chunk summaries. "
+                    "Use only provided summaries and aggregate metrics. "
+                    "Do not add new facts. "
+                    "This is strictly a question-answer synthesis task. "
+                    "Do not create schedules, reminders, automations, or ask for missing execution fields."
+                )
+                final_user_payload = {
+                    "instruction": str(base_prompt or "").strip()
+                    or "Synthesize one final response from chunk summaries.",
+                    "synthesis_mode": synthesis_mode,
+                    "source_job_ids": source_job_ids,
+                    "aggregate": aggregate,
+                    "chunk_summaries": chunk_summaries,
+                }
+                final_user_prompt = (
+                    "Tell me one coherent final response using these chunk summaries.\n"
+                    "This is a question-only summarization request. Do not schedule tasks or request additional fields.\n\n"
+                    + json.dumps(final_user_payload, indent=2, ensure_ascii=False)
+                )
+                final_child_job_id = f"{synthesis_job_id}_synth_final_git-chatgpt"
+                child_job_ids.append(final_child_job_id)
+                content = self._run_synthesis_child_chatgpt(
+                    job_id=final_child_job_id,
+                    parent_job_id=synthesis_job_id,
+                    system_prompt=final_system_prompt,
+                    user_prompt=final_user_prompt,
+                    combined_in_message=combined_in_message,
+                    timeout_seconds=synth_timeout_seconds,
+                )
+        except Exception as child_exc:
+            fallback_reason = str(child_exc)
+            content = self._build_local_synthesis_fallback(
+                instruction=base_prompt,
+                aggregate=aggregate,
+                child_error=fallback_reason,
+                synthesis_mode=synthesis_mode,
+                source_entries=source_entries,
+            )
+
+        followup_enabled = bool(send_followups and self._allsequential_followup_delivery_enabled())
+        delivery_errors: list[dict[str, Any]] = []
+        if followup_enabled:
+            for followup in self._build_synthesis_followup_messages(content):
+                ok, err = self._send_openclaw_channel_message(str(followup.get("text") or ""))
+                if not ok:
+                    delivery_errors.append(
+                        {
+                            "part_index": followup.get("part_index"),
+                            "part_total": followup.get("part_total"),
+                            "error": err or "unknown delivery error",
+                        }
+                    )
+            if delivery_errors:
+                logger.warning(
+                    "synthesis follow-up delivery failed",
+                    extra={"job_id": synthesis_job_id, "delivery_failures": len(delivery_errors)},
+                )
+
+        execution_meta = {
+            "mode": "synthesis",
+            "source_job_id": source_job_ids[0] if source_job_ids else None,
+            "source_job_ids": source_job_ids,
+            "child_job_ids": child_job_ids,
+            "target_model": "git-chatgpt",
+            "aggregate": aggregate,
+            "source_count": len(source_entries),
+            "requested_source_job_ids": requested_source_job_ids or None,
+            "source_mode": source_modes[0] if source_modes else None,
+            "source_modes": source_modes,
+            "synthesis_mode": synthesis_mode,
+            "map_reduce_used": map_reduce_used,
+            "chunk_count": len(source_chunks),
+            "fallback_used": bool(fallback_reason),
+            "fallback_reason": fallback_reason or None,
+            "followup_delivery_enabled": followup_enabled,
+            "delivery_errors": delivery_errors,
+        }
+        return content, execution_meta
+
+    def _maybe_run_fanout_auto_synthesis(
+        self,
+        *,
+        parent_job_id: str,
+        fanout_mode: str,
+        request_payload: dict[str, Any],
+        base_prompt: str,
+        fanout_results: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        if not self._fanout_auto_synthesis_enabled_for_request(request_payload):
+            return {"enabled": False, "status": "skipped", "reason": "disabled"}
+
+        source_entries = self._build_synthesis_entries_from_fanout_results(
+            source_job_id=parent_job_id,
+            results=fanout_results,
+        )
+        completed_count = sum(1 for item in source_entries if str(item.get("status") or "").lower() == "completed")
+        if completed_count <= 0:
+            return {"enabled": True, "status": "skipped", "reason": "no_completed_sources"}
+
+        synth_instruction = str(base_prompt or "").strip() or "Synthesize one final response from fanout sources."
+        combined_in_message = bool(request_payload.get("combined_in_message", False))
+        try:
+            content, synth_execution = self._run_synthesis_from_entries(
+                synthesis_job_id=f"{parent_job_id}_autosynth",
+                base_prompt=synth_instruction,
+                source_entries=source_entries,
+                source_job_ids=[parent_job_id],
+                source_modes=[fanout_mode],
+                requested_source_job_ids=[parent_job_id],
+                combined_in_message=combined_in_message,
+                send_followups=True,
+            )
+            return {
+                "enabled": True,
+                "status": "completed",
+                "content": content,
+                "execution": synth_execution,
+            }
+        except Exception as exc:
+            logger.warning(
+                "fanout auto synthesis failed",
+                extra={"job_id": parent_job_id, "fanout_mode": fanout_mode, "error": str(exc)},
+            )
+            return {
+                "enabled": True,
+                "status": "failed",
+                "error": str(exc),
+            }
+
     def _process_job_synthesis(
         self,
         job: dict[str, Any],
@@ -1390,121 +1636,18 @@ class JobWorker:
             if not merged_sources:
                 raise RuntimeError("Synthesis source data is empty after merging source messages.")
 
-            synthesis_mode = "weather" if self._is_weather_prompt(base_prompt) else "general"
-            prefer_best_sources = synthesis_mode == "weather"
-            aggregate = self._build_synthesis_aggregate(
-                merged_sources,
-                prefer_best_sources=prefer_best_sources,
-            )
-            source_chunks = self._chunk_synthesis_entries(merged_sources, max_words_per_chunk=2200)
-
             self._update_status(job_id, "executing", intent_type="question", task_type="synthesized_summary")
-            fallback_reason = ""
-            child_job_ids: list[str] = []
-            map_reduce_used = len(source_chunks) > 1
-            synth_timeout_cap = max(60, int(settings.synthesis_child_timeout_seconds))
-            synth_timeout_seconds = max(60, min(int(settings.job_timeout_seconds), synth_timeout_cap))
             combined_in_message = bool(request_payload.get("combined_in_message", False))
-            try:
-                if not map_reduce_used:
-                    system_prompt, user_prompt = self._build_synthesis_prompt(
-                        base_prompt=base_prompt,
-                        source_job_ids=source_job_ids,
-                        synthesis_mode=synthesis_mode,
-                        aggregate=aggregate,
-                        source_entries=source_chunks[0],
-                    )
-                    child_job_id = f"{job_id}_synth_01_git-chatgpt"
-                    child_job_ids.append(child_job_id)
-                    content = self._run_synthesis_child_chatgpt(
-                        job_id=child_job_id,
-                        parent_job_id=job_id,
-                        system_prompt=system_prompt,
-                        user_prompt=user_prompt,
-                        combined_in_message=combined_in_message,
-                        timeout_seconds=synth_timeout_seconds,
-                    )
-                else:
-                    chunk_summaries: list[dict[str, Any]] = []
-                    total_chunks = len(source_chunks)
-                    for idx, chunk in enumerate(source_chunks, start=1):
-                        system_prompt, user_prompt = self._build_synthesis_prompt(
-                            base_prompt=base_prompt,
-                            source_job_ids=source_job_ids,
-                            synthesis_mode=synthesis_mode,
-                            aggregate=aggregate,
-                            source_entries=chunk,
-                            chunk_label=f"{idx}/{total_chunks}",
-                        )
-                        child_job_id = f"{job_id}_synth_chunk_{idx:02d}_git-chatgpt"
-                        child_job_ids.append(child_job_id)
-                        chunk_text = self._run_synthesis_child_chatgpt(
-                            job_id=child_job_id,
-                            parent_job_id=job_id,
-                            system_prompt=system_prompt,
-                            user_prompt=user_prompt,
-                            combined_in_message=combined_in_message,
-                            timeout_seconds=synth_timeout_seconds,
-                        )
-                        chunk_summaries.append({"chunk_index": idx, "summary": chunk_text})
-
-                    final_system_prompt = (
-                        "You synthesize one final response from chunk summaries. "
-                        "Use only provided summaries and aggregate metrics. "
-                        "Do not add new facts. "
-                        "This is strictly a question-answer synthesis task. "
-                        "Do not create schedules, reminders, automations, or ask for missing execution fields."
-                    )
-                    final_user_payload = {
-                        "instruction": str(base_prompt or "").strip()
-                        or "Synthesize one final response from chunk summaries.",
-                        "synthesis_mode": synthesis_mode,
-                        "source_job_ids": source_job_ids,
-                        "aggregate": aggregate,
-                        "chunk_summaries": chunk_summaries,
-                    }
-                    final_user_prompt = (
-                        "Tell me one coherent final response using these chunk summaries.\n"
-                        "This is a question-only summarization request. Do not schedule tasks or request additional fields.\n\n"
-                        + json.dumps(final_user_payload, indent=2, ensure_ascii=False)
-                    )
-                    final_child_job_id = f"{job_id}_synth_final_git-chatgpt"
-                    child_job_ids.append(final_child_job_id)
-                    content = self._run_synthesis_child_chatgpt(
-                        job_id=final_child_job_id,
-                        parent_job_id=job_id,
-                        system_prompt=final_system_prompt,
-                        user_prompt=final_user_prompt,
-                        combined_in_message=combined_in_message,
-                        timeout_seconds=synth_timeout_seconds,
-                    )
-            except Exception as child_exc:
-                fallback_reason = str(child_exc)
-                content = self._build_local_synthesis_fallback(
-                    instruction=base_prompt,
-                    aggregate=aggregate,
-                    child_error=fallback_reason,
-                    synthesis_mode=synthesis_mode,
-                    source_entries=merged_sources,
-                )
-
-            execution_meta = {
-                "mode": "synthesis",
-                "source_job_id": source_job_ids[0] if source_job_ids else None,
-                "source_job_ids": source_job_ids,
-                "child_job_ids": child_job_ids,
-                "target_model": "git-chatgpt",
-                "aggregate": aggregate,
-                "source_count": len(merged_sources),
-                "requested_source_job_ids": source_job_id_hints or None,
-                "source_mode": source_modes[0] if source_modes else None,
-                "source_modes": source_modes,
-                "synthesis_mode": synthesis_mode,
-                "map_reduce_used": map_reduce_used,
-                "chunk_count": len(source_chunks),
-                "fallback_used": bool(fallback_reason),
-                "fallback_reason": fallback_reason or None,
-            }
+            content, execution_meta = self._run_synthesis_from_entries(
+                synthesis_job_id=job_id,
+                base_prompt=base_prompt,
+                source_entries=merged_sources,
+                source_job_ids=source_job_ids,
+                source_modes=source_modes,
+                requested_source_job_ids=source_job_id_hints,
+                combined_in_message=combined_in_message,
+                send_followups=True,
+            )
             final_payload = {
                 "message": {"role": "assistant", "content": content},
                 "intent_type": "question",
@@ -2091,7 +2234,11 @@ class JobWorker:
         base_prompt: str,
     ) -> None:
         send_followups = self._allsequential_followup_delivery_enabled()
-        kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
+        kickoff_content = self._build_virtual_turns_kickoff_content(
+            len(targets),
+            send_followups,
+            include_auto_synthesis_note=self._fanout_auto_synthesis_enabled_for_request(request_payload),
+        )
         kickoff_execution = self._build_allparallel_virtual_turns_execution(
             request_payload=request_payload,
             targets=targets,
@@ -2235,7 +2382,11 @@ class JobWorker:
             ).strip()
             kickoff_content = str(execution.get("kickoff_content") or "").strip()
             if not kickoff_content:
-                kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
+                kickoff_content = self._build_virtual_turns_kickoff_content(
+                    len(targets),
+                    send_followups,
+                    include_auto_synthesis_note=self._fanout_auto_synthesis_enabled_for_request(request_payload),
+                )
 
             aggregated_results = self._coerce_list_of_dicts(execution.get("results"))
             delivery_errors = self._coerce_list_of_dicts(execution.get("delivery_errors"))
@@ -2347,6 +2498,13 @@ class JobWorker:
                     kickoff_content=kickoff_content,
                     base_prompt=base_prompt,
                 )
+                final_execution["auto_synthesis"] = self._maybe_run_fanout_auto_synthesis(
+                    parent_job_id=job_id,
+                    fanout_mode="allparallel_virtual_turns",
+                    request_payload=request_payload,
+                    base_prompt=base_prompt,
+                    fanout_results=aggregated_results,
+                )
                 self._publish_allparallel_audit_artifact(
                     job_id=job_id,
                     request_payload=request_payload,
@@ -2372,12 +2530,19 @@ class JobWorker:
         return bool(settings.allsequential_virtual_turns_enabled)
 
     @staticmethod
-    def _build_virtual_turns_kickoff_content(target_count: int, send_followups: bool) -> str:
+    def _build_virtual_turns_kickoff_content(
+        target_count: int,
+        send_followups: bool,
+        include_auto_synthesis_note: bool = False,
+    ) -> str:
         if send_followups:
-            return (
+            content = (
                 f"Running this prompt across {target_count} sources now. "
                 "I will send each source result as a separate follow-up message."
             )
+            if include_auto_synthesis_note:
+                content += " After all sources finish, I will also send one synthesized follow-up."
+            return content
         return (
             f"Running this prompt across {target_count} sources now. "
             "Follow-up delivery is not configured, so check /api/jobs/<job_id> for per-source progress and results."
@@ -2398,7 +2563,11 @@ class JobWorker:
         base_prompt: str,
     ) -> None:
         send_followups = self._allsequential_followup_delivery_enabled()
-        kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
+        kickoff_content = self._build_virtual_turns_kickoff_content(
+            len(targets),
+            send_followups,
+            include_auto_synthesis_note=self._fanout_auto_synthesis_enabled_for_request(request_payload),
+        )
         kickoff_execution = self._build_allsequential_virtual_turns_execution(
             request_payload=request_payload,
             targets=targets,
@@ -2544,7 +2713,11 @@ class JobWorker:
             ).strip()
             kickoff_content = str(execution.get("kickoff_content") or "").strip()
             if not kickoff_content:
-                kickoff_content = self._build_virtual_turns_kickoff_content(len(targets), send_followups)
+                kickoff_content = self._build_virtual_turns_kickoff_content(
+                    len(targets),
+                    send_followups,
+                    include_auto_synthesis_note=self._fanout_auto_synthesis_enabled_for_request(request_payload),
+                )
 
             aggregated_results = self._coerce_list_of_dicts(execution.get("results"))
             delivery_errors = self._coerce_list_of_dicts(execution.get("delivery_errors"))
@@ -2674,6 +2847,13 @@ class JobWorker:
                     kickoff_content=kickoff_content,
                     base_prompt=base_prompt,
                 )
+                final_execution["auto_synthesis"] = self._maybe_run_fanout_auto_synthesis(
+                    parent_job_id=job_id,
+                    fanout_mode="allsequential_virtual_turns",
+                    request_payload=request_payload,
+                    base_prompt=base_prompt,
+                    fanout_results=aggregated_results,
+                )
                 self._persist_allsequential_virtual_turns_state(job_id=job_id, execution_meta=final_execution)
                 logger.info(
                     "allsequential virtual turns completed",
@@ -2738,6 +2918,26 @@ class JobWorker:
             lines.append(str(entry.get("text") or "").strip())
             lines.append("")
         return "\n".join(lines).strip()
+
+    def _build_synthesis_followup_messages(self, content: str) -> list[dict[str, Any]]:
+        normalized = self._compact_for_telegram_chunking(str(content or "")) or "(empty response)"
+        parts = self._split_for_transport(normalized)
+        part_total = len(parts)
+        messages: list[dict[str, Any]] = []
+        for part_index, part_content in enumerate(parts, start=1):
+            if part_total > 1:
+                header = f"[synth] Source: git-synth | Status: completed | Part {part_index}/{part_total}"
+            else:
+                header = "[synth] Source: git-synth | Status: completed"
+            messages.append(
+                {
+                    "part_index": part_index,
+                    "part_total": part_total,
+                    "content": part_content,
+                    "text": f"{header}\n{part_content}",
+                }
+            )
+        return messages
 
     def _publish_allparallel_audit_artifact(
         self,

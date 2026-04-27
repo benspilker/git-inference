@@ -167,6 +167,7 @@ Copy `.env.example` and set at least:
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES` (optional, default `true`; if `false`, failed sources are omitted from follow-up sends)
 - `ALLPARALLEL_VIRTUAL_TURNS_ENABLED` (optional, default `true`; if `true`, `git-parallel` returns quickly and runs sources in the background)
 - `ALLPARALLEL_VIRTUAL_TURNS_SEND_FAILURES` (optional, default `true`; if `false`, failed sources are omitted from follow-up sends)
+- `FANOUT_AUTO_SYNTHESIS_ENABLED` (optional, default `true`; if `true`, virtual fan-out jobs also send one final synthesized follow-up after all sources finish)
 - `ALLOW_UNSAFE_REPO_PATH` (optional, default `false`; safety bypass only, do not enable unless you intentionally accept destructive git sync on `REPO_PATH`)
 
 ### Telegram display note for fan-out models
@@ -193,6 +194,7 @@ When virtual turns are enabled (`ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED=true` and/o
 2. The API keeps running each source model in the background (sequential for `git-allsequential`, parallel for `git-parallel`).
 3. Per-source progress and results are persisted on the job (`/api/jobs/<job_id>`).
 4. If OpenClaw bridge values are set (`OPENCLAW_CRON_SSH_TARGET`, `OPENCLAW_CRON_CHANNEL`, `OPENCLAW_CRON_TO`), each source result is also sent as its own follow-up message.
+5. If `FANOUT_AUTO_SYNTHESIS_ENABLED=true`, the API then sends one additional synthesized follow-up (`git-synth` style) built from the fan-out results.
 
 This keeps request latency low while still delivering source-by-source answers.
 

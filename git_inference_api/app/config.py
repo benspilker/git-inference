@@ -88,6 +88,7 @@ class Settings:
     allsequential_virtual_turns_send_failures: bool = env_bool("ALLSEQUENTIAL_VIRTUAL_TURNS_SEND_FAILURES", True)
     allparallel_virtual_turns_enabled: bool = env_bool("ALLPARALLEL_VIRTUAL_TURNS_ENABLED", True)
     allparallel_virtual_turns_send_failures: bool = env_bool("ALLPARALLEL_VIRTUAL_TURNS_SEND_FAILURES", True)
+    fanout_auto_synthesis_enabled: bool = env_bool("FANOUT_AUTO_SYNTHESIS_ENABLED", True)
     allow_unsafe_repo_path: bool = env_bool("ALLOW_UNSAFE_REPO_PATH", False)
 
     # Prompt / chunking
