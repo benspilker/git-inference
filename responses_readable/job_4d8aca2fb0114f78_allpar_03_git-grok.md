@@ -1,0 +1,3 @@
+Indianapolis, IN (as of ~1:26 PM EDT, Apr 27 2026): ~70-74°F, mostly cloudy with showers likely and scattered thunderstorms possible this afternoon. Winds SSE 10-20 mph (gusts to 25+ mph). Rain risk moderate (40-60% chance, potential 0.25-0.5" accumulation); watch for brief heavy downpours or thunder.
+
+Telegram update ready: "Indy weather now: 72°F, cloudy w/ showers & t-storm risk. Winds SSE 15 mph. Moderate rain chance afternoon—grab umbrella."

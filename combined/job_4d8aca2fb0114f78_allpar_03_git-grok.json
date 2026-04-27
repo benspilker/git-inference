@@ -1,0 +1,26 @@
+{
+  "job_id": "job_4d8aca2fb0114f78_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_4d8aca2fb0114f78_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T13:29:39Z",
+    "created_at": "2026-04-27T13:27:01Z"
+  },
+  "response": {
+    "job_id": "job_4d8aca2fb0114f78_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN (as of ~1:26 PM EDT, Apr 27 2026): ~70-74°F, mostly cloudy with showers likely and scattered thunderstorms possible this afternoon. Winds SSE 10-20 mph (gusts to 25+ mph). Rain risk moderate (40-60% chance, potential 0.25-0.5\" accumulation); watch for brief heavy downpours or thunder.\n\nTelegram update ready: \"Indy weather now: 72°F, cloudy w/ showers & t-storm risk. Winds SSE 15 mph. Moderate rain chance afternoon—grab umbrella.\""
+    },
+    "done": true,
+    "started_at": "2026-04-27T13:27:00Z",
+    "completed_at": "2026-04-27T13:29:39Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T13:29:39Z"
+}
