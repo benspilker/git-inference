@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.97,
+"requires_local_execution": false,
+"reason": "The user is asking for information about lucrative jobs on Fiverr and Upwork, along with examples and guidance, which is an informational request."
+}

@@ -1,0 +1,26 @@
+{
+  "job_id": "job_a300e77f043d4dab_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_a300e77f043d4dab_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T20:11:58Z",
+    "created_at": "2026-04-27T20:11:29Z"
+  },
+  "response": {
+    "job_id": "job_a300e77f043d4dab_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "The highest-paying work on Fiverr and Upwork tends to fall into a few buckets: specialized skills, high business impact, and work that’s hard to automate or commoditize. Here are the most lucrative categories right now, plus practical ways to break into each:\n\n1) AI / Automation (Very high demand)\n\nExamples\n\nCustom GPT/chatbot setup for businesses\n\nWorkflow automation (Zapier, Make, API integrations)\n\nAI content pipelines (auto blog/video/social generation)\n\nHow to do it\n\nLearn tools like Zapier, Make, OpenAI API, Airtable\n\nBuild 2–3 demo automations (e.g., “auto-generate blog posts from RSS feeds”)\n\nOffer a clear ROI pitch: “I’ll save you 10+ hours/week”\n\nWhy it pays\nBusinesses don’t understand it well → they’ll pay a premium for someone who does.\n\n2) Copywriting (especially conversion-focused)\n\nExamples\n\nSales pages, landing pages\n\nEmail marketing sequences\n\nAd copy (Facebook/Google)\n\nHow to do it\n\nStudy proven frameworks (AIDA, PAS)\n\nRewrite existing ads/pa"
+    },
+    "done": true,
+    "started_at": "2026-04-27T20:11:29Z",
+    "completed_at": "2026-04-27T20:11:58Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T20:11:58Z"
+}
