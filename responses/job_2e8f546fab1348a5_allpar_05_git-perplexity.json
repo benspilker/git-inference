@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2e8f546fab1348a5_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s a concise, Telegram-ready update for Indianapolis, IN:\n\nCurrent weather: Breezy, partly cloudy with a few showers possible this afternoon; high near 76°F (24°C), low around 61°F (16°C). There is a notable risk of thunderstorms later today, including gusty winds and possible hail; keep an eye on local alerts. Winds currently from the southwest around 10–15 mph, increasing later in the day."
+  },
+  "done": true,
+  "started_at": "2026-04-27T12:40:43Z",
+  "completed_at": "2026-04-27T12:41:37Z"
+}

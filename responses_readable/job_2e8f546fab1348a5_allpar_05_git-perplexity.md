@@ -1,0 +1,3 @@
+Here’s a concise, Telegram-ready update for Indianapolis, IN:
+
+Current weather: Breezy, partly cloudy with a few showers possible this afternoon; high near 76°F (24°C), low around 61°F (16°C). There is a notable risk of thunderstorms later today, including gusty winds and possible hail; keep an eye on local alerts. Winds currently from the southwest around 10–15 mph, increasing later in the day.
