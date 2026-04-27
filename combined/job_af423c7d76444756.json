@@ -1,0 +1,214 @@
+{
+  "job_id": "job_af423c7d76444756",
+  "status": {
+    "job_id": "job_af423c7d76444756",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "allparallel",
+    "current_stage": "virtual_turns_complete",
+    "updated_at": "2026-04-27T18:31:51.298576Z",
+    "created_at": "2026-04-27T18:31:51.298576Z"
+  },
+  "response": {
+    "job_id": "job_af423c7d76444756",
+    "message": {
+      "role": "assistant",
+      "content": "[1/5] Source: git-inceptionlabs | Status: completed\nIndianapolis, the capital of Indiana, is known for its iconic Speedway and vibrant cultural scene nestled along the White River.\n\n[2/5] Source: git-chatgpt | Status: completed\nIndianapolis, the capital of Indiana, is known for its rich motorsports history, including the famous Indianapolis 500 race held annually at the Indianapolis Motor Speedway.\n\n[3/5] Source: git-grok | Status: completed\nYou are Juniper, a concise assistant helping a user through a local OpenClaw-based system.\nExecution constraints:\nYou do not have local shell/tool execution.\nYou are running inside a Perplexity browser session and can use Perplexity's web-backed retrieval.\nNever claim generic \"no live tools\" access when a web-backed answer can be produced here.\nResponse behavior:\nAnswer the user's question directly and clearly.\nPrefer practical, implementation-focused answers.\nDo not generate scripts unless explicitly requested.\nIf relevant context is provided, use it.\nIf location is ambiguous for recommendation-style asks, ask one short clarifying question.\nWeb recency rule:\nFor time-sensitive requests (weather, latest/current/today/recent, prices, scores, schedules, releases), provide a web-backed answer.\nFor weather requests, include concrete facts (for example temperature and conditions, and include high/low, wind, or precipitation when available).\nIf and only if live web lookup is truly unavailable in this run, reply with exactly: LIVE_WEB_UNAVAILABLE\nCurrent request:\nGive me one sentence about Indianapolis.\n\n[4/5] Source: git-qwen | Status: completed\nIndianapolis is the capital and most populous city of Indiana, renowned worldwide as the host of the Indianapolis 500, one of the most prestigious automobile races in motorsports.\n\n[5/5] Source: git-perplexity | Status: completed\nIndianapolis is the capital and largest city of Indiana, located near the White River and known for its planning, diverse economy, and major cultural events like the Indy 500."
+    },
+    "done": true,
+    "completed_at": "2026-04-27T18:31:51.298576Z"
+  },
+  "execution": {
+    "mode": "allparallel_virtual_turns",
+    "request_payload": {
+      "combined_in_message": false,
+      "messages": [
+        {
+          "content": "You are a retrieval-first assistant.",
+          "role": "system"
+        },
+        {
+          "content": "Give me one sentence about Indianapolis.",
+          "role": "user"
+        }
+      ],
+      "model": "git-parallel",
+      "options": {
+        "auto_synthesis": false
+      },
+      "request_type": "chat",
+      "routing_metadata": {
+        "intent_type": null,
+        "requires_local_execution": false,
+        "route_state": "received",
+        "schema_version": "1.0",
+        "task_type": "general_question"
+      },
+      "stream": false,
+      "transport": {
+        "chunking": {
+          "chunk_count": 1,
+          "chunk_size_words": 2000,
+          "enabled": false,
+          "max_chunks": 5,
+          "word_count": 6
+        },
+        "user_prompt_chunks": [
+          "Give me one sentence about Indianapolis."
+        ]
+      },
+      "user_prompt": "Give me one sentence about Indianapolis."
+    },
+    "base_prompt": "Give me one sentence about Indianapolis.",
+    "kickoff_content": "Running this prompt across 5 sources now. I will send each source result as a separate follow-up message.",
+    "targets": [
+      "git-inceptionlabs",
+      "git-chatgpt",
+      "git-grok",
+      "git-qwen",
+      "git-perplexity"
+    ],
+    "results": [
+      {
+        "index": 1,
+        "model": "git-inceptionlabs",
+        "job_id": "job_af423c7d76444756_allpar_01_git-inceptionlabs",
+        "status": "completed",
+        "content": "Indianapolis, the capital of Indiana, is known for its iconic Speedway and vibrant cultural scene nestled along the White River."
+      },
+      {
+        "index": 2,
+        "model": "git-chatgpt",
+        "job_id": "job_af423c7d76444756_allpar_02_git-chatgpt",
+        "status": "completed",
+        "content": "Indianapolis, the capital of Indiana, is known for its rich motorsports history, including the famous Indianapolis 500 race held annually at the Indianapolis Motor Speedway."
+      },
+      {
+        "index": 3,
+        "model": "git-grok",
+        "job_id": "job_af423c7d76444756_allpar_03_git-grok",
+        "status": "completed",
+        "content": "You are Juniper, a concise assistant helping a user through a local OpenClaw-based system.\n\nExecution constraints:\n\nYou do not have local shell/tool execution.\nYou are running inside a Perplexity browser session and can use Perplexity's web-backed retrieval.\nNever claim generic \"no live tools\" access when a web-backed answer can be produced here.\n\nResponse behavior:\n\nAnswer the user's question directly and clearly.\nPrefer practical, implementation-focused answers.\nDo not generate scripts unless explicitly requested.\nIf relevant context is provided, use it.\nIf location is ambiguous for recommendation-style asks, ask one short clarifying question.\n\nWeb recency rule:\n\nFor time-sensitive requests (weather, latest/current/today/recent, prices, scores, schedules, releases), provide a web-backed answer.\nFor weather requests, include concrete facts (for example temperature and conditions, and include high/low, wind, or precipitation when available).\nIf and only if live web lookup is truly unavailable in this run, reply with exactly: LIVE_WEB_UNAVAILABLE\n\nCurrent request:\n\nGive me one sentence about Indianapolis."
+      },
+      {
+        "index": 4,
+        "model": "git-qwen",
+        "job_id": "job_af423c7d76444756_allpar_04_git-qwen",
+        "status": "completed",
+        "content": "Indianapolis is the capital and most populous city of Indiana, renowned worldwide as the host of the Indianapolis 500, one of the most prestigious automobile races in motorsports."
+      },
+      {
+        "index": 5,
+        "model": "git-perplexity",
+        "job_id": "job_af423c7d76444756_allpar_05_git-perplexity",
+        "status": "completed",
+        "content": "Indianapolis is the capital and largest city of Indiana, located near the White River and known for its planning, diverse economy, and major cultural events like the Indy 500."
+      }
+    ],
+    "source_messages": [
+      {
+        "index": 1,
+        "source": "git-inceptionlabs",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Indianapolis, the capital of Indiana, is known for its iconic Speedway and vibrant cultural scene nestled along the White River.",
+        "text": "[1/5] Source: git-inceptionlabs | Status: completed\nIndianapolis, the capital of Indiana, is known for its iconic Speedway and vibrant cultural scene nestled along the White River."
+      },
+      {
+        "index": 2,
+        "source": "git-chatgpt",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Indianapolis, the capital of Indiana, is known for its rich motorsports history, including the famous Indianapolis 500 race held annually at the Indianapolis Motor Speedway.",
+        "text": "[2/5] Source: git-chatgpt | Status: completed\nIndianapolis, the capital of Indiana, is known for its rich motorsports history, including the famous Indianapolis 500 race held annually at the Indianapolis Motor Speedway."
+      },
+      {
+        "index": 3,
+        "source": "git-grok",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "You are Juniper, a concise assistant helping a user through a local OpenClaw-based system.\nExecution constraints:\nYou do not have local shell/tool execution.\nYou are running inside a Perplexity browser session and can use Perplexity's web-backed retrieval.\nNever claim generic \"no live tools\" access when a web-backed answer can be produced here.\nResponse behavior:\nAnswer the user's question directly and clearly.\nPrefer practical, implementation-focused answers.\nDo not generate scripts unless explicitly requested.\nIf relevant context is provided, use it.\nIf location is ambiguous for recommendation-style asks, ask one short clarifying question.\nWeb recency rule:\nFor time-sensitive requests (weather, latest/current/today/recent, prices, scores, schedules, releases), provide a web-backed answer.\nFor weather requests, include concrete facts (for example temperature and conditions, and include high/low, wind, or precipitation when available).\nIf and only if live web lookup is truly unavailable in this run, reply with exactly: LIVE_WEB_UNAVAILABLE\nCurrent request:\nGive me one sentence about Indianapolis.",
+        "text": "[3/5] Source: git-grok | Status: completed\nYou are Juniper, a concise assistant helping a user through a local OpenClaw-based system.\nExecution constraints:\nYou do not have local shell/tool execution.\nYou are running inside a Perplexity browser session and can use Perplexity's web-backed retrieval.\nNever claim generic \"no live tools\" access when a web-backed answer can be produced here.\nResponse behavior:\nAnswer the user's question directly and clearly.\nPrefer practical, implementation-focused answers.\nDo not generate scripts unless explicitly requested.\nIf relevant context is provided, use it.\nIf location is ambiguous for recommendation-style asks, ask one short clarifying question.\nWeb recency rule:\nFor time-sensitive requests (weather, latest/current/today/recent, prices, scores, schedules, releases), provide a web-backed answer.\nFor weather requests, include concrete facts (for example temperature and conditions, and include high/low, wind, or precipitation when available).\nIf and only if live web lookup is truly unavailable in this run, reply with exactly: LIVE_WEB_UNAVAILABLE\nCurrent request:\nGive me one sentence about Indianapolis."
+      },
+      {
+        "index": 4,
+        "source": "git-qwen",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Indianapolis is the capital and most populous city of Indiana, renowned worldwide as the host of the Indianapolis 500, one of the most prestigious automobile races in motorsports.",
+        "text": "[4/5] Source: git-qwen | Status: completed\nIndianapolis is the capital and most populous city of Indiana, renowned worldwide as the host of the Indianapolis 500, one of the most prestigious automobile races in motorsports."
+      },
+      {
+        "index": 5,
+        "source": "git-perplexity",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Indianapolis is the capital and largest city of Indiana, located near the White River and known for its planning, diverse economy, and major cultural events like the Indy 500.",
+        "text": "[5/5] Source: git-perplexity | Status: completed\nIndianapolis is the capital and largest city of Indiana, located near the White River and known for its planning, diverse economy, and major cultural events like the Indy 500."
+      }
+    ],
+    "success_count": 5,
+    "failure_count": 0,
+    "delivery_errors": [],
+    "completed_indexes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "stage": "virtual_turns_complete",
+    "allparallel_summary": "[1/5] Source: git-inceptionlabs | Status: completed\nIndianapolis, the capital of Indiana, is known for its iconic Speedway and vibrant cultural scene nestled along the White River.\n\n[2/5] Source: git-chatgpt | Status: completed\nIndianapolis, the capital of Indiana, is known for its rich motorsports history, including the famous Indianapolis 500 race held annually at the Indianapolis Motor Speedway.\n\n[3/5] Source: git-grok | Status: completed\nYou are Juniper, a concise assistant helping a user through a local OpenClaw-based system.\nExecution constraints:\nYou do not have local shell/tool execution.\nYou are running inside a Perplexity browser session and can use Perplexity's web-backed retrieval.\nNever claim generic \"no live tools\" access when a web-backed answer can be produced here.\nResponse behavior:\nAnswer the user's question directly and clearly.\nPrefer practical, implementation-focused answers.\nDo not generate scripts unless explicitly requested.\nIf relevant context is provided, use it.\nIf location is ambiguous for recommendation-style asks, ask one short clarifying question.\nWeb recency rule:\nFor time-sensitive requests (weather, latest/current/today/recent, prices, scores, schedules, releases), provide a web-backed answer.\nFor weather requests, include concrete facts (for example temperature and conditions, and include high/low, wind, or precipitation when available).\nIf and only if live web lookup is truly unavailable in this run, reply with exactly: LIVE_WEB_UNAVAILABLE\nCurrent request:\nGive me one sentence about Indianapolis.\n\n[4/5] Source: git-qwen | Status: completed\nIndianapolis is the capital and most populous city of Indiana, renowned worldwide as the host of the Indianapolis 500, one of the most prestigious automobile races in motorsports.\n\n[5/5] Source: git-perplexity | Status: completed\nIndianapolis is the capital and largest city of Indiana, located near the White River and known for its planning, diverse economy, and major cultural events like the Indy 500.",
+    "auto_synthesis": {
+      "enabled": false,
+      "status": "skipped",
+      "reason": "disabled"
+    }
+  },
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.",
+        "role": "system"
+      },
+      {
+        "content": "Give me one sentence about Indianapolis.",
+        "role": "user"
+      }
+    ],
+    "model": "git-parallel",
+    "options": {
+      "auto_synthesis": false
+    },
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": null,
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 6
+      },
+      "user_prompt_chunks": [
+        "Give me one sentence about Indianapolis."
+      ]
+    },
+    "user_prompt": "Give me one sentence about Indianapolis."
+  },
+  "evaluation": null,
+  "generated_at": "2026-04-27T18:31:51.298576Z"
+}
