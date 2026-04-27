@@ -1,0 +1,24 @@
+Bemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer (Founder and President).⁠LinkedIn
+
+It specializes in Epicor Kinetic (and earlier versions like Vantage/Vista) ERP systems, offering:
+
+Consulting
+Implementation
+Training
+Streamlining
+Integration
+Customization
+Business process optimization
+
+The company also develops its own DataPortal product, which provides mobile-friendly access to ERP data and tools for field/mobile workforces. Services extend to related areas like gap analysis, Crystal Reports/SSRS, method/data directives, automation, inventory systems, CAD BOM integration, and real-time data solutions.⁠Bemenderfer
+
+Key details:
+Size: 2–10 employees (reports vary around 5).
+Focus: Helping manufacturing and industrial clients (aerospace, food production, automotive, etc.) maximize ERP value through practical business process alignment rather than generic implementations.
+Website: bemenderfer.com
+BBB: Accredited; PO Box in Indianapolis.
+LinkedIn: BEMENDERFER LLC — emphasizes long-term relationships and hands-on experience (team has both consulting and internal ERP admin backgrounds).
+
+It operates as a boutique partner for Epicor users seeking optimization, troubleshooting, and custom integrations rather than a large-scale systems integrator.
+
+(Note: There is a separate individual named Neil Bemenderfer involved in mediation/legal services in the same area, but he is not connected to this LLC.)
