@@ -896,7 +896,9 @@ def classify_route_hint(normalized_request: dict[str, Any]) -> str | None:
     research_markers = ("research", "investigate", "deeply compare", "build a report", "from many angles")
     if any(marker in user_text for marker in research_markers):
         return "research"
-    job_markers = ("set up", "schedule", "remind me", "configure", "create", "cron", "job", "run this daily")
+    # Keep job intent markers action-oriented. Do not include a generic "job" token,
+    # because informational prompts like "best jobs on Fiverr" are normal questions.
+    job_markers = ("set up", "schedule", "remind me", "configure", "create", "cron", "run this daily")
     if any(marker in user_text for marker in job_markers):
         return "job"
     question_markers = ("what", "which", "when", "where", "why", "how", "?")
