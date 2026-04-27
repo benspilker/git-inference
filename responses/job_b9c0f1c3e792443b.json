@@ -1,0 +1,10 @@
+{
+  "job_id": "job_b9c0f1c3e792443b",
+  "message": {
+    "role": "assistant",
+    "content": "Hello!"
+  },
+  "done": true,
+  "started_at": "2026-04-27T23:47:15Z",
+  "completed_at": "2026-04-27T23:47:36Z"
+}
