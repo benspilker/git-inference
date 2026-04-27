@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 0.95,
+  "requires_local_execution": false,
+  "reason": "The user is requesting a synthesized step-by-step guide combining multiple sources, which implies creating a single, consolidated output file or document. This requires local execution to generate and store the final synthesized content. Deterministic system-test override applied for exact-reply probe."
+}

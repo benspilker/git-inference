@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "file_write",
+"confidence": 0.95,
+"requires_local_execution": true,
+"reason": "The user is requesting a synthesized step-by-step guide combining multiple sources, which implies creating a single, consolidated output file or document. This requires local execution to generate and store the final synthesized content."
+}
