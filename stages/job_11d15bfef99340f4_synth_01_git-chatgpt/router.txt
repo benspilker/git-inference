@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.82,
+"requires_local_execution": false,
+"reason": "The user requests synthesizing a structured weather summary from aggregated data, which is a content-generation task rather than a simple question or deep research."
+}

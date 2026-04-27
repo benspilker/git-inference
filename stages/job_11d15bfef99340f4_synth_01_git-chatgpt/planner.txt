@@ -1,0 +1,24 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "scheduled_weather_report",
+"confidence": 0.95,
+"requires_local_execution": true,
+"parameters": {
+"location": "Indianapolis, Indiana, United States",
+"temperature_avg_c": -0.8,
+"temperature_avg_f": 30.6,
+"temperature_min_f": -74.0,
+"temperature_max_f": 76.0,
+"wind_avg_mph": 13.8,
+"wind_min_mph": 12.5,
+"wind_max_mph": 15.0,
+"rain_risk": "moderate",
+"conditions_consensus": "stormy",
+"rain_max_chance_pct": 97.0
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Weather summary delivered with consensus on temperature, wind, condition, and rain risk."
+}

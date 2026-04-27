@@ -1,0 +1,81 @@
+{
+  "job_id": "job_11d15bfef99340f4_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_11d15bfef99340f4_synth_01_git-chatgpt",
+    "state": "needs_clarification",
+    "intent_type": "job",
+    "task_type": "scheduled_weather_report",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-27T14:19:47Z",
+    "created_at": "2026-04-27T14:19:18Z"
+  },
+  "response": {
+    "job_id": "job_11d15bfef99340f4_synth_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "I still need these fields to continue: frequency, time."
+    },
+    "done": false,
+    "started_at": "2026-04-27T14:19:18Z",
+    "needs_clarification": true,
+    "execution": {
+      "task_type": "scheduled_weather_report",
+      "original_task_type": "scheduled_weather_report",
+      "verified": false,
+      "executed_at": "2026-04-27T14:19:47Z",
+      "execution_status": "needs_clarification",
+      "details": {
+        "code": "MISSING_REQUIRED_FIELDS",
+        "message": "Task parameters are missing required fields.",
+        "missing_fields": [
+          "frequency",
+          "time"
+        ],
+        "parameters": {
+          "location": "Indianapolis, Indiana, United States",
+          "temperature_avg_c": -0.8,
+          "temperature_avg_f": 30.6,
+          "temperature_min_f": -74.0,
+          "temperature_max_f": 76.0,
+          "wind_avg_mph": 13.8,
+          "wind_min_mph": 12.5,
+          "wind_max_mph": 15.0,
+          "rain_risk": "moderate",
+          "conditions_consensus": "stormy",
+          "rain_max_chance_pct": 97.0
+        }
+      }
+    }
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": {
+    "task_type": "scheduled_weather_report",
+    "original_task_type": "scheduled_weather_report",
+    "verified": false,
+    "executed_at": "2026-04-27T14:19:47Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "frequency",
+        "time"
+      ],
+      "parameters": {
+        "location": "Indianapolis, Indiana, United States",
+        "temperature_avg_c": -0.8,
+        "temperature_avg_f": 30.6,
+        "temperature_min_f": -74.0,
+        "temperature_max_f": 76.0,
+        "wind_avg_mph": 13.8,
+        "wind_min_mph": 12.5,
+        "wind_max_mph": 15.0,
+        "rain_risk": "moderate",
+        "conditions_consensus": "stormy",
+        "rain_max_chance_pct": 97.0
+      }
+    }
+  },
+  "generated_at": "2026-04-27T14:19:47Z"
+}
