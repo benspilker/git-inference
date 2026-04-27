@@ -1,0 +1,10 @@
+{
+  "job_id": "job_af423c7d76444756_allpar_01_git-inceptionlabs",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, the capital of Indiana, is known for its iconic Speedway and vibrant cultural scene nestled along the White River."
+  },
+  "done": true,
+  "started_at": "2026-04-27T18:29:29Z",
+  "completed_at": "2026-04-27T18:29:48Z"
+}

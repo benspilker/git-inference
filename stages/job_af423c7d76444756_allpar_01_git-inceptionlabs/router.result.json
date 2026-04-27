@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.99,
+  "requires_local_execution": true,
+  "reason": "The user is requesting a brief informational statement about Indianapolis, which is a straightforward question for information."
+}
