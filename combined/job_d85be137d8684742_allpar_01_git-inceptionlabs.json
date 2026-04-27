@@ -1,0 +1,26 @@
+{
+  "job_id": "job_d85be137d8684742_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_d85be137d8684742_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T17:48:24Z",
+    "created_at": "2026-04-27T17:48:14Z"
+  },
+  "response": {
+    "job_id": "job_d85be137d8684742_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC is a consulting firm that specializes in Epicor Kinetic/ERP solutions. Since its founding in 2008, the company offers a range of services that include:\n\nERP consulting – helping businesses evaluate, select, and design ERP systems.\nImplementation & training – deploying Epicor Kinetic (formerly Epicor ERP) and training staff to use it effectively.\nProcess streamlining & integration – optimizing workflows and connecting the ERP with other business applications.\n\nThe firm positions itself as a “Premier ERP Solutions & Epicor Consulting” provider, aiming to empower businesses by unlocking the full potential of their operations \n1\n. Their LinkedIn profile confirms the focus on Epicor Kinetic/ERP consulting, training, implementation, and integration \n2\n.\n\nIf you need more specific details (e.g., contact information, case studies, or pricing), let me know what you’d like to explore next."
+    },
+    "done": true,
+    "started_at": "2026-04-27T17:48:14Z",
+    "completed_at": "2026-04-27T17:48:24Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T17:48:24Z"
+}
