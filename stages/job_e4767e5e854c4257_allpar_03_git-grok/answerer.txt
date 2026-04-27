@@ -1,10 +1,10 @@
-Indianapolis, IN current weather (as of ~1 PM EDT on April 27, 2026): Mostly cloudy to overcast, around 57-73°F (varying by exact time/source, trending warm toward mid-70s high).
+Indianapolis, IN current weather (as of ~1 PM EDT on April 27, 2026): Mostly cloudy to overcast, around 57-73°F (recent readings vary 57-73°F with afternoon highs near 75-79°F expected).
 
-Conditions: Mild and breezy with south/southeast winds 10-15 mph (gusts higher possible).
+Conditions: Mild and breezy with south/southeast winds 10-15 mph (gusts possible higher).
 
-Notable risks: Increasing chance of showers and thunderstorms this afternoon/evening (some sources show 20-50%+ chance, with potential for heavier rain, hail, or strong winds later). Low rain risk right now but rising.
+Notable risk: Increasing chance of showers and thunderstorms this afternoon/evening (50-60%+), with some heavy rain possible overnight; isolated strong storms could bring gusty winds or hail.
 
 Telegram update draft:
-"Indianapolis weather now: ~60-70°F, mostly cloudy. Warm day with SE winds 10-15 mph. Thunderstorms possible later—watch for rain/wind risk this afternoon/evening."
+"Indianapolis weather now: ~60-70°F, mostly cloudy. Warm afternoon highs near 75-79°F with SSW winds 10-15 mph. Rain/thunderstorm risk rising later today—possible heavy showers tonight. Stay alert for gusts."
 
-Send to your usual weather channel/group.
+(For delivery via the cron job as plain text.)
