@@ -1,0 +1,8 @@
+{
+  "job_id": "job_43b7bb4db7b043dc_allpar_02_git-chatgpt",
+  "started_at": "2026-04-27T14:51:36Z",
+  "error": {
+    "code": "ANSWERER_STAGE_FAILED",
+    "message": "Answerer stage execution failed."
+  }
+}

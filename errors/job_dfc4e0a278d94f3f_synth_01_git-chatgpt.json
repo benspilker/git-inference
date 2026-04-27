@@ -1,0 +1,8 @@
+{
+  "job_id": "job_dfc4e0a278d94f3f_synth_01_git-chatgpt",
+  "started_at": "2026-04-27T14:59:58Z",
+  "error": {
+    "code": "ROUTER_STAGE_FAILED",
+    "message": "Router stage execution failed."
+  }
+}

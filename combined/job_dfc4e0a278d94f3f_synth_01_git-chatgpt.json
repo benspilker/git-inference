@@ -1,0 +1,24 @@
+{
+  "job_id": "job_dfc4e0a278d94f3f_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_dfc4e0a278d94f3f_synth_01_git-chatgpt",
+    "state": "failed",
+    "intent_type": null,
+    "task_type": null,
+    "current_stage": "router",
+    "updated_at": "2026-04-27T15:03:52Z",
+    "created_at": "2026-04-27T14:59:58Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_dfc4e0a278d94f3f_synth_01_git-chatgpt",
+    "started_at": "2026-04-27T14:59:58Z",
+    "error": {
+      "code": "ROUTER_STAGE_FAILED",
+      "message": "Router stage execution failed."
+    }
+  },
+  "execution": null,
+  "generated_at": "2026-04-27T15:03:52Z"
+}
