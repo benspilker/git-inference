@@ -1,0 +1,26 @@
+{
+  "job_id": "job_d85be137d8684742_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_d85be137d8684742_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T17:50:05Z",
+    "created_at": "2026-04-27T17:48:13Z"
+  },
+  "response": {
+    "job_id": "job_d85be137d8684742_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC is a privately-held software development and consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer \n领英企业服务\nwww.privco.com\n.\nCore Focus\nSpecializes in Epicor Kinetic/ERP consulting, including training, implementation, streamlining, and integration services \n领英企业服务\n领英企业服务\n.\nAlso supports legacy Epicor platforms: Vantage and Vista \nwww.facebook.com\n.\nKey Offerings\nService\n\t\nDescription\n\n\nERP Consulting\n\t\nBusiness process analysis, system optimization, and strategic alignment with Epicor platforms\n\n\nImplementation\n\t\nEnd-to-end Epicor deployment, including migration and customization\n\n\nData Portal\n\t\nProprietary mobile-friendly front-end for Epicor that enables real-time data integration and API generation \nwww.bemenderfer.com\nwww.bemenderfer.com\n\n\nTraining & Support\n\t\nUser training, ongoing technical support, and process documentation\nTeam & Experience\nSmall team (2–10 employees) with deep Epicor expertise; leadership includes David Bemenderfer (20+ years Epicor experience), a lead developer, report engineer, and project manager \n领英企业服务\nwww.bemenderfer.com\n.\nServes diverse industries: aerospace, automotive, food production, industrial manufacturing, and component distribution \nwww.bemenderfer.com\n.\nNotable Results\nReduced recurring engineering time from 24 hours to ~54 seconds for an automotive client \nwww.bemenderfer.com\n.\nCut shipping errors from 17% to 0.25% for a component distributor \nwww.bemenderfer.com\n.\nSaved ~440 detailer man-hours/week for a structural manufacturing client \nwww.bemenderfer.com\n.\nContact & Presence\nWebsite: bemenderfer.com\n \n领英企业服务\nLinkedIn and Facebook profiles active for updates and client engagement \nwww.facebook.com\n领英企业服务\nBBB accredited business consultant profile in Indianapolis \nwww.bbb.org\nIn short: Bemenderfer LLC is a niche, ethics-focused Epicor ERP consultancy helping manufacturers and distributors optimize operations through implementation, integration, and their custom Data Portal tool. If you'd like details on pricing, specific services, or how to engage them, I can help narrow that down.\n+30"
+    },
+    "done": true,
+    "started_at": "2026-04-27T17:48:12Z",
+    "completed_at": "2026-04-27T17:50:05Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T17:50:05Z"
+}
