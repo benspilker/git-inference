@@ -1,0 +1,3 @@
+Telegram update (to be sent to the user’s Telegram):
+Indianapolis, IN USA – 74°F / 65°F, cloudy, 15 % chance of rain, wind 13 mph (moderate).
+3
