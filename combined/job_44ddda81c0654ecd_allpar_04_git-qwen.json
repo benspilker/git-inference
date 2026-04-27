@@ -1,0 +1,26 @@
+{
+  "job_id": "job_44ddda81c0654ecd_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_44ddda81c0654ecd_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T17:38:41Z",
+    "created_at": "2026-04-27T17:37:23Z"
+  },
+  "response": {
+    "job_id": "job_44ddda81c0654ecd_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Identifying high-earning freelance opportunities on global platforms.\nSkip"
+    },
+    "done": true,
+    "started_at": "2026-04-27T17:37:23Z",
+    "completed_at": "2026-04-27T17:38:41Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T17:38:41Z"
+}
