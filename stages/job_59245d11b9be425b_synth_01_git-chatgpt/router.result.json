@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "file_write",
+  "confidence": 0.95,
+  "requires_local_execution": true,
+  "reason": "The user is requesting synthesis of a weather summary using aggregated data and multiple sources, which requires executing a local process to combine and format the data into a single response."
+}

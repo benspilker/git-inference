@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "system_command",
+  "confidence": 0.95,
+  "requires_local_execution": true,
+  "reason": "The user is requesting a synthesized weather summary based on a set of completed sources, which indicates a system-level action to combine data into one output."
+}
