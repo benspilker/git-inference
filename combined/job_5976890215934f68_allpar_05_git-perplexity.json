@@ -1,0 +1,26 @@
+{
+  "job_id": "job_5976890215934f68_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_5976890215934f68_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T13:23:09Z",
+    "created_at": "2026-04-27T13:22:26Z"
+  },
+  "response": {
+    "job_id": "job_5976890215934f68_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Current weather in Indianapolis, IN, USA: Mostly cloudy, 59°F (~15°C). Winds from the SE around 4 mph. Humidity about 71%, visibility 10 miles. Pressure near 30.00 in. Chance of a shower/thunderstorm later today."
+    },
+    "done": true,
+    "started_at": "2026-04-27T13:22:26Z",
+    "completed_at": "2026-04-27T13:23:09Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T13:23:09Z"
+}
