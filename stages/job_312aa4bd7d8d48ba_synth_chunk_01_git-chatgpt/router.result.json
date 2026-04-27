@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "file_write",
+  "confidence": 0.95,
+  "requires_local_execution": true,
+  "reason": "The user is requesting to synthesize a step-by-step guide, which implies a task requiring structured output creation."
+}

@@ -1,0 +1,21 @@
+{
+  "task_type": "reminder",
+  "original_task_type": "reminder",
+  "verified": false,
+  "executed_at": "2026-04-27T15:05:36Z",
+  "execution_status": "needs_clarification",
+  "details": {
+    "code": "MISSING_REQUIRED_FIELDS",
+    "message": "Task parameters are missing required fields.",
+    "missing_fields": [
+      "time",
+      "message"
+    ],
+    "parameters": {
+      "title": "Make Homemade Pizza",
+      "description": "Prepare dough, sauce, and bake pizza at home.",
+      "reminder_time": "2026-04-27T18:00:00",
+      "timezone": "America/New_York"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"mode": "local_action",
+"task_type": "reminder",
+"confidence": 0.9,
+"requires_local_execution": true,
+"parameters": {
+"title": "Make Homemade Pizza",
+"description": "Prepare dough, sauce, and bake pizza at home.",
+"reminder_time": "2026-04-27T18:00:00",
+"timezone": "America/New_York"
+},
+"missing_fields": [],
+"question": "",
+"success_condition": "Reminder triggered successfully"
+}

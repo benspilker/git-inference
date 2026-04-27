@@ -1,0 +1,67 @@
+{
+  "job_id": "job_312aa4bd7d8d48ba_synth_chunk_01_git-chatgpt",
+  "status": {
+    "job_id": "job_312aa4bd7d8d48ba_synth_chunk_01_git-chatgpt",
+    "state": "needs_clarification",
+    "intent_type": "job",
+    "task_type": "reminder",
+    "current_stage": "execute_local",
+    "updated_at": "2026-04-27T15:05:36Z",
+    "created_at": "2026-04-27T15:05:15Z"
+  },
+  "response": {
+    "job_id": "job_312aa4bd7d8d48ba_synth_chunk_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "I still need these fields to continue: time, message."
+    },
+    "done": false,
+    "started_at": "2026-04-27T15:05:15Z",
+    "needs_clarification": true,
+    "execution": {
+      "task_type": "reminder",
+      "original_task_type": "reminder",
+      "verified": false,
+      "executed_at": "2026-04-27T15:05:36Z",
+      "execution_status": "needs_clarification",
+      "details": {
+        "code": "MISSING_REQUIRED_FIELDS",
+        "message": "Task parameters are missing required fields.",
+        "missing_fields": [
+          "time",
+          "message"
+        ],
+        "parameters": {
+          "title": "Make Homemade Pizza",
+          "description": "Prepare dough, sauce, and bake pizza at home.",
+          "reminder_time": "2026-04-27T18:00:00",
+          "timezone": "America/New_York"
+        }
+      }
+    }
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": {
+    "task_type": "reminder",
+    "original_task_type": "reminder",
+    "verified": false,
+    "executed_at": "2026-04-27T15:05:36Z",
+    "execution_status": "needs_clarification",
+    "details": {
+      "code": "MISSING_REQUIRED_FIELDS",
+      "message": "Task parameters are missing required fields.",
+      "missing_fields": [
+        "time",
+        "message"
+      ],
+      "parameters": {
+        "title": "Make Homemade Pizza",
+        "description": "Prepare dough, sauce, and bake pizza at home.",
+        "reminder_time": "2026-04-27T18:00:00",
+        "timezone": "America/New_York"
+      }
+    }
+  },
+  "generated_at": "2026-04-27T15:05:37Z"
+}
