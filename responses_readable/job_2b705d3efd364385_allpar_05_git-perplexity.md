@@ -1,0 +1,7 @@
+Live web fallback results for "What is the current weather in Indianapolis, Indiana? Provide temperature in F and C, wind, and rain risk for today.":
+1. Today's Weather in Indianapolis - Hourly Forecast and Conditions (Source: https://www.easeweather.com/north-america/united-states/indiana/marion-county/indianapolis/today)
+2. Indianapolis, IN Hourly Weather | AccuWeather (Source: https://www.accuweather.com/en/us/indianapolis/46204/hourly-weather-forecast/348323)
+3. Indianapolis, Indiana 46234 Weather (Source: https://weather.com/weather/today/l/Indianapolis+Indiana+46234?canonicalCityId=f5857de26976b7888a3c32050a1e9ab7)
+4. Indianapolis Weather Forecast (Source: https://www.weather-forecast.com/locations/Indianapolis/forecasts/latest)
+5. Indianapolis, IN Current Weather - The Weather Network (Source: https://www.theweathernetwork.com/en/city/us/indiana/indianapolis/current)
+Retrieved via DuckDuckGo HTML on 2026-04-27 14:44 UTC.
