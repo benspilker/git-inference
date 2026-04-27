@@ -1,0 +1,26 @@
+{
+  "job_id": "job_27e5fafe594e4c5d_synth_chunk_01_git-chatgpt",
+  "status": {
+    "job_id": "job_27e5fafe594e4c5d_synth_chunk_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T15:52:30Z",
+    "created_at": "2026-04-27T15:52:18Z"
+  },
+  "response": {
+    "job_id": "job_27e5fafe594e4c5d_synth_chunk_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Here's a concise step-by-step guide on how to make pizza at home:\n\nDough (makes 2–3 pizzas):\n\nIngredients: 500g flour (bread or all-purpose), 300–350ml warm water, 2 tsp instant yeast, 2 tsp salt, 2 tbsp olive oil.\n\nMethod:\n\nMix dry ingredients (flour, yeast, salt).\n\nAdd water and olive oil, stir until shaggy dough forms.\n\nKnead for 8-10 minutes until smooth and elastic.\n\nCover and let rise 1-2 hours at room temperature, or refrigerate overnight for better flavor.\n\nSauce:\n\nIngredients: 1 can (400g) crushed tomatoes, 1–2 minced garlic cloves, 1 tsp dried oregano, pinch of sugar (optional), salt, pepper.\n\nMethod: Mix all ingredients cold; no cooking required.\n\nAssembling:\n\nPreheat oven to its highest setting (475–550°F / 245–290°C). Use a pizza stone or baking sheet.\n\nPunch down dough, divide into balls, and let rest 15-20 minutes.\n\nStretch dough into thin rounds (avoid rolling pin for a fluffier crust).\n\nSpread a thin layer of sauce, add desired toppings (cheese, veggies, meats).\n\nBaking:\n\nBake for 7–10 minutes until crust is golden and toppings are bubbly.\n\nOptional: for a crispier crust, use bread flour and let the dough ferment in the fridge for 24–48 hours.\n\nEnjoy your homemade pizza!"
+    },
+    "done": true,
+    "started_at": "2026-04-27T15:52:18Z",
+    "completed_at": "2026-04-27T15:52:30Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T15:52:30Z"
+}
