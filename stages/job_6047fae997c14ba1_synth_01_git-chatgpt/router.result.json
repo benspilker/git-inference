@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "job",
+  "task_type": "weather_synthesis",
+  "confidence": 0.9,
+  "requires_local_execution": true,
+  "reason": "The user is requesting a synthesized weather summary based on several input sources, which involves aggregating data and calculating final values."
+}
