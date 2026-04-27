@@ -1555,9 +1555,30 @@ jobs:
 
                 intent_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("intent_type",""))' "$router_json")"
                 task_type="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], "r", encoding="utf-8")).get("task_type",""))' "$router_json")"
-                if [[ "$task_type" == "system_command" ]]; then
-                  local hinted_task
+                local hinted_task=""
+                if [[ -n "${context_file:-}" && -f "$context_file" ]]; then
                   hinted_task="$(python -c 'import json,sys; d=json.load(open(sys.argv[1], "r", encoding="utf-8")); print((d.get("task_type") or ""))' "$context_file")"
+                fi
+                if [[ "$hinted_task" == "synthesized_summary" ]]; then
+                  intent_type="question"
+                  task_type="synthesized_summary"
+                  python - "$router_json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path(sys.argv[1])
+          data = json.loads(path.read_text(encoding="utf-8"))
+          data["intent_type"] = "question"
+          data["task_type"] = "synthesized_summary"
+          data["requires_local_execution"] = False
+          reason = str(data.get("reason") or "").strip()
+          suffix = "Deterministic synthesized_summary override applied from routing metadata."
+          data["reason"] = f"{reason} {suffix}".strip() if reason else suffix
+          path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          PY
+                fi
+                if [[ "$task_type" == "system_command" ]]; then
                   if [[ "$hinted_task" == "scheduled_weather_report" ]]; then
                     intent_type="job"
                     task_type="scheduled_weather_report"

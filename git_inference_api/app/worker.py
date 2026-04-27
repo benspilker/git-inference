@@ -9,6 +9,8 @@ import shlex
 import subprocess
 import threading
 import time
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -175,6 +177,10 @@ class JobWorker:
 
             if self._is_allsequential_model(request_model):
                 self._process_job_allsequential(job, intent_type=intent_type, task_type=task_type)
+                return
+
+            if self._is_synthesis_model(request_model):
+                self._process_job_synthesis(job, intent_type=intent_type, task_type=task_type)
                 return
 
             if not settings.enable_stage_orchestration:
@@ -399,6 +405,13 @@ class JobWorker:
             return True
         return normalized.split("/")[-1] == "git-parallel"
 
+    @staticmethod
+    def _is_synthesis_model(model_name: str) -> bool:
+        normalized = str(model_name or "").strip().lower()
+        if not normalized:
+            return False
+        return normalized.split("/")[-1] in {"git-synth", "git-synthesis"}
+
     def _resolve_allsequential_targets(self) -> list[str]:
         targets: list[str] = []
         for model_name in settings.all_sequential_models():
@@ -556,7 +569,7 @@ class JobWorker:
         if not tail:
             return settings.branch
         normalized = tail.lower()
-        if normalized in {"git-allsequential", "git-parallel"}:
+        if normalized in {"git-allsequential", "git-parallel", "git-synth", "git-synthesis"}:
             return settings.branch
         return tail
 
@@ -678,6 +691,7 @@ class JobWorker:
         request_payload: dict[str, Any],
         *,
         target_model: str | None = None,
+        timeout_seconds: int | None = None,
     ) -> dict[str, Any]:
         model_name = str(target_model or request_payload.get("model") or "").strip()
         repo_path, repo_branch, repo_lock = self._resolve_repo_context_for_model(model_name)
@@ -689,12 +703,830 @@ class JobWorker:
 
         result = wait_for_result_for(
             job_id,
-            timeout_seconds=settings.job_timeout_seconds,
+            timeout_seconds=int(timeout_seconds or settings.job_timeout_seconds),
             repo_path=repo_path,
             branch=repo_branch,
             repo_lock=repo_lock,
         )
         return self._apply_runtime_handoff_if_configured(job_id=job_id, result=result)
+
+    @staticmethod
+    def _extract_job_id_from_text(text: str) -> str:
+        match = re.search(r"\b(job_[A-Za-z0-9_]+)\b", str(text or ""))
+        if not match:
+            return ""
+        return str(match.group(1) or "").strip()
+
+    @staticmethod
+    def _extract_options_dict(request_payload: dict[str, Any]) -> dict[str, Any]:
+        options = request_payload.get("options")
+        return options if isinstance(options, dict) else {}
+
+    @staticmethod
+    def _extract_job_ids_from_value(value: Any) -> list[str]:
+        values: list[str] = []
+        if isinstance(value, list):
+            for item in value:
+                text = str(item or "").strip()
+                if text and text not in values:
+                    values.append(text)
+            return values
+        text = str(value or "").strip()
+        if not text:
+            return values
+        for token in re.split(r"[,\s]+", text):
+            candidate = str(token or "").strip()
+            if candidate and candidate not in values:
+                values.append(candidate)
+        return values
+
+    def _extract_synthesis_source_job_ids(self, request_payload: dict[str, Any], base_prompt: str) -> list[str]:
+        options = self._extract_options_dict(request_payload)
+        ordered_ids: list[str] = []
+
+        for key in ("source_job_ids", "synth_source_job_ids", "combined_job_ids"):
+            for value in self._extract_job_ids_from_value(options.get(key)):
+                if value not in ordered_ids:
+                    ordered_ids.append(value)
+
+        for key in ("source_job_id", "synth_source_job_id", "combined_job_id"):
+            value = str(options.get(key) or "").strip()
+            if value and value not in ordered_ids:
+                ordered_ids.append(value)
+
+        # Allow inline mentions like: "use job_abc and job_def"
+        for match in re.finditer(r"\b(job_[A-Za-z0-9_]+)\b", str(base_prompt or "")):
+            candidate = str(match.group(1) or "").strip()
+            if candidate and candidate not in ordered_ids:
+                ordered_ids.append(candidate)
+
+        return ordered_ids
+
+    @staticmethod
+    def _is_fanout_combined_payload(payload: dict[str, Any]) -> bool:
+        execution = payload.get("execution") if isinstance(payload.get("execution"), dict) else {}
+        mode = str(execution.get("mode") or "").strip().lower()
+        if mode not in {"allparallel", "allparallel_virtual_turns", "allsequential", "allsequential_virtual_turns"}:
+            return False
+        source_messages = execution.get("source_messages")
+        return isinstance(source_messages, list) and len(source_messages) > 0
+
+    def _resolve_synthesis_source_combined_set(self, explicit_job_ids: list[str] | None = None) -> list[tuple[dict[str, Any], str]]:
+        combined_dir = settings.repo_path / settings.combined_dir
+        combined_dir.mkdir(parents=True, exist_ok=True)
+
+        with REPO_LOCK:
+            sync_repo_to_remote_head()
+
+        resolved: list[tuple[dict[str, Any], str]] = []
+        explicit = [str(job_id or "").strip() for job_id in (explicit_job_ids or []) if str(job_id or "").strip()]
+
+        if explicit:
+            for explicit_job_id in explicit:
+                target = combined_dir / f"{explicit_job_id}.json"
+                if not target.exists():
+                    raise RuntimeError(f"Combined artifact not found for source job: {explicit_job_id}")
+                payload = json.loads(target.read_text(encoding="utf-8"))
+                if not isinstance(payload, dict) or not self._is_fanout_combined_payload(payload):
+                    raise RuntimeError(f"Combined artifact for {explicit_job_id} is not a valid fanout payload.")
+                resolved.append((payload, explicit_job_id))
+            return resolved
+
+        files = sorted(combined_dir.glob("job_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        for path in files:
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            if not isinstance(payload, dict):
+                continue
+            if not self._is_fanout_combined_payload(payload):
+                continue
+            source_job_id = str(payload.get("job_id") or path.stem).strip()
+            if source_job_id:
+                resolved.append((payload, source_job_id))
+                break
+
+        if resolved:
+            return resolved
+
+        raise RuntimeError("No valid fanout combined artifact was found on main branch.")
+
+    @staticmethod
+    def _coerce_int(value: Any, default: int) -> int:
+        try:
+            return int(value)
+        except Exception:
+            return default
+
+    def _merge_source_messages(self, source_messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        grouped: dict[str, dict[str, Any]] = {}
+        for item in source_messages:
+            if not isinstance(item, dict):
+                continue
+            source = str(item.get("source") or "unknown").strip() or "unknown"
+            entry = grouped.setdefault(
+                source,
+                {
+                    "source": source,
+                    "status": str(item.get("status") or "unknown").strip() or "unknown",
+                    "index": self._coerce_int(item.get("index"), 999),
+                    "parts": [],
+                },
+            )
+            part_index = self._coerce_int(item.get("part_index"), 1)
+            part_content = str(item.get("content") or "").strip()
+            entry["parts"].append((part_index, part_content))
+            status = str(item.get("status") or "").strip()
+            if status:
+                entry["status"] = status
+            entry["index"] = min(entry.get("index", 999), self._coerce_int(item.get("index"), 999))
+
+        merged: list[dict[str, Any]] = []
+        for _, data in sorted(grouped.items(), key=lambda kv: (kv[1].get("index", 999), kv[0])):
+            parts = sorted(data.get("parts") or [], key=lambda p: p[0])
+            content = "\n".join(part for _, part in parts if str(part).strip()).strip()
+            merged.append(
+                {
+                    "source": data.get("source"),
+                    "status": data.get("status"),
+                    "index": data.get("index"),
+                    "content": content,
+                }
+            )
+        return merged
+
+    @staticmethod
+    def _source_weight(source_name: str, *, prefer_best_sources: bool) -> float:
+        if not prefer_best_sources:
+            return 1.0
+        weights = {
+            "git-qwen": 1.35,
+            "git-grok": 1.35,
+            "git-chatgpt": 1.00,
+            "git-perplexity": 0.95,
+            "git-inceptionlabs": 1.10,
+        }
+        source = str(source_name or "").strip().lower()
+        return float(weights.get(source, 1.0))
+
+    def _collect_synthesis_source_entries(self, payloads_with_ids: list[tuple[dict[str, Any], str]]) -> list[dict[str, Any]]:
+        entries: list[dict[str, Any]] = []
+        for payload, source_job_id in payloads_with_ids:
+            execution = payload.get("execution") if isinstance(payload.get("execution"), dict) else {}
+            source_messages = execution.get("source_messages") if isinstance(execution.get("source_messages"), list) else []
+            merged = self._merge_source_messages(source_messages)
+            for item in merged:
+                row = dict(item)
+                row["source_job_id"] = source_job_id
+                entries.append(row)
+        return entries
+
+    @staticmethod
+    def _pick_first(patterns: list[str], text: str) -> float | None:
+        for pattern in patterns:
+            match = re.search(pattern, text, flags=re.IGNORECASE)
+            if not match:
+                continue
+            try:
+                return float(match.group(1))
+            except Exception:
+                continue
+        return None
+
+    @staticmethod
+    def _pick_first_range_avg(patterns: list[str], text: str) -> float | None:
+        for pattern in patterns:
+            match = re.search(pattern, text, flags=re.IGNORECASE)
+            if not match:
+                continue
+            try:
+                left = float(match.group(1))
+                right = float(match.group(2))
+                return (left + right) / 2.0
+            except Exception:
+                continue
+        return None
+
+    @staticmethod
+    def _extract_current_temperature_f(text: str) -> float | None:
+        value = JobWorker._pick_first_range_avg(
+            [
+                r"current[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(-?\d+(?:\.\d+)?)\s*°?\s*f\b",
+                r"temperature[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(-?\d+(?:\.\d+)?)\s*°?\s*f\b",
+            ],
+            text,
+        )
+        if value is None:
+            value = JobWorker._pick_first_range_avg(
+                [
+                    r"\b(-?\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(-?\d+(?:\.\d+)?)\s*°?\s*f\b",
+                ],
+                text,
+            )
+        if value is None:
+            value = JobWorker._pick_first(
+                [
+                    r"current[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*°?\s*f\b",
+                    r"temperature[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*°?\s*f\b",
+                    r"\b(-?\d+(?:\.\d+)?)\s*°?\s*f\b",
+                ],
+                text,
+            )
+        if value is not None and -40.0 <= value <= 130.0:
+            return value
+
+        c_value = JobWorker._pick_first_range_avg(
+            [
+                r"current[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(-?\d+(?:\.\d+)?)\s*°?\s*c\b",
+                r"temperature[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(-?\d+(?:\.\d+)?)\s*°?\s*c\b",
+            ],
+            text,
+        )
+        if c_value is None:
+            c_value = JobWorker._pick_first(
+                [
+                    r"current[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*°?\s*c\b",
+                    r"temperature[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*°?\s*c\b",
+                    r"\b(-?\d+(?:\.\d+)?)\s*°?\s*c\b",
+                ],
+                text,
+            )
+        if c_value is not None and -40.0 <= c_value <= 55.0:
+            return (c_value * 9.0 / 5.0) + 32.0
+        return None
+
+    @staticmethod
+    def _extract_current_wind_mph(text: str) -> float | None:
+        value = JobWorker._pick_first_range_avg(
+            [
+                r"wind[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(-?\d+(?:\.\d+)?)\s*mph\b",
+                r"\b(-?\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(-?\d+(?:\.\d+)?)\s*mph\b",
+            ],
+            text,
+        )
+        if value is None:
+            value = JobWorker._pick_first(
+                [
+                    r"wind[^.\n]{0,90}?(-?\d+(?:\.\d+)?)\s*mph\b",
+                    r"\b(-?\d+(?:\.\d+)?)\s*mph\b",
+                ],
+                text,
+            )
+        if value is None:
+            return None
+        if value < 0.0 or value > 200.0:
+            return None
+        return value
+
+    @staticmethod
+    def _extract_max_precip_chance_pct(text: str) -> float | None:
+        values: list[float] = []
+        for match in re.finditer(r"(\d{1,3}(?:\.\d+)?)\s*%", text):
+            start = max(0, match.start() - 20)
+            end = min(len(text), match.end() + 20)
+            window = text[start:end].lower()
+            if not any(token in window for token in ("rain", "storm", "precip", "chance", "shower")):
+                continue
+            try:
+                value = float(match.group(1))
+            except Exception:
+                continue
+            if 0.0 <= value <= 100.0:
+                values.append(value)
+        if not values:
+            return None
+        return max(values)
+
+    @staticmethod
+    def _classify_condition(text: str) -> str:
+        lower = str(text or "").lower()
+        if any(token in lower for token in ("thunderstorm", "storms", "storm")):
+            return "stormy"
+        if any(token in lower for token in ("showers", "rain", "drizzle")):
+            return "rainy"
+        if any(token in lower for token in ("overcast", "mostly cloudy", "cloudy")):
+            return "cloudy"
+        if any(token in lower for token in ("partly cloudy", "partly sunny", "mainly clear")):
+            return "partly cloudy"
+        if any(token in lower for token in ("sunny", "clear sky", "clear")):
+            return "sunny"
+        return "unknown"
+
+    @staticmethod
+    def _classify_rain_risk(text: str, precip_pct: float | None) -> str:
+        lower = str(text or "").lower()
+        if precip_pct is not None:
+            if precip_pct > 60.0:
+                return "high"
+            if precip_pct > 30.0:
+                return "moderate"
+            return "low"
+        if any(token in lower for token in ("severe", "thunderstorm", "heavy rain", "elevated", "high risk")):
+            return "high"
+        if any(token in lower for token in ("showers", "rain possible", "moderate")):
+            return "moderate"
+        if any(token in lower for token in ("low rain", "low risk", "low chance", "no rain", "dry")):
+            return "low"
+        return "unknown"
+
+    def _build_synthesis_aggregate(
+        self,
+        source_entries: list[dict[str, Any]],
+        *,
+        prefer_best_sources: bool,
+    ) -> dict[str, Any]:
+        completed_entries = [entry for entry in source_entries if str(entry.get("status") or "").lower() == "completed"]
+        failed_entries = [entry for entry in source_entries if str(entry.get("status") or "").lower() != "completed"]
+
+        temp_values: list[tuple[float, float]] = []
+        wind_values: list[tuple[float, float]] = []
+        condition_scores: dict[str, float] = {}
+        rain_scores: dict[str, float] = {}
+        per_source: list[dict[str, Any]] = []
+        max_precip_pct: float | None = None
+
+        for entry in completed_entries:
+            source = str(entry.get("source") or "unknown")
+            content = str(entry.get("content") or "")
+            weight = self._source_weight(source, prefer_best_sources=prefer_best_sources)
+
+            temp_f = self._extract_current_temperature_f(content)
+            wind_mph = self._extract_current_wind_mph(content)
+            precip_pct = self._extract_max_precip_chance_pct(content)
+            condition = self._classify_condition(content)
+            rain_risk = self._classify_rain_risk(content, precip_pct)
+
+            if temp_f is not None:
+                temp_values.append((temp_f, weight))
+            if wind_mph is not None:
+                wind_values.append((wind_mph, weight))
+            condition_scores[condition] = condition_scores.get(condition, 0.0) + weight
+            rain_scores[rain_risk] = rain_scores.get(rain_risk, 0.0) + weight
+            if precip_pct is not None:
+                max_precip_pct = precip_pct if max_precip_pct is None else max(max_precip_pct, precip_pct)
+
+            per_source.append(
+                {
+                    "source": source,
+                    "source_job_id": str(entry.get("source_job_id") or ""),
+                    "weight": round(weight, 3),
+                    "temperature_f": round(temp_f, 1) if temp_f is not None else None,
+                    "temperature_c": round((temp_f - 32.0) * 5.0 / 9.0, 1) if temp_f is not None else None,
+                    "wind_mph": round(wind_mph, 1) if wind_mph is not None else None,
+                    "precip_chance_pct": round(precip_pct, 1) if precip_pct is not None else None,
+                    "condition": condition,
+                    "rain_risk": rain_risk,
+                }
+            )
+
+        def weighted_average(values: list[tuple[float, float]]) -> float | None:
+            if not values:
+                return None
+            total_weight = sum(weight for _, weight in values)
+            if total_weight <= 0:
+                return None
+            return sum(value * weight for value, weight in values) / total_weight
+
+        avg_temp_f = weighted_average(temp_values)
+        avg_wind_mph = weighted_average(wind_values)
+        top_condition = max(condition_scores.items(), key=lambda item: item[1])[0] if condition_scores else "unknown"
+        top_rain_risk = max(rain_scores.items(), key=lambda item: item[1])[0] if rain_scores else "unknown"
+
+        return {
+            "completed_sources": len(completed_entries),
+            "failed_sources": [
+                {
+                    "source": str(item.get("source") or "unknown"),
+                    "source_job_id": str(item.get("source_job_id") or ""),
+                }
+                for item in failed_entries
+            ],
+            "temperature": {
+                "weighted_avg_f": round(avg_temp_f, 1) if avg_temp_f is not None else None,
+                "weighted_avg_c": round((avg_temp_f - 32.0) * 5.0 / 9.0, 1) if avg_temp_f is not None else None,
+                "min_f": round(min((value for value, _ in temp_values)), 1) if temp_values else None,
+                "max_f": round(max((value for value, _ in temp_values)), 1) if temp_values else None,
+            },
+            "wind": {
+                "weighted_avg_mph": round(avg_wind_mph, 1) if avg_wind_mph is not None else None,
+                "min_mph": round(min((value for value, _ in wind_values)), 1) if wind_values else None,
+                "max_mph": round(max((value for value, _ in wind_values)), 1) if wind_values else None,
+            },
+            "rain": {
+                "consensus_risk": top_rain_risk,
+                "max_precip_chance_pct": round(max_precip_pct, 1) if max_precip_pct is not None else None,
+            },
+            "conditions": {
+                "consensus": top_condition,
+                "weighted_scores": {k: round(v, 3) for k, v in condition_scores.items()},
+            },
+            "prefer_best_sources": bool(prefer_best_sources),
+            "per_source": per_source,
+        }
+
+    def _build_synthesis_prompt(
+        self,
+        *,
+        base_prompt: str,
+        source_job_ids: list[str],
+        synthesis_mode: str,
+        aggregate: dict[str, Any],
+        source_entries: list[dict[str, Any]],
+        chunk_label: str = "",
+    ) -> tuple[str, str]:
+        system_prompt = (
+            "You synthesize one final response from multi-source model outputs. "
+            "Use only the provided aggregate metrics and source excerpts. "
+            "Do not invent external facts. "
+            "If data conflicts, state the range and uncertainty briefly. "
+            "This is strictly a question-answer synthesis task. "
+            "Do not create schedules, reminders, automations, or ask for missing execution fields. "
+            "Write one concise final answer text."
+        )
+
+        excerpts = []
+        for entry in source_entries:
+            excerpts.append(
+                {
+                    "source": entry.get("source"),
+                    "source_job_id": entry.get("source_job_id"),
+                    "status": entry.get("status"),
+                    "excerpt": str(entry.get("content") or "")[:1200],
+                }
+            )
+
+        instruction = str(base_prompt or "").strip() or "Summarize the fanout data into one concise response."
+        user_payload = {
+            "instruction": instruction,
+            "synthesis_mode": synthesis_mode,
+            "source_job_ids": source_job_ids,
+            "aggregate": aggregate,
+            "source_excerpts": excerpts,
+        }
+        if chunk_label:
+            user_payload["chunk"] = chunk_label
+        user_prompt = (
+            "Tell me one final response using the instruction and structured synthesis input below.\n"
+            "This is a question-only summarization request. Do not schedule tasks or request additional fields.\n"
+            "Prefer aggregate numbers for averages where available. Mention uncertainty when sources disagree.\n\n"
+            + json.dumps(user_payload, indent=2, ensure_ascii=False)
+        )
+        return system_prompt, user_prompt
+
+    @staticmethod
+    def _count_words(text: str) -> int:
+        return len(re.findall(r"\S+", str(text or "")))
+
+    def _chunk_synthesis_entries(
+        self,
+        source_entries: list[dict[str, Any]],
+        *,
+        max_words_per_chunk: int = 2200,
+    ) -> list[list[dict[str, Any]]]:
+        chunks: list[list[dict[str, Any]]] = []
+        current: list[dict[str, Any]] = []
+        current_words = 0
+        for entry in source_entries:
+            entry_words = self._count_words(entry.get("content") or "")
+            if current and (current_words + entry_words) > max_words_per_chunk:
+                chunks.append(current)
+                current = []
+                current_words = 0
+            current.append(entry)
+            current_words += entry_words
+        if current:
+            chunks.append(current)
+        return chunks or [[]]
+
+    def _run_synthesis_child_chatgpt(
+        self,
+        *,
+        job_id: str,
+        parent_job_id: str,
+        system_prompt: str,
+        user_prompt: str,
+        combined_in_message: bool,
+        timeout_seconds: int,
+    ) -> str:
+        child_payload = self._coerce_routing_metadata(
+            {
+                "request_type": "chat",
+                "model": "git-chatgpt",
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                "stream": False,
+                "user_prompt": user_prompt,
+                "combined_in_message": bool(combined_in_message),
+            },
+            default_intent_type="question",
+            default_task_type="synthesized_summary",
+            requires_local_execution=False,
+            default_route_state="received",
+        )
+        raw_result = self._run_one_shot_request(
+            job_id,
+            child_payload,
+            target_model="git-chatgpt",
+            timeout_seconds=timeout_seconds,
+        )
+        if isinstance(raw_result, dict):
+            child_state = str(raw_result.get("state") or raw_result.get("status") or "").strip().lower()
+            if child_state in {"needs_clarification", "failed", "expired"} or raw_result.get("needs_clarification") is True:
+                raise RuntimeError(f"git-chatgpt synthesis child returned non-answer state: {child_state or 'unknown'}")
+            if child_state and raw_result.get("done") is False:
+                raise RuntimeError(f"git-chatgpt synthesis child is still in-progress state: {child_state}")
+        normalized_result = self._normalize_response_payload(
+            raw_result,
+            router_result={"intent_type": "question", "task_type": "synthesized_summary"},
+        )
+        content = self._extract_assistant_text(normalized_result) or self._extract_assistant_text(raw_result)
+        if not content:
+            raise RuntimeError("git-chatgpt synthesis child returned empty content")
+        content_issue = self._detect_unusable_synthesis_content(content)
+        if content_issue:
+            raise RuntimeError(f"git-chatgpt synthesis child returned unusable content: {content_issue}")
+        return content
+
+    @staticmethod
+    def _detect_unusable_synthesis_content(content: str) -> str | None:
+        text = str(content or "").strip()
+        if not text:
+            return "empty"
+        lower = text.lower()
+
+        if "i still need these fields to continue" in lower:
+            return "clarification_fields"
+        if lower.startswith("live_web_unavailable"):
+            return "live_web_unavailable"
+
+        markers = (
+            "relevant memory:",
+            "\"source\": \"git-",
+            "\"source_excerpts\"",
+            "\"chunk_summaries\"",
+            "\"instruction\":",
+        )
+        for marker in markers:
+            if marker in lower:
+                return f"debug_or_payload_leak:{marker}"
+
+        if lower.count("{") >= 6 and "\"source\"" in lower:
+            return "structured_payload_blob"
+        return None
+
+    @staticmethod
+    def _build_local_synthesis_fallback(
+        *,
+        instruction: str,
+        aggregate: dict[str, Any],
+        child_error: str,
+        synthesis_mode: str,
+        source_entries: list[dict[str, Any]],
+    ) -> str:
+        temp = aggregate.get("temperature") if isinstance(aggregate.get("temperature"), dict) else {}
+        wind = aggregate.get("wind") if isinstance(aggregate.get("wind"), dict) else {}
+        rain = aggregate.get("rain") if isinstance(aggregate.get("rain"), dict) else {}
+        cond = aggregate.get("conditions") if isinstance(aggregate.get("conditions"), dict) else {}
+
+        lines: list[str] = []
+        task = str(instruction or "").strip()
+        if task:
+            lines.append(f"Synthesis summary: {task}")
+
+        if synthesis_mode == "weather":
+            avg_f = temp.get("weighted_avg_f")
+            avg_c = temp.get("weighted_avg_c")
+            min_f = temp.get("min_f")
+            max_f = temp.get("max_f")
+            if avg_f is not None and avg_c is not None:
+                temp_line = f"Weighted average temperature: {avg_f}F ({avg_c}C)"
+                if min_f is not None and max_f is not None:
+                    temp_line += f", source range {min_f}F to {max_f}F."
+                else:
+                    temp_line += "."
+                lines.append(temp_line)
+
+            wind_avg = wind.get("weighted_avg_mph")
+            if wind_avg is not None:
+                wind_line = f"Weighted average wind: {wind_avg} mph"
+                if wind.get("min_mph") is not None and wind.get("max_mph") is not None:
+                    wind_line += f", source range {wind.get('min_mph')} to {wind.get('max_mph')} mph."
+                else:
+                    wind_line += "."
+                lines.append(wind_line)
+
+            condition = str(cond.get("consensus") or "unknown")
+            rain_risk = str(rain.get("consensus_risk") or "unknown")
+            precip_max = rain.get("max_precip_chance_pct")
+            lines.append(f"Condition consensus: {condition}. Rain risk consensus: {rain_risk}.")
+            if precip_max is not None:
+                lines.append(f"Highest precipitation chance mentioned by sources: {precip_max}%.")
+        else:
+            completed = [entry for entry in source_entries if str(entry.get("status") or "").lower() == "completed"]
+            if completed:
+                lines.append("Cross-source synthesis (deterministic fallback):")
+                for entry in completed[:5]:
+                    source = str(entry.get("source") or "unknown")
+                    excerpt = re.sub(r"\s+", " ", str(entry.get("content") or "")).strip()
+                    excerpt = excerpt[:220] + ("..." if len(excerpt) > 220 else "")
+                    lines.append(f"{source}: {excerpt}")
+
+        completed_sources = aggregate.get("completed_sources")
+        failed_sources = aggregate.get("failed_sources")
+        if isinstance(failed_sources, list):
+            failed_labels = []
+            for item in failed_sources:
+                if isinstance(item, dict):
+                    failed_labels.append(str(item.get("source") or "unknown"))
+                else:
+                    failed_labels.append(str(item))
+        else:
+            failed_labels = []
+        lines.append(f"Sources completed: {completed_sources}. Sources failed: {', '.join(failed_labels) or 'none'}.")
+        lines.append(f"Note: fallback synthesis used because git-chatgpt synthesis request failed ({child_error}).")
+        return " ".join(lines).strip()
+
+    def _process_job_synthesis(
+        self,
+        job: dict[str, Any],
+        intent_type: str | None = None,
+        task_type: str | None = None,
+    ) -> None:
+        job_id = job["job_id"]
+        request_payload = job.get("request_json") if isinstance(job.get("request_json"), dict) else {}
+        requested_intent = str(intent_type or "").strip().lower()
+        requested_task = str(task_type or "").strip().lower()
+
+        if requested_intent == "job" or requested_task in {"scheduled_weather_report", "reminder"}:
+            self._update_status(job_id, "failed", intent_type="job", task_type="synthesized_summary")
+            db.mark_failed(
+                job_id,
+                {
+                    "code": "SYNTH_UNSUPPORTED_TASK",
+                    "message": "git-synth is for question-style prompts and is not enabled for job execution.",
+                },
+                status="failed",
+            )
+            return
+
+        self._update_status(job_id, "routing", intent_type="question", task_type="synthesized_summary")
+        base_prompt = str(request_payload.get("user_prompt") or request_payload.get("prompt") or "").strip()
+        source_job_id_hints = self._extract_synthesis_source_job_ids(request_payload, base_prompt)
+
+        try:
+            payloads_with_ids = self._resolve_synthesis_source_combined_set(source_job_id_hints)
+            source_job_ids = [source_job_id for _, source_job_id in payloads_with_ids]
+            source_modes: list[str] = []
+            for payload, _ in payloads_with_ids:
+                execution = payload.get("execution") if isinstance(payload.get("execution"), dict) else {}
+                mode = str(execution.get("mode") or "").strip()
+                if mode:
+                    source_modes.append(mode)
+
+            merged_sources = self._collect_synthesis_source_entries(payloads_with_ids)
+            if not merged_sources:
+                raise RuntimeError("Synthesis source data is empty after merging source messages.")
+
+            synthesis_mode = "weather" if self._is_weather_prompt(base_prompt) else "general"
+            prefer_best_sources = synthesis_mode == "weather"
+            aggregate = self._build_synthesis_aggregate(
+                merged_sources,
+                prefer_best_sources=prefer_best_sources,
+            )
+            source_chunks = self._chunk_synthesis_entries(merged_sources, max_words_per_chunk=2200)
+
+            self._update_status(job_id, "executing", intent_type="question", task_type="synthesized_summary")
+            fallback_reason = ""
+            child_job_ids: list[str] = []
+            map_reduce_used = len(source_chunks) > 1
+            synth_timeout_cap = max(60, int(settings.synthesis_child_timeout_seconds))
+            synth_timeout_seconds = max(60, min(int(settings.job_timeout_seconds), synth_timeout_cap))
+            combined_in_message = bool(request_payload.get("combined_in_message", False))
+            try:
+                if not map_reduce_used:
+                    system_prompt, user_prompt = self._build_synthesis_prompt(
+                        base_prompt=base_prompt,
+                        source_job_ids=source_job_ids,
+                        synthesis_mode=synthesis_mode,
+                        aggregate=aggregate,
+                        source_entries=source_chunks[0],
+                    )
+                    child_job_id = f"{job_id}_synth_01_git-chatgpt"
+                    child_job_ids.append(child_job_id)
+                    content = self._run_synthesis_child_chatgpt(
+                        job_id=child_job_id,
+                        parent_job_id=job_id,
+                        system_prompt=system_prompt,
+                        user_prompt=user_prompt,
+                        combined_in_message=combined_in_message,
+                        timeout_seconds=synth_timeout_seconds,
+                    )
+                else:
+                    chunk_summaries: list[dict[str, Any]] = []
+                    total_chunks = len(source_chunks)
+                    for idx, chunk in enumerate(source_chunks, start=1):
+                        system_prompt, user_prompt = self._build_synthesis_prompt(
+                            base_prompt=base_prompt,
+                            source_job_ids=source_job_ids,
+                            synthesis_mode=synthesis_mode,
+                            aggregate=aggregate,
+                            source_entries=chunk,
+                            chunk_label=f"{idx}/{total_chunks}",
+                        )
+                        child_job_id = f"{job_id}_synth_chunk_{idx:02d}_git-chatgpt"
+                        child_job_ids.append(child_job_id)
+                        chunk_text = self._run_synthesis_child_chatgpt(
+                            job_id=child_job_id,
+                            parent_job_id=job_id,
+                            system_prompt=system_prompt,
+                            user_prompt=user_prompt,
+                            combined_in_message=combined_in_message,
+                            timeout_seconds=synth_timeout_seconds,
+                        )
+                        chunk_summaries.append({"chunk_index": idx, "summary": chunk_text})
+
+                    final_system_prompt = (
+                        "You synthesize one final response from chunk summaries. "
+                        "Use only provided summaries and aggregate metrics. "
+                        "Do not add new facts. "
+                        "This is strictly a question-answer synthesis task. "
+                        "Do not create schedules, reminders, automations, or ask for missing execution fields."
+                    )
+                    final_user_payload = {
+                        "instruction": str(base_prompt or "").strip()
+                        or "Synthesize one final response from chunk summaries.",
+                        "synthesis_mode": synthesis_mode,
+                        "source_job_ids": source_job_ids,
+                        "aggregate": aggregate,
+                        "chunk_summaries": chunk_summaries,
+                    }
+                    final_user_prompt = (
+                        "Tell me one coherent final response using these chunk summaries.\n"
+                        "This is a question-only summarization request. Do not schedule tasks or request additional fields.\n\n"
+                        + json.dumps(final_user_payload, indent=2, ensure_ascii=False)
+                    )
+                    final_child_job_id = f"{job_id}_synth_final_git-chatgpt"
+                    child_job_ids.append(final_child_job_id)
+                    content = self._run_synthesis_child_chatgpt(
+                        job_id=final_child_job_id,
+                        parent_job_id=job_id,
+                        system_prompt=final_system_prompt,
+                        user_prompt=final_user_prompt,
+                        combined_in_message=combined_in_message,
+                        timeout_seconds=synth_timeout_seconds,
+                    )
+            except Exception as child_exc:
+                fallback_reason = str(child_exc)
+                content = self._build_local_synthesis_fallback(
+                    instruction=base_prompt,
+                    aggregate=aggregate,
+                    child_error=fallback_reason,
+                    synthesis_mode=synthesis_mode,
+                    source_entries=merged_sources,
+                )
+
+            execution_meta = {
+                "mode": "synthesis",
+                "source_job_id": source_job_ids[0] if source_job_ids else None,
+                "source_job_ids": source_job_ids,
+                "child_job_ids": child_job_ids,
+                "target_model": "git-chatgpt",
+                "aggregate": aggregate,
+                "source_count": len(merged_sources),
+                "requested_source_job_ids": source_job_id_hints or None,
+                "source_mode": source_modes[0] if source_modes else None,
+                "source_modes": source_modes,
+                "synthesis_mode": synthesis_mode,
+                "map_reduce_used": map_reduce_used,
+                "chunk_count": len(source_chunks),
+                "fallback_used": bool(fallback_reason),
+                "fallback_reason": fallback_reason or None,
+            }
+            final_payload = {
+                "message": {"role": "assistant", "content": content},
+                "intent_type": "question",
+                "task_type": "synthesized_summary",
+                "current_stage": "completed",
+                "execution": execution_meta,
+                "stages": {"synthesis": "complete"},
+                "done": True,
+            }
+            db.mark_completed(job_id, final_payload, execution_json=execution_meta, stages_json={"synthesis": "complete"})
+            logger.info(
+                "synthesis workflow completed",
+                extra={"job_id": job_id, "status": "completed", "source_job_ids": source_job_ids},
+            )
+        except Exception as exc:
+            self._update_status(job_id, "failed", intent_type="question", task_type="synthesized_summary")
+            db.mark_failed(
+                job_id,
+                {"code": "SYNTH_EXECUTION_FAILED", "message": str(exc)},
+                status="failed",
+            )
+            logger.warning("synthesis workflow failed", extra={"job_id": job_id, "error": str(exc)})
 
     def _execute_fanout_child(
         self,
@@ -725,6 +1557,11 @@ class JobWorker:
                 content = self._extract_assistant_text(raw_result)
             if not content:
                 content = "(completed without response text)"
+            content = self._maybe_ground_inception_weather_response(
+                target_model=target_model,
+                request_payload=child_payload,
+                content=content,
+            )
             return {
                 "index": index,
                 "model": target_model,
@@ -744,6 +1581,198 @@ class JobWorker:
                 "status": "failed",
                 "error": str(exc),
             }
+
+    @staticmethod
+    def _is_inceptionlabs_model(model_name: str) -> bool:
+        tail = str(model_name or "").strip().split("/")[-1].lower()
+        return tail in {"git-inceptionlabs", "inceptionlabs"}
+
+    @staticmethod
+    def _extract_payload_prompt(payload: dict[str, Any]) -> str:
+        prompt = str(payload.get("user_prompt") or payload.get("prompt") or "").strip()
+        return prompt
+
+    @staticmethod
+    def _is_weather_prompt(prompt: str) -> bool:
+        lower = str(prompt or "").lower()
+        if not lower:
+            return False
+        weather_markers = (
+            "weather",
+            "forecast",
+            "temperature",
+            "feels like",
+            "humidity",
+            "wind",
+            "rain",
+            "snow",
+            "sunny",
+            "cloudy",
+        )
+        return any(marker in lower for marker in weather_markers)
+
+    @staticmethod
+    def _extract_weather_location(prompt: str) -> str:
+        text = str(prompt or "").strip()
+        if not text:
+            return ""
+        patterns = [
+            r"weather(?:\s+like)?(?:\s+today|\s+now)?\s+in\s+([A-Za-z0-9 .,'-]+)",
+            r"\bin\s+([A-Za-z0-9 .,'-]+)(?:\?|$)",
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, text, flags=re.IGNORECASE)
+            if not match:
+                continue
+            candidate = match.group(1).strip(" .,\n\t?")
+            if candidate:
+                return candidate
+        return ""
+
+    @staticmethod
+    def _c_to_f(value: float | None) -> float | None:
+        if value is None:
+            return None
+        return (value * 9 / 5) + 32
+
+    @staticmethod
+    def _iter_geocode_candidates(location: str) -> list[str]:
+        raw = str(location or "").strip(" \t\r\n,.;")
+        if not raw:
+            return []
+        candidates: list[str] = [raw]
+
+        no_country = re.sub(r"(?i),?\s*(usa|u\.s\.a\.|us|united states)\.?\s*$", "", raw).strip(" ,.;")
+        if no_country and no_country not in candidates:
+            candidates.append(no_country)
+
+        if "," in no_country:
+            first_segment = no_country.split(",", 1)[0].strip(" ,.;")
+            if first_segment and first_segment not in candidates:
+                candidates.append(first_segment)
+
+        if "," in raw:
+            first_segment_raw = raw.split(",", 1)[0].strip(" ,.;")
+            if first_segment_raw and first_segment_raw not in candidates:
+                candidates.append(first_segment_raw)
+
+        return candidates
+
+    def _fetch_openmeteo_weather_summary(self, location: str) -> str:
+        best = None
+        for candidate in self._iter_geocode_candidates(location):
+            geo_url = (
+                "https://geocoding-api.open-meteo.com/v1/search?"
+                + urllib.parse.urlencode({"name": candidate, "count": 1, "language": "en", "format": "json"})
+            )
+            with urllib.request.urlopen(geo_url, timeout=20) as resp:
+                geo_payload = json.loads(resp.read().decode("utf-8"))
+            results = geo_payload.get("results") or []
+            if results:
+                best = results[0]
+                break
+
+        if not isinstance(best, dict):
+            raise RuntimeError(f"Could not geocode location: {location}")
+
+        lat = best["latitude"]
+        lon = best["longitude"]
+        display_name_parts = [best.get("name"), best.get("admin1"), best.get("country")]
+        display_name = ", ".join([part for part in display_name_parts if isinstance(part, str) and part.strip()])
+
+        weather_url = (
+            "https://api.open-meteo.com/v1/forecast?"
+            + urllib.parse.urlencode(
+                {
+                    "latitude": lat,
+                    "longitude": lon,
+                    "timezone": "auto",
+                    "current": "temperature_2m,weather_code,wind_speed_10m",
+                    "daily": "weather_code,temperature_2m_max,temperature_2m_min",
+                    "forecast_days": 1,
+                }
+            )
+        )
+        with urllib.request.urlopen(weather_url, timeout=20) as resp:
+            weather_payload = json.loads(resp.read().decode("utf-8"))
+
+        current = weather_payload.get("current", {})
+        daily = weather_payload.get("daily", {})
+        codes = {
+            0: "Clear sky",
+            1: "Mainly clear",
+            2: "Partly cloudy",
+            3: "Overcast",
+            45: "Fog",
+            48: "Depositing rime fog",
+            51: "Light drizzle",
+            53: "Moderate drizzle",
+            55: "Dense drizzle",
+            61: "Slight rain",
+            63: "Moderate rain",
+            65: "Heavy rain",
+            71: "Slight snow",
+            73: "Moderate snow",
+            75: "Heavy snow",
+            80: "Rain showers",
+            81: "Rain showers",
+            82: "Heavy rain showers",
+            95: "Thunderstorm",
+            96: "Thunderstorm with hail",
+            99: "Thunderstorm with hail",
+        }
+        code = current.get("weather_code")
+        description = codes.get(code, f"Weather code {code}")
+        temp_c = current.get("temperature_2m")
+        wind_kmh = current.get("wind_speed_10m")
+        tmax = (daily.get("temperature_2m_max") or [None])[0]
+        tmin = (daily.get("temperature_2m_min") or [None])[0]
+
+        parts = [f"Weather for {display_name}:"]
+        if temp_c is not None:
+            parts.append(f"Current {temp_c:.1f}C ({self._c_to_f(temp_c):.1f}F), {description}.")
+        else:
+            parts.append(f"Current conditions: {description}.")
+        if tmax is not None and tmin is not None:
+            parts.append(f"Today high/low: {tmax:.1f}C/{tmin:.1f}C ({self._c_to_f(tmax):.1f}F/{self._c_to_f(tmin):.1f}F).")
+        if wind_kmh is not None:
+            parts.append(f"Wind: {wind_kmh:.1f} km/h.")
+        parts.append("Source: Open-Meteo live API on " + datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"))
+        return " ".join(parts).strip()
+
+    def _maybe_ground_inception_weather_response(
+        self,
+        *,
+        target_model: str,
+        request_payload: dict[str, Any],
+        content: str,
+    ) -> str:
+        if not self._is_inceptionlabs_model(target_model):
+            return content
+
+        prompt = self._extract_payload_prompt(request_payload)
+        if not self._is_weather_prompt(prompt):
+            return content
+
+        location = self._extract_weather_location(prompt)
+        if not location:
+            logger.info(
+                "inception weather grounding skipped: no location in prompt",
+                extra={"model": target_model},
+            )
+            return content
+
+        try:
+            grounded = self._fetch_openmeteo_weather_summary(location)
+            if grounded:
+                return grounded
+        except Exception as exc:
+            logger.warning(
+                "inception weather grounding failed; using model response",
+                extra={"model": target_model, "location": location, "error": str(exc)},
+            )
+
+        return content
 
     @staticmethod
     def _extract_assistant_text(raw: Any) -> str:

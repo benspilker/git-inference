@@ -51,6 +51,18 @@ Supported browser-backed model ids include:
 - `git-qwen`
 - `git-allsequential` (API fan-out: runs multiple models sequentially and returns ordered source-labeled sections)
 - `git-parallel` (API fan-out: runs multiple models in parallel and returns ordered source-labeled sections)
+- `git-synth` (single-model synthesis: reads fan-out combined artifact(s) on `main`, computes aggregate metrics, and asks `git-chatgpt` for one final summary)
+
+`git-synth` accepts optional source selectors:
+- `options.source_job_id` / `options.synth_source_job_id` (single source job id)
+- `options.source_job_ids` / `options.synth_source_job_ids` (list or comma-separated ids)
+
+If omitted, it uses the latest valid fan-out combined artifact.
+
+Synthesis behavior:
+- weather prompts use weighted aggregation (slight preference for `git-qwen` and `git-grok`) before final synthesis
+- non-weather prompts use equal weighting across completed sources
+- large source sets are chunked and summarized via map-reduce before the final answer
 
 ## Response behavior
 
@@ -148,6 +160,7 @@ Copy `.env.example` and set at least:
 - `GIT_AUTHOR_EMAIL`
 - `OPENCLAW_DEFAULT_MODEL` (optional, default `git-allsequential`; default model used when OpenAI-compatible/OpenClaw calls omit `model`)
 - `OPENCLAW_FORCE_DEFAULT_MODEL` (optional, default `false`; when `true`, OpenClaw-compatible model requests are forced to `OPENCLAW_DEFAULT_MODEL`)
+- `SYNTHESIS_CHILD_TIMEOUT_SECONDS` (optional, default `420`; timeout for internal `git-chatgpt` synthesis child requests used by `git-synth`)
 - `ALL_SEQUENTIAL_MODELS` (optional, comma-separated model list used by `git-allsequential`; default: `git-inceptionlabs,git-chatgpt,git-grok,git-qwen,git-perplexity`)
 - `ALL_PARALLEL_MODELS` (optional, comma-separated model list used by `git-parallel`; default: `git-inceptionlabs,git-chatgpt,git-grok,git-qwen,git-perplexity`)
 - `ALLSEQUENTIAL_VIRTUAL_TURNS_ENABLED` (optional, default `false`; if `true`, `git-allsequential` returns quickly and runs sources in the background)

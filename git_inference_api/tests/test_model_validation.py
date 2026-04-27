@@ -16,6 +16,10 @@ class ModelValidationTests(unittest.TestCase):
         self.assertTrue(is_supported_model("git-parallel"))
         ensure_supported_model_or_raise("git-parallel")
 
+    def test_synth_model_is_accepted(self) -> None:
+        self.assertTrue(is_supported_model("git-synth"))
+        ensure_supported_model_or_raise("git-synth")
+
     def test_supported_tail_model_is_accepted(self) -> None:
         self.assertTrue(is_supported_model("providers/custom/git-grok"))
         ensure_supported_model_or_raise("providers/custom/git-grok")

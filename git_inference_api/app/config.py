@@ -34,6 +34,7 @@ class Settings:
     execution_stage_timeout_seconds: int = int(os.getenv("EXECUTION_STAGE_TIMEOUT_SECONDS", "300"))
     verification_stage_timeout_seconds: int = int(os.getenv("VERIFICATION_STAGE_TIMEOUT_SECONDS", "120"))
     clarification_timeout_seconds: int = int(os.getenv("CLARIFICATION_TIMEOUT_SECONDS", "86400"))
+    synthesis_child_timeout_seconds: int = int(os.getenv("SYNTHESIS_CHILD_TIMEOUT_SECONDS", "420"))
 
     # Git behavior
     git_max_retries: int = int(os.getenv("GIT_MAX_RETRIES", "3"))
@@ -67,11 +68,11 @@ class Settings:
     # Model config
     available_models_csv: str = env_csv(
         "AVAILABLE_MODELS",
-        "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel",
+        "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel,git-synth",
     )
     openclaw_compat_models_csv: str = env_csv(
         "OPENCLAW_COMPAT_MODELS",
-        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel",
+        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel,git-synth",
     )
     openclaw_default_model: str = os.getenv("OPENCLAW_DEFAULT_MODEL", "git-allsequential")
     openclaw_force_default_model: bool = env_bool("OPENCLAW_FORCE_DEFAULT_MODEL", False)
