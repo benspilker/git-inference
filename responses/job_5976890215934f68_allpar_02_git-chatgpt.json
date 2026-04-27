@@ -1,0 +1,10 @@
+{
+  "job_id": "job_5976890215934f68_allpar_02_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "The current weather in Indianapolis, IN is 59°F with mostly cloudy skies. The high today is expected to reach 63°F, the low around 50°F. Winds are from the northeast at 8 mph, and there is a 10% chance of precipitation."
+  },
+  "done": true,
+  "started_at": "2026-04-27T13:21:57Z",
+  "completed_at": "2026-04-27T13:22:23Z"
+}
