@@ -1,0 +1,10 @@
+{
+  "job_id": "job_29fd78b1a4104106_allpar_02_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "2 + 2 equals 4."
+  },
+  "done": true,
+  "started_at": "2026-04-27T18:33:33Z",
+  "completed_at": "2026-04-27T18:33:49Z"
+}
