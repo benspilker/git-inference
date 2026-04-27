@@ -1,0 +1,7 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.95,
+"reason": "The user is requesting information about Indianapolis in a conversational form."
+}

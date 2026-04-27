@@ -1,0 +1,26 @@
+{
+  "job_id": "job_af423c7d76444756_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_af423c7d76444756_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T18:29:43Z",
+    "created_at": "2026-04-27T18:29:25Z"
+  },
+  "response": {
+    "job_id": "job_af423c7d76444756_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, the capital of Indiana, is known for its rich motorsports history, including the famous Indianapolis 500 race held annually at the Indianapolis Motor Speedway."
+    },
+    "done": true,
+    "started_at": "2026-04-27T18:29:25Z",
+    "completed_at": "2026-04-27T18:29:43Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T18:29:43Z"
+}
