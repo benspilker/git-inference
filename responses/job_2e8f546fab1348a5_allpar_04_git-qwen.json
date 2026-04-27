@@ -1,0 +1,10 @@
+{
+  "job_id": "job_2e8f546fab1348a5_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "🌤️ Indianapolis, IN — Weather Update (Apr 27, 12:40 UTC)\n• Current: 57°F, Mostly Cloudy (feels 55–61°F)\n• Today: High 75–76°F | Low 60–61°F\n• Rain Risk: 24–80% — afternoon/evening thunderstorms possible; some storms could be strong with hail/damaging winds [[AccuWeather]]\n• Wind: SE 4–10 mph, gusts to 10 mph; shifting WSW up to 13 mph later\n• Note: Storm activity tracking nearby (MO/KS); monitor local alerts if outdoors this afternoon\n— Prepared for Telegram delivery. No external recipient specified; send to your configured Telegram chat/channel.\n+19"
+  },
+  "done": true,
+  "started_at": "2026-04-27T12:40:38Z",
+  "completed_at": "2026-04-27T12:41:28Z"
+}
