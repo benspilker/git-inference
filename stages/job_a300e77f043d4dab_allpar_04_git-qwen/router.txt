@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "question",
+"task_type": "general_question",
+"confidence": 0.95,
+"requires_local_execution": false,
+"reason": "User is asking for informational content about lucrative freelance opportunities on Fiverr and Upwork, including examples and strategies. This is a request for knowledge, recommendations, and explanatory guidance, not a request to perform local system actions, scheduling, or deep multi-angle research."
+}

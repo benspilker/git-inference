@@ -1,0 +1,26 @@
+{
+  "job_id": "job_a300e77f043d4dab_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_a300e77f043d4dab_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-04-27T20:14:18Z",
+    "created_at": "2026-04-27T20:11:34Z"
+  },
+  "response": {
+    "job_id": "job_a300e77f043d4dab_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "Most Lucrative Freelance Jobs on Fiverr & Upwork (2026)\n🏆 Top-Tier High-Earning Categories\nTechnical & AI Roles (Highest Rates)\nSkill\n\t\nTypical Hourly Rate\n\t\nPlatform Fit\n\n\nMachine Learning/AI Engineering\n\t\n$120–$250+\n\t\nUpwork \nwww.upwork.com\n\n\nCybersecurity Consulting\n\t\n$100–$200\n\t\nUpwork \nwww.upwork.com\n\n\nCloud Architecture/DevOps\n\t\n$90–$180\n\t\nUpwork \nwww.jobbers.io\n\n\nBlockchain/Web3 Development\n\t\n$100–$220\n\t\nUpwork \nwww.jobbers.io\n\n\nData Science & Analytics\n\t\n$80–$160\n\t\nUpwork \nwww.jobbers.io\nHigh-Demand Creative & Strategy Roles\nSkill\n\t\nTypical Hourly Rate\n\t\nPlatform Fit\n\n\nAI Automation Setup\n\t\n$65–$130\n\t\nFiverr + Upwork \nfreelanceautomationai.com\n\n\nShort-Form Video Editing\n\t\n$60–$120\n\t\nFiverr (Reels/TikTok) \nfreelanceautomationai.com\n\n\nUX/UI Design Strategy\n\t\n$70–$140\n\t\nUpwork \nwww.jobbers.io\n\n\nDigital Marketing Strategy\n\t\n$60–$130\n\t\nBoth \nwww.jobbers.io\n\n\nSEO Blog Writing\n\t\n$40–$90\n\t\nFiverr (volume) \nfreelanceautomationai.com\n🎯 How to Accomplish These (Actionable Steps)\nFor Technical Roles (Upwork-focused)\nBuild proof first: Create 2–3 portfolio projects on GitHub or a personal site showing real implementations (e.g., a fine-tuned LLM demo, a security audit report).\nGet certified strategically: AWS/Azure certs for cloud roles (+20–35% rate premium); CISSP/CEH for cybersecurity \nwww.jobbers.io\n.\nStart with fixed-price projects: Bid on smaller scoped jobs ($500–$2K) to earn reviews, then raise rates.\nSpecialize your profile title: Instead of \"Developer,\" use \"LLM Integration Specialist for SaaS\" — niche titles attract premium clients \nwww.upwork.com\n.\nFor Creative/Content Roles (Fiverr-friendly)\nPackage services as outcomes:\n❌ \"I edit videos\"\n✅ \"I turn your podcast into 10 viral Reels with captions + hooks\" \nfreelanceautomationai.com\nUse gig extras for upsells: Base gig = 1 thumbnail ($25); Extra = bulk pack of 10 ($180) \nfreelanceautomationai.com\n.\nOptimize for Fiverr search: Include keywords buyers use: \"YouTube thumbnail,\" \"TikTok editor,\" \"SEO blog post\" — not generic terms.\nDeliver fast + over-communicate: First 5 reviews matter most. Respond within 1 hour, deliver 12–24h early when possible.\nCross-Platform Success Tactics\nPrice strategically: Start at 70–80% of target rate to build reviews, then raise 10–15% every 3–5 completed jobs \nwww.jobbers.io\n.\nUse value-based pricing for strategy work: Charge $1,500 for a \"Conversion Audit + 30-Day Optimization Plan\" instead of $50/hr × 30 hrs.\nRepurpose work: Turn one client project into 3 portfolio pieces (case study, before/after visuals, testimonial video).\nTrack metrics that matter: Response rate, on-time delivery, and client satisfaction scores directly impact visibility on both platforms.\n⚠️ Reality Check\nRates above reflect experienced freelancers in developed markets; entry-level rates are typically 40–60% lower \nwww.jobbers.io\n.\nUpwork now uses a variable 0–15% service fee (typically ~10%); Fiverr takes 20% on most gigs — factor this into pricing \nwww.jobbers.io\n.\nThe biggest differentiator isn't skill alone — it's clear positioning + proof of results. Clients pay premiums for freelancers who reduce their risk.\n💡 Quick start: Pick one high-demand skill you already have 60% competency in. Spend 2 weeks building 3 portfolio samples, then launch with a tightly scoped gig. Iterate based on first 5 client interactions.\nNeed help narrowing down which path fits your background? Tell me your current skills or experience, and I'll suggest the highest-ROI entry point."
+    },
+    "done": true,
+    "started_at": "2026-04-27T20:11:34Z",
+    "completed_at": "2026-04-27T20:14:18Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-27T20:14:18Z"
+}
