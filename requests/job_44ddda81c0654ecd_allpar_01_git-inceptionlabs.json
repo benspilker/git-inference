@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-04-27T17:36:43Z",
+  "job_id": "job_44ddda81c0654ecd_allpar_01_git-inceptionlabs",
+  "request": {
+    "allparallel_index": 1,
+    "allparallel_parent_job_id": "job_44ddda81c0654ecd",
+    "allparallel_total": 5,
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Tell me what are the most lucrative jobs I can do on Fiverr and Upwork? Give me examples and ways to accomplish them?",
+        "role": "user"
+      }
+    ],
+    "model": "git-inceptionlabs",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": "question",
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 23
+      },
+      "user_prompt_chunks": [
+        "Tell me what are the most lucrative jobs I can do on Fiverr and Upwork? Give me examples and ways to accomplish them?"
+      ]
+    },
+    "user_prompt": "Tell me what are the most lucrative jobs I can do on Fiverr and Upwork? Give me examples and ways to accomplish them?"
+  },
+  "routing_metadata": {
+    "intent_type": "question",
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 23
+    },
+    "user_prompt_chunks": [
+      "Tell me what are the most lucrative jobs I can do on Fiverr and Upwork? Give me examples and ways to accomplish them?"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Tell me what are the most lucrative jobs I can do on Fiverr and Upwork? Give me examples and ways to accomplish them?"
+}
