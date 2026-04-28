@@ -1,0 +1,8 @@
+{
+  "job_id": "job_65145d0e11eb44a4_allpar_01_git-inceptionlabs",
+  "started_at": "2026-04-28T01:07:42Z",
+  "error": {
+    "code": "ROUTER_INVALID_INTENT",
+    "message": "Router returned an unsupported intent_type."
+  }
+}

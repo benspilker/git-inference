@@ -1,0 +1,24 @@
+{
+  "job_id": "job_65145d0e11eb44a4_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_65145d0e11eb44a4_allpar_01_git-inceptionlabs",
+    "state": "failed",
+    "intent_type": "needs_clarification",
+    "task_type": null,
+    "current_stage": "router_invalid",
+    "updated_at": "2026-04-28T01:07:51Z",
+    "created_at": "2026-04-28T01:07:43Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_65145d0e11eb44a4_allpar_01_git-inceptionlabs",
+    "started_at": "2026-04-28T01:07:42Z",
+    "error": {
+      "code": "ROUTER_INVALID_INTENT",
+      "message": "Router returned an unsupported intent_type."
+    }
+  },
+  "execution": null,
+  "generated_at": "2026-04-28T01:07:51Z"
+}

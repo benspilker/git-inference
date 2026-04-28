@@ -1,0 +1,1 @@
+{ "schema_version": "1.0", "intent_type": "needs_clarification", "task_type": "", "confidence": 0.85, "requires_local_execution": true, "reason": "The request 'Ping from default model' is ambiguous and does not specify a clear action or information need, so clarification is required to determine the appropriate task." }
