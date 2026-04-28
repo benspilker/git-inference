@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.96,
+  "requires_local_execution": false,
+  "reason": "The user asks for a concise summary of key action items, which is an information request rather than a system action or deep research."
+}
