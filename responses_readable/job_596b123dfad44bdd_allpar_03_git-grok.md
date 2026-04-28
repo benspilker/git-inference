@@ -1,0 +1,7 @@
+Indianapolis, IN current weather (as of ~2 PM EDT): 60°F, cloudy/overcast. Feels like 58-59°F.
+
+Humidity ~85-94%, light winds W/WSW 7-11 mph.
+
+Scattered thunderstorms possible this afternoon (20-30% chance), with isolated t-storms/showers tonight. Low rain risk overall but watch for brief heavy spots; no major wind risk noted. High today ~67°F.
+
+Telegram update ready: "INDY WX: 60°F cloudy. Scattered TS risk this PM (low-moderate), light winds. Tonight showers possible, low 53°F."
