@@ -1,0 +1,10 @@
+{
+  "job_id": "job_cab8d23838b84e5c_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "2+2 = 4."
+  },
+  "done": true,
+  "started_at": "2026-04-28T00:35:17Z",
+  "completed_at": "2026-04-28T00:35:58Z"
+}
