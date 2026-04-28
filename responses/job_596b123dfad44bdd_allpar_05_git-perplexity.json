@@ -1,0 +1,10 @@
+{
+  "job_id": "job_596b123dfad44bdd_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "Here’s a concise weather update for Telegram:\n\nTemperature: 68°F\n\nConditions: Partly cloudy with periods of sun\n\nRain/wind risk: Low rain risk today; light breeze possible, no significant wind forecast\n\nIf you’d like, I can tailor this message to a specific Telegram format or add a brief hourly forecast."
+  },
+  "done": true,
+  "started_at": "2026-04-28T14:02:37Z",
+  "completed_at": "2026-04-28T14:03:28Z"
+}
