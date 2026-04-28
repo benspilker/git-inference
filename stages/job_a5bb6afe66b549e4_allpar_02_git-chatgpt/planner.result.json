@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "mode": "local_action",
+  "task_type": "",
+  "confidence": 0.0,
+  "requires_local_execution": true,
+  "parameters": {},
+  "missing_fields": [
+    "task_type",
+    "target_address"
+  ],
+  "question": "What is the target for the ping and any specific options or count for the ping?",
+  "success_condition": "The system successfully sends ICMP packets to the specified target and receives responses."
+}
