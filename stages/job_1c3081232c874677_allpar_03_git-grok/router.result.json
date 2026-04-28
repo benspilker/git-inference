@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.85,
+  "requires_local_execution": true,
+  "reason": "User asks to summarize key action items from previous context in 3 bullets; this is a request for information/explanation based on provided synthesized context, not a job to perform local actions, schedule, or deep research."
+}
