@@ -1,0 +1,24 @@
+{
+  "job_id": "job_a5bb6afe66b549e4_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_a5bb6afe66b549e4_allpar_04_git-qwen",
+    "state": "failed",
+    "intent_type": "needs_clarification",
+    "task_type": "system_command",
+    "current_stage": "router_invalid",
+    "updated_at": "2026-04-28T13:35:44Z",
+    "created_at": "2026-04-28T13:34:40Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_a5bb6afe66b549e4_allpar_04_git-qwen",
+    "started_at": "2026-04-28T13:34:40Z",
+    "error": {
+      "code": "ROUTER_INVALID_INTENT",
+      "message": "Router returned an unsupported intent_type."
+    }
+  },
+  "execution": null,
+  "generated_at": "2026-04-28T13:35:44Z"
+}

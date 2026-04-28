@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "system_command",
+"confidence": 0.7,
+"requires_local_execution": true,
+"reason": "Request 'Ping' likely refers to executing a network ping system command, but critical information such as target hostname or IP address is missing. Alternatively, user may be testing system responsiveness, which would be a general question. Clarification needed to determine intent."
+}
