@@ -1,0 +1,9 @@
+{
+  "job_id": "job_65145d0e11eb44a4_allpar_03_git-grok",
+  "state": "failed",
+  "intent_type": null,
+  "task_type": null,
+  "current_stage": "router",
+  "updated_at": "2026-04-28T01:07:58Z",
+  "created_at": "2026-04-28T01:07:38Z"
+}
