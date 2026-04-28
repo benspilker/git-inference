@@ -1,0 +1,12 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"mode": "local_action",
+"task_type": "system_command",
+"confidence": 0.5,
+"requires_local_execution": true,
+"parameters": {},
+"missing_fields": ["command_type"],
+"question": "What specific action or command should be executed for the 'Ping' request?",
+"success_condition": "The system successfully executes the specified command and returns a valid response."
+}
