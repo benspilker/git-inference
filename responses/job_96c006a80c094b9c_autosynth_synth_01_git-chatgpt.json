@@ -1,0 +1,10 @@
+{
+  "job_id": "job_96c006a80c094b9c_autosynth_synth_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Live web search was required for this prompt but unavailable in the browser session after 3 attempt(s)."
+  },
+  "done": true,
+  "started_at": "2026-04-28T00:30:37Z",
+  "completed_at": "2026-04-28T00:31:23Z"
+}
