@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "job",
+"task_type": "system_command",
+"confidence": 0.9,
+"requires_local_execution": true,
+"reason": "The user is requesting a 'Ping', which is an action to be executed locally to check network connectivity, implying a system command job."
+}

@@ -1,0 +1,12 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"mode": "local_action",
+"task_type": "system_command",
+"confidence": 0.5,
+"requires_local_execution": true,
+"parameters": {},
+"missing_fields": ["target_address"],
+"question": "What is the target address or hostname you want to ping?",
+"success_condition": "A response is received from the specified target address confirming network reachability."
+}
