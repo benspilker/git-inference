@@ -1,0 +1,56 @@
+{
+  "created_at": "2026-04-28T13:32:41Z",
+  "job_id": "job_c808945ecb1a4e17",
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "Ping",
+        "role": "user"
+      }
+    ],
+    "model": "git-chatgpt",
+    "request_type": "chat",
+    "routing_metadata": {
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 1
+      },
+      "user_prompt_chunks": [
+        "Ping"
+      ]
+    },
+    "user_prompt": "Ping"
+  },
+  "routing_metadata": {
+    "requires_local_execution": false,
+    "route_state": "received",
+    "schema_version": "1.0",
+    "task_type": "general_question"
+  },
+  "system_prompt": null,
+  "transport": {
+    "chunking": {
+      "chunk_count": 1,
+      "chunk_size_words": 2000,
+      "enabled": false,
+      "max_chunks": 5,
+      "word_count": 1
+    },
+    "user_prompt_chunks": [
+      "Ping"
+    ]
+  },
+  "type": "chat",
+  "user_prompt": "Ping"
+}
