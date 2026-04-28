@@ -1,0 +1,13 @@
+Bemenderfer LLC is a consulting firm that specializes in implementing and supporting ERP (Enterprise Resource Planning) solutions, particularly the Epicor suite. Their offerings include:
+
+ERP Consulting & Implementation – helping businesses design, configure, and roll out Epicor ERP systems to streamline operations.
+Data Portal Development – building mobile‑friendly front‑ends that integrate with Epicor, providing scalable and optimized data access for users.
+Ongoing Support & Optimization – assisting clients with post‑implementation tuning, troubleshooting, and enhancements.
+
+The company positions itself as a “Premier ERP Solutions & Epicor Consulting” provider and promotes a free ERP consultation to prospective clients
+1
+. Their contact page emphasizes the data‑portal product as a rapid, scalable addition to existing Epicor deployments
+3
+.
+
+If you need more specific information—such as pricing, client case studies, or how to schedule a consultation—just let me know!
