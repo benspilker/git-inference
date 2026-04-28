@@ -1,0 +1,297 @@
+{
+  "job_id": "job_65145d0e11eb44a4",
+  "status": {
+    "job_id": "job_65145d0e11eb44a4",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "allparallel",
+    "current_stage": "virtual_turns_complete",
+    "updated_at": "2026-04-28T01:10:51.979559Z",
+    "created_at": "2026-04-28T01:10:51.979559Z"
+  },
+  "response": {
+    "job_id": "job_65145d0e11eb44a4",
+    "message": {
+      "role": "assistant",
+      "content": "[1/5] Source: git-inceptionlabs | Status: failed\nError: Router returned an unsupported intent_type.\n\n[2/5] Source: git-chatgpt | Status: completed\n{\"job_id\": \"job_65145d0e11eb44a4_allpar_02_git-chatgpt\", \"state\": \"needs_clarification\", \"intent_type\": \"job\", \"task_type\": \"system_command\", \"current_stage\": \"planner\", \"updated_at\": \"2026-04-28T01:08:00Z\", \"created_at\": \"2026-04-28T01:07:41Z\"}\n\n[3/5] Source: git-grok | Status: failed\nError: Router stage execution failed.\n\n[4/5] Source: git-qwen | Status: failed\nError: Router returned an unsupported intent_type.\n\n[5/5] Source: git-perplexity | Status: completed\nPing is a network utility used to test reachability and measure round-trip time to a host. It typically sends ICMP echo requests and reports replies, latency, and packet loss.\nAnswer\nA basic ping tests whether a host is reachable and how quickly it responds.\nIt shows metrics like round-trip time (latency) and packet loss for the test window.\nKey details\nHow it works: sends ICMP echo requests to a target, waits for echo replies, and summarizes results.\nwikipedia\nCommon output: number of packets transmitted, received, loss percentage, and min/avg/max latency.\nwikipedia\nTypical uses: quick connectivity checks, diagnosing network issues, and assessing path responsiveness.\nwikipedia\nIf you want, I can tailor ping commands for your OS (Windows, macOS, Linux) and explain how to interpret common error messages (e.g., Request timed out, Destination host unreachable)."
+    },
+    "done": true,
+    "completed_at": "2026-04-28T01:10:51.979559Z"
+  },
+  "execution": {
+    "mode": "allparallel_virtual_turns",
+    "request_payload": {
+      "combined_in_message": false,
+      "messages": [
+        {
+          "content": "You are a retrieval-first assistant.",
+          "role": "system"
+        },
+        {
+          "content": "Ping from default model",
+          "role": "user"
+        }
+      ],
+      "model": "git-parallel",
+      "request_type": "chat",
+      "routing_metadata": {
+        "intent_type": null,
+        "requires_local_execution": false,
+        "route_state": "received",
+        "schema_version": "1.0",
+        "task_type": "general_question"
+      },
+      "stream": false,
+      "transport": {
+        "chunking": {
+          "chunk_count": 1,
+          "chunk_size_words": 2000,
+          "enabled": false,
+          "max_chunks": 5,
+          "word_count": 4
+        },
+        "user_prompt_chunks": [
+          "Ping from default model"
+        ]
+      },
+      "user_prompt": "Ping from default model"
+    },
+    "base_prompt": "Ping from default model",
+    "kickoff_content": "Running this prompt across 5 sources now. I will send each source result as a separate follow-up message. After all sources finish, I will also send one synthesized follow-up.",
+    "targets": [
+      "git-inceptionlabs",
+      "git-chatgpt",
+      "git-grok",
+      "git-qwen",
+      "git-perplexity"
+    ],
+    "results": [
+      {
+        "index": 1,
+        "model": "git-inceptionlabs",
+        "job_id": "job_65145d0e11eb44a4_allpar_01_git-inceptionlabs",
+        "status": "failed",
+        "error": "Router returned an unsupported intent_type."
+      },
+      {
+        "index": 2,
+        "model": "git-chatgpt",
+        "job_id": "job_65145d0e11eb44a4_allpar_02_git-chatgpt",
+        "status": "completed",
+        "content": "{\"job_id\": \"job_65145d0e11eb44a4_allpar_02_git-chatgpt\", \"state\": \"needs_clarification\", \"intent_type\": \"job\", \"task_type\": \"system_command\", \"current_stage\": \"planner\", \"updated_at\": \"2026-04-28T01:08:00Z\", \"created_at\": \"2026-04-28T01:07:41Z\"}"
+      },
+      {
+        "index": 3,
+        "model": "git-grok",
+        "job_id": "job_65145d0e11eb44a4_allpar_03_git-grok",
+        "status": "failed",
+        "error": "Router stage execution failed."
+      },
+      {
+        "index": 4,
+        "model": "git-qwen",
+        "job_id": "job_65145d0e11eb44a4_allpar_04_git-qwen",
+        "status": "failed",
+        "error": "Router returned an unsupported intent_type."
+      },
+      {
+        "index": 5,
+        "model": "git-perplexity",
+        "job_id": "job_65145d0e11eb44a4_allpar_05_git-perplexity",
+        "status": "completed",
+        "content": "Ping is a network utility used to test reachability and measure round-trip time to a host. It typically sends ICMP echo requests and reports replies, latency, and packet loss.\n\nAnswer\n\nA basic ping tests whether a host is reachable and how quickly it responds.\n\nIt shows metrics like round-trip time (latency) and packet loss for the test window.\n\nKey details\n\nHow it works: sends ICMP echo requests to a target, waits for echo replies, and summarizes results.\nwikipedia\n\nCommon output: number of packets transmitted, received, loss percentage, and min/avg/max latency.\nwikipedia\n\nTypical uses: quick connectivity checks, diagnosing network issues, and assessing path responsiveness.\nwikipedia\n\nIf you want, I can tailor ping commands for your OS (Windows, macOS, Linux) and explain how to interpret common error messages (e.g., Request timed out, Destination host unreachable)."
+      }
+    ],
+    "source_messages": [
+      {
+        "index": 1,
+        "source": "git-inceptionlabs",
+        "status": "failed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Error: Router returned an unsupported intent_type.",
+        "text": "[1/5] Source: git-inceptionlabs | Status: failed\nError: Router returned an unsupported intent_type."
+      },
+      {
+        "index": 2,
+        "source": "git-chatgpt",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "{\"job_id\": \"job_65145d0e11eb44a4_allpar_02_git-chatgpt\", \"state\": \"needs_clarification\", \"intent_type\": \"job\", \"task_type\": \"system_command\", \"current_stage\": \"planner\", \"updated_at\": \"2026-04-28T01:08:00Z\", \"created_at\": \"2026-04-28T01:07:41Z\"}",
+        "text": "[2/5] Source: git-chatgpt | Status: completed\n{\"job_id\": \"job_65145d0e11eb44a4_allpar_02_git-chatgpt\", \"state\": \"needs_clarification\", \"intent_type\": \"job\", \"task_type\": \"system_command\", \"current_stage\": \"planner\", \"updated_at\": \"2026-04-28T01:08:00Z\", \"created_at\": \"2026-04-28T01:07:41Z\"}"
+      },
+      {
+        "index": 3,
+        "source": "git-grok",
+        "status": "failed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Error: Router stage execution failed.",
+        "text": "[3/5] Source: git-grok | Status: failed\nError: Router stage execution failed."
+      },
+      {
+        "index": 4,
+        "source": "git-qwen",
+        "status": "failed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Error: Router returned an unsupported intent_type.",
+        "text": "[4/5] Source: git-qwen | Status: failed\nError: Router returned an unsupported intent_type."
+      },
+      {
+        "index": 5,
+        "source": "git-perplexity",
+        "status": "completed",
+        "part_index": 1,
+        "part_total": 1,
+        "content": "Ping is a network utility used to test reachability and measure round-trip time to a host. It typically sends ICMP echo requests and reports replies, latency, and packet loss.\nAnswer\nA basic ping tests whether a host is reachable and how quickly it responds.\nIt shows metrics like round-trip time (latency) and packet loss for the test window.\nKey details\nHow it works: sends ICMP echo requests to a target, waits for echo replies, and summarizes results.\nwikipedia\nCommon output: number of packets transmitted, received, loss percentage, and min/avg/max latency.\nwikipedia\nTypical uses: quick connectivity checks, diagnosing network issues, and assessing path responsiveness.\nwikipedia\nIf you want, I can tailor ping commands for your OS (Windows, macOS, Linux) and explain how to interpret common error messages (e.g., Request timed out, Destination host unreachable).",
+        "text": "[5/5] Source: git-perplexity | Status: completed\nPing is a network utility used to test reachability and measure round-trip time to a host. It typically sends ICMP echo requests and reports replies, latency, and packet loss.\nAnswer\nA basic ping tests whether a host is reachable and how quickly it responds.\nIt shows metrics like round-trip time (latency) and packet loss for the test window.\nKey details\nHow it works: sends ICMP echo requests to a target, waits for echo replies, and summarizes results.\nwikipedia\nCommon output: number of packets transmitted, received, loss percentage, and min/avg/max latency.\nwikipedia\nTypical uses: quick connectivity checks, diagnosing network issues, and assessing path responsiveness.\nwikipedia\nIf you want, I can tailor ping commands for your OS (Windows, macOS, Linux) and explain how to interpret common error messages (e.g., Request timed out, Destination host unreachable)."
+      }
+    ],
+    "success_count": 2,
+    "failure_count": 3,
+    "delivery_errors": [],
+    "completed_indexes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "stage": "virtual_turns_complete",
+    "allparallel_summary": "[1/5] Source: git-inceptionlabs | Status: failed\nError: Router returned an unsupported intent_type.\n\n[2/5] Source: git-chatgpt | Status: completed\n{\"job_id\": \"job_65145d0e11eb44a4_allpar_02_git-chatgpt\", \"state\": \"needs_clarification\", \"intent_type\": \"job\", \"task_type\": \"system_command\", \"current_stage\": \"planner\", \"updated_at\": \"2026-04-28T01:08:00Z\", \"created_at\": \"2026-04-28T01:07:41Z\"}\n\n[3/5] Source: git-grok | Status: failed\nError: Router stage execution failed.\n\n[4/5] Source: git-qwen | Status: failed\nError: Router returned an unsupported intent_type.\n\n[5/5] Source: git-perplexity | Status: completed\nPing is a network utility used to test reachability and measure round-trip time to a host. It typically sends ICMP echo requests and reports replies, latency, and packet loss.\nAnswer\nA basic ping tests whether a host is reachable and how quickly it responds.\nIt shows metrics like round-trip time (latency) and packet loss for the test window.\nKey details\nHow it works: sends ICMP echo requests to a target, waits for echo replies, and summarizes results.\nwikipedia\nCommon output: number of packets transmitted, received, loss percentage, and min/avg/max latency.\nwikipedia\nTypical uses: quick connectivity checks, diagnosing network issues, and assessing path responsiveness.\nwikipedia\nIf you want, I can tailor ping commands for your OS (Windows, macOS, Linux) and explain how to interpret common error messages (e.g., Request timed out, Destination host unreachable).",
+    "auto_synthesis": {
+      "enabled": true,
+      "status": "completed",
+      "content": "Final synthesized response:\n\nThe request appears to be a simple “ping” or connectivity concept rather than an executable task. From the available sources (2 successful, 3 failed), there’s no conflicting data but also no quantitative metrics (e.g., latency, temperature-style aggregates are all null).\n\nConsensus:\n\nA “ping” refers to a basic network check used to confirm whether a host is reachable.\n\nIt works by sending ICMP echo requests and measuring responses.\n\nTypical outputs include latency (round-trip time) and packet loss.\n\nCommon use cases: quick connectivity tests and basic network diagnostics.\n\nSystem state insight:\n\nOne source classified the request as needing clarification within a system-command planning stage, suggesting ambiguity in execution intent.\n\nOther sources failed due to routing or unsupported intent errors, so coverage is limited.\n\nUncertainty:\n\nNo disagreement among successful sources, but overall confidence is moderate due to partial source failure and lack of detailed metrics.\n\nBottom line: Interpreted as a conceptual “ping,” this is a reachability and latency check—not an actionable command in this context.",
+      "execution": {
+        "mode": "synthesis",
+        "source_job_id": "job_65145d0e11eb44a4",
+        "source_job_ids": [
+          "job_65145d0e11eb44a4"
+        ],
+        "child_job_ids": [
+          "job_65145d0e11eb44a4_autosynth_synth_01_git-chatgpt"
+        ],
+        "target_model": "git-chatgpt",
+        "aggregate": {
+          "completed_sources": 2,
+          "failed_sources": [
+            {
+              "source": "git-inceptionlabs",
+              "source_job_id": "job_65145d0e11eb44a4"
+            },
+            {
+              "source": "git-grok",
+              "source_job_id": "job_65145d0e11eb44a4"
+            },
+            {
+              "source": "git-qwen",
+              "source_job_id": "job_65145d0e11eb44a4"
+            }
+          ],
+          "temperature": {
+            "weighted_avg_f": null,
+            "weighted_avg_c": null,
+            "min_f": null,
+            "max_f": null
+          },
+          "wind": {
+            "weighted_avg_mph": null,
+            "min_mph": null,
+            "max_mph": null
+          },
+          "rain": {
+            "consensus_risk": "unknown",
+            "max_precip_chance_pct": null
+          },
+          "conditions": {
+            "consensus": "unknown",
+            "weighted_scores": {
+              "unknown": 2.0
+            }
+          },
+          "prefer_best_sources": false,
+          "per_source": [
+            {
+              "source": "git-chatgpt",
+              "source_job_id": "job_65145d0e11eb44a4",
+              "weight": 1.0,
+              "temperature_f": null,
+              "temperature_c": null,
+              "wind_mph": null,
+              "precip_chance_pct": null,
+              "condition": "unknown",
+              "rain_risk": "unknown"
+            },
+            {
+              "source": "git-perplexity",
+              "source_job_id": "job_65145d0e11eb44a4",
+              "weight": 1.0,
+              "temperature_f": null,
+              "temperature_c": null,
+              "wind_mph": null,
+              "precip_chance_pct": null,
+              "condition": "unknown",
+              "rain_risk": "unknown"
+            }
+          ]
+        },
+        "source_count": 5,
+        "requested_source_job_ids": [
+          "job_65145d0e11eb44a4"
+        ],
+        "source_mode": "allparallel_virtual_turns",
+        "source_modes": [
+          "allparallel_virtual_turns"
+        ],
+        "synthesis_mode": "general",
+        "map_reduce_used": false,
+        "chunk_count": 1,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "followup_delivery_enabled": true,
+        "delivery_errors": []
+      }
+    }
+  },
+  "request": {
+    "combined_in_message": false,
+    "messages": [
+      {
+        "content": "You are a retrieval-first assistant.",
+        "role": "system"
+      },
+      {
+        "content": "Ping from default model",
+        "role": "user"
+      }
+    ],
+    "model": "git-parallel",
+    "request_type": "chat",
+    "routing_metadata": {
+      "intent_type": null,
+      "requires_local_execution": false,
+      "route_state": "received",
+      "schema_version": "1.0",
+      "task_type": "general_question"
+    },
+    "stream": false,
+    "transport": {
+      "chunking": {
+        "chunk_count": 1,
+        "chunk_size_words": 2000,
+        "enabled": false,
+        "max_chunks": 5,
+        "word_count": 4
+      },
+      "user_prompt_chunks": [
+        "Ping from default model"
+      ]
+    },
+    "user_prompt": "Ping from default model"
+  },
+  "evaluation": null,
+  "generated_at": "2026-04-28T01:10:51.979559Z"
+}
