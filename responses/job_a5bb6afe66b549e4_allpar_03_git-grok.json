@@ -1,0 +1,10 @@
+{
+  "job_id": "job_a5bb6afe66b549e4_allpar_03_git-grok",
+  "message": {
+    "role": "assistant",
+    "content": "Pong! ✅\n\nJuniper here, ready. What's next?"
+  },
+  "done": true,
+  "started_at": "2026-04-28T13:34:43Z",
+  "completed_at": "2026-04-28T13:35:09Z"
+}
