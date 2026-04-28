@@ -1,0 +1,8 @@
+{
+  "job_id": "job_1c3081232c874677_allpar_05_git-perplexity",
+  "started_at": "2026-04-28T01:03:46Z",
+  "error": {
+    "code": "ROUTER_INVALID_INTENT",
+    "message": "Router returned an unsupported intent_type."
+  }
+}

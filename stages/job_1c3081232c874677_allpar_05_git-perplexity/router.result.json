@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "needs_clarification",
+  "task_type": "general_question",
+  "confidence": 0.4,
+  "requires_local_execution": false,
+  "reason": "The user asks for a summary of action items from a previous chat. This is a request for a concise recap rather than performing a local action or conducting research. Classification as a general_question is appropriate, though some aspects touch on project planning; no explicit scheduling or system action is implied."
+}

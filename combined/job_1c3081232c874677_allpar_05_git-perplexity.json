@@ -1,0 +1,24 @@
+{
+  "job_id": "job_1c3081232c874677_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_1c3081232c874677_allpar_05_git-perplexity",
+    "state": "failed",
+    "intent_type": "needs_clarification",
+    "task_type": "general_question",
+    "current_stage": "router_invalid",
+    "updated_at": "2026-04-28T01:05:10Z",
+    "created_at": "2026-04-28T01:03:46Z"
+  },
+  "response": null,
+  "evaluation": null,
+  "error": {
+    "job_id": "job_1c3081232c874677_allpar_05_git-perplexity",
+    "started_at": "2026-04-28T01:03:46Z",
+    "error": {
+      "code": "ROUTER_INVALID_INTENT",
+      "message": "Router returned an unsupported intent_type."
+    }
+  },
+  "execution": null,
+  "generated_at": "2026-04-28T01:05:10Z"
+}
