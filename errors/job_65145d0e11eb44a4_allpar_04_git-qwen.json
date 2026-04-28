@@ -1,0 +1,8 @@
+{
+  "job_id": "job_65145d0e11eb44a4_allpar_04_git-qwen",
+  "started_at": "2026-04-28T01:07:39Z",
+  "error": {
+    "code": "ROUTER_INVALID_INTENT",
+    "message": "Router returned an unsupported intent_type."
+  }
+}

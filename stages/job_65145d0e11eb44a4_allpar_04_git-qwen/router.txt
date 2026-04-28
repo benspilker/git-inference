@@ -1,0 +1,8 @@
+{
+"schema_version": "1.0",
+"intent_type": "needs_clarification",
+"task_type": "system_command",
+"confidence": 0.3,
+"requires_local_execution": true,
+"reason": "The request 'Ping from default model' is ambiguous. 'Ping' could refer to a network diagnostic command, but the target host, context of 'default model', and desired outcome are unspecified. Clarification needed on what to ping, where 'default model' refers to, and whether this is a test, configuration check, or informational query."
+}
