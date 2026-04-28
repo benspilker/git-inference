@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "system_command",
+  "confidence": 1.0,
+  "requires_local_execution": false,
+  "reason": "The user is asking for an informational response, specifically regarding the result of a simple arithmetic question. Deterministic system-test override applied for exact-reply probe."
+}
