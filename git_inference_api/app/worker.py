@@ -757,13 +757,15 @@ class JobWorker:
                 err = str(item.get("error") or "unknown error").strip() or "unknown error"
                 content = f"Error: {err}"
             entries.append(
-                {
-                    "source": str(item.get("model") or "unknown").strip() or "unknown",
-                    "status": status,
-                    "index": int(item.get("index") or 0),
-                    "content": content,
-                    "source_job_id": source_job_id,
-                }
+                JobWorker._normalize_synthesis_source_entry(
+                    {
+                        "source": str(item.get("model") or "unknown").strip() or "unknown",
+                        "status": status,
+                        "index": int(item.get("index") or 0),
+                        "content": content,
+                        "source_job_id": source_job_id,
+                    }
+                )
             )
         return entries
 
@@ -858,6 +860,128 @@ class JobWorker:
         raise RuntimeError("No valid fanout combined artifact was found on main branch.")
 
     @staticmethod
+    def _has_last_chat_context_trigger(base_prompt: str) -> bool:
+        text = str(base_prompt or "").strip()
+        if not text:
+            return False
+        return bool(re.match(r"^(?:based on|using|from)\s+the\s+last\s+chat\b", text, flags=re.IGNORECASE))
+
+    def _last_chat_context_requested(self, request_payload: dict[str, Any], base_prompt: str) -> bool:
+        options = self._extract_options_dict(request_payload)
+        for key in ("use_last_chat_context", "last_chat_context", "based_on_last_chat"):
+            value = self._coerce_optional_bool(options.get(key))
+            if value is not None:
+                return bool(value)
+        for key in ("use_last_chat_context", "last_chat_context", "based_on_last_chat"):
+            value = self._coerce_optional_bool(request_payload.get(key))
+            if value is not None:
+                return bool(value)
+        return self._has_last_chat_context_trigger(base_prompt)
+
+    def _resolve_latest_auto_synthesis_content(self, *, skip_job_id: str = "") -> tuple[str, str] | None:
+        combined_dir = settings.repo_path / settings.combined_dir
+        if not combined_dir.exists():
+            return None
+
+        with REPO_LOCK:
+            sync_repo_to_remote_head()
+
+        files = sorted(combined_dir.glob("job_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        for path in files:
+            candidate_job_id = str(path.stem).strip()
+            if skip_job_id and candidate_job_id == str(skip_job_id).strip():
+                continue
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            if not isinstance(payload, dict) or not self._is_fanout_combined_payload(payload):
+                continue
+            execution = payload.get("execution") if isinstance(payload.get("execution"), dict) else {}
+            auto = execution.get("auto_synthesis") if isinstance(execution.get("auto_synthesis"), dict) else {}
+            status = str(auto.get("status") or "").strip().lower()
+            if status != "completed":
+                continue
+            content = str(auto.get("content") or "").strip()
+            if not content:
+                continue
+            if self._detect_unusable_synthesis_content(content):
+                continue
+            source_job_id = str(payload.get("job_id") or candidate_job_id).strip() or candidate_job_id
+            return source_job_id, content
+
+        return None
+
+    @staticmethod
+    def _build_last_chat_followup_prompt(base_prompt: str, *, source_job_id: str, synthesis_content: str) -> str:
+        prompt = str(base_prompt or "").strip()
+        context = str(synthesis_content or "").strip()
+        if len(context) > 5000:
+            context = context[:5000].rstrip() + "..."
+        return (
+            f"Previous synthesized context from {source_job_id}:\n"
+            f"{context}\n\n"
+            f"Follow-up request:\n{prompt}"
+        ).strip()
+
+    @staticmethod
+    def _replace_last_user_message(messages: list[Any], new_content: str) -> list[Any]:
+        replaced = list(messages)
+        last_user_index = -1
+        for idx, message in enumerate(replaced):
+            if isinstance(message, dict) and str(message.get("role") or "").strip().lower() == "user":
+                last_user_index = idx
+        if last_user_index >= 0 and isinstance(replaced[last_user_index], dict):
+            updated = dict(replaced[last_user_index])
+            updated["content"] = new_content
+            replaced[last_user_index] = updated
+            return replaced
+        replaced.append({"role": "user", "content": new_content})
+        return replaced
+
+    def _maybe_apply_last_chat_context_for_parallel(
+        self,
+        *,
+        job_id: str,
+        request_payload: dict[str, Any],
+        base_prompt: str,
+    ) -> tuple[dict[str, Any], dict[str, Any] | None]:
+        if not self._last_chat_context_requested(request_payload, base_prompt):
+            return request_payload, None
+
+        resolved = self._resolve_latest_auto_synthesis_content(skip_job_id=job_id)
+        if not resolved:
+            return request_payload, {
+                "requested": True,
+                "applied": False,
+                "reason": "no_completed_auto_synthesis_found",
+            }
+
+        source_job_id, synthesis_content = resolved
+        effective_prompt = self._build_last_chat_followup_prompt(
+            base_prompt,
+            source_job_id=source_job_id,
+            synthesis_content=synthesis_content,
+        )
+
+        enriched_payload = json.loads(json.dumps(request_payload))
+        enriched_payload["user_prompt"] = effective_prompt
+        if "prompt" in enriched_payload:
+            enriched_payload["prompt"] = effective_prompt
+        messages = enriched_payload.get("messages")
+        if isinstance(messages, list):
+            enriched_payload["messages"] = self._replace_last_user_message(messages, effective_prompt)
+
+        context_meta = {
+            "requested": True,
+            "applied": True,
+            "source_job_id": source_job_id,
+            "trigger": "keyword",
+        }
+        enriched_payload["followup_context"] = context_meta
+        return enriched_payload, context_meta
+
+    @staticmethod
     def _coerce_int(value: Any, default: int) -> int:
         try:
             return int(value)
@@ -924,8 +1048,53 @@ class JobWorker:
             for item in merged:
                 row = dict(item)
                 row["source_job_id"] = source_job_id
-                entries.append(row)
+                entries.append(self._normalize_synthesis_source_entry(row))
         return entries
+
+    @staticmethod
+    def _detect_unusable_synthesis_source_content(content: str) -> str | None:
+        text = str(content or "").strip()
+        if not text:
+            return "empty"
+
+        lower = text.lower()
+        if lower.startswith("live_web_unavailable"):
+            return "live_web_unavailable"
+
+        # Guard against policy/prompt echo content that is not an answer.
+        markers = (
+            "you are juniper",
+            "execution constraints:",
+            "current request:",
+            "if and only if live web lookup is truly unavailable",
+            "reply exactly: live_web_unavailable",
+        )
+        if any(marker in lower for marker in markers):
+            return "policy_echo"
+        return None
+
+    @staticmethod
+    def _normalize_synthesis_source_entry(entry: dict[str, Any]) -> dict[str, Any]:
+        normalized = dict(entry)
+        normalized["source"] = str(normalized.get("source") or "unknown").strip() or "unknown"
+        normalized["status"] = str(normalized.get("status") or "unknown").strip().lower() or "unknown"
+        normalized["content"] = str(normalized.get("content") or "").strip()
+
+        if normalized["status"] == "completed":
+            issue = JobWorker._detect_unusable_synthesis_source_content(str(normalized.get("content") or ""))
+            if issue:
+                normalized["status"] = "failed"
+                normalized["error"] = f"unusable source content ({issue})"
+                normalized["content"] = f"Error: {normalized['error']}"
+                return normalized
+
+        if not str(normalized.get("content") or "").strip():
+            normalized["content"] = "Error: unknown source failure"
+            if normalized["status"] == "completed":
+                normalized["status"] = "failed"
+                normalized["error"] = "empty source content"
+
+        return normalized
 
     @staticmethod
     def _pick_first(patterns: list[str], text: str) -> float | None:
@@ -2131,6 +2300,22 @@ class JobWorker:
             or request_payload.get("prompt")
             or ""
         ).strip()
+        request_payload, followup_context = self._maybe_apply_last_chat_context_for_parallel(
+            job_id=job_id,
+            request_payload=request_payload,
+            base_prompt=base_prompt,
+        )
+        if isinstance(followup_context, dict):
+            logger.info(
+                "allparallel follow-up context resolution",
+                extra={
+                    "job_id": job_id,
+                    "requested": bool(followup_context.get("requested")),
+                    "applied": bool(followup_context.get("applied")),
+                    "source_job_id": str(followup_context.get("source_job_id") or ""),
+                    "reason": str(followup_context.get("reason") or ""),
+                },
+            )
 
         if self._allparallel_virtual_turns_enabled():
             self._process_job_allparallel_virtual_turns(
@@ -2201,6 +2386,8 @@ class JobWorker:
             "success_count": success_count,
             "failure_count": len(ordered_results) - success_count,
         }
+        if isinstance(followup_context, dict):
+            execution_meta["followup_context"] = followup_context
         final_payload = {
             "message": {"role": "assistant", "content": combined_content},
             "intent_type": "question",
@@ -2292,6 +2479,9 @@ class JobWorker:
             "completed_indexes": completed_indexes,
             "stage": stage,
         }
+        followup_context = request_payload.get("followup_context") if isinstance(request_payload, dict) else None
+        if isinstance(followup_context, dict):
+            execution_meta["followup_context"] = followup_context
         if error:
             execution_meta["error"] = str(error)
         if stage == "virtual_turns_complete":

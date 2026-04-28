@@ -268,6 +268,80 @@ class WorkerRoutingTests(unittest.TestCase):
         self.assertEqual(entries[1].get("content"), "Error: timeout")
         self.assertEqual(entries[1].get("source_job_id"), "job_parent")
 
+    def test_build_synthesis_entries_from_fanout_results_marks_policy_echo_as_failed(self) -> None:
+        entries = JobWorker._build_synthesis_entries_from_fanout_results(
+            source_job_id="job_parent",
+            results=[
+                {
+                    "index": 1,
+                    "model": "git-grok",
+                    "status": "completed",
+                    "content": "You are Juniper. Execution constraints: ... If and only if live web lookup is truly unavailable, reply exactly: LIVE_WEB_UNAVAILABLE",
+                },
+            ],
+        )
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(entries[0].get("source"), "git-grok")
+        self.assertEqual(entries[0].get("status"), "failed")
+        self.assertIn("unusable source content (policy_echo)", str(entries[0].get("content")))
+
+    def test_normalize_synthesis_source_entry_marks_live_web_unavailable_as_failed(self) -> None:
+        normalized = JobWorker._normalize_synthesis_source_entry(
+            {
+                "source": "git-chatgpt",
+                "status": "completed",
+                "content": "LIVE_WEB_UNAVAILABLE",
+            }
+        )
+        self.assertEqual(normalized.get("status"), "failed")
+        self.assertIn("live_web_unavailable", str(normalized.get("error")))
+
+    def test_has_last_chat_context_trigger_detects_keyword_prefix(self) -> None:
+        self.assertTrue(JobWorker._has_last_chat_context_trigger("Based on the last chat, what should I do next?"))
+        self.assertFalse(JobWorker._has_last_chat_context_trigger("Tell me about pizza dough techniques."))
+
+    def test_maybe_apply_last_chat_context_for_parallel_injects_effective_prompt(self) -> None:
+        worker = JobWorker()
+        worker._resolve_latest_auto_synthesis_content = lambda skip_job_id="": (  # type: ignore[method-assign]
+            "job_prev123",
+            "Synthesized answer about topic X.",
+        )
+        payload = {
+            "model": "git-parallel",
+            "user_prompt": "Based on the last chat, summarize next steps.",
+            "messages": [{"role": "user", "content": "Based on the last chat, summarize next steps."}],
+        }
+        enriched, meta = worker._maybe_apply_last_chat_context_for_parallel(
+            job_id="job_now",
+            request_payload=payload,
+            base_prompt="Based on the last chat, summarize next steps.",
+        )
+        self.assertIsInstance(meta, dict)
+        self.assertTrue(bool(meta.get("applied")))
+        self.assertEqual(meta.get("source_job_id"), "job_prev123")
+        self.assertIn("Previous synthesized context from job_prev123", str(enriched.get("user_prompt")))
+        messages = enriched.get("messages")
+        self.assertIsInstance(messages, list)
+        self.assertIn("Previous synthesized context from job_prev123", str(messages[-1].get("content")))
+
+    def test_maybe_apply_last_chat_context_for_parallel_handles_missing_previous_synth(self) -> None:
+        worker = JobWorker()
+        worker._resolve_latest_auto_synthesis_content = lambda skip_job_id="": None  # type: ignore[method-assign]
+        payload = {
+            "model": "git-parallel",
+            "user_prompt": "Based on the last chat, continue this.",
+            "messages": [{"role": "user", "content": "Based on the last chat, continue this."}],
+        }
+        enriched, meta = worker._maybe_apply_last_chat_context_for_parallel(
+            job_id="job_now",
+            request_payload=payload,
+            base_prompt="Based on the last chat, continue this.",
+        )
+        self.assertEqual(enriched.get("user_prompt"), "Based on the last chat, continue this.")
+        self.assertIsInstance(meta, dict)
+        self.assertFalse(bool(meta.get("applied")))
+        self.assertEqual(meta.get("reason"), "no_completed_auto_synthesis_found")
+
     def test_fanout_auto_synthesis_request_flag_can_disable(self) -> None:
         worker = JobWorker()
         worker._allsequential_followup_delivery_enabled = lambda: True  # type: ignore[method-assign]
