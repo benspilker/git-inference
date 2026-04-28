@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "intent_type": "question",
+  "task_type": "general_question",
+  "confidence": 0.95,
+  "requires_local_execution": false,
+  "reason": "The user sent a simple 'Ping' which is a request for a response indicating the system is alive, fitting the definition of a general question."
+}
