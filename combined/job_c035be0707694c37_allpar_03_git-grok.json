@@ -1,0 +1,26 @@
+{
+  "job_id": "job_c035be0707694c37_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_c035be0707694c37_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-28T00:44:38Z",
+    "created_at": "2026-04-28T00:42:29Z"
+  },
+  "response": {
+    "job_id": "job_c035be0707694c37_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Bemenderfer LLC (also styled as Bemenderfer) is a small, privately held software consulting firm based in Indianapolis, Indiana, founded in 2008 by David Bemenderfer (Founder and President).⁠LinkedIn\n\nCore Focus\n\nThe company specializes in Epicor Kinetic (and earlier Epicor ERP versions like Vantage and Vista). Services include:\n\nConsulting\nImplementation\nTraining\nStreamlining\nIntegration\nCustomization\nBusiness process optimization\nGap analysis\nReporting (Crystal Reports, SSRS)\nAutomation (Method Directives, Data Directives)\n\nThey also offer their own proprietary product: DataPortal, a mobile-friendly tool that provides real-time data and access for field/mobile workforces.⁠Bemenderfer\n\nAdditional Details\nCompany size: Approximately 2–10 employees (often listed as ~5).\nIndustries served: Aerospace, food production, industrial manufacturing, automotive, and others.\nBBB status: Accredited since March 2025 (business started/incorporated August 2008).\nWebsite: bemenderfer.com — emphasizes long-term client relationships, ERP optimization, and practical implementation support.⁠Bemenderfer\n\nNote: There is a separate individual named Neil (T. Neil) Bemenderfer who is a civil mediator in Indianapolis with The Mediation Group LLC — unrelated to this company.\n\nFor the most current details, check their official site or LinkedIn page directly."
+    },
+    "done": true,
+    "started_at": "2026-04-28T00:42:29Z",
+    "completed_at": "2026-04-28T00:44:38Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-28T00:44:38Z"
+}
