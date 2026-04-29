@@ -1,0 +1,26 @@
+{
+  "job_id": "job_e3bbf75762264035_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_e3bbf75762264035_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-29T12:40:54Z",
+    "created_at": "2026-04-29T12:40:42Z"
+  },
+  "response": {
+    "job_id": "job_e3bbf75762264035_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Telegram update – Indianapolis, IN, USA\nTemperature: 55 °F\nConditions: Partly cloudy\nWind: Light, ~8 mph (NW)\nRain risk: Low (≈10 % chance)\n\n1\n \n2"
+    },
+    "done": true,
+    "started_at": "2026-04-29T12:40:42Z",
+    "completed_at": "2026-04-29T12:40:54Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-29T12:40:54Z"
+}

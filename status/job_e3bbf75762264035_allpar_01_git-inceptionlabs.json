@@ -1,0 +1,9 @@
+{
+  "job_id": "job_e3bbf75762264035_allpar_01_git-inceptionlabs",
+  "state": "completed",
+  "intent_type": "question",
+  "task_type": "information",
+  "current_stage": "complete",
+  "updated_at": "2026-04-29T12:40:54Z",
+  "created_at": "2026-04-29T12:40:42Z"
+}
