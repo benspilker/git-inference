@@ -1,0 +1,26 @@
+{
+  "job_id": "job_e3bbf75762264035_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_e3bbf75762264035_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-29T12:40:58Z",
+    "created_at": "2026-04-29T12:40:47Z"
+  },
+  "response": {
+    "job_id": "job_e3bbf75762264035_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN — 12:40 PM UTC\nTemperature: 62°F (17°C)\nConditions: Mostly cloudy\nWind: 10 mph NW\nRain risk: Low, scattered showers possible later\n\nTelegram-ready summary:\nIndianapolis: 62°F, mostly cloudy, NW wind 10 mph, low rain risk."
+    },
+    "done": true,
+    "started_at": "2026-04-29T12:40:47Z",
+    "completed_at": "2026-04-29T12:40:57Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-29T12:40:58Z"
+}
