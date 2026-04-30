@@ -1,0 +1,26 @@
+{
+  "job_id": "job_b7850c5398cc4dbf_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_b7850c5398cc4dbf_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-04-30T12:41:29Z",
+    "created_at": "2026-04-30T12:40:40Z"
+  },
+  "response": {
+    "job_id": "job_b7850c5398cc4dbf_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Rain/wind risk: low to moderate chance of brief showers; westerly winds around 5–15 mph, gusts up to ~25 mph possible"
+    },
+    "done": true,
+    "started_at": "2026-04-30T12:40:39Z",
+    "completed_at": "2026-04-30T12:41:29Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-04-30T12:41:29Z"
+}
