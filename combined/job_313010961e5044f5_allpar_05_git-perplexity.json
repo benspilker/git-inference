@@ -1,0 +1,26 @@
+{
+  "job_id": "job_313010961e5044f5_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_313010961e5044f5_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-01T12:41:38Z",
+    "created_at": "2026-05-01T12:40:42Z"
+  },
+  "response": {
+    "job_id": "job_313010961e5044f5_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a concise, Telegram-ready update for Indianapolis, IN:\n\nCurrent: 62°F, partly cloudy. RealFeel 63°. Winds WNW around 1 mph. Humidity ~88%. A shower is possible this evening with small chances of precipitation.\n\nNote: The latest forecast also mentions a possible shower or isolated thunderstorms tonight; overall trend is cool and unsettled. Consider carrying a light rain jacket and staying alert for brief downpours, especially if you’ll be outdoors this evening."
+    },
+    "done": true,
+    "started_at": "2026-05-01T12:40:41Z",
+    "completed_at": "2026-05-01T12:41:38Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-01T12:41:38Z"
+}
