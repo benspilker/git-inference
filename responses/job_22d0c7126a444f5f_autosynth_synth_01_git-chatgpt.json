@@ -1,0 +1,10 @@
+{
+  "job_id": "job_22d0c7126a444f5f_autosynth_synth_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Here's your weather update for Indianapolis, IN:\n\nCurrent Conditions:\n\nTemperature: 62°F (16.7°C)\n\nConditions: Partly cloudy\n\nWind: Light (1-8 mph)\n\nRain Risk: Low (25% chance of showers later)\n\nNote: Winds could increase with passing showers.\n\nForecast:\n\nHigh: 77°F (25°C)\n\nLow: 41.5°F (5.3°C)\n\nOverall Risk: Low rain risk, but keep an eye on possible showers. Winds gusting up to 30-35 mph later.\n\nThis should be ready for delivery via Telegram."
+  },
+  "done": true,
+  "started_at": "2026-05-02T12:43:48Z",
+  "completed_at": "2026-05-02T12:43:58Z"
+}
