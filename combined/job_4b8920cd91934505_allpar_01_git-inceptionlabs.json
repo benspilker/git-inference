@@ -1,0 +1,26 @@
+{
+  "job_id": "job_4b8920cd91934505_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_4b8920cd91934505_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "general_question",
+    "current_stage": "complete",
+    "updated_at": "2026-05-02T23:06:30Z",
+    "created_at": "2026-05-02T23:06:12Z"
+  },
+  "response": {
+    "job_id": "job_4b8920cd91934505_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Watering an orchid with an ice cube is not recommended. Orchids (especially the popular Phalaenopsis) prefer a gentle, room‑temperature soak that allows the roots to absorb moisture evenly. Ice‑cold water can shock the roots, cause temperature stress, and lead to rot.\n\nBest practice\n\nUse lukewarm water (about 20‑25 °C / 68‑77 °F).\nWater thoroughly until water drains from the pot’s bottom holes.\nLet excess water drain completely—avoid leaving the pot sitting in water.\nWater about once a week (or when the growing medium feels dry about an inch down).\n\nIf you want a slow‑release method, you can place a small, damp cotton ball or a piece of sponge in the pot, but avoid ice cubes or any very cold water."
+    },
+    "done": true,
+    "started_at": "2026-05-02T23:06:11Z",
+    "completed_at": "2026-05-02T23:06:30Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-02T23:06:30Z"
+}
