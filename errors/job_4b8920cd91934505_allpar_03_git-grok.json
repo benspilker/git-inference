@@ -1,0 +1,8 @@
+{
+  "job_id": "job_4b8920cd91934505_allpar_03_git-grok",
+  "started_at": "2026-05-02T23:06:11Z",
+  "error": {
+    "code": "ROUTER_STAGE_FAILED",
+    "message": "Router stage execution failed."
+  }
+}
