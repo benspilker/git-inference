@@ -1,0 +1,26 @@
+{
+  "job_id": "job_d476f6787c454f5a_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_d476f6787c454f5a_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-02T23:01:39Z",
+    "created_at": "2026-05-02T23:01:21Z"
+  },
+  "response": {
+    "job_id": "job_d476f6787c454f5a_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Thought for 3s\n\nOrchid care (especially for common Phalaenopsis/moth orchids) focuses on mimicking their epiphytic nature: good air flow to roots, bright indirect light, and careful watering. Most die from overwatering—roots need to dry somewhat between waterings.⁠Aos\n\n1. Light (Key for Blooming)\nProvide bright, indirect light — east or west window ideal; shaded south window works. Avoid direct midday sun (burns leaves) or deep shade (no blooms).⁠Usbg\nLeaves should be medium green. Too dark = dark green, leggy growth, no flowers. Too bright = yellowish/reddish leaves.\nSupplement with grow lights if needed in low-light homes.\n2. Watering (Biggest Killer)\nWater thoroughly when the potting mix feels dry (usually once a week; more in heat/dry air, less in cool/humid). Lift the pot—if light, water.⁠Vivier\nMethod: Place in sink, drench with room-temperature water for 5–10 minutes, let drain completely. Never let it sit in water. Water in the morning so foliage dries by evening.\nUse bark mix (not soil). Ice cubes are not recommended—cold can damage roots.⁠Discoverandshare\n3. Temperature & Humidity\nDay: 70–80°F (21–27°C). Night: 60–70°F (16–21°C). A 10°F nighttime drop helps trigger blooming.⁠Westerlay\nHumidity: 40–70%. Use a pebble tray with water (pot not sitting in it), humidifier, or group plants together. Good air circulation prevents rot.\n4. Fertilizer\nUse a balanced orchid fertilizer (e.g., 20-20-20) at half strength every 1–2 weeks during growth (spring/summer). Reduce in winter or when resting.⁠Almanac\nWater first, then fertilize. Flush with plain water monthly to prevent salt buildup.\n5. Blooming & Aftercare\nAfter flowers fade: Cut the spike 1 inch above a node (or at base if weak). Move to slightly brighter/warmer spot and continue care—new spikes often form in 2–6 months with good light + temp drop.⁠Calcoastorchids\nRepot every 1–2 years after blooming (or when mix breaks down/roots crowded) into fresh orchid bark. Trim dead roots.\nQuick Troubleshooting\nYellow leaves/bottom leaves dropping: Normal aging or overwatering.\nBlack/soft roots: Rot from overwatering—trim bad roots, repot in fresh mix.\nNo blooms: Increase light or add cooler nights.\nWrinkled leaves: Underwatering.\n\nStart simple: Bright indirect light + weekly thorough watering with full drainage. Orchids are resilient once you get the rhythm—many grocery store ones rebloom for years. Adjust based on your specific variety and home conditions if it differs from Phalaenopsis."
+    },
+    "done": true,
+    "started_at": "2026-05-02T23:01:21Z",
+    "completed_at": "2026-05-02T23:01:38Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-02T23:01:39Z"
+}
