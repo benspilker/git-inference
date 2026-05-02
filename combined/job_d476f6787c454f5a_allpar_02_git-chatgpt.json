@@ -1,0 +1,26 @@
+{
+  "job_id": "job_d476f6787c454f5a_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_d476f6787c454f5a_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-02T23:01:32Z",
+    "created_at": "2026-05-02T23:01:21Z"
+  },
+  "response": {
+    "job_id": "job_d476f6787c454f5a_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "To keep an orchid healthy and blooming, follow these key tips:\n\n1. Proper Lighting\n\nOrchids need bright, indirect light. A south- or east-facing window is ideal.\n\nAvoid direct sunlight as it can scorch the leaves.\n\nIf your orchid isn’t blooming, it may need more light. Consider using a grow light if natural light is insufficient.\n\n2. Watering\n\nWater orchids thoroughly but allow them to dry out between waterings. Overwatering is a common mistake.\n\nWater once a week, or when the top inch of the potting mix feels dry. In the winter, reduce watering frequency.\n\nEnsure your pot has good drainage to prevent waterlogged roots.\n\n3. Humidity\n\nOrchids thrive in humidity levels of 50-70%.\n\nUse a humidity tray or a room humidifier if the air is dry. Misting the leaves lightly can also help.\n\nAvoid letting water sit in the crown of the orchid (the center of the leaves), as this can lead to rot.\n\n4. Temperature\n\nIdeal temperature ranges: 60-75°F (16-24°C) during the day and slightly cooler at night.\n\nAvoid placing your orchid near drafts, heating vents, or air conditioners.\n\n5. Fertilizing\n\nFertilize orchids with a balanced, water-soluble fertilizer (e.g., 30-10-10) designed for orchids.\n\nFertilize once a month during the growing season (spring to fall), and cut back in winter.\n\n6. Repotting\n\nOrchids should be repotted every 1-2 years to refresh the growing medium.\n\nUse a well-draining orchid mix (e.g., bark or sphagnum moss).\n\nRepot after blooming has finished.\n\n7. Pruning and Bloom Care\n\nAfter the blooms fade, you can prune the flower spike back to the base (for most orchids), or cut it just above a node to encourage a second bloom.\n\nBe patient as orchids can take time to rebloom, sometimes months after a flowering cycle.\n\n8. Rest Period\n\nAfter blooming, orchids may enter a resting period where growth slows down. This is normal.\n\nReduce watering slightly, but continue providing appropriate light and temperature.\n\nWould you like more information about a specific type of orchid, or tips on choosing one?"
+    },
+    "done": true,
+    "started_at": "2026-05-02T23:01:20Z",
+    "completed_at": "2026-05-02T23:01:32Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-02T23:01:32Z"
+}
