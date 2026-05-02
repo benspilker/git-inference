@@ -1,0 +1,3 @@
+Indianapolis, IN — ~41-45°F, mostly cloudy/overcast. Feels like low 40s. Light winds (N/NNE 1-10 mph). Low rain risk today (slight chance of isolated shower possible but mostly dry). High near 55°F. Chilly for early May with frost possible overnight.
+
+(Telegram update ready for delivery.)
