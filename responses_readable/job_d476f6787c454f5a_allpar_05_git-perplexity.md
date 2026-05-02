@@ -1,0 +1,17 @@
+Orchids can bloom reliably with consistent care. Here’s a practical plan you can start today.
+
+Light and temperature: Place orchids where they get bright, indirect light. A daytime temp around 65–75°F (18–24°C) with a cooler overnight drop helps trigger blooms.
+
+Watering: Water about once a week (more in warm months, less in cool months). Use a narrow-spout pitcher or soak-and-drain method so the crown stays dry. Allow the potting mix to nearly dry between waterings.
+
+Humidity and air: Aim for 40–60% humidity. Good air movement helps prevent rot and promotes flowering; a small fan set to low is fine.
+
+Potting mix and pot: Use a well-draining orchid mix (bark, perlite, or sphagnum). Repot every 1–2 years or when the mix breaks down; repot after flowering if the roots look healthy.
+
+Fertilizing: Feed with a diluted orchid fertilizer (often 20-20-20 or 30-10-10) at half to quarter strength, every 2–3 weeks during growing and blooming. In winter, reduce feeding to monthly or skip.
+
+After flowering: When blooms fade, trim the flower spike back to the base or just above a node, depending on the orchid type, to encourage new growth and a possible rebloom. A slight temperature dip or brighter light can help stimulate next bloom.
+
+Common pitfalls: Don’t let water collect in the crown; avoid overwatering, which causes root rot; keep potting media fresh and well-draining.
+
+If you share your orchid type (Phalaenopsis, Cattleya, Dendrobium, etc.) and your local room conditions (light levels, typical temperatures, humidity), I can tailor these steps and timings precisely.
