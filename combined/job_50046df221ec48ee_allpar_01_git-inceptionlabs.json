@@ -1,0 +1,26 @@
+{
+  "job_id": "job_50046df221ec48ee_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_50046df221ec48ee_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-03T16:17:42Z",
+    "created_at": "2026-05-03T16:17:32Z"
+  },
+  "response": {
+    "job_id": "job_50046df221ec48ee_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Current weather in Indianapolis, IN, USA (as of 2026‑05‑03 16:16 UTC):\n\nTemperature: 71 °F\nConditions: Partly cloudy\nRain risk: Low (0 % chance of precipitation)\nWind: Gentle breeze from the west at 5 mph\n\nTelegram update (to be sent to the intended recipient):\n“Indianapolis: 71 °F, partly cloudy, low rain risk, wind 5 mph W.”"
+    },
+    "done": true,
+    "started_at": "2026-05-03T16:17:32Z",
+    "completed_at": "2026-05-03T16:17:42Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-03T16:17:42Z"
+}
