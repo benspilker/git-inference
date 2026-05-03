@@ -1,0 +1,10 @@
+{
+  "job_id": "job_50046df221ec48ee_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "🌤️ Indianapolis, IN — Weather Update\nSun, May 3 • 4:16 PM UTC\n• Current: 57–60°F, mostly sunny → partly cloudy \nwww.accuweather.com\n\n• Today's Range: High 63°F / Low 51°F \nwww.wunderground.com\n\n• Wind: SW 10–20 mph, gusts to 30 mph — breezy \nwww.accuweather.com\n\n• Rain Risk: 15–20% this afternoon; 55% tonight with isolated thundershowers possible \nwww.wunderground.com\n\n• Notable: High UV index (9); humidity ~37–40% \nwww.accuweather.com\n📲 Telegram-ready summary — forward to your channel/group as needed.\n+20"
+  },
+  "done": true,
+  "started_at": "2026-05-03T16:17:33Z",
+  "completed_at": "2026-05-03T16:19:47Z"
+}
