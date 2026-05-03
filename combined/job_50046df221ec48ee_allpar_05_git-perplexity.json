@@ -1,0 +1,26 @@
+{
+  "job_id": "job_50046df221ec48ee_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_50046df221ec48ee_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-03T16:18:24Z",
+    "created_at": "2026-05-03T16:17:34Z"
+  },
+  "response": {
+    "job_id": "job_50046df221ec48ee_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Here’s a concise Telegram-style weather update for Indianapolis, IN:\n\nTemperature: around 62°F (lately in the low 60s)\n\nConditions: Partly cloudy, breezy\n\nRain/wind risk: A passing shower possible this afternoon; breezy with gusts up to about 15–25 mph later today\n\nIf you want, I can tailor this for a specific Telegram format (with emojis, exact timestamps, or a shorter one-liner)."
+    },
+    "done": true,
+    "started_at": "2026-05-03T16:17:34Z",
+    "completed_at": "2026-05-03T16:18:24Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-03T16:18:24Z"
+}
