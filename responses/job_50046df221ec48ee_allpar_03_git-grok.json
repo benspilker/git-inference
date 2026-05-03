@@ -1,0 +1,10 @@
+{
+  "job_id": "job_50046df221ec48ee_allpar_03_git-grok",
+  "message": {
+    "role": "assistant",
+    "content": "Thought for 3s\n\nIndianapolis, IN — Current Weather Update (as of ~12 PM EDT):\n59°F, Partly Cloudy to Cloudy. Feels like 54°F.\nWinds SW 14 mph. Humidity ~40%.\n\nIsolated showers possible this afternoon (15-30% chance) — low rain risk. No strong wind concerns. High today near 61-63°F."
+  },
+  "done": true,
+  "started_at": "2026-05-03T16:17:31Z",
+  "completed_at": "2026-05-03T16:17:42Z"
+}
