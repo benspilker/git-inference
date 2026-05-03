@@ -1,0 +1,26 @@
+{
+  "job_id": "job_50046df221ec48ee_autosynth_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_50046df221ec48ee_autosynth_synth_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-03T16:20:50Z",
+    "created_at": "2026-05-03T16:20:40Z"
+  },
+  "response": {
+    "job_id": "job_50046df221ec48ee_autosynth_synth_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Telegram update for Indianapolis, IN:\n\nTemperature: 62°F (16.7°C)\n\nConditions: Partly cloudy, breezy\n\nRain risk: Low risk for isolated showers (15-40% chance)\n\nWind: Breezy, with gusts up to 20 mph\n\nEnjoy the afternoon!"
+    },
+    "done": true,
+    "started_at": "2026-05-03T16:20:40Z",
+    "completed_at": "2026-05-03T16:20:50Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-03T16:20:50Z"
+}
