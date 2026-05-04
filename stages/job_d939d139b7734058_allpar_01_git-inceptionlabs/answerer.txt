@@ -1,0 +1,6 @@
+Search query: "Indianapolis IN weather May 4 2026 current temperature".We need to get results.Search query: "Indianapolis IN weather today May 4 2026".Open result 
+3
+ for current weather details.Telegram update (Indianapolis, IN – 2026‑05‑04 13:17 UTC):
+🌡️ 71 °F · Partly Cloudy · Wind 9 mph NE · Rain risk ≈ 10 %
+
+Send this message to the appropriate Telegram chat.
