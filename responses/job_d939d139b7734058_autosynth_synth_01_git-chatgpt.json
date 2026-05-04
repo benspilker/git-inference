@@ -1,0 +1,10 @@
+{
+  "job_id": "job_d939d139b7734058_autosynth_synth_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN — 60°F, stormy conditions. Winds around 9 mph. Rain risk uncertain, up to 70% possible later."
+  },
+  "done": true,
+  "started_at": "2026-05-04T13:22:34Z",
+  "completed_at": "2026-05-04T13:22:44Z"
+}
