@@ -1,0 +1,26 @@
+{
+  "job_id": "job_fdb48b7aa5f04e09_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_fdb48b7aa5f04e09_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-05T13:02:32Z",
+    "created_at": "2026-05-05T13:00:25Z"
+  },
+  "response": {
+    "job_id": "job_fdb48b7aa5f04e09_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "🌧️ Indianapolis, IN — Weather Update\nTue, May 5, 2026 • 12:59 UTC\n• Current: 60°F, cloudy with a shower\n• Feels Like: 63°F\n• Today's Range: High 62° / Low 44°F\n• Rain Risk: 98% chance, ~0.5\" expected; periods of rain through evening\n• Wind: SSW 3–9 mph, gusts to 18 mph\n• Note: Wet roads likely; carry an umbrella if heading out.\nSource: AccuWeather / Weather.com\nDeliver to: Telegram channel/recipient as specified by user\n+19"
+    },
+    "done": true,
+    "started_at": "2026-05-05T13:00:25Z",
+    "completed_at": "2026-05-05T13:02:32Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-05T13:02:32Z"
+}
