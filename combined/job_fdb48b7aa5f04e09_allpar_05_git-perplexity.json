@@ -1,0 +1,26 @@
+{
+  "job_id": "job_fdb48b7aa5f04e09_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_fdb48b7aa5f04e09_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-05T13:01:18Z",
+    "created_at": "2026-05-05T13:00:27Z"
+  },
+  "response": {
+    "job_id": "job_fdb48b7aa5f04e09_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis is 69°F and mostly cloudy, with a RealFeel around 67°F. Wind is light from the SSW at 5 mph, but there’s some rain and thunderstorm risk in the area later today, with the strongest concern being brief gusty winds and possible hail."
+    },
+    "done": true,
+    "started_at": "2026-05-05T13:00:27Z",
+    "completed_at": "2026-05-05T13:01:18Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-05T13:01:18Z"
+}
