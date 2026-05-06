@@ -1,0 +1,10 @@
+{
+  "job_id": "job_fd8fd53b7ebf4bae_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN: 69°F, Mostly cloudy. Light S wind ~5 mph. Rain risk: low; no significant wind risk at the moment."
+  },
+  "done": true,
+  "started_at": "2026-05-06T12:40:48Z",
+  "completed_at": "2026-05-06T12:41:40Z"
+}
