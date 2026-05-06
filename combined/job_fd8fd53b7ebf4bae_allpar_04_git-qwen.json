@@ -1,0 +1,26 @@
+{
+  "job_id": "job_fd8fd53b7ebf4bae_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_fd8fd53b7ebf4bae_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-06T12:43:01Z",
+    "created_at": "2026-05-06T12:40:51Z"
+  },
+  "response": {
+    "job_id": "job_fd8fd53b7ebf4bae_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "🌤️ Indianapolis, IN — Weather Update\nWed, May 6 • 8:40 AM EDT\n• Temp: 48–60°F (feels like 48–63°F)\n• Conditions: Cloudy/foggy, isolated showers possible\n• Rain risk: 20% today, higher earlier this morning \n天气预报\n\n• Wind: WNW 5–10 mph, light gusts\n• Notable: Morning fog may reduce visibility; rain chance drops after noon. No severe wind or storm risk expected today.\nTelegram update ready for delivery.\n+20"
+    },
+    "done": true,
+    "started_at": "2026-05-06T12:40:51Z",
+    "completed_at": "2026-05-06T12:43:01Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-06T12:43:01Z"
+}
