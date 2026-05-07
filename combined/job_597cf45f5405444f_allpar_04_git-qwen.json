@@ -1,0 +1,26 @@
+{
+  "job_id": "job_597cf45f5405444f_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_597cf45f5405444f_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-07T12:43:20Z",
+    "created_at": "2026-05-07T12:40:48Z"
+  },
+  "response": {
+    "job_id": "job_597cf45f5405444f_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "🌤️ Indianapolis, IN — Weather Update\nTime: Thu, May 7, 2026 ~12:40 UTC\n• Temperature: 45–47°F (feels like 45–56°F)\n• Conditions: Mostly sunny / clear skies \nwww.accuweather.com\n天气预报\n\n• Rain risk: Very low — 1–2% current, ≤25% later today; no precipitation expected \n天气预报\nwww.accuweather.com\n\n• Wind: Light WNW 1–8 mph, gusts to 18 mph this afternoon \nwww.accuweather.com\n天气预报\n✅ Pleasant daytime high near 61°F; cool evening. No notable weather hazards.\nDeliver to: Telegram channel/recipient as specified in cron job f9fee8f8-1df5-4e37-919d-c317996e5acd\n+20"
+    },
+    "done": true,
+    "started_at": "2026-05-07T12:40:48Z",
+    "completed_at": "2026-05-07T12:43:20Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-07T12:43:20Z"
+}
