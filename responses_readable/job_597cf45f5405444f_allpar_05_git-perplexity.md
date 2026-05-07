@@ -1,0 +1,1 @@
+Indianapolis is currently mostly cloudy and about 69°F, with a RealFeel near 67°F and light SSW wind around 5 mph. Rain risk is moderate later today, and there is some thunderstorm potential with stronger gusts possible this afternoon.

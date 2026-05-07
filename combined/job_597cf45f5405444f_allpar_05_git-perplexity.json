@@ -1,0 +1,26 @@
+{
+  "job_id": "job_597cf45f5405444f_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_597cf45f5405444f_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-07T12:41:45Z",
+    "created_at": "2026-05-07T12:40:49Z"
+  },
+  "response": {
+    "job_id": "job_597cf45f5405444f_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis is currently mostly cloudy and about 69°F, with a RealFeel near 67°F and light SSW wind around 5 mph. Rain risk is moderate later today, and there is some thunderstorm potential with stronger gusts possible this afternoon."
+    },
+    "done": true,
+    "started_at": "2026-05-07T12:40:48Z",
+    "completed_at": "2026-05-07T12:41:45Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-07T12:41:45Z"
+}
