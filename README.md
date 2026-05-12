@@ -49,6 +49,7 @@ Supported browser-backed model ids include:
 - `git-grok`
 - `git-inceptionlabs`
 - `git-qwen`
+- `git-updf-deepseek`
 - `git-allsequential` (API fan-out: runs multiple models sequentially and returns ordered source-labeled sections)
 - `git-parallel` (API fan-out: runs multiple models in parallel and returns ordered source-labeled sections)
 - `git-synth` (single-model synthesis: reads fan-out combined artifact(s) on `main`, computes aggregate metrics, and asks `git-chatgpt` for one final summary)

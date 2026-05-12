@@ -9,6 +9,7 @@ on:
       - git-grok
       - git-qwen
       - git-perplexity
+      - git-updf-deepseek
     paths:
       - "input/*.txt"
       - "requests/job_*.json"
@@ -30,6 +31,7 @@ on:
           - "grok"
           - "inceptionlabs"
           - "qwen"
+          - "updf-deepseek"
       upload_artifacts:
         description: "Upload diagnostics artifacts even on success"
         required: false
@@ -98,12 +100,14 @@ jobs:
             PLAYWRIGHT_RUNNER_FILE="inceptionlabs_file_playwright_anonymous_ci.py"
           elif [[ "$PLAYWRIGHT_ENGINE" == "qwen" ]]; then
             PLAYWRIGHT_RUNNER_FILE="qwen_file_playwright_anonymous_ci.py"
+          elif [[ "$PLAYWRIGHT_ENGINE" == "updf-deepseek" ]]; then
+            PLAYWRIGHT_RUNNER_FILE="updf_deepseek_file_playwright_anonymous_ci.py"
           fi
           PLAYWRIGHT_RUNNER_FILE_OVERRIDE=""
           WEATHER_FALLBACK_SCRIPT="tools/weather_fallback_openmeteo.py"
           WEB_FALLBACK_SCRIPT="tools/web_fallback_duckduckgo.py"
           EXTRACT_CONTEXT_SCRIPT=".github/workflows/extract_request_context.py"
-          SUPPORTED_REQUEST_MODELS_CSV="${SUPPORTED_REQUEST_MODELS_CSV:-git-chatgpt,git-chatgpt-json,git-perplexity,git-perplexity-json,git-grok,git-inceptionlabs,git-qwen}"
+          SUPPORTED_REQUEST_MODELS_CSV="${SUPPORTED_REQUEST_MODELS_CSV:-git-chatgpt,git-chatgpt-json,git-perplexity,git-perplexity-json,git-grok,git-inceptionlabs,git-qwen,git-updf-deepseek}"
           echo "Playwright default engine (workflow-level): $PLAYWRIGHT_ENGINE"
           echo "Playwright default runner (workflow-level): $PLAYWRIGHT_RUNNER_FILE"
           echo "Per-job engine/runner is resolved from request.model (see [dispatch] log lines)."
@@ -229,6 +233,9 @@ jobs:
               git-qwen|*/git-qwen)
                 echo "qwen_file_playwright_anonymous_ci.py"
                 ;;
+              git-updf-deepseek|*/git-updf-deepseek)
+                echo "updf_deepseek_file_playwright_anonymous_ci.py"
+                ;;
               *)
                 echo ""
                 ;;
@@ -249,6 +256,9 @@ jobs:
                 ;;
               qwen_file_playwright_anonymous_ci.py)
                 echo "qwen"
+                ;;
+              updf_deepseek_file_playwright_anonymous_ci.py)
+                echo "updf-deepseek"
                 ;;
               "")
                 echo "unsupported"
@@ -2093,6 +2103,8 @@ jobs:
             inceptionlabs_network.log
             qwen_playwright_error*
             qwen_network.log
+            updf_deepseek_playwright_error*
+            updf_deepseek_network.log
             tmp/*.out.txt
             errors/*.json
             status/*.json

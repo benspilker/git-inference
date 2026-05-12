@@ -68,11 +68,11 @@ class Settings:
     # Model config
     available_models_csv: str = env_csv(
         "AVAILABLE_MODELS",
-        "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel,git-synth",
+        "git-chatgpt-json,git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-updf-deepseek,git-allsequential,git-parallel,git-synth",
     )
     openclaw_compat_models_csv: str = env_csv(
         "OPENCLAW_COMPAT_MODELS",
-        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-allsequential,git-parallel,git-synth",
+        "git-chatgpt,git-perplexity,git-grok,git-inceptionlabs,git-qwen,git-updf-deepseek,git-allsequential,git-parallel,git-synth",
     )
     openclaw_default_model: str = os.getenv("OPENCLAW_DEFAULT_MODEL", "git-allsequential")
     openclaw_force_default_model: bool = env_bool("OPENCLAW_FORCE_DEFAULT_MODEL", False)
