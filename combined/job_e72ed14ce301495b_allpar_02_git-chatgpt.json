@@ -1,0 +1,26 @@
+{
+  "job_id": "job_e72ed14ce301495b_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_e72ed14ce301495b_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-12T12:41:35Z",
+    "created_at": "2026-05-12T12:41:12Z"
+  },
+  "response": {
+    "job_id": "job_e72ed14ce301495b_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN: 68°F, partly cloudy. Light wind from the NW at 8 mph. No significant rain expected today."
+    },
+    "done": true,
+    "started_at": "2026-05-12T12:41:11Z",
+    "completed_at": "2026-05-12T12:41:35Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-12T12:41:35Z"
+}
