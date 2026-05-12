@@ -1,6 +1,6 @@
 param(
-    [string]$ApiBaseUrl = "http://127.0.0.1:8000",
-    [string]$Model = "git-chatgpt",
+    [string]$ApiBaseUrl = "http://127.0.0.1:18000",
+    [string]$Model = "git-parallel",
     [string]$Prompt = "",
     [string]$SystemPrompt = "You are a retrieval-first assistant.",
     [switch]$ShowCombined,
