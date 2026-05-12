@@ -1,0 +1,26 @@
+{
+  "job_id": "job_e72ed14ce301495b_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_e72ed14ce301495b_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-12T12:41:11Z",
+    "created_at": "2026-05-12T12:40:43Z"
+  },
+  "response": {
+    "job_id": "job_e72ed14ce301495b_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Thought for 7s\n\nClear, 59°F in Indianapolis (as of ~8-9 AM EDT). RealFeel ~59°F. Light NNW winds ~4 mph, low humidity (~35%), no precipitation.⁠Accuweather\n\nConcise Telegram update:\n\"Indianapolis, IN: Clear skies, 59°F. Light winds, dry conditions. Daytime high ~75°F with minimal rain/wind risk until possible evening showers.\""
+    },
+    "done": true,
+    "started_at": "2026-05-12T12:40:43Z",
+    "completed_at": "2026-05-12T12:41:11Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-12T12:41:11Z"
+}
