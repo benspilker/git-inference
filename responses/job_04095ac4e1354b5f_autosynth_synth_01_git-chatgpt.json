@@ -1,0 +1,10 @@
+{
+  "job_id": "job_04095ac4e1354b5f_autosynth_synth_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN — 60°F, rainy. Light NW wind around 7 mph. Chance of showers up to 60%; wind gusts minor, no severe risk."
+  },
+  "done": true,
+  "started_at": "2026-05-13T12:45:38Z",
+  "completed_at": "2026-05-13T12:45:48Z"
+}
