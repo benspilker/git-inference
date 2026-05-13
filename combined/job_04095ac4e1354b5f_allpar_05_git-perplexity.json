@@ -1,0 +1,26 @@
+{
+  "job_id": "job_04095ac4e1354b5f_allpar_05_git-perplexity",
+  "status": {
+    "job_id": "job_04095ac4e1354b5f_allpar_05_git-perplexity",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-13T12:41:23Z",
+    "created_at": "2026-05-13T12:40:42Z"
+  },
+  "response": {
+    "job_id": "job_04095ac4e1354b5f_allpar_05_git-perplexity",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis is currently about 63°F and mostly cloudy, with a light west-southwest wind around 3 mph. Rain risk looks limited right now, but there is some breeze, so I’d send a brief update noting cloudy conditions and low wind risk."
+    },
+    "done": true,
+    "started_at": "2026-05-13T12:40:41Z",
+    "completed_at": "2026-05-13T12:41:23Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-13T12:41:23Z"
+}
