@@ -1,0 +1,26 @@
+{
+  "job_id": "job_1f1665b2b7474e4d_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_1f1665b2b7474e4d_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-14T13:20:25Z",
+    "created_at": "2026-05-14T13:18:08Z"
+  },
+  "response": {
+    "job_id": "job_1f1665b2b7474e4d_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "🌤️ Indianapolis, IN — Weather Update (2:17 PM local)\n• Current: 52°F, Sunny\n• Feels like: 48°F\n• Rain risk: 0% (no precipitation expected)\n• Wind: NNW at 9 mph, light gusts\n• Today's range: High 68° / Low 47°\nNo notable rain or wind risk. Clear, pleasant conditions for outdoor plans.\nSource: AccuWeather / Weather.com, retrieved 2026-05-14 13:17 UTC\n→ This update is formatted for Telegram delivery. If a specific recipient/channel was intended, please confirm where to route it.\n+20"
+    },
+    "done": true,
+    "started_at": "2026-05-14T13:18:07Z",
+    "completed_at": "2026-05-14T13:20:25Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-14T13:20:25Z"
+}
