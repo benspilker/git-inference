@@ -1,0 +1,1 @@
+Indianapolis is currently around 60°F and clear, with a pleasant feel near 62°F. Rain risk is low right now, but there is a moderate wind risk later today with southerly gusts around 10 to 15 mph and a strong chance of showers this morning.
