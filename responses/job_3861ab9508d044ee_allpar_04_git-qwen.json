@@ -1,0 +1,10 @@
+{
+  "job_id": "job_3861ab9508d044ee_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "🌤️ Indianapolis, IN — Weather Update\n• Current: 56°F, Cloudy (feels like 57°)\n• Today's High/Low: 71° / 60°\n• Rain Risk: 60% chance; morning showers likely (~0.20\"), tapering by afternoon\n• Wind: Light S 2 mph, gusts to 17 mph this afternoon — no significant wind risk\n• Note: Clouds breaking for some sun later; UV index high (9.0) when sun emerges\nUpdate auto-delivered via Telegram.\n+19"
+  },
+  "done": true,
+  "started_at": "2026-05-15T13:31:55Z",
+  "completed_at": "2026-05-15T13:33:57Z"
+}
