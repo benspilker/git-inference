@@ -1,0 +1,26 @@
+{
+  "job_id": "job_3861ab9508d044ee_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_3861ab9508d044ee_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-15T13:32:06Z",
+    "created_at": "2026-05-15T13:31:53Z"
+  },
+  "response": {
+    "job_id": "job_3861ab9508d044ee_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN: Currently around 68–72°F with mostly sunny to partly cloudy conditions. Light south to southwest winds around 5–15 mph. Rain risk is low this afternoon, though a few scattered showers could develop later today. No major severe weather threat at the moment, but breezier conditions are possible into the evening."
+    },
+    "done": true,
+    "started_at": "2026-05-15T13:31:53Z",
+    "completed_at": "2026-05-15T13:32:06Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-15T13:32:06Z"
+}

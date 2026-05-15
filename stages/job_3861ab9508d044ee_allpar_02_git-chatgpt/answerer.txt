@@ -1,0 +1,1 @@
+Indianapolis, IN: Currently around 68–72°F with mostly sunny to partly cloudy conditions. Light south to southwest winds around 5–15 mph. Rain risk is low this afternoon, though a few scattered showers could develop later today. No major severe weather threat at the moment, but breezier conditions are possible into the evening.
