@@ -1,0 +1,10 @@
+{
+  "job_id": "job_b0f0c4a243fb4965_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "🌧️ Indianapolis Weather Update — Sat, May 16, 2:35 PM UTC\n• Current: 67°F, Rain \nwww.accuweather.com\n\n• Feels Like: 65°F (Pleasant)\n• Today's Forecast: High 73° / Low 62°; scattered thunderstorms likely, especially this morning \nwww.accuweather.com\n\n• Rain Risk: 97% chance today; ~0.54\" expected \nwww.accuweather.com\n\n• Wind: SSW 3 mph now, gusts to 7 mph; afternoon gusts up to 27 mph possible \nwww.accuweather.com\n\n• Notable Risk: Thunderstorms could bring damaging winds, flash flooding, or small hail — keep alerts enabled \nwww.accuweather.com\nTelegram update ready for delivery. No external recipient specified — send to your configured Indianapolis weather channel/group.\n+20"
+  },
+  "done": true,
+  "started_at": "2026-05-16T14:36:26Z",
+  "completed_at": "2026-05-16T14:38:55Z"
+}
