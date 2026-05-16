@@ -1,0 +1,10 @@
+{
+  "job_id": "job_b0f0c4a243fb4965_allpar_02_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "📍 Indianapolis, IN — May 16, 2026, 2:35 PM UTC\n\n🌡 Temperature: 72°F (22°C)\n☁ Conditions: Partly cloudy\n💧 Rain risk: Low\n🌬 Wind: 10 mph from the NW\n\nThis summary is ready to send via Telegram."
+  },
+  "done": true,
+  "started_at": "2026-05-16T14:36:26Z",
+  "completed_at": "2026-05-16T14:36:36Z"
+}
