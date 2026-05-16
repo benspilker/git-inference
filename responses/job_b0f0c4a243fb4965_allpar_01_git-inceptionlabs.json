@@ -1,0 +1,10 @@
+{
+  "job_id": "job_b0f0c4a243fb4965_allpar_01_git-inceptionlabs",
+  "message": {
+    "role": "assistant",
+    "content": "🕙 Indianapolis, IN (10:35 AM EDT) – 70 °F, partly cloudy, 64 % chance of rain, wind ≈ 29 mph (NW).\nModerate rain risk and noticeable wind.\n\nSources: \n1\n, \n2"
+  },
+  "done": true,
+  "started_at": "2026-05-16T14:36:25Z",
+  "completed_at": "2026-05-16T14:36:38Z"
+}
