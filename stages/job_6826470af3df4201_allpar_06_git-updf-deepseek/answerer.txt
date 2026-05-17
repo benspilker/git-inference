@@ -1,0 +1,11 @@
+We are given a request to provide the current weather in Indianapolis, IN, USA and format it as a concise Telegram update. The current time is provided as Sunday, May 17th, 2026 — 2:30 PM (UTC). Since the request is about current weather, it is time-sensitive and requires a web-backed answer.
+
+However, note that the current time in the context is May 17, 2026, which is in the future relative to our actual current date (as of 2023). This might be a simulated scenario. But the instruction says: for time-sensitive requests, provide a web-backed answer. But we are in a simulated future date?
+
+But wait, the constraints say: "You are running inside a Perplexity browser session and can use Perplexity's web-backed retrieval." So, we are expected to use the web to get the current weather? However, the current time in the context is 2026, which is not the current year.
+
+But note the rule: "For weather requests, include concrete facts (for example temperature and conditions, and include high/low, wind, or precipitation when available)."
+
+Given the time in the context is 2026, we cannot get the actual weather for that future date from the web. So, what to do?
+
+Looking at the instruction: "If and only if live web lookup is truly unava
