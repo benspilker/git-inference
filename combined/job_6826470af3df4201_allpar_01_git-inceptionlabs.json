@@ -1,0 +1,26 @@
+{
+  "job_id": "job_6826470af3df4201_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_6826470af3df4201_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-17T14:31:09Z",
+    "created_at": "2026-05-17T14:30:57Z"
+  },
+  "response": {
+    "job_id": "job_6826470af3df4201_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "Searching web for current weather in Indianapolis, IN on May 17 2026.We have to produce answer. Let's do a search.Search query: \"Indianapolis current weather May 17 2026 2:30 PM EDT\".Search query: \"Indianapolis weather today May 17 2026\".Indianapolis, IN (today, May 17 2026): 79 °F, mostly sunny, light wind (≈ 7 mph) and low rain risk.\n\nSources: Temperature from forecast data \n2\n; general conditions & wind from current observation 4."
+    },
+    "done": true,
+    "started_at": "2026-05-17T14:30:56Z",
+    "completed_at": "2026-05-17T14:31:09Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-17T14:31:09Z"
+}
