@@ -1,0 +1,1 @@
+Indianapolis, IN — 2:30 PM UTC, May 17, 2026: 🌩️ Stormy conditions, 70°F (21°C) average, winds around 6 mph, possible heavy showers with up to 97% rain chance later; carry rain gear and watch for gusts if heading out.

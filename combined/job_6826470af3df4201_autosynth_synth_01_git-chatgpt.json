@@ -1,0 +1,26 @@
+{
+  "job_id": "job_6826470af3df4201_autosynth_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_6826470af3df4201_autosynth_synth_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-17T14:36:09Z",
+    "created_at": "2026-05-17T14:35:59Z"
+  },
+  "response": {
+    "job_id": "job_6826470af3df4201_autosynth_synth_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN — 2:30 PM UTC, May 17, 2026: 🌩️ Stormy conditions, 70°F (21°C) average, winds around 6 mph, possible heavy showers with up to 97% rain chance later; carry rain gear and watch for gusts if heading out."
+    },
+    "done": true,
+    "started_at": "2026-05-17T14:35:59Z",
+    "completed_at": "2026-05-17T14:36:09Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-17T14:36:09Z"
+}
