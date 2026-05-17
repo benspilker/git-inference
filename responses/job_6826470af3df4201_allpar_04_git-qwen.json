@@ -1,0 +1,10 @@
+{
+  "job_id": "job_6826470af3df4201_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "🌤️ Indianapolis, IN — Weather Update\nSunday, May 17, 2026 | ~10:30 AM EDT\n• Current: 67°F, Rain, feels like 65° \nwww.accuweather.com\n\n• Today: High 73° / Low 62° \nwww.accuweather.com\n\n• Conditions: Mostly cloudy with showers; heavy thunderstorms possible this afternoon \nwww.accuweather.com\n\n• Rain Risk: 97% chance, ~0.54\" expected; flash flooding possible in stronger storms \nwww.accuweather.com\n\n• Wind: SSW 9 mph, gusts to 27 mph \nwww.accuweather.com\n\n• Notable: Damaging wind/hail risk with any thunderstorms; carry rain gear if heading out\nTelegram update ready for delivery.\n(No external recipient specified — summary prepared for your Telegram channel/bot to send.)\n+20"
+  },
+  "done": true,
+  "started_at": "2026-05-17T14:30:57Z",
+  "completed_at": "2026-05-17T14:33:04Z"
+}
