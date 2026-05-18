@@ -1,0 +1,16 @@
+We are given a task to provide the current weather in Indianapolis, IN, USA. The task specifies that we should send a concise Telegram update with temperature, conditions, and notable rain/wind risk. Since the current time is provided as Monday, May 18th, 2026 — 12:40 PM (UTC), we are dealing with a time-sensitive request.
+
+Given the constraints:
+
+We are inside a Perplexity browser session and can use Perplexity's web-backed retrieval.
+For time-sensitive requests, we must provide a web-backed answer.
+
+Therefore, we should perform a web search to get the current weather for Indianapolis, IN, USA. However, note that the current time in the context is set in 2026, which is in the future relative to the current knowledge cutoff (2023). Since we are using a web-backed retrieval, we can attempt to get the current weather for Indianapolis as of the current real-time (if available) but note that the user's context time is set to May 18, 2026.
+
+But wait: the task is to provide the current weather at the time of the request, which is set to May 18, 2026, 12:40 UTC. However, we are in 2023 and cannot get the weather for a future date via a standard weather service. Therefore, we must consider:
+
+The system might be simulating a future date? But the instruction for web recency rule says to provide a web-backed answer for time-sensitive requests. However, we cannot get future weather via web search.
+
+Alternatively, the user might have intended the current real weather? But the context says the current time is 2026.
+
+Given the
