@@ -1,0 +1,10 @@
+{
+  "job_id": "job_416d55bc1869414a_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "If you want, I can tailor the update for a specific time window (e.g., next 6 hours) or switch to Fahrenheit/Celsius."
+  },
+  "done": true,
+  "started_at": "2026-05-18T12:40:41Z",
+  "completed_at": "2026-05-18T12:41:18Z"
+}
