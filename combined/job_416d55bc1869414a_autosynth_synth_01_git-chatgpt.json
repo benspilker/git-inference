@@ -1,0 +1,26 @@
+{
+  "job_id": "job_416d55bc1869414a_autosynth_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_416d55bc1869414a_autosynth_synth_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-18T12:46:19Z",
+    "created_at": "2026-05-18T12:46:08Z"
+  },
+  "response": {
+    "job_id": "job_416d55bc1869414a_autosynth_synth_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Edit\n\nIndianapolis weather update: Around 74°F (23°C) with mostly cloudy to rainy conditions. Breezy with winds near 10–15 mph. Scattered thunderstorms are possible this afternoon, with some sources indicating a high rain chance and potential heavy downpours, so expect possible wet and gusty conditions later today."
+    },
+    "done": true,
+    "started_at": "2026-05-18T12:46:08Z",
+    "completed_at": "2026-05-18T12:46:19Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-18T12:46:19Z"
+}

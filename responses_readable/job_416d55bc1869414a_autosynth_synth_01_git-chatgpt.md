@@ -1,0 +1,3 @@
+Edit
+
+Indianapolis weather update: Around 74°F (23°C) with mostly cloudy to rainy conditions. Breezy with winds near 10–15 mph. Scattered thunderstorms are possible this afternoon, with some sources indicating a high rain chance and potential heavy downpours, so expect possible wet and gusty conditions later today.
