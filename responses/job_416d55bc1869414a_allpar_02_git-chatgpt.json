@@ -1,0 +1,10 @@
+{
+  "job_id": "job_416d55bc1869414a_allpar_02_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN: 72°F, partly cloudy. Light breeze from the NE at 7 mph. No significant rain expected today."
+  },
+  "done": true,
+  "started_at": "2026-05-18T12:40:41Z",
+  "completed_at": "2026-05-18T12:40:51Z"
+}
