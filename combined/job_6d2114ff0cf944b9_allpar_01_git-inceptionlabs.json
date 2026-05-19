@@ -1,0 +1,26 @@
+{
+  "job_id": "job_6d2114ff0cf944b9_allpar_01_git-inceptionlabs",
+  "status": {
+    "job_id": "job_6d2114ff0cf944b9_allpar_01_git-inceptionlabs",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-19T12:41:50Z",
+    "created_at": "2026-05-19T12:40:45Z"
+  },
+  "response": {
+    "job_id": "job_6d2114ff0cf944b9_allpar_01_git-inceptionlabs",
+    "message": {
+      "role": "assistant",
+      "content": "📍 Indianapolis, IN — 79 °F, partly cloudy, 61 % chance of rain, light‑to‑moderate wind. (Deliver this as a Telegram message.)"
+    },
+    "done": true,
+    "started_at": "2026-05-19T12:40:45Z",
+    "completed_at": "2026-05-19T12:41:50Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-19T12:41:50Z"
+}

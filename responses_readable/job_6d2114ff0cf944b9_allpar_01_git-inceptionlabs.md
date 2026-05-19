@@ -1,0 +1,1 @@
+📍 Indianapolis, IN — 79 °F, partly cloudy, 61 % chance of rain, light‑to‑moderate wind. (Deliver this as a Telegram message.)
