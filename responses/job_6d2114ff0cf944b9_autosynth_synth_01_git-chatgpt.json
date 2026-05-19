@@ -1,0 +1,10 @@
+{
+  "job_id": "job_6d2114ff0cf944b9_autosynth_synth_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Telegram-ready weather update for Indianapolis, IN — May 19, 2026, 12:40 UTC:\n\n🌩 Temperature: ~71°F (22°C)\n🌩 Conditions: Stormy / heavy clouds\n🌧 Rain/Wind Risk: High chance of showers/thunderstorms (~90%), gusty winds up to ~15 mph\n\nThis reflects a weighted consensus from multiple sources; temperatures range 63–79°F and winds 5–15 mph."
+  },
+  "done": true,
+  "started_at": "2026-05-19T12:45:27Z",
+  "completed_at": "2026-05-19T12:49:50Z"
+}
