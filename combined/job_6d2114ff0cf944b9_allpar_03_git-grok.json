@@ -1,0 +1,26 @@
+{
+  "job_id": "job_6d2114ff0cf944b9_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_6d2114ff0cf944b9_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-19T12:40:57Z",
+    "created_at": "2026-05-19T12:40:44Z"
+  },
+  "response": {
+    "job_id": "job_6d2114ff0cf944b9_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Thought for 4s\n\nIndianapolis, IN — Tue May 19, 2026 ~12:40 PM EDT\n71°F, Cloudy. RealFeel ~68-69°F.\n\nLight winds (S ~2-10 mph). Scattered showers & thunderstorms possible this afternoon with gusty winds and heavy rain risk in stronger cells. High near 84-86°F."
+    },
+    "done": true,
+    "started_at": "2026-05-19T12:40:44Z",
+    "completed_at": "2026-05-19T12:40:57Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-19T12:40:57Z"
+}
