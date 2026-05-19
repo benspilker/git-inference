@@ -1,0 +1,26 @@
+{
+  "job_id": "job_6d2114ff0cf944b9_allpar_02_git-chatgpt",
+  "status": {
+    "job_id": "job_6d2114ff0cf944b9_allpar_02_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-19T12:40:52Z",
+    "created_at": "2026-05-19T12:40:41Z"
+  },
+  "response": {
+    "job_id": "job_6d2114ff0cf944b9_allpar_02_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN: Around 78–80°F with broken clouds and scattered thundershowers today. Breezy conditions with winds near 15–16 mph. There’s a moderate risk of rain/storms this afternoon and evening, with occasional gusty winds possible. \ntimeanddate.com\n+1"
+    },
+    "done": true,
+    "started_at": "2026-05-19T12:40:40Z",
+    "completed_at": "2026-05-19T12:40:52Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-19T12:40:52Z"
+}

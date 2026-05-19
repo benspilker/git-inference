@@ -1,0 +1,3 @@
+Indianapolis, IN: Around 78–80°F with broken clouds and scattered thundershowers today. Breezy conditions with winds near 15–16 mph. There’s a moderate risk of rain/storms this afternoon and evening, with occasional gusty winds possible. 
+timeanddate.com
++1
