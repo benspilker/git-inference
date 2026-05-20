@@ -1,0 +1,10 @@
+{
+  "job_id": "job_f75209a02c3c45ff_autosynth_synth_01_git-chatgpt",
+  "message": {
+    "role": "assistant",
+    "content": "Indianapolis, IN — Current Weather Update 🌦️\n\nTemperature: ~66°F (19°C) — sources vary 56–78°F\n\nConditions: Rainy to mostly cloudy\n\nWind: Moderate, ~13 mph (gusts possible up to 22 mph)\n\nRain risk: Uncertain, with a maximum early chance ~80%\n\nSummary: Showers tapering off soon; breezy periods possible."
+  },
+  "done": true,
+  "started_at": "2026-05-20T12:54:13Z",
+  "completed_at": "2026-05-20T12:54:27Z"
+}
