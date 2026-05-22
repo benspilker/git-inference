@@ -1,0 +1,15 @@
+We are given a request for the current weather in Indianapolis, IN, USA. The request is to send a concise Telegram update with temperature, conditions, and notable rain/wind risk. The current time is provided as Friday, May 22nd, 2026 — 12:15 AM (UTC) / 2026-05-22 00:15 UTC.
+
+Since this is a time-sensitive request (current weather), we must provide a web-backed answer. We are in a Perplexity browser session and can use Perplexity's web-backed retrieval.
+
+We note that the request is for a Telegram update and the task is to return a summary as plain text. We are to note who/where it should go if the task explicitly calls for messaging a specific external recipient. However, the request says "Send a concise Telegram update", so we must note that it should be sent via Telegram to the recipient associated with the cron job (likely the user who set up the job). But since the instruction says "it will be delivered automatically", we just need to produce the message content.
+
+Steps:
+
+Use Perplexity's web retrieval to get the current weather for Indianapolis, IN, USA.
+Extract the necessary information: temperature, conditions, and any notable rain or wind risk.
+Format the information into a concise message suitable for a Telegram update.
+
+Given the current time is in UTC, we note that Indianapolis is in the Eastern Time Zone (ET) which is UTC-4 (EDT) or UTC-5 (EST) depending on daylight saving. As of May 22, 2026, it should be daylight saving time, so UTC-4.
+
+Curr
