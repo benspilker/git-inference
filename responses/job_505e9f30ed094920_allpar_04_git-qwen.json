@@ -1,0 +1,10 @@
+{
+  "job_id": "job_505e9f30ed094920_allpar_04_git-qwen",
+  "message": {
+    "role": "assistant",
+    "content": "🌧️ Indianapolis, IN — Weather Update\nTime: Fri 11:36 PM UTC (7:36 PM EDT)\n• Temp: 60°F (feels like 57°F)\n• Conditions: Light rain, overcast \nwww.accuweather.com\n\n• Rain Risk: 92–96% tonight; ~0.2–0.5\" expected \nwww.wunderground.com\n\n• Wind: NE/ENE 4–10 mph, gusts to 16 mph \nwww.accuweather.com\n\n• Notable: High humidity (91%), low visibility (5 mi); rain continuing overnight with isolated thunder possible \nwww.wunderground.com\nStay dry — carry an umbrella if heading out.\n(Update intended for Telegram delivery; no external recipient specified.)\n+20"
+  },
+  "done": true,
+  "started_at": "2026-05-22T23:36:48Z",
+  "completed_at": "2026-05-22T23:38:54Z"
+}
