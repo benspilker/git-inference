@@ -1,0 +1,26 @@
+{
+  "job_id": "job_5506d3cec54b48f4_allpar_04_git-qwen",
+  "status": {
+    "job_id": "job_5506d3cec54b48f4_allpar_04_git-qwen",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-22T00:17:13Z",
+    "created_at": "2026-05-22T00:16:26Z"
+  },
+  "response": {
+    "job_id": "job_5506d3cec54b48f4_allpar_04_git-qwen",
+    "message": {
+      "role": "assistant",
+      "content": "🌤️ Indianapolis, IN — Weather Update\nMay 21, 8:15 PM EDT\n• Temp: 66°F (18°C), feels like 63°F\n• Conditions: Cloudy/Overcast\n• Rain Risk: Low tonight (5-10%), but ⚠️ 70-94% chance of showers/thunderstorms tomorrow (Fri May 22)\n• Wind: ENE 5-15 mph, gusts to 14 mph\nNote: Rain and storms expected Friday afternoon—could impact outdoor plans.\n—\nDeliver to: Telegram channel/recipient as specified in cron job\n+19"
+    },
+    "done": true,
+    "started_at": "2026-05-22T00:16:25Z",
+    "completed_at": "2026-05-22T00:17:13Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-22T00:17:13Z"
+}
