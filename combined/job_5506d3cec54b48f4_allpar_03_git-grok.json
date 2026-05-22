@@ -1,0 +1,26 @@
+{
+  "job_id": "job_5506d3cec54b48f4_allpar_03_git-grok",
+  "status": {
+    "job_id": "job_5506d3cec54b48f4_allpar_03_git-grok",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-22T00:16:39Z",
+    "created_at": "2026-05-22T00:16:27Z"
+  },
+  "response": {
+    "job_id": "job_5506d3cec54b48f4_allpar_03_git-grok",
+    "message": {
+      "role": "assistant",
+      "content": "Thought for 3s\n\nIndianapolis, IN weather update (late evening May 21):\n67°F, mostly cloudy. Feels like 65-67°F.\n\nWinds NE/ENE 6-17 mph. Low rain risk right now, but showers likely Friday with 50-70% chance (possible 0.1-0.5\" accumulation).⁠Accuweather +2\n\nTelegram delivery note: Send this summary to the configured weather alert channel/group."
+    },
+    "done": true,
+    "started_at": "2026-05-22T00:16:27Z",
+    "completed_at": "2026-05-22T00:16:39Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-22T00:16:39Z"
+}
