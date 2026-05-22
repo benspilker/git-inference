@@ -1,0 +1,10 @@
+{
+  "job_id": "job_505e9f30ed094920_allpar_05_git-perplexity",
+  "message": {
+    "role": "assistant",
+    "content": "Rain/Wind risk: [e.g., 20% rain chance, winds S at 8-12 mph]"
+  },
+  "done": true,
+  "started_at": "2026-05-22T23:36:47Z",
+  "completed_at": "2026-05-22T23:37:34Z"
+}
