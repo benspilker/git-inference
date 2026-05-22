@@ -1,0 +1,13 @@
+We are given a specific request for the current weather in Indianapolis, IN, USA, with the requirement to send a concise Telegram update including temperature, conditions, and notable rain/wind risk.
+
+The current time provided is: Friday, May 22nd, 2026 — 11:36 PM (UTC) / 2026-05-22 23:36 UTC
+
+Since this is a time-sensitive request (current weather), we must use web-backed retrieval to get the latest weather data.
+
+However, note that the current time in the request is set in the future (May 22, 2026). Since we are in a Perplexity browser session, we can attempt to get the current weather for Indianapolis as of the user's current time (which is the same as the system time in the context?).
+
+But wait: the user's request is for the current weather at the time of the request, which is May 22, 2026, 11:36 PM UTC. However, we are in the present (as of my knowledge cutoff in 2024) and cannot get future weather.
+
+However, note the context: the system is running in a Perplexity browser session and the time given is the current time of the system. We must assume that the system time is the current real time for the purpose of the request. But since the date is in 2026, which is beyond our knowledge cutoff, we cannot rely on pre-existing knowledge.
+
+Therefore, we must use web-backed retrieval to get the current weather for Indianapolis at this moment (if the system time is real, then we are in 2026 and we can look it up). But note: the instruction says "For time-sensitive requests ... provide a web-backed ans
