@@ -1,0 +1,26 @@
+{
+  "job_id": "job_5506d3cec54b48f4_autosynth_synth_01_git-chatgpt",
+  "status": {
+    "job_id": "job_5506d3cec54b48f4_autosynth_synth_01_git-chatgpt",
+    "state": "completed",
+    "intent_type": "question",
+    "task_type": "information",
+    "current_stage": "complete",
+    "updated_at": "2026-05-22T00:20:25Z",
+    "created_at": "2026-05-22T00:20:15Z"
+  },
+  "response": {
+    "job_id": "job_5506d3cec54b48f4_autosynth_synth_01_git-chatgpt",
+    "message": {
+      "role": "assistant",
+      "content": "Indianapolis, IN — Current Weather Update: 🌧️\n\nTemperature: 64°F (18°C)\nConditions: Rainy/cloudy\nWind: 9 mph average, gusts up to 11.5 mph\nRain risk: Uncertain now, but up to 94% chance of showers later\n\n⚠️ Notable: Light to moderate wind; showers likely today.\n\nThis summary is Telegram-ready for the cron job recipient."
+    },
+    "done": true,
+    "started_at": "2026-05-22T00:20:15Z",
+    "completed_at": "2026-05-22T00:20:25Z"
+  },
+  "evaluation": null,
+  "error": null,
+  "execution": null,
+  "generated_at": "2026-05-22T00:20:25Z"
+}
