@@ -1,0 +1,10 @@
+{
+  "job_id": "job_505e9f30ed094920_allpar_01_git-inceptionlabs",
+  "message": {
+    "role": "assistant",
+    "content": "Telegram update (send to the user’s Telegram chat):\n📍 Indianapolis, IN – 57 °F, clear/partly‑cloudy, low rain risk, light breeze (~5 mph).\n\nSources: forecast shows low ≈ 57 °F for the night and high ≈ 61 °F for the day \n2\n; humidity around 68 % and no significant rain or wind alerts \n1\n."
+  },
+  "done": true,
+  "started_at": "2026-05-22T23:36:48Z",
+  "completed_at": "2026-05-22T23:36:59Z"
+}
