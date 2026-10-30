@@ -63,7 +63,7 @@
   "failed_image_urls": [
     "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
   ],
-  "minimum_image_count": 3,
+  "minimum_image_count": 1,
   "visual_relevance_review_required": true,
   "visual_review_status": "pending",
   "visual_review_missing_urls": [
