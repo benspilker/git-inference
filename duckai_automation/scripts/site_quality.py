@@ -296,9 +296,8 @@ def _visual_design_review_result(session_dir):
         return "invalid", [], ["visual_review.json must contain an object"]
 
     required_checks = (
-        "first_screen_hierarchy", "full_bleed_hero", "section_rhythm",
-        "typography", "business_specificity", "footer", "mobile_navigation",
-        "mobile_overflow", "cta_visibility",
+        "first_screen_hierarchy", "section_rhythm", "typography",
+        "business_specificity", "footer",
     )
     issues = []
     if review.get("status") != "pass":
@@ -371,6 +370,34 @@ def _visual_design_review_result(session_dir):
     if missing:
         return "pending", missing, []
     return "pass", [], []
+
+
+def _browser_qa_result(session_dir):
+    """Read objective rendered-page checks produced by browser_qa.py."""
+    report_path = Path(session_dir) / "debug" / "browser_qa.json"
+    if not report_path.is_file():
+        return "missing", {}, {"error": "debug/browser_qa.json is missing"}
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return "invalid", {}, {"error": "browser_qa.json is unreadable"}
+    if not isinstance(report, dict) or not isinstance(report.get("checks"), dict):
+        return "invalid", {}, {"error": "browser_qa.json must contain a checks object"}
+    checks = report["checks"]
+    expected = (
+        "rendered_sections_visible_desktop_and_mobile",
+        "hero_spans_viewport_desktop_and_mobile",
+        "cta_visible_first_screen_desktop_and_mobile",
+        "mobile_menu_clicks_work",
+        "mobile_menu_keyboard_works",
+        "mobile_has_no_horizontal_overflow",
+        "fonts_load_in_browser",
+        "images_load_in_browser",
+    )
+    if any(not isinstance(checks.get(name), bool) for name in expected):
+        return "invalid", {}, {"error": "browser_qa.json is missing one or more boolean checks"}
+    status = "pass" if report.get("status") == "pass" and all(checks[name] for name in expected) else "fail"
+    return status, checks, report
 
 
 def _url_key(url, base_url=None):
@@ -616,7 +643,7 @@ def _required_sections(prompt):
         "testimonials": r"\b(?:testimonials?|reviews?|customer stories|guest stories|player stories)\b",
         "location": r"\b(?:location|directions|find us|address|visit)\b",
         "hours": r"\b(?:hours|opening times|business hours)\b",
-        "about": r"\b(?:about|our story|mission)\b",
+        "about": r"\babout(?:\s+(?:us|section|page|the\s+(?:business|company|brand|shop|team)))\b|\bour\s+story\b|\bmission\b",
         "faq": r"\b(?:faq|frequently asked questions)\b",
         "pricing": r"\b(?:pricing|prices|cost|rates)\b",
         "team": r"\b(?:team|staff)\b",
@@ -744,6 +771,19 @@ def assess_website(prompt, session_dir):
         _visual_design_review_result(session_dir)
     )
     checks["visual_design_review_passed"] = visual_design_review_status == "pass"
+    browser_qa_status, browser_qa_checks, browser_qa_report = _browser_qa_result(session_dir)
+    browser_check_names = (
+        "rendered_sections_visible_desktop_and_mobile",
+        "hero_spans_viewport_desktop_and_mobile",
+        "cta_visible_first_screen_desktop_and_mobile",
+        "mobile_menu_clicks_work",
+        "mobile_menu_keyboard_works",
+        "mobile_has_no_horizontal_overflow",
+        "fonts_load_in_browser",
+        "images_load_in_browser",
+    )
+    for name in browser_check_names:
+        checks[f"browser_{name}"] = browser_qa_status == "pass" and browser_qa_checks.get(name) is True
 
     source_image_urls = _source_image_urls_from_prompt(prompt)
     if source_image_urls:
@@ -785,6 +825,21 @@ def assess_website(prompt, session_dir):
         missing_sections.append("accessible three-bar mobile navigation button")
     if visual_design_review_status != "pass":
         missing_sections.append("screenshot-backed desktop/mobile visual design review")
+    if browser_qa_status != "pass":
+        missing_sections.append("automated rendered-page browser checks")
+        browser_labels = {
+            "rendered_sections_visible_desktop_and_mobile": "required sections visibly render on desktop and mobile",
+            "hero_spans_viewport_desktop_and_mobile": "hero spans the desktop and mobile viewports",
+            "cta_visible_first_screen_desktop_and_mobile": "CTA appears on the first screen at desktop and mobile sizes",
+            "mobile_menu_clicks_work": "mobile menu opens and closes by click",
+            "mobile_menu_keyboard_works": "mobile menu works with keyboard controls",
+            "mobile_has_no_horizontal_overflow": "mobile page has no horizontal overflow",
+            "fonts_load_in_browser": "browser fonts load successfully",
+            "images_load_in_browser": "browser images load successfully",
+        }
+        for name, label in browser_labels.items():
+            if browser_qa_checks.get(name) is not True:
+                missing_sections.append(label)
     if source_image_urls and not checks.get("source_site_hero_photo_used"):
         missing_sections.append("verified source-site photo in hero")
     if source_image_urls and not checks.get("source_site_photos_used"):
@@ -816,6 +871,8 @@ def assess_website(prompt, session_dir):
         "visual_design_review_status": visual_design_review_status,
         "visual_design_review_missing": visual_design_review_missing,
         "visual_design_review_issues": visual_design_review_issues,
+        "browser_qa_status": browser_qa_status,
+        "browser_qa": browser_qa_report,
         "source_image_urls_available": source_image_urls,
         "source_image_urls_used": sorted(source_used) if source_image_urls else [],
         "parse_diagnostic": parse_error,

@@ -14,9 +14,9 @@ The workflow creates a fresh, non-persistent browser context for each candidate.
 
 The workflow requests CSS parts 1–3, sends `acknowledged` as its own user turn and waits for Duck.ai to complete its response, then requests HTML parts 1–3 in that same conversation. It captures the newest rendered assistant message's single newly added code block and visible part label. Duck.ai's UI renders Markdown without its original backticks, so the runner wraps that message-scoped visible code block in the expected fence for validation. It never reads prior chat messages as the current response. Accepted chunks, hashes, and the captured turn order are saved in the run folder.
 
-The GitHub Action runs three independent candidates sequentially. Each uses a fresh Duck.ai chat and captures CSS parts 1–3, sends `acknowledged` as its own user turn, then captures HTML parts 1–3. After assembly, the workflow saves desktop/mobile screenshots and runs the structural checker. Screenshot generation is not a visual audit. The workflow commits generated files and evidence under `duckai-runs/run-<run-id>-<attempt>-candidate-1/`, `-candidate-2/`, and `-candidate-3/`; it does not claim image relevance or visual review passed. Complete those human gates before describing a candidate as successful.
+The GitHub Action runs three independent candidates sequentially. Each uses a fresh Duck.ai chat and captures CSS parts 1–3, sends `acknowledged` as its own user turn, then captures HTML parts 1–3. After assembly, the runner inlines CSS into `files/inlined/index.html`, runs Playwright QA against that exact page at desktop and mobile viewports, saves screenshots, and runs the structural checker. The machine checks cover rendered section visibility, full-width hero, first-screen CTA, mobile menu click and keyboard behavior, horizontal overflow, and browser font/image loading. These checks are deterministic and require no AI inference. Screenshot generation is not a visual design audit. The workflow commits generated files and evidence under `duckai-runs/run-<run-id>-<attempt>-candidate-1/`, `-candidate-2/`, and `-candidate-3/`; it does not claim image relevance or visual review passed. Complete those human gates before describing a candidate as successful.
 
-After generation and checking, the GitHub Action also writes `files/inlined/index.html`, which embeds the assembled `styles.css` into the assembled HTML. It replaces the `styles.css` link or inserts CSS in `<head>` when Duck.ai omitted that link. Keep the original `files/index.html` and `files/styles.css` for source review and checker compatibility. This inlined output embeds CSS only; externally referenced fonts and images still need network access.
+The runner creates `files/inlined/index.html` before browser QA by embedding the assembled `styles.css` into the assembled HTML. It replaces the `styles.css` link or inserts CSS in `<head>` when Duck.ai omitted that link. Keep the original `files/index.html` and `files/styles.css` for source review and checker compatibility. This inlined output embeds CSS only; externally referenced fonts and images still need network access.
 
 Use this skill when the user asks Hermes to create or iterate on a website with Duck.ai. The provider is Duck.ai (`https://duck.ai/`).
 
@@ -89,7 +89,7 @@ Keep the assembled working copy in a run folder with this structure:
   debug/
 ```
 
-After all six chunks are captured, render the page, complete both the image audit and screenshot-backed desktop/mobile design audit, and save their JSON records. Then run the checker below for the final decision. You may run it earlier to diagnose structure, but an early run will remain unsuccessful until both visual audit records and screenshots are present.
+After all six chunks are captured, inline the CSS and run `scripts/browser_qa.py <run-folder> "<website request>"`. It renders `files/inlined/index.html`, saves desktop/mobile screenshots, and records objective results in `debug/browser_qa.json`. Then complete the image audit and screenshot-backed desktop/mobile design audit, save their JSON records, and run the checker below for the final decision. The checker requires the browser QA and both human visual audit records to pass.
 
 ```sh
 python duckai_automation/scripts/check_website.py "<working-run>" "<original website request>"
@@ -145,21 +145,17 @@ Record the screenshot-backed design audit in `<working-run>/debug/visual_review.
   ],
   "checks": {
     "first_screen_hierarchy": true,
-    "full_bleed_hero": true,
     "section_rhythm": true,
     "typography": true,
     "business_specificity": true,
-    "footer": true,
-    "mobile_navigation": true,
-    "mobile_overflow": true,
-    "cta_visibility": true
+    "footer": true
   },
   "blocking_defects": [],
   "observations": []
 }
 ```
 
-Screenshot paths are relative to the run's `debug/` directory and must point to readable PNG files inside that directory. Record the actual browser viewport dimensions. Set a check to `false` and list a blocking defect if it fails; do not turn a failed or uninspected view into a pass. The checker requires both screenshots, all listed checks to be true, no blocking defects, and the screenshot dimensions to match desktop/mobile layouts before `final_success` can be true. The visual review remains a human judgment; the checker verifies that its evidence and required fields exist, not that the reviewer made a correct judgment.
+Screenshot paths are relative to the run's `debug/` directory and must point to readable PNG files inside that directory. Record the actual browser viewport dimensions. Set a check to `false` and list a blocking defect if it fails; do not turn a failed or uninspected view into a pass. The checker requires both screenshots, all listed checks to be true, no blocking defects, and the screenshot dimensions to match desktop/mobile layouts before `final_success` can be true. Hero width, CTA placement, mobile menu operation, mobile overflow, and browser asset loading are covered by `debug/browser_qa.json`; do not duplicate them in this human design review. The visual review remains a human judgment; the checker verifies that its evidence and required fields exist, not that the reviewer made a correct judgment.
 
 Fix major composition and hierarchy problems before polishing details. If any image, the footer, or a major design requirement fails, ask Duck.ai to revise the appropriate chunk, rebuild the candidate, and repeat both machine and visual checks. Preserve strong design decisions and make targeted revisions instead of restarting the whole page. Allow up to two targeted repair cycles per candidate. If a gate still fails or visual review cannot be completed, mark the candidate unsuccessful and explain why.
 

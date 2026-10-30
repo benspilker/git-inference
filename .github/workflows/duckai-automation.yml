@@ -72,11 +72,6 @@ jobs:
           for candidate in 1 2 3; do
             echo "Starting complete website candidate ${candidate} of 3."
             CANDIDATE_INDEX="$candidate" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
-            run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-${candidate}"
-            python duckai_automation/scripts/inline_css.py \
-              "$run_dir/files/index.html" \
-              "$run_dir/files/styles.css" \
-              "$run_dir/files/inlined/index.html"
           done
 
       - name: Commit generated website run to selected branch

@@ -28,6 +28,8 @@ if not CANDIDATE_INDEX.isdigit() or int(CANDIDATE_INDEX) not in (1, 2, 3):
 RUN_DIR = REPO / "duckai-runs" / f"run-{RUN_ID}-{RUN_ATTEMPT}-candidate-{CANDIDATE_INDEX}"
 CAPTURE_SCRIPT = ROOT / "scripts" / "capture_chunk.py"
 ASSEMBLE_SCRIPT = ROOT / "scripts" / "assemble_chunks.py"
+INLINE_SCRIPT = ROOT / "scripts" / "inline_css.py"
+BROWSER_QA_SCRIPT = ROOT / "scripts" / "browser_qa.py"
 CHECK_SCRIPT = ROOT / "scripts" / "check_website.py"
 
 BASE_CONTRACT = """Follow the supplied facts and design brief. Build a polished, responsive, business-specific website. Use exactly three CSS responses followed by exactly three HTML responses, one complete code block per response. CSS responses use a css fence; HTML responses use a text fence containing raw HTML. Each response must state its exact part label. The first nonblank line inside its code block must be exactly `/* CSS PART n OF 3 */` or `<!-- HTML PART n OF 3 -->` for that part. Keep the CSS and HTML coherent and link styles.css. Use CSS variables for core colors, typography, spacing, and container width. Use varied compositions and meaningful, relevant imagery; include at least three distinct images. Do not invent real business facts, metrics, reviews, credentials, contact details, or hours.
@@ -305,21 +307,20 @@ def build_next_prompt(kind: str, part: int) -> str:
     )
 
 
-def capture_previews() -> None:
+def run_browser_qa(website_request: str) -> None:
     html_file = RUN_DIR / "files" / "index.html"
-    screenshot_dir = RUN_DIR / "debug" / "screenshots"
-    screenshot_dir.mkdir(parents=True, exist_ok=True)
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True)
-        try:
-            for name, width, height in (("desktop", 1440, 900), ("mobile", 390, 844)):
-                page = browser.new_page(viewport={"width": width, "height": height})
-                page.goto(html_file.as_uri(), wait_until="load", timeout=45000)
-                page.wait_for_timeout(1500)
-                page.screenshot(path=str(screenshot_dir / f"{name}.png"), full_page=False)
-                page.close()
-        finally:
-            browser.close()
+    css_file = RUN_DIR / "files" / "styles.css"
+    inlined_file = RUN_DIR / "files" / "inlined" / "index.html"
+    subprocess.run(
+        [sys.executable, str(INLINE_SCRIPT), str(html_file), str(css_file), str(inlined_file)],
+        check=True,
+        cwd=REPO,
+    )
+    subprocess.run(
+        [sys.executable, str(BROWSER_QA_SCRIPT), str(RUN_DIR), website_request],
+        check=True,
+        cwd=REPO,
+    )
 
 
 def run_checker(website_request: str) -> dict:
@@ -388,7 +389,7 @@ def run() -> None:
                 context.close()
 
     subprocess.run([sys.executable, str(ASSEMBLE_SCRIPT), str(RUN_DIR)], check=True, cwd=REPO)
-    capture_previews()
+    run_browser_qa(website_request)
     report = run_checker(website_request)
     notes = {
         "candidate_index": int(CANDIDATE_INDEX),
