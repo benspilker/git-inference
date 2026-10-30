@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=14c4054c-5822-4a0e-a899-f310561017c0",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T21:09:51.854472+00:00",
+      "characters": 6115,
+      "sha256": "eadf0ce62c5528bd8b19ef7964d875c9a3dd5bd0ffbc87eeec052695622237f7"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T21:10:07.682227+00:00",
+      "characters": 6022,
+      "sha256": "f29019ccd1d0bf4f1c45a1d77152f7e25215952930b28ff43875301662c48f44"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T21:10:15.500975+00:00",
+      "characters": 1807,
+      "sha256": "59eef9990295cfd89332a7a6de314ceeceff2dea114cc136bbbee2b2c4b066df"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T21:10:37.098344+00:00",
+      "characters": 2249,
+      "sha256": "92ac7c282fa6e87140889222417fa4009be2d846b616fd4bf11cd3af5751c672"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T21:10:50.302188+00:00",
+      "characters": 4201,
+      "sha256": "78a4904d17f95886bae6119ae85e1b95524a0d79ce6414ee3fab357570a22c55"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T21:11:11.417622+00:00",
+      "characters": 3998,
+      "sha256": "3dac8faba010dd08d082e03a2780c8c9594642b83609e7b7fabc24c59c683cc7"
+    }
+  ]
+}

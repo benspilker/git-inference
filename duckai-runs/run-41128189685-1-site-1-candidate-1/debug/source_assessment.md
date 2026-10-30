@@ -1,0 +1,81 @@
+SOURCE SITE AUDIT
+
+json
+```json
+{
+  "access_status": "accessed",
+  "pages_reviewed": [
+    {
+      "url": "https://joshbrooksconstructionllc.com/",
+      "page_title": "General Contractor & Roofing Longmont CO | Josh Brooks",
+      "description": "Homepage presents the company as a Longmont general contractor offering roofing, remodeling, and hail restoration, with calls to contact and request an estimate."
+    },
+    {
+      "url": "https://joshbrooksconstructionllc.com/kitchen-bath-remodeling/",
+      "page_title": "Kitchen & Bath Remodeling Longmont CO",
+      "description": "Service page covers kitchen and bathroom remodeling, example projects, service details, pricing ranges, and remodeling-related information."
+    },
+    {
+      "url": "https://joshbrooksconstructionllc.com/about",
+      "page_title": "About Josh Brooks Construction | Trusted Longmont Builder",
+      "description": "About page introduces owner Josh Brooks, the company’s background, stated values, services, service area, and contact details."
+    },
+    {
+      "url": "https://joshbrooksconstructionllc.com/contact/",
+      "page_title": "Contact Construction Company Longmont | Josh Brooks",
+      "description": "Contact page provides phone, text, email, service-area and credential details, plus a free-estimate request form."
+    }
+  ],
+  "organization_facts": [
+    "The website identifies the business as Josh Brooks Construction and Renovation Inc.; the homepage also uses Josh Brooks Construction.",
+    "The website describes the business as a general contractor based in Longmont, Colorado, and attributes ownership to Josh Brooks.",
+    "The website lists kitchen and bath remodeling among a broader set of residential construction services.",
+    "The website displays Boulder County license number CON-24-0152 and gives 720-828-7997 for calls and 720-453-5095 for texts.",
+    "The site states the company was founded in 2014 and that Josh Brooks has worked in construction since 1996."
+  ],
+  "audience_and_goals": {
+    "evidence": [
+      "Pages address homeowners seeking remodeling, construction, or storm-damage help.",
+      "Contact options include calling, texting, email, and a form requesting project details."
+    ],
+    "inference": [
+      "The primary audience is likely homeowners considering a remodel or other construction work in the stated service region.",
+      "The primary conversion goal appears to be starting a conversation or requesting a free estimate, with phone and text given prominent emphasis."
+    ]
+  },
+  "brand_and_visual_observations": {
+    "observations": [
+      "Search-indexed page content exposes company-name image alt text, but the retrieved results do not reveal image files or enough visual detail to verify the rendered logo.",
+      "Search results identify the site as using the Astra WordPress theme in its footer.",
+      "Page content uses a direct, locally focused tone and emphasizes licensing, owner involvement, estimates, and project services.",
+      "The retrieved text does not establish the exact colors, typography, layout, or full set of image subjects."
+    ],
+    "design_opinions": [
+      "A one-page redesign could make the remodeling offer, project imagery, credentials, and contact action easy to find without suggesting the company only does kitchens and baths."
+    ]
+  },
+  "source_assets": [],
+  "content_structure": [
+    "Company identity and primary contact/estimate action",
+    "Kitchen and bathroom remodeling services and project examples",
+    "Broader construction services for context",
+    "Owner/company background and credentials",
+    "Service area",
+    "Contact details and estimate-request form"
+  ],
+  "unknown_or_verify": [
+    "The supplied target business name, \"Kitchen & Bath Remodeling Longmont CO,\" appears to describe a service/page title rather than the company name shown on the site. The site identifies the business as Josh Brooks Construction and Renovation Inc.",
+    "The supplied location clue is supported by multiple reviewed pages, which describe the company as based in or serving Longmont, Colorado.",
+    "The site states a broad service area, but the exact current coverage and availability for kitchen and bath projects should be confirmed.",
+    "License, insurance, experience, pricing, and response-time claims are statements displayed by the business and were not independently verified.",
+    "Specific logo and photo asset URLs could not be identified from the retrieved search results."
+  ],
+  "design_reference": null,
+  "sources": [
+    "https://joshbrooksconstructionllc.com/",
+    "https://joshbrooksconstructionllc.com/kitchen-bath-remodeling/",
+    "https://joshbrooksconstructionllc.com/about",
+    "https://joshbrooksconstructionllc.com/contact/"
+  ]
+}
+```

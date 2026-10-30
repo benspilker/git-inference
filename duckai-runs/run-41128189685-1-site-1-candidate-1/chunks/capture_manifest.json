@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=3bd20fc9-5b33-420f-a527-74c78bc107ec",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T21:05:53.474674+00:00",
+      "characters": 7773,
+      "sha256": "daee48a6283fba1a69de7e1502ae03d1dfa79a5a0c48b44e4db043bf5e56c6cd"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T21:06:06.869385+00:00",
+      "characters": 4450,
+      "sha256": "b54a1091124fb44d3c01e07b8205a5fd8eae2c5cf2143397ef37b492c756bcb4"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T21:06:18.019631+00:00",
+      "characters": 3171,
+      "sha256": "c75ffd0542163a3ed137e36921190a1568a63b5d6ab6527cc531ecb028a4fb93"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T21:06:37.669605+00:00",
+      "characters": 2105,
+      "sha256": "88da661feba0184392f6c4053502ce2c64605caa3cc35bfeeba5b75f4e0b7125"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T21:06:49.951983+00:00",
+      "characters": 4293,
+      "sha256": "cd8b2824759ee186303f5b3830e55c2ae87589e342a94239e6e8f4acc0a32950"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T21:07:05.471767+00:00",
+      "characters": 4895,
+      "sha256": "7d1406505aff721c107c14a379f7ec15a331ecc7d1ca5a28e05bcc192b1d745b"
+    }
+  ]
+}

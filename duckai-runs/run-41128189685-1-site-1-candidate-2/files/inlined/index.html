@@ -1,0 +1,1232 @@
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitchen &amp; Bath Remodeling | Josh Brooks Construction</title>
+  <style>
+/* CSS PART 1 OF 3 */
+:root {
+  color-scheme: light;
+  --color-ink: #202720;
+  --color-muted: #657064;
+  --color-paper: #f5f3ed;
+  --color-white: #fffefa;
+  --color-forest: #29483b;
+  --color-forest-deep: #1c332a;
+  --color-clay: #b96f4b;
+  --color-line: #d9ddd4;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --space-7: 7rem;
+  --container: 1180px;
+  --radius: 4px;
+  --shadow: 0 18px 48px rgb(32 39 32 / 12%);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--color-clay);
+  outline-offset: 4px;
+}
+
+
+.container {
+  width: min(calc(100% - 3rem), var(--container));
+  margin-inline: auto;
+}
+
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--color-clay);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+
+.section-title {
+  max-width: 760px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+}
+
+
+.section-intro {
+  max-width: 620px;
+  margin: 1.25rem 0 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+
+.button {
+  display: inline-flex;
+  min-height: 3.35rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: var(--color-clay);
+  color: var(--color-white);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+
+.button:hover {
+  background: #9d593a;
+}
+
+
+.button--light {
+  border-color: rgb(255 254 250 / 70%);
+  background: transparent;
+  color: var(--color-white);
+}
+
+
+.button--light:hover {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+.button--dark {
+  background: var(--color-forest);
+}
+
+
+.button--dark:hover {
+  background: var(--color-forest-deep);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .container {
+    width: min(calc(100% - 2rem), var(--container));
+  }
+
+
+  .section-title {
+    font-size: clamp(2.25rem, 12vw, 3.4rem);
+  }
+
+
+  .button {
+    min-height: 3.25rem;
+  }
+}
+
+/* CSS PART 2 OF 3 */
+.site-header {
+  position: absolute;
+  z-index: 10;
+  inset: 0 0 auto;
+  color: var(--color-white);
+}
+
+
+.header-inner {
+  display: flex;
+  min-height: 5.5rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(255 255 255 / 28%);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+
+.brand-mark {
+  display: grid;
+  width: 2.65rem;
+  height: 2.65rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 72%);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+
+.brand-name {
+  max-width: 13rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2.1rem);
+}
+
+
+.primary-nav a:not(.button) {
+  color: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  text-decoration: none;
+}
+
+
+.primary-nav a:not(.button):hover {
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+}
+
+
+.nav-toggle {
+  display: none;
+  width: 2.8rem;
+  height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+
+.nav-toggle span {
+  display: block;
+  width: 1.15rem;
+  height: 2px;
+  background: currentColor;
+}
+
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: min(790px, 100svh);
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-forest-deep);
+  color: var(--color-white);
+}
+
+
+.hero::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(18 31 25 / 78%) 0%, rgb(18 31 25 / 53%) 48%, rgb(18 31 25 / 15%) 100%),
+    linear-gradient(0deg, rgb(18 31 25 / 28%), transparent 45%);
+  content: "";
+}
+
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(720px, 76%);
+  padding-top: 5.5rem;
+}
+
+
+.hero .eyebrow {
+  color: #edb294;
+}
+
+
+.hero h1 {
+  max-width: 760px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 7.2vw, 6.7rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+
+.hero-copy {
+  max-width: 540px;
+  margin: 1.5rem 0 2rem;
+  color: rgb(255 254 250 / 87%);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+
+.hero-note {
+  margin: 1.5rem 0 0;
+  color: rgb(255 254 250 / 76%);
+  font-size: 0.78rem;
+  letter-spacing: 0.035em;
+}
+
+
+.intro-section {
+  padding-block: var(--space-7);
+  background: var(--color-white);
+}
+
+
+.intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.75fr);
+  align-items: center;
+  gap: clamp(3rem, 8vw, 8rem);
+}
+
+
+.intro-copy {
+  max-width: 650px;
+}
+
+
+.intro-copy p {
+  color: var(--color-muted);
+}
+
+
+.intro-image-wrap {
+  position: relative;
+}
+
+
+.intro-image-wrap::after {
+  position: absolute;
+  z-index: 0;
+  inset: 1rem -1rem -1rem 1rem;
+  border: 1px solid var(--color-clay);
+  content: "";
+}
+
+
+.intro-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+
+.services-section {
+  padding-block: var(--space-7);
+  background: var(--color-paper);
+}
+
+
+.services-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+
+.services-heading .section-intro {
+  max-width: 390px;
+  margin: 0;
+}
+
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--color-line);
+}
+
+
+.service-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1.1rem;
+  padding: 1.65rem 1.25rem 1.65rem 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+
+.service-item:nth-child(odd) {
+  border-right: 1px solid var(--color-line);
+}
+
+
+.service-item:nth-child(even) {
+  padding-left: 1.5rem;
+}
+
+
+.service-number {
+  color: var(--color-clay);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+
+.service-item h3 {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+
+.service-item p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+
+@media (max-width: 760px) {
+  .header-inner {
+    min-height: 4.75rem;
+  }
+
+
+  .brand-name {
+    max-width: 10rem;
+    font-size: 0.67rem;
+  }
+
+
+  .nav-toggle {
+    display: flex;
+  }
+
+
+  .primary-nav {
+    position: absolute;
+    top: calc(100% - 1px);
+    right: 1rem;
+    left: 1rem;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.7rem 1rem 1rem;
+    border: 1px solid rgb(255 255 255 / 25%);
+    background: var(--color-forest-deep);
+    box-shadow: var(--shadow);
+  }
+
+
+  .primary-nav.is-open {
+    display: flex;
+  }
+
+
+  .primary-nav a:not(.button) {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgb(255 255 255 / 16%);
+  }
+
+
+  .primary-nav .button {
+    margin-top: 0.8rem;
+  }
+
+
+  .hero {
+    min-height: 100svh;
+    align-items: end;
+    padding-bottom: 4.5rem;
+  }
+
+
+  .hero::before {
+    background:
+      linear-gradient(0deg, rgb(18 31 25 / 84%) 0%, rgb(18 31 25 / 54%) 52%, rgb(18 31 25 / 19%) 100%),
+      linear-gradient(90deg, rgb(18 31 25 / 24%), transparent);
+  }
+
+
+  .hero-image {
+    object-position: 58% center;
+  }
+
+
+  .hero-content {
+    width: 100%;
+    padding-top: 7rem;
+  }
+
+
+  .hero h1 {
+    max-width: 590px;
+    font-size: clamp(3.3rem, 13vw, 5.1rem);
+  }
+
+
+  .intro-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+
+  .intro-image-wrap {
+    max-width: 510px;
+    margin-inline: auto;
+  }
+
+
+  .intro-image {
+    aspect-ratio: 5 / 4;
+  }
+
+
+  .services-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+
+  .service-list {
+    grid-template-columns: 1fr;
+  }
+
+
+  .service-item:nth-child(odd) {
+    border-right: 0;
+  }
+
+
+  .service-item:nth-child(even) {
+    padding-left: 0;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .hero-actions .button {
+    width: 100%;
+  }
+}
+
+/* CSS PART 3 OF 3 */
+.project-section {
+  padding-block: var(--space-7);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+
+.project-section .eyebrow {
+  color: #edb294;
+}
+
+
+.project-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+
+.project-heading .section-intro {
+  max-width: 390px;
+  margin: 0;
+  color: rgb(255 254 250 / 75%);
+}
+
+
+.project-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+  align-items: stretch;
+  gap: 2rem;
+}
+
+
+.project-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 370px;
+  object-fit: cover;
+}
+
+
+.project-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: 1rem;
+}
+
+
+.project-aside h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+
+.project-aside p {
+  color: rgb(255 254 250 / 75%);
+}
+
+
+.process-section {
+  padding-block: var(--space-7);
+  background: var(--color-white);
+}
+
+
+.process-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(3rem, 9vw, 9rem);
+}
+
+
+.process-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: process-step;
+}
+
+
+.process-steps li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--color-line);
+  counter-increment: process-step;
+}
+
+
+.process-steps li::before {
+  color: var(--color-clay);
+  content: "0" counter(process-step);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+
+.process-steps h3 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+
+.process-steps p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.93rem;
+}
+
+
+.faq-section {
+  padding-block: var(--space-7);
+  background: #eae9e1;
+}
+
+
+.faq-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(3rem, 9vw, 9rem);
+}
+
+
+.faq-list {
+  border-top: 1px solid #c9cdc4;
+}
+
+
+.faq-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #c9cdc4;
+}
+
+
+.faq-item h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 400;
+}
+
+
+.faq-item p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+
+.contact-section {
+  padding-block: var(--space-7);
+  background: var(--color-white);
+}
+
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(3rem, 8vw, 8rem);
+}
+
+
+.contact-details {
+  margin-top: 2rem;
+}
+
+
+.contact-details p {
+  margin: 0 0 0.7rem;
+  color: var(--color-muted);
+}
+
+
+.contact-details a {
+  color: var(--color-forest);
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-content: start;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--color-paper);
+}
+
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+
+.form-field--wide {
+  grid-column: 1 / -1;
+}
+
+
+.form-field label {
+  color: var(--color-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: 2px;
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+.form-field textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+
+.form-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+
+.contact-form .button {
+  justify-self: start;
+}
+
+
+.site-footer {
+  padding-block: 2.5rem;
+  background: var(--color-forest-deep);
+  color: var(--color-white);
+}
+
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+
+.footer-meta {
+  margin: 0.35rem 0 0;
+  color: rgb(255 254 250 / 66%);
+  font-size: 0.82rem;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+}
+
+
+.footer-links a {
+  color: rgb(255 254 250 / 85%);
+  font-size: 0.82rem;
+  text-underline-offset: 0.25em;
+}
+
+
+@media (max-width: 760px) {
+  .project-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+
+  .project-feature,
+  .process-layout,
+  .faq-layout,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .project-photo {
+    min-height: 280px;
+    aspect-ratio: 4 / 3;
+  }
+
+
+  .project-aside {
+    gap: 1rem;
+  }
+
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+
+@media (max-width: 520px) {
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+
+
+  .form-field--wide,
+  .form-note {
+    grid-column: auto;
+  }
+
+
+  .contact-form .button {
+    width: 100%;
+  }
+
+
+  .footer-links {
+    gap: 0.8rem 1.2rem;
+  }
+}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Josh Brooks Construction and Renovation home">
+        <span class="brand-mark" aria-hidden="true">JB</span>
+        <span class="brand-name">Josh Brooks<br>Construction &amp; Renovation</span>
+      </a>
+
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="site-navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+
+      <nav class="primary-nav" id="site-navigation" aria-label="Main navigation">
+        <a href="#remodeling">Remodeling</a>
+        <a href="#approach">Our approach</a>
+        <a href="#contact">Contact</a>
+        <a class="button" href="#contact">Request an estimate</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="home">
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-image" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=2200&amp;q=85" alt="Light-filled residential interior with wood and stone finishes">
+      <div class="container">
+        <div class="hero-content">
+          <p class="eyebrow">Josh Brooks Construction and Renovation</p>
+          <h1 id="hero-title">A kitchen that feels like home.</h1>
+          <p class="hero-copy">Kitchen and bathroom remodeling, coordinated from the first conversation through the finishing details.</p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">Request an estimate</a>
+            <a class="button button--light" href="#remodeling">Explore remodeling</a>
+          </div>
+          <p class="hero-note">Based in Longmont, Colorado · Serving the Front Range</p>
+        </div>
+      </div>
+    </section>
+
+<!-- HTML PART 2 OF 3 -->
+    <section class="intro-section" aria-labelledby="intro-title">
+      <div class="container intro-layout">
+        <div class="intro-copy">
+          <p class="eyebrow">Room to make it yours</p>
+          <h2 class="section-title" id="intro-title">The details matter. So does the way it all comes together.</h2>
+          <p>Josh Brooks Construction and Renovation describes its work as full-service kitchen and bathroom remodeling. That can include cabinetry, countertops, tile, plumbing, electrical, permits, and project coordination.</p>
+          <p>Start with the room you want to change and the way you want it to work. The next step is a conversation about your project and an estimate.</p>
+          <a class="button button--dark" href="#contact">Talk about your project</a>
+        </div>
+        <div class="intro-image-wrap">
+          <img class="intro-image" src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Contemporary home interior with a light, natural material palette">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="services-section" id="remodeling" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services-heading">
+          <div>
+            <p class="eyebrow">Remodeling services</p>
+            <h2 class="section-title" id="services-title">A practical plan for a better room.</h2>
+          </div>
+          <p class="section-intro">The kitchen and bath work described on the site brings the key trades and finish decisions into one coordinated project.</p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <div>
+              <h3>Kitchen remodeling</h3>
+              <p>Plan a kitchen update with cabinetry, countertops, tile, and the supporting work needed to bring the room together.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <div>
+              <h3>Bathroom remodeling</h3>
+              <p>Coordinate bathroom finishes and the plumbing, electrical, and installation work involved in a remodel.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <div>
+              <h3>Project coordination</h3>
+              <p>The company describes coordinating project work, including permitting and the trades involved in remodeling.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">04</span>
+            <div>
+              <h3>Other home projects</h3>
+              <p>The wider service list also includes roofing, siding, windows, decks, basements, additions, and storm-damage work.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="project-section" aria-labelledby="project-title">
+      <div class="container">
+        <div class="project-heading">
+          <div>
+            <p class="eyebrow">A room, rethought</p>
+            <h2 class="section-title" id="project-title">Make the everyday feel considered.</h2>
+          </div>
+          <p class="section-intro">Explore the materials and room details that can shape a remodel. Discuss the specific options for your home directly with the company.</p>
+        </div>
+        <div class="project-feature">
+          <img class="project-photo" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Residential kitchen interior with a central island and natural wood details">
+          <div class="project-aside">
+            <div>
+              <p class="eyebrow">Kitchen &amp; bath</p>
+              <h3>Good decisions add up to a room that works.</h3>
+              <p>Cabinetry, counters, tile, lighting, and plumbing fixtures each contribute to how a finished room looks and functions.</p>
+            </div>
+            <a class="button button--light" href="#contact">Discuss your remodel</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- HTML PART 3 OF 3 -->
+    <section class="process-section" id="approach" aria-labelledby="approach-title">
+      <div class="container process-layout">
+        <div>
+          <p class="eyebrow">From first conversation</p>
+          <h2 class="section-title" id="approach-title">A clear start for your project.</h2>
+          <p class="section-intro">The site invites homeowners to request a free estimate. These steps describe a useful starting point, not a guaranteed project schedule.</p>
+        </div>
+        <ol class="process-steps">
+          <li>
+            <div>
+              <h3>Share what you have in mind</h3>
+              <p>Describe the room, the changes you are considering, and how to reach you.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Discuss the scope</h3>
+              <p>Talk through the work involved, including materials, trades, and any permitting considerations.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Request an estimate</h3>
+              <p>Contact the company directly to discuss your project and ask about current pricing and timing.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="container faq-layout">
+        <div>
+          <p class="eyebrow">Before you begin</p>
+          <h2 class="section-title" id="faq-title">A few helpful things to ask.</h2>
+        </div>
+        <div class="faq-list">
+          <article class="faq-item">
+            <h3>What can a remodeling project include?</h3>
+            <p>The kitchen-and-bath service description includes cabinetry, countertops, tile, plumbing, electrical, permits, and project coordination. Confirm what applies to your specific project.</p>
+          </article>
+          <article class="faq-item">
+            <h3>How much will my project cost?</h3>
+            <p>Project costs depend on scope and selections. The source site gives differing cost ranges in separate sections, so ask the company for current pricing for your project.</p>
+          </article>
+          <article class="faq-item">
+            <h3>How long will the work take?</h3>
+            <p>Timelines can vary with project scope and coordination. The source site gives differing timeline figures in separate sections; confirm the current estimate directly.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Where does the company work?</h3>
+            <p>The site identifies Longmont as its base and describes service across the Front Range. Confirm whether your address is within its current service area.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div>
+          <p class="eyebrow">Start a conversation</p>
+          <h2 class="section-title" id="contact-title">Tell us what you’re planning.</h2>
+          <p class="section-intro">The source site offers estimate requests and lists phone, text, and email as contact options. Use its current contact details to reach the company directly.</p>
+          <div class="contact-details">
+            <p><strong>Company:</strong> Josh Brooks Construction and Renovation Inc.</p>
+            <p><strong>Based in:</strong> Longmont, Colorado</p>
+            <p><a href="https://joshbrooksconstructionllc.com/">Visit the company website for current phone, text, and email details</a></p>
+          </div>
+        </div>
+
+
+        <form class="contact-form" aria-label="Project inquiry form preview">
+          <div class="form-field">
+            <label for="contact-name">Your name</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="contact-email">Email</label>
+            <input id="contact-email" name="email" type="email" autocomplete="email">
+          </div>
+          <div class="form-field form-field--wide">
+            <label for="contact-project">What are you planning?</label>
+            <textarea id="contact-project" name="project" rows="5"></textarea>
+          </div>
+          <p class="form-note">This sample page does not send inquiries. Please contact the company using the current details on its website.</p>
+          <button class="button button--dark" type="button">Inquiry form preview</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">Josh Brooks Construction</div>
+        <p class="footer-meta">Construction and Renovation Inc. · Longmont, Colorado</p>
+        <p class="footer-meta">© 2026 Josh Brooks Construction and Renovation Inc.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#remodeling">Remodeling</a>
+        <a href="#approach">Our approach</a>
+        <a href="#contact">Contact</a>
+        <a href="https://joshbrooksconstructionllc.com/">Company website</a>
+      </nav>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const siteNavigation = document.querySelector("#site-navigation");
+
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
+      siteNavigation.classList.toggle("is-open", !isOpen);
+    });
+
+
+    siteNavigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation");
+        siteNavigation.classList.remove("is-open");
+      }
+    });
+  </script>
+</body></html>

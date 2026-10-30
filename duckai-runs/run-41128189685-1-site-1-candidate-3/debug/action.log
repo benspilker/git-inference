@@ -1,0 +1,212 @@
+Enabled Duck.ai Web Search for the source-site assessment.
+Captured and validated Duck.ai's source assessment for https://joshbrooksconstructionllc.com
+Submitting prompt for CSS PART 1 OF 3; existing code blocks: 1.
+Prompt submitted for CSS PART 1 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "css 1/3", "characters": 6115, "sha256": "eadf0ce62c5528bd8b19ef7964d875c9a3dd5bd0ffbc87eeec052695622237f7"}
+Captured CSS PART 1 OF 3
+Submitting prompt for CSS PART 2 OF 3; existing code blocks: 2.
+Prompt submitted for CSS PART 2 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "css 2/3", "characters": 6022, "sha256": "f29019ccd1d0bf4f1c45a1d77152f7e25215952930b28ff43875301662c48f44"}
+Captured CSS PART 2 OF 3
+Submitting prompt for CSS PART 3 OF 3; existing code blocks: 3.
+Prompt submitted for CSS PART 3 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "css 3/3", "characters": 1807, "sha256": "59eef9990295cfd89332a7a6de314ceeceff2dea114cc136bbbee2b2c4b066df"}
+Captured CSS PART 3 OF 3
+Sent acknowledged as a standalone Duck.ai turn and waited for its response.
+Submitting prompt for HTML PART 1 OF 3; existing code blocks: 5.
+Prompt submitted for HTML PART 1 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "html 1/3", "characters": 2249, "sha256": "92ac7c282fa6e87140889222417fa4009be2d846b616fd4bf11cd3af5751c672"}
+Captured HTML PART 1 OF 3
+Submitting prompt for HTML PART 2 OF 3; existing code blocks: 6.
+Prompt submitted for HTML PART 2 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "html 2/3", "characters": 4201, "sha256": "78a4904d17f95886bae6119ae85e1b95524a0d79ce6414ee3fab357570a22c55"}
+Captured HTML PART 2 OF 3
+Submitting prompt for HTML PART 3 OF 3; existing code blocks: 7.
+Prompt submitted for HTML PART 3 OF 3; waiting for one labeled code block.
+Waiting for HTML PART 3 OF 3: 21s elapsed; new labels=3; new code blocks=1; newest block characters=3997; generation active=False.
+{"accepted": true, "part": "html 3/3", "characters": 3998, "sha256": "3dac8faba010dd08d082e03a2780c8c9594642b83609e7b7fabc24c59c683cc7"}
+Captured HTML PART 3 OF 3
+{"assembled": true, "chat_id": "https://duck.ai/?chatID=14c4054c-5822-4a0e-a899-f310561017c0", "css_parts": 3, "html_parts": 3, "index_html_bytes": 10463, "styles_css_bytes": 13946}
+Created /__w/git-inference/git-inference/duckai-runs/run-41128189685-1-site-1-candidate-3/files/inlined/index.html (24384 bytes)
+{
+  "status": "fail",
+  "tested_file": "files/inlined/index.html",
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "services"
+  ],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "a.nav-contact",
+          "width": 173,
+          "height": 44
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 1440,
+          "height": 252
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 1440,
+          "height": 760
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "h2#services-title",
+          "width": 540,
+          "height": 69
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "height": 760,
+        "viewport_width": 1440,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "Request an estimate",
+        "bottom": 60
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/desktop.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "h2#contact-title",
+          "width": 358,
+          "height": 40
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 390,
+          "height": 312
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 390,
+          "height": 720
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "h2#services-title",
+          "width": 358,
+          "height": 40
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "height": 720,
+        "viewport_width": 390,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "Request an estimate",
+        "bottom": 737
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/mobile.png"
+    }
+  },
+  "mobile_menu": {
+    "found": true,
+    "click_opens": true,
+    "click_closes": true,
+    "tab_reachable": false,
+    "enter_opens": false,
+    "space_toggles": false,
+    "escape_closes": false,
+    "pass": false
+  },
+  "checks": {
+    "rendered_sections_visible_desktop_and_mobile": true,
+    "hero_spans_viewport_desktop_and_mobile": true,
+    "cta_visible_first_screen_desktop_and_mobile": true,
+    "mobile_menu_clicks_work": true,
+    "mobile_menu_keyboard_works": false,
+    "mobile_has_no_horizontal_overflow": true,
+    "fonts_load_in_browser": true,
+    "images_load_in_browser": true
+  },
+  "resource_errors": []
+}
+Run saved in /__w/git-inference/git-inference/duckai-runs/run-41128189685-1-site-1-candidate-3

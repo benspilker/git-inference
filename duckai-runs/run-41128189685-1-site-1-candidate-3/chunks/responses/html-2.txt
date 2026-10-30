@@ -1,0 +1,88 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section intro" id="approach" aria-labelledby="approach-title">
+      <div class="container intro-layout">
+        <div class="intro-copy">
+          <p class="eyebrow">Built around your home</p>
+          <h2 id="approach-title">One team for the work ahead.</h2>
+          <p>Josh Brooks Construction and Renovation serves Longmont and lists kitchen and bathroom remodeling among its home-improvement services.</p>
+          <p>The company site identifies Josh Brooks as owner and says the business was founded in 2014. Its remodeling information describes a process that spans planning, construction, and final inspection.</p>
+          <a class="text-link" href="https://joshbrooksconstructionllc.com/about">Meet the company</a>
+        </div>
+        <img class="intro-image" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="Open-plan living space with a finished kitchen and dining area">
+      </div>
+    </section>
+
+
+    <section class="section services" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services-heading">
+          <div class="section-heading">
+            <p class="eyebrow">What we do</p>
+            <h2 id="services-title">Remodeling and more.</h2>
+          </div>
+          <p>From a room refresh to broader home construction, explore the work listed by the company.</p>
+        </div>
+        <div class="services-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <div>
+              <h3>Kitchen remodeling</h3>
+              <p>Planning and renovation for a kitchen that better suits your home.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <div>
+              <h3>Bathroom remodeling</h3>
+              <p>Bathroom renovation as part of the company’s remodeling work.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <div>
+              <h3>Basement finishing</h3>
+              <p>Construction work to make more of your existing home.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">04</span>
+            <div>
+              <h3>Roofing and siding</h3>
+              <p>Exterior services also listed on the company website.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">05</span>
+            <div>
+              <h3>Windows, decks, and additions</h3>
+              <p>Additional home projects described among the company’s services.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">06</span>
+            <div>
+              <h3>Storm-damage work</h3>
+              <p>Repair work is included in the company’s listed services.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="project" id="project" aria-labelledby="project-title">
+      <div class="project-layout">
+        <div class="project-image-wrap">
+          <img class="project-image" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Kitchen and living area with natural finishes">
+        </div>
+        <div class="project-copy">
+          <p class="eyebrow">From the project portfolio</p>
+          <h2 id="project-title">A kitchen remodel in Prospect New Town.</h2>
+          <p>The company’s site features a kitchen-remodel case study in Prospect New Town, Longmont. See the project details on the original site.</p>
+          <a class="button" href="https://joshbrooksconstructionllc.com/kitchen-remodel-prospect-new-town-longmont/">View project details</a>
+        </div>
+      </div>
+    </section>
+```

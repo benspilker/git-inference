@@ -1,0 +1,181 @@
+{
+  "status": "fail",
+  "tested_file": "files/inlined/index.html",
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "services"
+  ],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "a.nav-contact",
+          "width": 173,
+          "height": 44
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 1440,
+          "height": 252
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 1440,
+          "height": 760
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "h2#services-title",
+          "width": 540,
+          "height": 69
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "height": 760,
+        "viewport_width": 1440,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "Request an estimate",
+        "bottom": 60
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/desktop.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "h2#contact-title",
+          "width": 358,
+          "height": 40
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 390,
+          "height": 312
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 390,
+          "height": 720
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "h2#services-title",
+          "width": 358,
+          "height": 40
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "height": 720,
+        "viewport_width": 390,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "Request an estimate",
+        "bottom": 737
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/mobile.png"
+    }
+  },
+  "mobile_menu": {
+    "found": true,
+    "click_opens": true,
+    "click_closes": true,
+    "tab_reachable": false,
+    "enter_opens": false,
+    "space_toggles": false,
+    "escape_closes": false,
+    "pass": false
+  },
+  "checks": {
+    "rendered_sections_visible_desktop_and_mobile": true,
+    "hero_spans_viewport_desktop_and_mobile": true,
+    "cta_visible_first_screen_desktop_and_mobile": true,
+    "mobile_menu_clicks_work": true,
+    "mobile_menu_keyboard_works": false,
+    "mobile_has_no_horizontal_overflow": true,
+    "fonts_load_in_browser": true,
+    "images_load_in_browser": true
+  },
+  "resource_errors": []
+}

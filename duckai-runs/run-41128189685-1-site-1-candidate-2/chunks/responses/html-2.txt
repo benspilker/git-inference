@@ -1,0 +1,87 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="intro-section" aria-labelledby="intro-title">
+      <div class="container intro-layout">
+        <div class="intro-copy">
+          <p class="eyebrow">Room to make it yours</p>
+          <h2 class="section-title" id="intro-title">The details matter. So does the way it all comes together.</h2>
+          <p>Josh Brooks Construction and Renovation describes its work as full-service kitchen and bathroom remodeling. That can include cabinetry, countertops, tile, plumbing, electrical, permits, and project coordination.</p>
+          <p>Start with the room you want to change and the way you want it to work. The next step is a conversation about your project and an estimate.</p>
+          <a class="button button--dark" href="#contact">Talk about your project</a>
+        </div>
+        <div class="intro-image-wrap">
+          <img class="intro-image" src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Contemporary home interior with a light, natural material palette">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="services-section" id="remodeling" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services-heading">
+          <div>
+            <p class="eyebrow">Remodeling services</p>
+            <h2 class="section-title" id="services-title">A practical plan for a better room.</h2>
+          </div>
+          <p class="section-intro">The kitchen and bath work described on the site brings the key trades and finish decisions into one coordinated project.</p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <div>
+              <h3>Kitchen remodeling</h3>
+              <p>Plan a kitchen update with cabinetry, countertops, tile, and the supporting work needed to bring the room together.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <div>
+              <h3>Bathroom remodeling</h3>
+              <p>Coordinate bathroom finishes and the plumbing, electrical, and installation work involved in a remodel.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <div>
+              <h3>Project coordination</h3>
+              <p>The company describes coordinating project work, including permitting and the trades involved in remodeling.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">04</span>
+            <div>
+              <h3>Other home projects</h3>
+              <p>The wider service list also includes roofing, siding, windows, decks, basements, additions, and storm-damage work.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="project-section" aria-labelledby="project-title">
+      <div class="container">
+        <div class="project-heading">
+          <div>
+            <p class="eyebrow">A room, rethought</p>
+            <h2 class="section-title" id="project-title">Make the everyday feel considered.</h2>
+          </div>
+          <p class="section-intro">Explore the materials and room details that can shape a remodel. Discuss the specific options for your home directly with the company.</p>
+        </div>
+        <div class="project-feature">
+          <img class="project-photo" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Residential kitchen interior with a central island and natural wood details">
+          <div class="project-aside">
+            <div>
+              <p class="eyebrow">Kitchen &amp; bath</p>
+              <h3>Good decisions add up to a room that works.</h3>
+              <p>Cabinetry, counters, tile, lighting, and plumbing fixtures each contribute to how a finished room looks and functions.</p>
+            </div>
+            <a class="button button--light" href="#contact">Discuss your remodel</a>
+          </div>
+        </div>
+      </div>
+    </section>
+```

@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=73ba6502-6d80-43dc-92b0-b09621046d35",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T21:07:44.696998+00:00",
+      "characters": 3093,
+      "sha256": "3b39a216b07ac9599aacf5c35e376e7f7cf1f786f3d47a9841916d0d015ad1da"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T21:08:02.676101+00:00",
+      "characters": 6421,
+      "sha256": "569f68c45977a821ff8ec0a7dd14ea6d3e9f200b7d898d5602efce3442a09e2b"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T21:08:17.359519+00:00",
+      "characters": 4965,
+      "sha256": "270557cc47ed98fe1a24a69ec1060c16fab7c3508cddbd05519024e97a0e4555"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T21:08:34.837399+00:00",
+      "characters": 2107,
+      "sha256": "ca30ed863dffecab9bb639fa21894b63c3d106c2f8ef27fdf96bcc22ddeda0c2"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T21:08:48.139334+00:00",
+      "characters": 4370,
+      "sha256": "87be5dab3295e02faa3af9042681151a28c05bb441cfa9a8315be33d3a962d62"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T21:09:04.975349+00:00",
+      "characters": 6067,
+      "sha256": "0e524db6ae069fae0a76f40bfe5b3d628f61a523a99657504ad2178997d526ca"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitchen &amp; Bath Remodeling | Josh Brooks Construction</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Josh Brooks Construction and Renovation home">
+        <span class="brand-mark" aria-hidden="true">JB</span>
+        <span class="brand-name">Josh Brooks Construction<br>and Renovation Inc.</span>
+      </a>
+
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+
+      <nav class="site-nav" id="primary-navigation" aria-label="Main navigation">
+        <a href="#remodeling">Remodeling</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#contact">Request an estimate</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="home">
+    <section class="hero" aria-labelledby="hero-title">
+      <img
+        class="hero-image"
+        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+        alt="Bright contemporary kitchen with an island and natural wood accents"
+        fetchpriority="high">
+      <div class="hero-content">
+        <p class="eyebrow">Kitchen &amp; bath remodeling · Longmont, Colorado</p>
+        <h1 id="hero-title">Make room for a home that feels like yours.</h1>
+        <p class="hero-copy">Thoughtful kitchen and bathroom remodeling from a local general contractor. Start with a conversation about your space and your plans.</p>
+        <div class="hero-actions">
+          <a class="button button--light" href="#contact">Request an estimate</a>
+          <a class="button button--outline" href="tel:+17208287997">Call 720-828-7997</a>
+        </div>
+      </div>
+    </section>
+```

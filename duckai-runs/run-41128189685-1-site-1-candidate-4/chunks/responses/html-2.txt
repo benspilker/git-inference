@@ -1,0 +1,70 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section intro-section" id="story" aria-labelledby="story-title">
+      <div class="container intro-layout">
+        <div class="intro-copy">
+          <p class="eyebrow">A local general contractor</p>
+          <h2 id="story-title">A considered approach to making a home work better.</h2>
+          <p>Josh Brooks Construction and Renovation is based in Longmont and serves homeowners across Northern Colorado and the Front Range.</p>
+          <p>Founder Josh Brooks has worked in construction since 1996 and started the company in 2014. The team takes on remodeling as well as a range of home improvement and repair projects.</p>
+          <a class="text-link" href="#contact">Talk about your project</a>
+        </div>
+        <div class="intro-image">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Kitchen with light cabinetry, a central island, and a bright open layout" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section services-section" id="services" aria-labelledby="services-title">
+      <div class="container services-layout">
+        <div class="services-intro">
+          <p class="eyebrow">What we do</p>
+          <h2 id="services-title">Remodeling and more for your home.</h2>
+          <p>Kitchen and bathroom projects are part of a broader general contracting offering. Reach out to discuss the scope of your home project.</p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <div>
+              <h3>Kitchen remodeling</h3>
+              <p>Plan a kitchen update around the way you use your home, from refreshed finishes to a more involved renovation.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <div>
+              <h3>Bathroom remodeling</h3>
+              <p>Discuss a bathroom renovation and the work involved in bringing your project together.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <div>
+              <h3>Home improvement &amp; repairs</h3>
+              <p>The site also lists roofing, siding, decks, windows, and storm-damage restoration among its services.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section project-section" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="project-feature">
+          <div class="project-photo">
+            <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Contemporary bathroom interior with a walk-in shower and light finishes" loading="lazy">
+          </div>
+          <div class="project-caption">
+            <p class="eyebrow">Project inspiration</p>
+            <h2 id="work-title">Start with what you want your space to do.</h2>
+            <p>Explore the possibilities for your home, then get in touch to discuss your remodeling goals and request an estimate.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+```

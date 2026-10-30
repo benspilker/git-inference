@@ -1,0 +1,51 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Josh Brooks Construction &amp; Renovation | Kitchen &amp; Bath</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Josh Brooks Construction and Renovation home">
+        <span class="brand-mark" aria-hidden="true">JB</span>
+        <span>Josh Brooks<br>Construction &amp; Renovation</span>
+      </a>
+
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+
+      <nav class="primary-nav" id="primary-navigation" aria-label="Main navigation">
+        <a href="#story">About</a>
+        <a href="#services">Services</a>
+        <a href="#work">Project work</a>
+        <a class="nav-cta" href="#contact">Request an estimate</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=2200&amp;q=85" alt="Bright, modern home interior with an open view of the kitchen and living area">
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Kitchen &amp; bath remodeling · Longmont, Colorado</p>
+        <h1 id="hero-title">Make home feel more like yours.</h1>
+        <p class="hero-copy">Thoughtful remodeling and general contracting, with a local team ready to talk through your project.</p>
+        <a class="button" href="#contact">Request an estimate</a>
+      </div>
+    </section
+```
