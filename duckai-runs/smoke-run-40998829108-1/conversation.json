@@ -1,0 +1,22 @@
+{
+  "status": "captured",
+  "site": "https://duck.ai/",
+  "chat_url": "https://duck.ai/?chatID=88e8fd0d-e862-4d3f-a24d-84f5bd7c3009",
+  "run_id": "40998829108",
+  "run_attempt": "1",
+  "turn_count": 2,
+  "turns": [
+    {
+      "turn_id": "turn_1",
+      "prompt": "In one sentence, explain photosynthesis in plain language for a ten-year-old. Begin your answer with the exact token RESULT_ONE_20261031.",
+      "assistant_response": "RESULT_ONE_20261031 Photosynthesis is how plants use sunlight, water, and air to make their food and release oxygen.",
+      "captured_at_utc": "2026-10-30T03:42:42.979515+00:00"
+    },
+    {
+      "turn_id": "turn_2",
+      "prompt": "Still referring to the idea from your previous answer, restate it in one shorter sentence for a ten-year-old. Begin your answer with the exact token RESULT_TWO_20261031.",
+      "assistant_response": "RESULT_TWO_20261031 Plants use sunlight to make food.",
+      "captured_at_utc": "2026-10-30T03:42:48.218449+00:00"
+    }
+  ]
+}
