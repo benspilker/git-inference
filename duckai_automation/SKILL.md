@@ -16,7 +16,7 @@ The workflow requests CSS parts 1–3, sends `acknowledged` as its own user turn
 
 The GitHub Action runs three independent candidates sequentially. Each uses a fresh Duck.ai chat and captures CSS parts 1–3, sends `acknowledged` as its own user turn, then captures HTML parts 1–3. After assembly, the workflow saves desktop/mobile screenshots and runs the structural checker. Screenshot generation is not a visual audit. The workflow commits generated files and evidence under `duckai-runs/run-<run-id>-<attempt>-candidate-1/`, `-candidate-2/`, and `-candidate-3/`; it does not claim image relevance or visual review passed. Complete those human gates before describing a candidate as successful.
 
-After generation and checking, the GitHub Action also writes `files/inlined/index.html`, which embeds the assembled `styles.css` into the assembled HTML. Keep the original `files/index.html` and `files/styles.css` for source review and checker compatibility. This inlined output embeds CSS only; externally referenced fonts and images still need network access.
+After generation and checking, the GitHub Action also writes `files/inlined/index.html`, which embeds the assembled `styles.css` into the assembled HTML. It replaces the `styles.css` link or inserts CSS in `<head>` when Duck.ai omitted that link. Keep the original `files/index.html` and `files/styles.css` for source review and checker compatibility. This inlined output embeds CSS only; externally referenced fonts and images still need network access.
 
 Use this skill when the user asks Hermes to create or iterate on a website with Duck.ai. The provider is Duck.ai (`https://duck.ai/`).
 

@@ -39,17 +39,28 @@ def main() -> None:
         parser.error("stylesheet contains a closing style tag and cannot be embedded safely")
 
     links = list(STYLESHEET_LINK.finditer(html))
-    if len(links) != 1:
-        parser.error(f"expected exactly one link to styles.css; found {len(links)}")
+    if len(links) > 1:
+        parser.error(f"expected at most one link to styles.css; found {len(links)}")
 
+    existing_styles = [block.strip() for block in STYLE_ELEMENT.findall(html)]
     original_style_count = len(STYLE_ELEMENT.findall(html))
     style_element = f"<style>\n{css}\n</style>"
-    inlined = STYLESHEET_LINK.sub(lambda _: style_element, html, count=1)
+    if css in existing_styles:
+        inlined = STYLESHEET_LINK.sub("", html, count=1) if links else html
+    elif links:
+        inlined = STYLESHEET_LINK.sub(lambda _: style_element, html, count=1)
+    else:
+        head_close = list(re.finditer(r"</head\s*>", html, re.IGNORECASE))
+        if len(head_close) != 1:
+            parser.error("no styles.css link was found and HTML must have exactly one closing </head> for CSS insertion")
+        insertion = head_close[0].start()
+        inlined = html[:insertion] + style_element + "\n" + html[insertion:]
 
     if STYLESHEET_LINK.search(inlined):
         parser.error("styles.css link remains after inlining")
     style_blocks = STYLE_ELEMENT.findall(inlined)
-    if len(style_blocks) != original_style_count + 1 or not any(block.strip() == css for block in style_blocks):
+    expected_style_count = original_style_count if css in existing_styles else original_style_count + 1
+    if len(style_blocks) != expected_style_count or not any(block.strip() == css for block in style_blocks):
         parser.error("inlined stylesheet verification failed")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
