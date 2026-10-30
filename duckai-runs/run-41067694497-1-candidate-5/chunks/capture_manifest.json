@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=548b7c00-d046-46b8-b12f-daad41296f8b",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T14:06:12.168655+00:00",
+      "characters": 5769,
+      "sha256": "3cc27a39049c21f8ad2301dddcd650199504c1216539c973389cce826cc61284"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T14:06:27.543275+00:00",
+      "characters": 4962,
+      "sha256": "80f37a7af246f015bd0136d129e19289ddf212400df40a755f3884de52bd8ed5"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T14:06:44.196086+00:00",
+      "characters": 5772,
+      "sha256": "62cb33d582e798457796c8b605bdeb4022c8c29bbd5e0fc5586a985a2f006f37"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T14:07:15.542257+00:00",
+      "characters": 4929,
+      "sha256": "5fc7096b68899964f9e76cea04df1255834d4521b479fbfb868f8b1e0cd68a37"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T14:07:30.905215+00:00",
+      "characters": 3689,
+      "sha256": "d911d7bcaa6bc10ff8e6f9607869702adb284682b37a07ec0f8c5d5efc205263"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T14:07:42.027892+00:00",
+      "characters": 2235,
+      "sha256": "9f18e2feaa3a592b9d09c1895f8e3ccabe5389755f5080590990a9b371249c15"
+    }
+  ]
+}

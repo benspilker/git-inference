@@ -1,0 +1,245 @@
+CSS PART 2 OF 3
+```css
+/* CSS PART 2 OF 3 */
+.intro-strip {
+  padding-block: 1.15rem;
+  border-bottom: var(--border-rule);
+  background: var(--color-orange);
+}
+
+
+.intro-strip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+
+.intro-strip p {
+  margin: 0;
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+.intro-strip__note {
+  color: rgba(23, 25, 24, 0.72);
+  font-size: 0.66rem !important;
+}
+
+
+.services {
+  padding-block: clamp(5rem, 10vw, 9rem);
+}
+
+
+.services__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.65fr);
+  align-items: end;
+  gap: var(--space-5);
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+
+.services__lead {
+  max-width: 29rem;
+  margin: 0 0 0.35rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: var(--border-rule);
+}
+
+
+.service-item {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.65rem 1.25rem 1.8rem 0;
+  border-bottom: var(--border-rule);
+}
+
+
+.service-item:nth-child(odd) {
+  border-right: var(--border-rule);
+}
+
+
+.service-item:nth-child(even) {
+  padding-left: 1.5rem;
+}
+
+
+.service-item__number {
+  padding-top: 0.25rem;
+  color: var(--color-orange-dark);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+
+
+.service-item h3 {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  letter-spacing: -0.015em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+
+.service-item p {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+
+.workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  min-height: 36rem;
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.workbench__photo {
+  position: relative;
+  min-height: 30rem;
+  overflow: hidden;
+}
+
+
+.workbench__photo img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+.workbench__caption {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: calc(100% - 2rem);
+  padding: 0.55rem 0.7rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+
+.workbench__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(2.5rem, 6vw, 6rem);
+}
+
+
+.workbench__copy .eyebrow {
+  color: var(--color-orange);
+}
+
+
+.workbench__copy .section-title {
+  margin-bottom: 1.5rem;
+}
+
+
+.workbench__copy p:not(.eyebrow) {
+  max-width: 34rem;
+  margin: 0 0 1rem;
+  color: rgba(255, 254, 250, 0.78);
+}
+
+
+.workbench__copy .button {
+  margin-top: 1.25rem;
+}
+
+
+.process {
+  padding-block: clamp(5rem, 10vw, 9rem);
+  background: var(--color-fog);
+}
+
+
+.process__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+
+.process__top p {
+  max-width: 26rem;
+  margin: 0;
+  color: var(--color-muted);
+}
+
+
+.process__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgba(23, 25, 24, 0.35);
+}
+
+
+.process-step {
+  padding: 1.5rem 1.5rem 0 0;
+}
+
+
+.process-step + .process-step {
+  padding-left: 1.5rem;
+  border-left: 1px solid rgba(23, 25, 24, 0.25);
+}
+
+
+.process-step__index {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: var(--color-orange-dark);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+
+.process-step h3 {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+
+.process-step p {
+  max-width: 23rem;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+```

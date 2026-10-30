@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=8f13d310-57f5-4a41-8f3d-a11edc237e84",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T14:02:35.692253+00:00",
+      "characters": 5692,
+      "sha256": "baeed931d940b324645d71501ef086dceb47f9f3632a48624b9ec7a2c7f599cb"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T14:02:53.518739+00:00",
+      "characters": 6082,
+      "sha256": "e2a9ae3ab30ae1f3646707c5da1357e5d0857af6f3a0094e18d0ee99f92ef1ac"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T14:03:04.510628+00:00",
+      "characters": 2877,
+      "sha256": "5ab080e65d93fd5f6892c2035e0ab9cddc96b6f1df29b02f83f8683c364b61cc"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T14:03:30.293330+00:00",
+      "characters": 2996,
+      "sha256": "68fa940533cf9a728c5dc9f02fef6f6cb7aa9b17edad97ccf5f825e2d272313c"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T14:03:48.944369+00:00",
+      "characters": 5079,
+      "sha256": "a63eb321c46756c509aec80b95adebd04a533ff1972819644cea520ab84bd145"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T14:04:04.134510+00:00",
+      "characters": 2621,
+      "sha256": "e904d4fe9fa6eb2e6915d398fe5a244227bcc93c81f0775e0784688727450bf1"
+    }
+  ]
+}

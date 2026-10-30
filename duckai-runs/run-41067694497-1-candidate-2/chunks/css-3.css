@@ -1,0 +1,305 @@
+/* CSS PART 3 OF 3 */
+.site-footer {
+  padding-block: 2.25rem;
+  background: var(--color-paper);
+}
+
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+}
+
+
+.footer-brand {
+  display: grid;
+  gap: 0.4rem;
+}
+
+
+.footer-brand strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+
+.footer-brand span,
+.footer-location,
+.footer-copyright {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+
+.footer-nav a {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-transform: uppercase;
+}
+
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: var(--color-orange);
+}
+
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: var(--border-ink);
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 4px;
+}
+
+
+@media (max-width: 760px) {
+  :root {
+    --page-gutter: 1.25rem;
+  }
+
+
+  .header-inner {
+    min-height: 4.75rem;
+  }
+
+
+  .brand-name {
+    max-width: 8.5rem;
+    font-size: 0.95rem;
+  }
+
+
+  .menu-toggle {
+    position: relative;
+    z-index: 12;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-content: center;
+    justify-items: center;
+    gap: 5px;
+    padding: 0;
+    border: 1px solid rgba(255, 253, 248, 0.72);
+    background: transparent;
+    color: var(--color-white);
+    cursor: pointer;
+  }
+
+
+  .menu-toggle span {
+    display: block;
+    width: 1.15rem;
+    height: 2px;
+    background: currentColor;
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+
+  .menu-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+
+  .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+
+  .menu-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+
+  .primary-nav {
+    position: absolute;
+    top: 4.75rem;
+    right: var(--page-gutter);
+    left: var(--page-gutter);
+    display: none;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 253, 248, 0.32);
+    background: var(--color-ink);
+  }
+
+
+  .primary-nav.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .primary-nav a {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255, 253, 248, 0.18);
+  }
+
+
+  .primary-nav a:last-child {
+    border-bottom: 0;
+  }
+
+
+  .header-cta {
+    display: none;
+  }
+
+
+  .hero {
+    min-height: min(780px, 100svh);
+    min-height: min(780px, 100vh);
+  }
+
+
+  .hero-image {
+    object-position: 58% center;
+  }
+
+
+  .hero::before {
+    background:
+      linear-gradient(90deg, rgba(10, 15, 15, 0.65), rgba(10, 15, 15, 0.13)),
+      linear-gradient(0deg, rgba(10, 15, 15, 0.75), rgba(10, 15, 15, 0.04) 70%);
+  }
+
+
+  .hero-content {
+    padding-top: 8rem;
+    padding-bottom: 5rem;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(4rem, 17vw, 7rem);
+  }
+
+
+  .hero-note {
+    right: var(--page-gutter);
+    bottom: 1rem;
+    left: var(--page-gutter);
+    font-size: 0.6rem;
+  }
+
+
+  .intro-grid,
+  .service-layout,
+  .contact-panel {
+    grid-template-columns: 1fr;
+  }
+
+
+  .intro-grid {
+    gap: 1.75rem;
+  }
+
+
+  .service-aside {
+    position: static;
+  }
+
+
+  .image-strip {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+
+  .image-frame--offset {
+    width: 88%;
+    margin: 0 0 0 auto;
+  }
+
+
+  .image-frame img {
+    height: clamp(250px, 72vw, 440px);
+  }
+
+
+  .contact-panel {
+    gap: 1.5rem;
+    padding: 2rem 1.4rem;
+  }
+
+
+  .contact-details {
+    padding: 1.25rem 0 0;
+    border-top: 2px solid var(--color-orange);
+    border-left: 0;
+  }
+
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+
+  .service-item {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+
+  .footer-nav {
+    gap: 0.65rem 1rem;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

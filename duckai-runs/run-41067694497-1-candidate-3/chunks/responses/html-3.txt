@@ -1,0 +1,75 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="inquiry-section" id="inquire" aria-labelledby="inquiry-title">
+      <div class="container inquiry-inner">
+        <div>
+          <p class="eyebrow">Have a board question?</p>
+          <h2 id="inquiry-title">Let’s talk repairs.</h2>
+          <p>Tell us what your board is doing and which parts you’re concerned about. This concept page’s form is a visual demo and does not send or store messages.</p>
+        </div>
+
+
+        <form class="inquiry-form" action="#inquire" method="get">
+          <label for="repair-question">What’s going on with your board?</label>
+          <textarea id="repair-question" name="repair-question" rows="4" placeholder="For example: one wheel feels rough, or the trucks seem loose." required></textarea>
+          <button class="button" type="submit">Review repair question</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="Fogline Skate Repair home">
+            <span class="brand-mark" aria-hidden="true">F</span>
+            <span>Fogline<br>Skate Repair</span>
+          </a>
+          <p>Independent skateboard repair concept<br>San Francisco, California</p>
+        </div>
+
+
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#services">Repair services</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#shop-notes">Shop notes</a>
+          <a href="#inquire">Ask about a repair</a>
+        </nav>
+      </div>
+
+
+      <div class="footer-bottom">
+        <span>© 2026 Fogline Skate Repair</span>
+        <span>San Francisco, CA</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      primaryNav.classList.toggle("is-open", !isOpen);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        primaryNav.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>
+```

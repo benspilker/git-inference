@@ -1,0 +1,346 @@
+/* CSS PART 1 OF 3 */
+:root {
+  --color-paper: #f3f0e9;
+  --color-fog: #d7d9d5;
+  --color-ink: #171816;
+  --color-muted: #626560;
+  --color-orange: #ef602c;
+  --color-white: #fffefa;
+
+
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 5rem;
+  --space-7: 7rem;
+
+
+  --container: 76rem;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --header-height: 5.5rem;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+
+body,
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+button {
+  color: inherit;
+  font: inherit;
+}
+
+
+.container {
+  width: min(calc(100% - var(--gutter) * 2), var(--container));
+  margin-inline: auto;
+}
+
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.7rem 1rem;
+  transform: translateY(-160%);
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+.site-header {
+  position: absolute;
+  z-index: 10;
+  inset: 0 0 auto;
+  min-height: var(--header-height);
+  color: var(--color-white);
+}
+
+
+.header-inner {
+  display: flex;
+  width: min(calc(100% - var(--gutter) * 2), var(--container));
+  min-height: var(--header-height);
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid rgb(255 255 255 / 35%);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.045em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.brand-mark {
+  display: grid;
+  width: 2rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  color: var(--color-orange);
+  font-size: 0.82rem;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+
+.primary-nav a {
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible {
+  color: var(--color-orange);
+}
+
+
+.nav-cta {
+  padding: 0.7rem 1rem;
+  border: 1px solid rgb(255 255 255 / 70%);
+}
+
+
+.menu-toggle {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.65rem;
+  border: 1px solid rgb(255 255 255 / 65%);
+  background: transparent;
+  cursor: pointer;
+}
+
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-block: 4px;
+  background: currentColor;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+
+.menu-toggle[aria-expanded="true"] span:first-child {
+  transform: translateY(6px) rotate(45deg);
+}
+
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+
+.menu-toggle[aria-expanded="true"] span:last-child {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: min(52rem, 100svh);
+  min-height: min(52rem, 100vh);
+  align-items: end;
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 54%;
+}
+
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgb(12 14 13 / 78%) 0%,
+    rgb(12 14 13 / 45%) 48%,
+    rgb(12 14 13 / 8%) 100%
+  ), linear-gradient(0deg, rgb(12 14 13 / 40%), transparent 55%);
+  content: "";
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(calc(100% - var(--gutter) * 2), var(--container));
+  margin: 0 auto;
+  padding-block: clamp(8rem, 18vh, 12rem) var(--space-7);
+}
+
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 var(--space-3);
+  color: var(--color-orange);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+
+.eyebrow::before {
+  width: 2rem;
+  height: 2px;
+  background: currentColor;
+  content: "";
+}
+
+
+.hero h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 11vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+
+.hero h1 span {
+  display: block;
+  color: var(--color-orange);
+}
+
+
+.hero-copy {
+  max-width: 31rem;
+  margin: var(--space-4) 0 0;
+  color: rgb(255 254 250 / 88%);
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: var(--space-4);
+}
+
+
+.button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.2rem;
+  border: 1px solid transparent;
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+
+.button:hover,
+.button:focus-visible {
+  background: var(--color-white);
+}
+
+
+.button-secondary {
+  border-color: rgb(255 255 255 / 70%);
+  background: transparent;
+  color: var(--color-white);
+}
+
+
+.button-secondary:hover,
+.button-secondary:focus-visible {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-ink);
+}

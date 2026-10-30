@@ -1,0 +1,271 @@
+{
+  "session_folder": "run-41067694497-1-candidate-2",
+  "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-2",
+  "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-2/files/index.html",
+  "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-2/files/styles.css",
+  "score": 96,
+  "checks_passed": 27,
+  "checks_total": 28,
+  "checks": {
+    "html_file_present": true,
+    "no_visible_template_credit": true,
+    "accessible_mobile_hamburger": true,
+    "css_file_present": true,
+    "document_has_main": true,
+    "document_has_h1": true,
+    "document_closed": true,
+    "styles_css_linked": true,
+    "css_braces_balanced": true,
+    "footer_has_substance": true,
+    "section_contact": true,
+    "section_footer": true,
+    "section_hero": true,
+    "section_services": true,
+    "hero_has_image": true,
+    "hero_images_load_ok": true,
+    "all_images_load_ok": true,
+    "image_alt_text_present": true,
+    "image_coverage": true,
+    "visual_design_review_passed": false,
+    "browser_rendered_sections_visible_desktop_and_mobile": true,
+    "browser_hero_spans_viewport_desktop_and_mobile": true,
+    "browser_cta_visible_first_screen_desktop_and_mobile": true,
+    "browser_mobile_menu_clicks_work": true,
+    "browser_mobile_menu_keyboard_works": true,
+    "browser_mobile_has_no_horizontal_overflow": true,
+    "browser_fonts_load_in_browser": true,
+    "browser_images_load_in_browser": true
+  },
+  "automated_success": true,
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "services"
+  ],
+  "missing_sections": [
+    "screenshot-backed desktop/mobile visual design review"
+  ],
+  "hero_image_present": true,
+  "hero_images_load_ok": true,
+  "hero_image_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2400&q=85"
+  ],
+  "image_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2400&q=85",
+    "https://images.unsplash.com/photo-1547447134-cd3f5c716030?auto=format&fit=crop&w=1400&q=85",
+    "https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?auto=format&fit=crop&w=1100&q=85"
+  ],
+  "failed_image_urls": [],
+  "minimum_image_count": 3,
+  "visual_relevance_review_required": true,
+  "visual_review_status": "pending",
+  "visual_review_missing_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2400&q=85",
+    "https://images.unsplash.com/photo-1547447134-cd3f5c716030?auto=format&fit=crop&w=1400&q=85",
+    "https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?auto=format&fit=crop&w=1100&q=85"
+  ],
+  "visual_review_issues": [],
+  "visual_design_review_status": "pending",
+  "visual_design_review_missing": [
+    "debug/visual_review.json is missing"
+  ],
+  "visual_design_review_issues": [],
+  "browser_qa_status": "pass",
+  "browser_qa": {
+    "status": "pass",
+    "tested_file": "files/inlined/index.html",
+    "required_sections": [
+      "contact",
+      "footer",
+      "hero",
+      "services"
+    ],
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "div.contact-details",
+            "width": 370,
+            "height": 196
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 1440,
+            "height": 179
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section.hero",
+            "width": 1440,
+            "height": 850
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "article.service-item",
+            "width": 660,
+            "height": 143
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 1440,
+          "width": 1440,
+          "height": 850,
+          "viewport_width": 1440,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "INQUIRE",
+          "bottom": 60
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 1440,
+          "viewport_width": 1440,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "images_loaded": true,
+        "fonts": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [],
+        "screenshot": "screenshots/desktop.png"
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "div.contact-details",
+            "width": 305,
+            "height": 244
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 390,
+            "height": 325
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section.hero",
+            "width": 390,
+            "height": 780
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "h2#repairs-title.section-title",
+            "width": 350,
+            "height": 84
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "height": 780,
+          "viewport_width": 390,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "ASK ABOUT A REPAIR",
+          "bottom": 630
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 390,
+          "viewport_width": 390,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "images_loaded": true,
+        "fonts": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [],
+        "screenshot": "screenshots/mobile.png"
+      }
+    },
+    "mobile_menu": {
+      "found": true,
+      "click_opens": true,
+      "click_closes": true,
+      "tab_reachable": true,
+      "enter_opens": true,
+      "space_toggles": true,
+      "escape_closes": false,
+      "pass": true
+    },
+    "checks": {
+      "rendered_sections_visible_desktop_and_mobile": true,
+      "hero_spans_viewport_desktop_and_mobile": true,
+      "cta_visible_first_screen_desktop_and_mobile": true,
+      "mobile_menu_clicks_work": true,
+      "mobile_menu_keyboard_works": true,
+      "mobile_has_no_horizontal_overflow": true,
+      "fonts_load_in_browser": true,
+      "images_load_in_browser": true
+    },
+    "resource_errors": []
+  },
+  "source_image_urls_available": [],
+  "source_image_urls_used": [],
+  "parse_diagnostic": null,
+  "html_bytes": 8131,
+  "css_bytes": 13794,
+  "footer_text": "Fogline Skate Repair Independent skateboard repair concept Repairs Our approach Inquire Back to top San Francisco, California © 2026 Fogline Skate Repair. Fictional business concept. No real shop, contact details, or service availability represented.",
+  "footer_links": [
+    "#repairs",
+    "#approach",
+    "#inquire",
+    "#home"
+  ],
+  "complete": false,
+  "final_success": false,
+  "checker_exit_code": 2
+}

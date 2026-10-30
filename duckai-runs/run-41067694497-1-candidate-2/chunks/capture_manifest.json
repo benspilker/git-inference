@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=3508dbda-1088-4a49-b1dd-d901ad38cfa6",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T14:00:54.686248+00:00",
+      "characters": 4593,
+      "sha256": "735a90bafa32f1a53a7f7df6e6f69a541f693fae643da06d102944eee0281aa5"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T14:01:10.047202+00:00",
+      "characters": 4558,
+      "sha256": "e9ae8f22bb2b835d4e6a09dd00620f746c78742ae15e35c8547d46b9d829ffa8"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T14:01:24.479675+00:00",
+      "characters": 4641,
+      "sha256": "d590a3ee949264786904bebd913d37a9c0fe32978293b8cde16beb22ee732513"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T14:01:51.355372+00:00",
+      "characters": 3468,
+      "sha256": "fb3303e201eabd83a6ee82dfa0df3454ad424beac087bcedb2f1f1f426973def"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T14:02:03.523848+00:00",
+      "characters": 2943,
+      "sha256": "80a8abfc609eadc779c0985933e30d6685bdff3a4a2174be8bd6570c42367762"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T14:02:11.244301+00:00",
+      "characters": 1712,
+      "sha256": "d59ab54705a1980f62e91cf1579378511e67f819dce0b321289966ddda4bbf1c"
+    }
+  ]
+}

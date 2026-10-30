@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=741748a5-aef1-44e8-aed4-cb7e6517d939",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T14:08:03.664790+00:00",
+      "characters": 4721,
+      "sha256": "23ac426825150799f6841dac9c4823ec45279f68c19d0318bbabc27d4ea0553b"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T14:08:18.895846+00:00",
+      "characters": 4424,
+      "sha256": "b0c3760e5f0353ecae03f57810da245c9054a46f9371ceb4883a7de2d99d6b93"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T14:08:35.688323+00:00",
+      "characters": 6050,
+      "sha256": "05113eb9cd9b8afbf016d8aa1433b3f7a3b8fec275fd9abfa0657f3b4d2556b6"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T14:09:07.033825+00:00",
+      "characters": 4791,
+      "sha256": "1c020c7fc04c7e509b36d9b6abb9cfe5e8385c42431339e2f896e4b362820f2c"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T14:09:17.958869+00:00",
+      "characters": 2774,
+      "sha256": "b21d4dac472414bc9cdf6cf63271b7b744a955aa0d5e7f3e9656d9ac60964097"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T14:09:32.128086+00:00",
+      "characters": 2953,
+      "sha256": "4e373650dec36915296316d76933c14a99d91c19034f7d9f19d3f145c212e3d0"
+    }
+  ]
+}

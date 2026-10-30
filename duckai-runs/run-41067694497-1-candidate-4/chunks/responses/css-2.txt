@@ -1,0 +1,270 @@
+CSS PART 2 OF 3
+```css
+/* CSS PART 2 OF 3 */
+.section {
+  padding-block: clamp(4rem, 9vw, var(--space-7));
+}
+
+
+.section-heading {
+  max-width: 48rem;
+  margin: 0 0 var(--space-5);
+}
+
+
+.section-kicker {
+  margin: 0 0 0.75rem;
+  color: var(--color-orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+
+.section-heading h2,
+.about-copy h2,
+.contact-copy h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6.5vw, 6rem);
+  letter-spacing: -0.035em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+
+.section-heading p {
+  max-width: 38rem;
+  margin: 1.25rem 0 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+
+.services-section {
+  background: var(--color-paper);
+}
+
+
+.services-layout {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.65fr) minmax(0, 1.35fr);
+  gap: clamp(2rem, 8vw, 7rem);
+  align-items: start;
+}
+
+
+.services-intro {
+  position: sticky;
+  top: 2rem;
+}
+
+
+.services-intro p {
+  max-width: 25rem;
+  margin: 1.25rem 0 0;
+  color: var(--color-muted);
+}
+
+
+.service-list {
+  border-top: 1px solid rgb(23 24 22 / 28%);
+}
+
+
+.service-item {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgb(23 24 22 / 28%);
+}
+
+
+.service-number {
+  padding-top: 0.25rem;
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+
+.service-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+
+.service-item p {
+  max-width: 34rem;
+  margin: 0.55rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+
+.service-tag {
+  align-self: start;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgb(23 24 22 / 25%);
+  color: var(--color-muted);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+.repair-story {
+  display: grid;
+  min-height: 34rem;
+  grid-template-columns: 1.1fr 0.9fr;
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.story-image-wrap {
+  min-height: 26rem;
+  overflow: hidden;
+}
+
+
+.story-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.story-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 5.5rem);
+}
+
+
+.story-copy h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 5vw, 5rem);
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+
+.story-copy p {
+  max-width: 28rem;
+  margin: 1.25rem 0 0;
+  color: rgb(255 254 250 / 76%);
+}
+
+
+.story-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+  color: var(--color-orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+.story-note::before {
+  width: 1.5rem;
+  height: 2px;
+  background: currentColor;
+  content: "";
+}
+
+
+.work-section {
+  background: var(--color-fog);
+}
+
+
+.work-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(1rem, 3vw, 2.25rem);
+  align-items: start;
+}
+
+
+.work-figure {
+  margin: 0;
+}
+
+
+.work-figure:nth-child(2) {
+  margin-top: 5rem;
+}
+
+
+.work-figure img {
+  width: 100%;
+  height: clamp(16rem, 38vw, 33rem);
+  object-fit: cover;
+}
+
+
+.work-figure:nth-child(2) img {
+  height: clamp(14rem, 29vw, 25rem);
+}
+
+
+.work-figure figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+
+.work-figure figcaption span:first-child {
+  color: var(--color-ink);
+}
+
+
+.about-section {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(2rem, 9vw, 8rem);
+  align-items: start;
+}
+
+
+.about-copy h2 {
+  max-width: 10ch;
+}
+
+
+.about-copy p {
+  max-width: 39rem;
+  margin: 0 0 1rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+
+.about-copy p:first-of-type {
+  color: var(--color-ink);
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  line-height: 1.35;
+}
+```

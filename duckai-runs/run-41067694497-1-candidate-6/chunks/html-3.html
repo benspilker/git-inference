@@ -1,0 +1,81 @@
+<!-- HTML PART 3 OF 3 -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">Start with a question</p>
+          <h2 class="section-title" id="contact-title">Tell us<br>what’s up.</h2>
+          <p>Share what your board is doing and what you’d like checked. Fogline Skate Repair is a fictional San Francisco shop concept; this page does not accept or send inquiries.</p>
+        </div>
+
+
+        <div class="contact-panel">
+          <h3>Ask about a repair</h3>
+          <p>Use these prompts to get your repair question ready.</p>
+          <form action="#contact" method="get">
+            <label for="repair-details">What’s going on with your board?</label>
+            <textarea id="repair-details" name="repair-details" rows="4" placeholder="For example: a wheel feels rough, or the grip is peeling."></textarea>
+            <button class="button" type="submit">Prepare repair question</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand" href="#home" aria-label="Fogline Skate Repair, back to top">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span class="brand-name">Fogline Skate Repair</span>
+        </a>
+        <p>An independent skateboard repair shop concept, rooted in San Francisco, California.</p>
+      </div>
+
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <p class="footer-heading">Explore</p>
+        <a href="#services">Repair services</a>
+        <a href="#approach">Our approach</a>
+        <a href="#contact">Ask about a repair</a>
+      </nav>
+
+
+      <div class="footer-location">
+        <p class="footer-heading">Location</p>
+        <p>San Francisco, California</p>
+        <p>Fictional business concept</p>
+      </div>
+    </div>
+
+
+    <div class="footer-bottom">
+      <span>© 2026 Fogline Skate Repair</span>
+      <a href="#home">Back to top</a>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    menuButton.addEventListener("click", () => {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isExpanded));
+      menuButton.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      primaryNav.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation");
+        primaryNav.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>

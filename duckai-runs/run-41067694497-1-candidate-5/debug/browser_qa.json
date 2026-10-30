@@ -1,0 +1,212 @@
+{
+  "status": "fail",
+  "tested_file": "files/inlined/index.html",
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "services"
+  ],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "form.inquiry-form",
+          "width": 390,
+          "height": 227
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 1440,
+          "height": 270
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section#top.hero",
+          "width": 1440,
+          "height": 900
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "p.services-intro",
+          "width": 330,
+          "height": 74
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "height": 900,
+        "viewport_width": 1440,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "ASK ABOUT A REPAIR",
+        "bottom": 62
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 1449,
+        "viewport_width": 1440,
+        "overflow": true
+      },
+      "no_horizontal_overflow": false,
+      "images": {
+        "image_count": 6,
+        "loaded_images": 5,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": false,
+      "fonts": {
+        "image_count": 6,
+        "loaded_images": 5,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [
+        {
+          "type": "image",
+          "error": "net::ERR_BLOCKED_BY_ORB",
+          "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+        }
+      ],
+      "screenshot": "screenshots/desktop.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "h2#contact-title.section-heading",
+          "width": 350,
+          "height": 84
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 390,
+          "height": 527
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section#top.hero",
+          "width": 390,
+          "height": 844
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "p.services-intro",
+          "width": 330,
+          "height": 74
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "height": 844,
+        "viewport_width": 390,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "ASK ABOUT A REPAIR",
+        "bottom": 696
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 6,
+        "loaded_images": 5,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": false,
+      "fonts": {
+        "image_count": 6,
+        "loaded_images": 5,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [
+        {
+          "type": "image",
+          "error": "net::ERR_BLOCKED_BY_ORB",
+          "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+        }
+      ],
+      "screenshot": "screenshots/mobile.png"
+    }
+  },
+  "mobile_menu": {
+    "found": true,
+    "click_opens": true,
+    "click_closes": true,
+    "tab_reachable": true,
+    "enter_opens": true,
+    "space_toggles": true,
+    "escape_closes": false,
+    "pass": true
+  },
+  "checks": {
+    "rendered_sections_visible_desktop_and_mobile": true,
+    "hero_spans_viewport_desktop_and_mobile": true,
+    "cta_visible_first_screen_desktop_and_mobile": true,
+    "mobile_menu_clicks_work": true,
+    "mobile_menu_keyboard_works": true,
+    "mobile_has_no_horizontal_overflow": true,
+    "fonts_load_in_browser": true,
+    "images_load_in_browser": false
+  },
+  "resource_errors": [
+    {
+      "type": "image",
+      "error": "net::ERR_BLOCKED_BY_ORB",
+      "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+    },
+    {
+      "type": "image",
+      "error": "net::ERR_BLOCKED_BY_ORB",
+      "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+    }
+  ]
+}

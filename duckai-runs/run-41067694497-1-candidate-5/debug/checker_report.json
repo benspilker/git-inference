@@ -1,0 +1,311 @@
+{
+  "session_folder": "run-41067694497-1-candidate-5",
+  "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-5",
+  "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-5/files/index.html",
+  "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-5/files/styles.css",
+  "score": 89,
+  "checks_passed": 25,
+  "checks_total": 28,
+  "checks": {
+    "html_file_present": true,
+    "no_visible_template_credit": true,
+    "accessible_mobile_hamburger": true,
+    "css_file_present": true,
+    "document_has_main": true,
+    "document_has_h1": true,
+    "document_closed": true,
+    "styles_css_linked": true,
+    "css_braces_balanced": true,
+    "footer_has_substance": true,
+    "section_contact": true,
+    "section_footer": true,
+    "section_hero": true,
+    "section_services": true,
+    "hero_has_image": true,
+    "hero_images_load_ok": true,
+    "all_images_load_ok": false,
+    "image_alt_text_present": true,
+    "image_coverage": true,
+    "visual_design_review_passed": false,
+    "browser_rendered_sections_visible_desktop_and_mobile": true,
+    "browser_hero_spans_viewport_desktop_and_mobile": true,
+    "browser_cta_visible_first_screen_desktop_and_mobile": true,
+    "browser_mobile_menu_clicks_work": true,
+    "browser_mobile_menu_keyboard_works": true,
+    "browser_mobile_has_no_horizontal_overflow": true,
+    "browser_fonts_load_in_browser": true,
+    "browser_images_load_in_browser": false
+  },
+  "automated_success": false,
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "services"
+  ],
+  "missing_sections": [
+    "all image assets load",
+    "screenshot-backed desktop/mobile visual design review",
+    "automated rendered-page browser checks",
+    "browser images load successfully"
+  ],
+  "hero_image_present": true,
+  "hero_images_load_ok": true,
+  "hero_image_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2200&q=85"
+  ],
+  "image_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1559311648-d46f5d8593d6?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+  ],
+  "failed_image_urls": [
+    "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+  ],
+  "minimum_image_count": 3,
+  "visual_relevance_review_required": true,
+  "visual_review_status": "pending",
+  "visual_review_missing_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1559311648-d46f5d8593d6?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=900&q=85",
+    "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+  ],
+  "visual_review_issues": [],
+  "visual_design_review_status": "pending",
+  "visual_design_review_missing": [
+    "debug/visual_review.json is missing"
+  ],
+  "visual_design_review_issues": [],
+  "browser_qa_status": "fail",
+  "browser_qa": {
+    "status": "fail",
+    "tested_file": "files/inlined/index.html",
+    "required_sections": [
+      "contact",
+      "footer",
+      "hero",
+      "services"
+    ],
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "form.inquiry-form",
+            "width": 390,
+            "height": 227
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 1440,
+            "height": 270
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section#top.hero",
+            "width": 1440,
+            "height": 900
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "p.services-intro",
+            "width": 330,
+            "height": 74
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 1440,
+          "width": 1440,
+          "height": 900,
+          "viewport_width": 1440,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "ASK ABOUT A REPAIR",
+          "bottom": 62
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 1449,
+          "viewport_width": 1440,
+          "overflow": true
+        },
+        "no_horizontal_overflow": false,
+        "images": {
+          "image_count": 6,
+          "loaded_images": 5,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "images_loaded": false,
+        "fonts": {
+          "image_count": 6,
+          "loaded_images": 5,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [
+          {
+            "type": "image",
+            "error": "net::ERR_BLOCKED_BY_ORB",
+            "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+          }
+        ],
+        "screenshot": "screenshots/desktop.png"
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "h2#contact-title.section-heading",
+            "width": 350,
+            "height": 84
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 390,
+            "height": 527
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section#top.hero",
+            "width": 390,
+            "height": 844
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "p.services-intro",
+            "width": 330,
+            "height": 74
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "height": 844,
+          "viewport_width": 390,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "ASK ABOUT A REPAIR",
+          "bottom": 696
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 390,
+          "viewport_width": 390,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 6,
+          "loaded_images": 5,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "images_loaded": false,
+        "fonts": {
+          "image_count": 6,
+          "loaded_images": 5,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 0,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [
+          {
+            "type": "image",
+            "error": "net::ERR_BLOCKED_BY_ORB",
+            "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+          }
+        ],
+        "screenshot": "screenshots/mobile.png"
+      }
+    },
+    "mobile_menu": {
+      "found": true,
+      "click_opens": true,
+      "click_closes": true,
+      "tab_reachable": true,
+      "enter_opens": true,
+      "space_toggles": true,
+      "escape_closes": false,
+      "pass": true
+    },
+    "checks": {
+      "rendered_sections_visible_desktop_and_mobile": true,
+      "hero_spans_viewport_desktop_and_mobile": true,
+      "cta_visible_first_screen_desktop_and_mobile": true,
+      "mobile_menu_clicks_work": true,
+      "mobile_menu_keyboard_works": true,
+      "mobile_has_no_horizontal_overflow": true,
+      "fonts_load_in_browser": true,
+      "images_load_in_browser": false
+    },
+    "resource_errors": [
+      {
+        "type": "image",
+        "error": "net::ERR_BLOCKED_BY_ORB",
+        "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+      },
+      {
+        "type": "image",
+        "error": "net::ERR_BLOCKED_BY_ORB",
+        "url": "https://images.unsplash.com/photo-1519764931817-4f00a5e4e3f3?auto=format&fit=crop&w=1400&q=85"
+      }
+    ]
+  },
+  "source_image_urls_available": [],
+  "source_image_urls_used": [],
+  "parse_diagnostic": null,
+  "html_bytes": 10891,
+  "css_bytes": 16507,
+  "footer_text": "Fogline Skate Repair San Francisco, California Explore Repair services Our approach Ask about a repair Get in touch Repair inquiry form Back to top © 2026 Fogline Skate Repair. Fictional business concept. San Francisco, CA",
+  "footer_links": [
+    "#top",
+    "#services",
+    "#workshop",
+    "#contact",
+    "#contact",
+    "#top"
+  ],
+  "complete": false,
+  "final_success": false,
+  "checker_exit_code": 2
+}

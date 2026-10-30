@@ -1,0 +1,180 @@
+{
+  "status": "fail",
+  "tested_file": "files/inlined/index.html",
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "services"
+  ],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact__details",
+          "width": 610,
+          "height": 73
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 1440,
+          "height": 232
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 1440,
+          "height": 1033
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "select#inquiry-repair",
+          "width": 386,
+          "height": 48
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "height": 1033,
+        "viewport_width": 1440,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "ASK ABOUT A REPAIR",
+        "bottom": 70
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 2,
+        "loaded_images": 2,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 2,
+        "loaded_images": 2,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/desktop.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact__details",
+          "width": 350,
+          "height": 73
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 390,
+          "height": 344
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 390,
+          "height": 790
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "select#inquiry-repair",
+          "width": 307,
+          "height": 48
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "height": 790,
+        "viewport_width": 390,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "ASK ABOUT A REPAIR",
+        "bottom": 686
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 2,
+        "loaded_images": 2,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 2,
+        "loaded_images": 2,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/mobile.png"
+    }
+  },
+  "mobile_menu": {
+    "found": false,
+    "click_opens": false,
+    "click_closes": false,
+    "tab_reachable": false,
+    "enter_opens": false,
+    "space_toggles": false,
+    "escape_closes": false
+  },
+  "checks": {
+    "rendered_sections_visible_desktop_and_mobile": true,
+    "hero_spans_viewport_desktop_and_mobile": true,
+    "cta_visible_first_screen_desktop_and_mobile": true,
+    "mobile_menu_clicks_work": false,
+    "mobile_menu_keyboard_works": false,
+    "mobile_has_no_horizontal_overflow": true,
+    "fonts_load_in_browser": true,
+    "images_load_in_browser": true
+  },
+  "resource_errors": []
+}

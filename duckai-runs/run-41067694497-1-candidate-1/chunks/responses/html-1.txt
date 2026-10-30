@@ -1,0 +1,111 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171918">
+  <meta name="description" content="Fogline Skate Repair is a fictional independent skateboard repair shop concept in San Francisco, California.">
+  <title>Fogline Skate Repair — San Francisco</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Fogline Skate Repair home">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span>Fogline<br>Skate Repair</span>
+      </a>
+
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span class="menu-toggle__bars" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#services">Repairs</a>
+        <a href="#process">How it works</a>
+        <a class="nav-cta" href="#contact">Ask about a repair</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <img
+        class="hero__image"
+        src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+        alt="Skateboarder riding through an outdoor skatepark"
+        fetchpriority="high">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Independent skate repair · San Francisco, CA</p>
+        <h1 class="display-title hero__title" id="hero-title">Keep your<br>board <span>rolling.</span></h1>
+        <div class="hero__lower">
+          <p class="hero__intro">Worn wheels, loose trucks, a deck that’s seen better days. Get your setup checked, tuned, and ready for another session.</p>
+          <div class="hero__actions">
+            <a class="button" href="#contact">Ask about a repair</a>
+            <a class="button button--outline" href="#services">Explore services</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="intro-strip" aria-label="Shop focus">
+      <div class="container intro-strip__inner">
+        <p>Small fixes. Solid setups. More time skating.</p>
+        <p class="intro-strip__note">A fictional San Francisco shop concept</p>
+      </div>
+    </div>
+
+
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services__heading">
+          <div>
+            <p class="eyebrow">The repair bench</p>
+            <h2 class="section-title" id="services-title">Get your setup back.</h2>
+          </div>
+          <p class="services__lead">From a quick hardware check to a full rebuild, start with what feels off. We’ll help narrow down the repair and what your board needs.</p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-item__number" aria-hidden="true">01</span>
+            <div>
+              <h3>Deck &amp; grip</h3>
+              <p>Grip tape replacement, hardware swaps, and deck inspections for chips, cracks, or mounting-hole wear. A damaged deck may need replacing rather than repairing.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-item__number" aria-hidden="true">02</span>
+            <div>
+              <h3>Trucks &amp; setup</h3>
+              <p>Truck tightening and alignment, bushing checks, and help tracking down wheel bite, uneven turning, or a setup that doesn’t feel right underfoot.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-item__number" aria-hidden="true">03</span>
+            <div>
+              <h3>Wheels &amp; bearings</h3>
+              <p>Wheel and bearing inspection, cleaning, replacement, and rotation. We’ll check for flat spots, rough spin, and hardware that needs attention.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-item__number" aria-hidden="true">04</span>
+            <div>
+              <h3>Full board check</h3>
+              <p>A practical once-over of deck, trucks, wheels, bearings, and hardware, with clear next steps for safe riding and routine upkeep.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+```

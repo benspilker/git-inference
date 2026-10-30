@@ -1,0 +1,112 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact__layout">
+        <div class="contact__copy">
+          <p class="eyebrow">Start a repair conversation</p>
+          <h2 class="section-title" id="contact-title">What’s up with your board?</h2>
+          <p>Share what you’re riding and what needs attention. Fogline Skate Repair is a fictional shop concept, so this inquiry form is a design preview and does not send a message.</p>
+
+
+          <div class="contact__details">
+            <p>San Francisco, California</p>
+            <p>Independent skateboard repair concept</p>
+          </div>
+        </div>
+
+
+        <form class="contact-form" action="#" method="post">
+          <label for="inquiry-name">
+            Your name
+            <input id="inquiry-name" name="name" type="text" autocomplete="name" placeholder="Name">
+          </label>
+
+
+          <label for="inquiry-email">
+            Email
+            <input id="inquiry-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+          </label>
+
+
+          <label for="inquiry-repair">
+            What needs attention?
+            <select id="inquiry-repair" name="repair">
+              <option value="">Choose a repair area</option>
+              <option value="deck-grip">Deck or grip</option>
+              <option value="trucks">Trucks or setup</option>
+              <option value="wheels-bearings">Wheels or bearings</option>
+              <option value="board-check">Full board check</option>
+              <option value="not-sure">Not sure yet</option>
+            </select>
+          </label>
+
+
+          <label for="inquiry-details">
+            Tell us what’s going on
+            <textarea id="inquiry-details" name="details" rows="4" placeholder="What do you notice when you ride?"></textarea>
+          </label>
+
+
+          <button class="button" type="submit">Send repair inquiry</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="Fogline Skate Repair home">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span>Fogline<br>Skate Repair</span>
+        </a>
+        <p>A fictional independent skateboard repair shop concept in San Francisco, California.</p>
+      </div>
+
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#services">Repair services</a>
+        <a href="#process">How it works</a>
+        <a href="#contact">Ask about a repair</a>
+        <a href="#top">Back to top</a>
+      </nav>
+    </div>
+
+
+    <div class="footer-bottom">
+      <p>San Francisco, California</p>
+      <p>© 2026 Fogline Skate Repair · Fictional business concept</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const menuButton = document.querySelector(".menu-toggle");
+  const navigation = document.querySelector("#primary-nav");
+
+
+  menuButton.addEventListener("click", () => {
+    const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!isExpanded));
+    menuButton.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+    navigation.classList.toggle("is-open", !isExpanded);
+  });
+
+
+  navigation.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation");
+      navigation.classList.remove("is-open");
+    });
+  });
+</script>
+</body>
+</html>
+```

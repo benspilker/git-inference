@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=bb83b841-b558-4db2-ac13-7c7a5f6994c4",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T14:04:28.510029+00:00",
+      "characters": 5816,
+      "sha256": "a64b6bcc345898fca1fc4f390cf763ea65c913768f4b296e74c56eb4d613b56e"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T14:04:41.622817+00:00",
+      "characters": 4147,
+      "sha256": "59dd29fd21d4b57cca531919f318349dbf177e069a7458c1e5c19965ac7d15b1"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T14:04:57.086288+00:00",
+      "characters": 5499,
+      "sha256": "73b389954610cb26e2c0093e1726c5d9934702d719227f0a8daaedc33f22ad51"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T14:05:26.295422+00:00",
+      "characters": 4956,
+      "sha256": "b16d6dbce9cfecbf187db6180908ec7b62d6c3b91c84c4354b46fc9600fe3aa2"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T14:05:39.617541+00:00",
+      "characters": 3277,
+      "sha256": "ccfa0faba6e33e0a96c1c29138230fdfcce7cec35750d71c49db149e247d732f"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T14:05:47.443817+00:00",
+      "characters": 2013,
+      "sha256": "7b98ad7630dcbeb8e8af0ea47087992dddf52eb0211f70573df498f234e21382"
+    }
+  ]
+}

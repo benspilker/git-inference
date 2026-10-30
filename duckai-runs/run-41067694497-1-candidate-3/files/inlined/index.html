@@ -1,0 +1,1208 @@
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171917">
+  <meta name="description" content="Fogline Skate Repair is an independent skateboard repair shop concept in San Francisco, California.">
+  <title>Fogline Skate Repair — San Francisco</title>
+  <style>
+/* CSS PART 1 OF 3 */
+:root {
+  color-scheme: light;
+  --color-paper: #f2efe8;
+  --color-fog: #d7d8d3;
+  --color-ink: #171917;
+  --color-muted: #626660;
+  --color-orange: #f15a24;
+  --color-white: #fffdf8;
+
+
+  --font-display: Impact, "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 5rem;
+  --space-7: 8rem;
+
+
+  --container: 76rem;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --rule: 1px solid rgba(23, 25, 23, 0.2);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 4px;
+}
+
+
+::selection {
+  background: var(--color-orange);
+  color: var(--color-white);
+}
+
+
+.skip-link {
+  position: absolute;
+  z-index: 100;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-160%);
+  padding: 0.7rem 1rem;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+.container {
+  width: min(var(--container), calc(100% - var(--gutter) * 2));
+  margin-inline: auto;
+}
+
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+
+.display-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+
+.site-header {
+  position: absolute;
+  z-index: 10;
+  inset: 0 0 auto;
+  color: var(--color-white);
+}
+
+
+.header-inner {
+  display: flex;
+  min-height: 5.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-bottom: 1px solid rgba(255, 253, 248, 0.3);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: inherit;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.05;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.brand-mark {
+  display: grid;
+  width: 2.3rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+}
+
+
+.primary-nav a {
+  color: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible {
+  color: var(--color-orange);
+}
+
+
+.menu-toggle {
+  display: none;
+  width: 2.8rem;
+  height: 2.8rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(255, 253, 248, 0.55);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  margin: 4px 0;
+  background: currentColor;
+}
+
+
+.hero {
+  position: relative;
+  display: grid;
+  min-height: min(52rem, 100svh);
+  min-height: min(52rem, 100vh);
+  align-items: end;
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 12, 11, 0.78) 0%,
+    rgba(10, 12, 11, 0.48) 48%,
+    rgba(10, 12, 11, 0.08) 100%
+  );
+  content: "";
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(var(--container), calc(100% - var(--gutter) * 2));
+  margin: 0 auto;
+  padding: 10rem 0 clamp(3.5rem, 9vw, 7.5rem);
+}
+
+
+.hero .eyebrow {
+  color: rgba(255, 253, 248, 0.78);
+}
+
+
+.hero h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 11rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+
+.hero h1 span {
+  display: block;
+  color: var(--color-orange);
+}
+
+
+.hero-intro {
+  max-width: 32rem;
+  margin: var(--space-4) 0 0;
+  color: rgba(255, 253, 248, 0.9);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+
+.button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.25rem;
+  border: 1px solid transparent;
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+
+.button:hover {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+.button--outline {
+  border-color: rgba(255, 253, 248, 0.65);
+  background: transparent;
+  color: var(--color-white);
+}
+
+
+.button--outline:hover {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+/* CSS PART 2 OF 3 */
+.section {
+  padding-block: clamp(4rem, 9vw, 8rem);
+}
+
+
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.7fr);
+  align-items: end;
+  gap: var(--space-5);
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+
+.section-heading h2 {
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+
+.section-heading p {
+  max-width: 32rem;
+  margin: 0;
+  color: var(--color-muted);
+}
+
+
+.intro-section {
+  background: var(--color-paper);
+}
+
+
+.intro-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: start;
+  gap: clamp(2rem, 8vw, 8rem);
+}
+
+
+.intro-stamp {
+  width: min(100%, 18rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-ink);
+  border-radius: 50%;
+  padding: 2rem;
+  color: var(--color-orange);
+  text-align: center;
+  transform: rotate(-8deg);
+}
+
+
+.intro-stamp span {
+  max-width: 8ch;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+
+.intro-copy {
+  max-width: 43rem;
+  padding-top: var(--space-2);
+}
+
+
+.intro-copy p {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.45;
+}
+
+
+.services-section {
+  background: var(--color-fog);
+}
+
+
+.service-list {
+  border-top: 1px solid rgba(23, 25, 23, 0.35);
+}
+
+
+.service-item {
+  display: grid;
+  grid-template-columns: 4rem minmax(12rem, 0.8fr) minmax(16rem, 1.2fr);
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border-bottom: 1px solid rgba(23, 25, 23, 0.35);
+}
+
+
+.service-number {
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+
+.service-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+
+.service-item p {
+  max-width: 34rem;
+  margin: 0;
+  color: #41443f;
+}
+
+
+.repair-section {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.repair-section .eyebrow {
+  color: var(--color-orange);
+}
+
+
+.repair-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.85fr);
+  align-items: center;
+  gap: clamp(2rem, 8vw, 7rem);
+}
+
+
+.repair-copy h2 {
+  max-width: 9ch;
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+
+.repair-copy > p {
+  max-width: 34rem;
+  color: rgba(255, 253, 248, 0.75);
+}
+
+
+.repair-steps {
+  display: grid;
+  gap: 0;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.repair-steps li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: var(--space-2);
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 253, 248, 0.25);
+}
+
+
+.repair-steps li span:first-child {
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+
+.repair-steps strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+
+.repair-steps p {
+  margin: 0;
+  color: rgba(255, 253, 248, 0.72);
+  font-size: 0.94rem;
+}
+
+
+.image-frame {
+  position: relative;
+  overflow: hidden;
+  background: #a9aaa4;
+}
+
+
+.image-frame img {
+  height: 100%;
+  min-height: 22rem;
+  object-fit: cover;
+}
+
+
+.repair-image {
+  aspect-ratio: 4 / 5;
+  transform: rotate(2deg);
+}
+
+
+.repair-image img {
+  min-height: 30rem;
+}
+
+
+.gallery-section {
+  background: var(--color-paper);
+}
+
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: start;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+
+.gallery-item {
+  margin: 0;
+}
+
+
+.gallery-item:nth-child(2) {
+  margin-top: 5rem;
+}
+
+
+.gallery-item img {
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+}
+
+
+.gallery-item:nth-child(2) img {
+  aspect-ratio: 4 / 5;
+}
+
+
+.gallery-item figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+.inquiry-section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  background: var(--color-orange);
+  color: var(--color-ink);
+}
+
+
+.inquiry-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--space-4);
+}
+
+
+.inquiry-inner h2 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  letter-spacing: -0.06em;
+  line-height: 0.84;
+  text-transform: uppercase;
+}
+
+
+.inquiry-inner p {
+  max-width: 31rem;
+  margin: var(--space-3) 0 0;
+}
+
+
+.inquiry-inner .button {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.inquiry-inner .button:hover {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+.site-footer {
+  padding-block: 3rem 2rem;
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-5);
+  padding-bottom: var(--space-5);
+}
+
+
+.footer-brand .brand {
+  margin-bottom: var(--space-2);
+}
+
+
+.footer-brand p,
+.footer-location {
+  margin: 0;
+  color: rgba(255, 253, 248, 0.68);
+  font-size: 0.9rem;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-content: start;
+}
+
+
+.footer-links a {
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.footer-links a:hover {
+  color: var(--color-orange);
+}
+
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: var(--space-2);
+  border-top: 1px solid rgba(255, 253, 248, 0.25);
+  color: rgba(255, 253, 248, 0.58);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+/* CSS PART 3 OF 3 */
+@media (max-width: 760px) {
+  :root {
+    --gutter: 1.25rem;
+  }
+
+
+  html {
+    scroll-padding-top: 1rem;
+  }
+
+
+  .header-inner {
+    min-height: 4.5rem;
+  }
+
+
+  .menu-toggle {
+    display: block;
+    position: relative;
+    z-index: 12;
+  }
+
+
+  .primary-nav {
+    position: absolute;
+    top: 4.5rem;
+    right: var(--gutter);
+    left: var(--gutter);
+    display: none;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 253, 248, 0.32);
+    background: var(--color-ink);
+  }
+
+
+  .primary-nav.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .primary-nav a {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 253, 248, 0.18);
+  }
+
+
+  .primary-nav a:last-child {
+    border-bottom: 0;
+  }
+
+
+  .hero {
+    min-height: 44rem;
+    min-height: 92svh;
+  }
+
+
+  .hero-media {
+    object-position: 58% center;
+  }
+
+
+  .hero::after {
+    background: linear-gradient(
+      0deg,
+      rgba(10, 12, 11, 0.82) 0%,
+      rgba(10, 12, 11, 0.48) 55%,
+      rgba(10, 12, 11, 0.16) 100%
+    );
+  }
+
+
+  .hero-content {
+    padding-top: 9rem;
+    padding-bottom: 3rem;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(4.25rem, 19vw, 7.5rem);
+  }
+
+
+  .section-heading,
+  .intro-layout,
+  .repair-layout,
+  .inquiry-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+
+  .section-heading {
+    margin-bottom: var(--space-4);
+  }
+
+
+  .section-heading h2 {
+    max-width: 11ch;
+  }
+
+
+  .intro-stamp {
+    width: 10rem;
+    padding: 1.25rem;
+  }
+
+
+  .intro-stamp span {
+    font-size: 2rem;
+  }
+
+
+  .intro-copy {
+    padding-top: 0;
+  }
+
+
+  .service-item {
+    grid-template-columns: 2rem 1fr;
+    gap: 0.5rem 1rem;
+  }
+
+
+  .service-item p {
+    grid-column: 2;
+  }
+
+
+  .repair-image {
+    width: min(88%, 27rem);
+    justify-self: center;
+  }
+
+
+  .repair-image img {
+    min-height: 23rem;
+  }
+
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+
+  .gallery-item:nth-child(2) {
+    width: 78%;
+    margin: 0 0 0 auto;
+  }
+
+
+  .gallery-item img,
+  .gallery-item:nth-child(2) img {
+    aspect-ratio: 4 / 3;
+  }
+
+
+  .inquiry-inner .button {
+    justify-self: start;
+  }
+
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+
+@media (max-width: 460px) {
+  .hero {
+    min-height: 40rem;
+    min-height: 88svh;
+  }
+
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Fogline Skate Repair home">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span>Fogline<br>Skate Repair</span>
+      </a>
+
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#services">Repairs</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#shop-notes">Shop notes</a>
+        <a href="#inquire">Ask about a repair</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <img class="hero-media"
+           src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+           alt="Skateboarder riding through an urban street"
+           fetchpriority="high">
+      <div class="hero-content">
+        <p class="eyebrow">Independent board repair · San Francisco, CA</p>
+        <h1 id="hero-title">Keep your<br><span>roll</span></h1>
+        <p class="hero-intro">A good setup deserves a second life. Fogline is a neighborhood-minded repair shop concept for the boards that carry you across the city.</p>
+        <div class="hero-actions">
+          <a class="button" href="#inquire">Ask about a repair</a>
+          <a class="button button--outline" href="#services">Explore repairs</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section intro-section" aria-labelledby="intro-title">
+      <div class="container intro-layout">
+        <div class="intro-stamp" aria-hidden="true">
+          <span>Built to roll again</span>
+        </div>
+        <div class="intro-copy">
+          <p class="eyebrow">A little less throwaway</p>
+          <h2 class="display-title" id="intro-title">Make the most of your setup.</h2>
+          <p>Loose trucks, slow bearings, a chipped deck—small problems can change the whole ride. Fogline focuses on practical skateboard repairs, careful adjustments, and clear conversations about what your board needs.</p>
+          <p>Bring the issue, the whole setup, or just a question. We’ll help you figure out a sensible next step.</p>
+        </div>
+      </div>
+    </section>
+
+<!-- HTML PART 2 OF 3 -->
+    <section class="section services-section" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Repair menu · Start with the problem</p>
+            <h2 id="services-title">Small fixes. Better rides.</h2>
+          </div>
+          <p>Every board wears differently. These are common repair and setup needs—not a one-size-fits-all checklist. The right fix depends on the condition of your parts and how you ride.</p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <h3>Wheel &amp; bearing care</h3>
+            <p>Check wheel wear and bearing fit, clear out grit, and replace worn or damaged bearings when needed. We can also help track down a wheel that’s rubbing or not spinning freely.</p>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <h3>Truck tune-ups</h3>
+            <p>Inspect kingpin and axle hardware, adjust truck tightness, and check for loose or damaged bushings. A careful tune-up can help your board turn more predictably.</p>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <h3>Grip &amp; hardware</h3>
+            <p>Replace worn grip tape, check mounting hardware, and snug up a rattling setup. If a bolt, nut, or other part is damaged, we’ll flag it before it becomes a bigger problem.</p>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">04</span>
+            <h3>Deck &amp; setup check</h3>
+            <p>Look over a deck for cracks, delamination, or other damage, then check how the full setup fits together. We’ll explain what looks serviceable and what may need replacing.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section repair-section" id="how-it-works" aria-labelledby="repair-title">
+      <div class="container repair-layout">
+        <div class="repair-copy">
+          <p class="eyebrow">No guesswork, just a closer look</p>
+          <h2 id="repair-title">Bring the board. Tell us what feels off.</h2>
+          <p>A repair starts with understanding the issue. Share what you’ve noticed and, if possible, bring the complete setup so its parts can be checked together.</p>
+
+
+          <ol class="repair-steps">
+            <li>
+              <span aria-hidden="true">01</span>
+              <div>
+                <strong>Describe the trouble</strong>
+                <p>Tell us what feels loose, rough, noisy, or different from usual.</p>
+              </div>
+            </li>
+            <li>
+              <span aria-hidden="true">02</span>
+              <div>
+                <strong>Inspect the setup</strong>
+                <p>We’ll check the relevant parts and explain possible repair options.</p>
+              </div>
+            </li>
+            <li>
+              <span aria-hidden="true">03</span>
+              <div>
+                <strong>Choose the next step</strong>
+                <p>Ask questions and decide how you’d like to proceed.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+
+        <figure class="image-frame repair-image">
+          <img src="https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&amp;fit=crop&amp;w=1100&amp;q=85"
+               alt="Close view of a skateboard deck and trucks"
+               loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+
+    <section class="section gallery-section" id="shop-notes" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Board details, city texture</p>
+            <h2 id="gallery-title">Made to see more streets.</h2>
+          </div>
+          <p>From the hardware underfoot to the lines you find along the way, a skateboard is a collection of parts built for movement.</p>
+        </div>
+
+
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?auto=format&amp;fit=crop&amp;w=1300&amp;q=85"
+                 alt="Skateboarder skating on a concrete urban surface"
+                 loading="lazy">
+            <figcaption><span>On the move</span><span>01 / Street</span></figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=900&amp;q=85"
+                 alt="Skateboarder riding through an urban street"
+                 loading="lazy">
+            <figcaption><span>City lines</span><span>02 / Ride</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+<!-- HTML PART 3 OF 3 -->
+    <section class="inquiry-section" id="inquire" aria-labelledby="inquiry-title">
+      <div class="container inquiry-inner">
+        <div>
+          <p class="eyebrow">Have a board question?</p>
+          <h2 id="inquiry-title">Let’s talk repairs.</h2>
+          <p>Tell us what your board is doing and which parts you’re concerned about. This concept page’s form is a visual demo and does not send or store messages.</p>
+        </div>
+
+
+        <form class="inquiry-form" action="#inquire" method="get">
+          <label for="repair-question">What’s going on with your board?</label>
+          <textarea id="repair-question" name="repair-question" rows="4" placeholder="For example: one wheel feels rough, or the trucks seem loose." required></textarea>
+          <button class="button" type="submit">Review repair question</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="Fogline Skate Repair home">
+            <span class="brand-mark" aria-hidden="true">F</span>
+            <span>Fogline<br>Skate Repair</span>
+          </a>
+          <p>Independent skateboard repair concept<br>San Francisco, California</p>
+        </div>
+
+
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#services">Repair services</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#shop-notes">Shop notes</a>
+          <a href="#inquire">Ask about a repair</a>
+        </nav>
+      </div>
+
+
+      <div class="footer-bottom">
+        <span>© 2026 Fogline Skate Repair</span>
+        <span>San Francisco, CA</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      primaryNav.classList.toggle("is-open", !isOpen);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        primaryNav.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>

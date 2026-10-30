@@ -1,0 +1,349 @@
+CSS PART 1 OF 3
+```css
+/* CSS PART 1 OF 3 */
+:root {
+  --color-paper: #f2efe8;
+  --color-paper-light: #fbf9f4;
+  --color-fog: #d8d9d5;
+  --color-ink: #171817;
+  --color-muted: #686a66;
+  --color-orange: #ee6235;
+  --color-line: rgba(23, 24, 23, 0.2);
+
+
+  --font-display: Impact, "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --space-7: 7rem;
+
+
+  --container: 1240px;
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --header-height: 82px;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 4px;
+}
+
+
+::selection {
+  color: var(--color-paper-light);
+  background: var(--color-orange);
+}
+
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.75rem 1rem;
+  transform: translateY(-160%);
+  background: var(--color-paper-light);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+.container {
+  width: min(var(--container), calc(100% - (var(--gutter) * 2)));
+  margin-inline: auto;
+}
+
+
+.site-header {
+  position: absolute;
+  z-index: 20;
+  inset: 0 0 auto;
+  min-height: var(--header-height);
+  color: var(--color-paper-light);
+}
+
+
+.header-inner {
+  width: min(1440px, calc(100% - (var(--gutter) * 2)));
+  min-height: var(--header-height);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid rgba(251, 249, 244, 0.38);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+
+.brand-mark {
+  display: grid;
+  width: 2.25rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+}
+
+
+.primary-nav a {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 160ms ease;
+}
+
+
+.primary-nav a:hover,
+.primary-nav a[aria-current="page"] {
+  color: var(--color-orange);
+}
+
+
+.nav-cta {
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(251, 249, 244, 0.7);
+}
+
+
+.menu-toggle {
+  display: none;
+}
+
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(900px, 100svh);
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-paper-light);
+}
+
+
+.hero-media {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    rgba(12, 14, 14, 0.78) 0%,
+    rgba(12, 14, 14, 0.48) 48%,
+    rgba(12, 14, 14, 0.12) 100%
+  );
+}
+
+
+.hero-content {
+  width: min(var(--container), calc(100% - (var(--gutter) * 2)));
+  margin: 0 auto;
+  padding-top: calc(var(--header-height) + var(--space-6));
+  padding-bottom: clamp(4rem, 10vh, 8rem);
+}
+
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 var(--space-3);
+  color: var(--color-orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+
+.eyebrow::before {
+  width: 2rem;
+  height: 2px;
+  content: "";
+  background: currentColor;
+}
+
+
+.hero h1 {
+  max-width: 850px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 12.5vw, 11.5rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+
+.hero h1 span {
+  display: block;
+}
+
+
+.hero-copy {
+  max-width: 430px;
+  margin: var(--space-4) 0 0;
+  color: rgba(251, 249, 244, 0.88);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: var(--space-4);
+}
+
+
+.button {
+  min-height: 3.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid transparent;
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+
+.button:hover {
+  border-color: var(--color-orange);
+  background: transparent;
+  color: var(--color-paper-light);
+}
+
+
+.button-outline {
+  border-color: rgba(251, 249, 244, 0.72);
+  background: transparent;
+  color: var(--color-paper-light);
+}
+
+
+.button-outline:hover {
+  background: var(--color-paper-light);
+  color: var(--color-ink);
+}
+
+
+.hero-index {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 2rem;
+  color: rgba(251, 249, 244, 0.8);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+```

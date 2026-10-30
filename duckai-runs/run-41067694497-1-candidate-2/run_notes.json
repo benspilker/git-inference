@@ -1,0 +1,10 @@
+{
+  "candidate_index": 2,
+  "automated_success": true,
+  "status": "automated_checks_passed_pending_human_review",
+  "chat_url": "https://duck.ai/?chatID=3508dbda-1088-4a49-b1dd-d901ad38cfa6",
+  "final_success": false,
+  "browser_qa_status": "pass",
+  "visual_review_status": "pending",
+  "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved."
+}

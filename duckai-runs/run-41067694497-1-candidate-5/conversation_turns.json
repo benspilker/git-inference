@@ -1,0 +1,40 @@
+{
+  "chat_url": "https://duck.ai/?chatID=548b7c00-d046-46b8-b12f-daad41296f8b",
+  "turns": [
+    {
+      "type": "captured_chunk",
+      "kind": "css",
+      "part": 1
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "css",
+      "part": 2
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "css",
+      "part": 3
+    },
+    {
+      "type": "user_acknowledgment",
+      "text": "acknowledged",
+      "assistant_response_completed": true
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "html",
+      "part": 1
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "html",
+      "part": 2
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "html",
+      "part": 3
+    }
+  ]
+}

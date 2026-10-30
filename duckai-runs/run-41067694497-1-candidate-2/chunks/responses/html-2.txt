@@ -1,0 +1,68 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section section--fog" id="repairs" aria-labelledby="repairs-title">
+      <div class="container service-layout">
+        <div class="service-aside">
+          <p class="section-kicker">Repair menu</p>
+          <h2 class="section-title" id="repairs-title">Back to<br>your board.</h2>
+          <p>Describe what feels off, and start with the part of your setup that needs attention. The right repair depends on the board and the wear.</p>
+          <a class="button" href="#inquire">Ask about your setup</a>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <div>
+              <h3>Truck tune-up</h3>
+              <p>Check for loose or uneven hardware, adjust truck tightness to your preference, and look over bushings for visible wear or damage.</p>
+            </div>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <div>
+              <h3>Wheels &amp; bearings</h3>
+              <p>Inspect wheel wear and bearing condition, clear away grime, and check that each wheel spins freely. Ask about noisy, rough, or stuck wheels.</p>
+            </div>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <div>
+              <h3>Grip tape refresh</h3>
+              <p>Replace worn grip tape for a fresh-feeling deck surface. Mention any old adhesive or deck damage so it can be considered before work begins.</p>
+            </div>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">04</span>
+            <div>
+              <h3>Hardware &amp; setup check</h3>
+              <p>Look over bolts, nuts, trucks, and deck for looseness or visible wear. Bring the whole board and explain what you notice while riding.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="inquire" aria-labelledby="inquire-title">
+      <div class="container contact-panel">
+        <div>
+          <p class="section-kicker">Start with a question</p>
+          <h2 class="section-title" id="inquire-title">What needs<br>attention?</h2>
+          <p>Share what your board is doing, or what you’d like checked. Fogline is a fictional shop concept, so this page does not send inquiries or represent a real business.</p>
+        </div>
+        <div class="contact-details">
+          <p>Concept location: San Francisco, California</p>
+          <p>For a real repair shop, use its published contact details to ask about service and availability.</p>
+          <a class="button button--light" href="#home">Back to the top</a>
+        </div>
+      </div>
+    </section>
+```
