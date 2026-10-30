@@ -1,0 +1,31 @@
+Enabled Duck.ai Web Search for the source-site assessment.
+Captured and validated Duck.ai's source assessment for https://joshbrooksconstructionllc.com
+Submitting prompt for CSS PART 1 OF 3; existing code blocks: 1.
+Prompt submitted for CSS PART 1 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "css 1/3", "characters": 4337, "sha256": "c475d6a840825502ef726580899df480fea6af900b4d04fc37a1964a7a674faf"}
+Captured CSS PART 1 OF 3
+Submitting prompt for CSS PART 2 OF 3; existing code blocks: 2.
+Prompt submitted for CSS PART 2 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "css 2/3", "characters": 4847, "sha256": "a7a8585ff8d218badb53b4956e3e65227ee4321d8c317e96efc181e7ca8e603a"}
+Captured CSS PART 2 OF 3
+Submitting prompt for CSS PART 3 OF 3; existing code blocks: 3.
+Prompt submitted for CSS PART 3 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "css 3/3", "characters": 4329, "sha256": "54c857d44e72bf4e8617f81326c2cc02b895624e045c79083f9f987bf9959245"}
+Captured CSS PART 3 OF 3
+Sent acknowledged as a standalone Duck.ai turn and waited for its response.
+Submitting prompt for HTML PART 1 OF 3; existing code blocks: 5.
+Prompt submitted for HTML PART 1 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "html 1/3", "characters": 1570, "sha256": "2e58832c7d3cb40e1bff6c9014ced9b0ff5fa975d9c000e8f8c0a1cde6bbfabe"}
+Captured HTML PART 1 OF 3
+Submitting prompt for HTML PART 2 OF 3; existing code blocks: 6.
+Prompt submitted for HTML PART 2 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "html 2/3", "characters": 1680, "sha256": "03780f8f1d4334d41bf17eb6dcf51c934fd241d7813e10bc239f4749b8bc9ae9"}
+Captured HTML PART 2 OF 3
+Submitting prompt for HTML PART 3 OF 3; existing code blocks: 7.
+Prompt submitted for HTML PART 3 OF 3; waiting for one labeled code block.
+{"accepted": true, "part": "html 3/3", "characters": 4406, "sha256": "535801ad79b50f62867a41ef2117439e8c1574a1450e29e5d39fc467d96786e6"}
+Captured HTML PART 3 OF 3
+{"assembled": true, "chat_id": "https://duck.ai/?chatID=c577ca23-43d5-4aa4-a082-4170ffc4d960", "css_parts": 3, "html_parts": 3, "index_html_bytes": 7661, "styles_css_bytes": 13515}
+usage: inline_css.py [-h] html css output
+inline_css.py: error: no styles.css link was found and HTML must have exactly one closing </head> for CSS insertion
+Duck.ai automation failed for site 1, candidate attempt 1: Command '['/usr/bin/python', '/__w/git-inference/git-inference/duckai_automation/scripts/inline_css.py', '/__w/git-inference/git-inference/duckai-runs/run-41115634546-1-site-1-candidate-1/files/index.html', '/__w/git-inference/git-inference/duckai-runs/run-41115634546-1-site-1-candidate-1/files/styles.css', '/__w/git-inference/git-inference/duckai-runs/run-41115634546-1-site-1-candidate-1/files/inlined/index.html']' returned non-zero exit status 2.

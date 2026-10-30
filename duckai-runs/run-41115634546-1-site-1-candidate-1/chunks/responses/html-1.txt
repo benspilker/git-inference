@@ -1,0 +1,37 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+    <section class="section" id="remodeling" aria-labelledby="remodeling-title">
+      <div class="container services-layout">
+        <div class="services-intro">
+          <p class="eyebrow">Home improvement</p>
+          <h2 id="remodeling-title">Thoughtful work, from kitchens to the roof.</h2>
+          <p>The source site lists remodeling alongside a wider range of contracting and restoration work. Start a conversation about the scope of your home project.</p>
+          <a class="button" href="#contact">Discuss your project</a>
+        </div>
+        <ul class="services-list">
+          <li>
+            <span class="services-list__number" aria-hidden="true">01</span>
+            <div>
+              <h3>Kitchen remodeling</h3>
+              <p>Kitchen renovation and remodeling are among the services described on the company site.</p>
+            </div>
+          </li>
+          <li>
+            <span class="services-list__number" aria-hidden="true">02</span>
+            <div>
+              <h3>Bathroom remodeling</h3>
+              <p>Bathroom remodeling is presented as a service for homeowners planning an update.</p>
+            </div>
+          </li>
+          <li>
+            <span class="services-list__number" aria-hidden="true">03</span>
+            <div>
+              <h3>More ways to improve your home</h3>
+              <p>The listed work also includes basements, windows, decks, additions, roofing, siding, and storm restoration.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+```

@@ -1,0 +1,103 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div>
+          <p class="eyebrow">Start a conversation</p>
+          <h2 id="contact-title">Tell us what you’re planning.</h2>
+          <p>The company website invites homeowners to request an estimate and offers contact by phone, text, and email. Use its contact page to find current details and reach the team directly.</p>
+          <div class="contact-details">
+            <p><strong>Based in</strong><br>Longmont, Colorado</p>
+            <p><strong>Serving</strong><br>Front Range and Northern Colorado</p>
+            <p><a href="https://joshbrooksconstructionllc.com/contact/">View contact details on the company website</a></p>
+          </div>
+        </div>
+
+
+        <form class="contact-form" aria-label="Project inquiry form">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="form-field">
+            <label for="project-type">Project type</label>
+            <select id="project-type" name="project-type">
+              <option value="">Choose a service</option>
+              <option value="kitchen">Kitchen remodeling</option>
+              <option value="bathroom">Bathroom remodeling</option>
+              <option value="other">Other home project</option>
+            </select>
+          </div>
+          <div class="form-field form-field--full">
+            <label for="message">A little about your project</label>
+            <textarea id="message" name="message" rows="5"></textarea>
+          </div>
+          <div class="form-field--full">
+            <button class="button" type="button">Contact the company to submit an inquiry</button>
+            <p>This demonstration form is not connected to a submission service. Use the company contact page to reach the team.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div>
+          <a class="brand footer-brand" href="#home">Josh Brooks<br>Construction</a>
+          <p>Josh Brooks Construction and Renovation Inc. General contracting and home remodeling based in Longmont, Colorado.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <strong>Explore</strong>
+          <a href="#remodeling">Remodeling</a>
+          <a href="#work">Kitchen &amp; bath</a>
+          <a href="#about">About the company</a>
+        </nav>
+        <div class="footer-contact">
+          <strong>Contact</strong>
+          <a href="https://joshbrooksconstructionllc.com/contact/">Contact details and estimate requests</a>
+          <address>Longmont, Colorado<br>Front Range and Northern Colorado</address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Josh Brooks Construction and Renovation Inc.</p>
+        <a href="https://joshbrooksconstructionllc.com/">Company website</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#primary-navigation");
+
+
+    menuButton.addEventListener("click", () => {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isExpanded));
+      menuButton.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      navigation.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a") && window.matchMedia("(max-width: 800px)").matches) {
+        navigation.classList.remove("is-open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation");
+      }
+    });
+  </script>
+</body></html>
+```

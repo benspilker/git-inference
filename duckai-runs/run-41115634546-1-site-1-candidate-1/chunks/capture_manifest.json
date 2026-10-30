@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=c577ca23-43d5-4aa4-a082-4170ffc4d960",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T19:30:50.306013+00:00",
+      "characters": 4337,
+      "sha256": "c475d6a840825502ef726580899df480fea6af900b4d04fc37a1964a7a674faf"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T19:31:08.198643+00:00",
+      "characters": 4847,
+      "sha256": "a7a8585ff8d218badb53b4956e3e65227ee4321d8c317e96efc181e7ca8e603a"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T19:31:24.223648+00:00",
+      "characters": 4329,
+      "sha256": "54c857d44e72bf4e8617f81326c2cc02b895624e045c79083f9f987bf9959245"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T19:31:56.658709+00:00",
+      "characters": 1570,
+      "sha256": "2e58832c7d3cb40e1bff6c9014ced9b0ff5fa975d9c000e8f8c0a1cde6bbfabe"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T19:32:07.742142+00:00",
+      "characters": 1680,
+      "sha256": "03780f8f1d4334d41bf17eb6dcf51c934fd241d7813e10bc239f4749b8bc9ae9"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T19:32:24.755444+00:00",
+      "characters": 4406,
+      "sha256": "535801ad79b50f62867a41ef2117439e8c1574a1450e29e5d39fc467d96786e6"
+    }
+  ]
+}

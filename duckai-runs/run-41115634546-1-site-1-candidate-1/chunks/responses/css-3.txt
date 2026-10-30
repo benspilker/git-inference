@@ -1,0 +1,319 @@
+CSS PART 3 OF 3
+```css
+/* CSS PART 3 OF 3 */
+.site-footer {
+  padding-block: 3rem 1.5rem;
+  background: #202a2b;
+  color: #fff;
+}
+
+
+.footer-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(10rem, 0.7fr) minmax(13rem, 0.8fr);
+  gap: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+
+.footer-brand {
+  max-width: 20rem;
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+
+.footer-main p,
+.footer-main address {
+  color: rgb(255 255 255 / 72%);
+  font-size: 0.9rem;
+  font-style: normal;
+}
+
+
+.footer-links {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+}
+
+
+.footer-links strong,
+.footer-contact strong {
+  margin-bottom: 0.35rem;
+  color: #fff;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+.footer-links a,
+.footer-contact a {
+  width: fit-content;
+  color: rgb(255 255 255 / 78%);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+
+.footer-links a:hover,
+.footer-contact a:hover {
+  color: #f0b69e;
+}
+
+
+.footer-contact {
+  display: grid;
+  align-content: start;
+  gap: 0.65rem;
+}
+
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(255 255 255 / 18%);
+  color: rgb(255 255 255 / 58%);
+  font-size: 0.78rem;
+}
+
+
+.footer-bottom p {
+  margin: 0;
+  color: inherit;
+}
+
+
+@media (max-width: 800px) {
+  :root {
+    --space-7: 5rem;
+  }
+
+
+  .container {
+    width: min(var(--container), calc(100% - 2.25rem));
+  }
+
+
+  .header-inner {
+    min-height: 4.8rem;
+  }
+
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+
+  .primary-nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 1.125rem 1rem;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-paper);
+  }
+
+
+  .primary-nav.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .primary-nav a {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+
+  .primary-nav .button {
+    margin-top: 0.8rem;
+    border-bottom: 1px solid var(--color-accent);
+  }
+
+
+  .hero {
+    min-height: min(700px, calc(100svh - 4.8rem));
+  }
+
+
+  .hero::after {
+    background: linear-gradient(90deg, rgb(20 29 29 / 78%), rgb(20 29 29 / 43%));
+  }
+
+
+  .intro-grid,
+  .services-layout,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .intro-grid {
+    gap: 2.5rem;
+  }
+
+
+  .intro-grid__image {
+    max-height: 30rem;
+    aspect-ratio: 16 / 10;
+  }
+
+
+  .services-intro {
+    position: static;
+  }
+
+
+  .project-feature {
+    grid-template-columns: 1fr;
+  }
+
+
+  .project-feature__image {
+    min-height: 0;
+    max-height: 28rem;
+    aspect-ratio: 16 / 10;
+  }
+
+
+  .project-feature__copy {
+    padding: 2rem 1.5rem 2.5rem;
+  }
+
+
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  .footer-main > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+
+@media (max-width: 520px) {
+  :root {
+    --space-7: 4rem;
+  }
+
+
+  .container,
+  .hero__content {
+    width: calc(100% - 2rem);
+  }
+
+
+  .hero {
+    min-height: min(680px, calc(100svh - 4.8rem));
+  }
+
+
+  .hero__image {
+    object-position: 58% center;
+  }
+
+
+  .hero::after {
+    background: linear-gradient(90deg, rgb(20 29 29 / 78%), rgb(20 29 29 / 50%));
+  }
+
+
+  .hero__content {
+    padding-block: 3.5rem;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(3.15rem, 14vw, 4.5rem);
+  }
+
+
+  .hero__actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .hero__actions .button {
+    width: 100%;
+  }
+
+
+  .section {
+    padding-block: var(--space-7);
+  }
+
+
+  .section-heading {
+    margin-bottom: 2.25rem;
+  }
+
+
+  .credentials-strip {
+    grid-template-columns: 1fr;
+  }
+
+
+  .credentials-strip__item {
+    padding: 1.1rem;
+  }
+
+
+  .credentials-strip__item + .credentials-strip__item {
+    border-top: 1px solid var(--color-line);
+    border-left: 0;
+  }
+
+
+  .contact-form {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+
+
+  .form-field--full {
+    grid-column: auto;
+  }
+
+
+  .contact-form .button {
+    width: 100%;
+  }
+
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+
+  .footer-main > :first-child {
+    grid-column: auto;
+  }
+
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```

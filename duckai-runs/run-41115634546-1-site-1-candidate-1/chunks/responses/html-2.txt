@@ -1,0 +1,39 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section section--white" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="project-feature">
+          <img class="project-feature__image"
+               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1500&amp;q=85"
+               alt="Kitchen interior with a central island, cabinets, and pendant lights">
+          <div class="project-feature__copy">
+            <p class="eyebrow">Kitchen &amp; bath</p>
+            <h2 id="work-title">A more useful everyday space starts with a conversation.</h2>
+            <p>This image is illustrative, not a representation of a project completed by the company. The source site describes kitchen and bathroom remodeling and invites visitors to request an estimate.</p>
+            <a class="text-link" href="#contact">Ask about an estimate</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" aria-label="Company details">
+      <div class="container">
+        <div class="credentials-strip">
+          <div class="credentials-strip__item">
+            <strong>Longmont, Colorado</strong>
+            <span>Company base stated on the website</span>
+          </div>
+          <div class="credentials-strip__item">
+            <strong>Front Range</strong>
+            <span>Service area stated on the website</span>
+          </div>
+          <div class="credentials-strip__item">
+            <strong>CON-24-0152</strong>
+            <span>Boulder County license number displayed on the website</span>
+          </div>
+        </div>
+      </div>
+    </section>
+```

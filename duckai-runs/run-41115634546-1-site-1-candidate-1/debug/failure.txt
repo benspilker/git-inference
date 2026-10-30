@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 775, in <module>
+    run()
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 729, in run
+    run_browser_qa(website_request)
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 591, in run_browser_qa
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python', '/__w/git-inference/git-inference/duckai_automation/scripts/inline_css.py', '/__w/git-inference/git-inference/duckai-runs/run-41115634546-1-site-1-candidate-1/files/index.html', '/__w/git-inference/git-inference/duckai-runs/run-41115634546-1-site-1-candidate-1/files/styles.css', '/__w/git-inference/git-inference/duckai-runs/run-41115634546-1-site-1-candidate-1/files/inlined/index.html']' returned non-zero exit status 2.
