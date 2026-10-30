@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=b1857ef8-7ecd-45ab-aa1c-a29a2f295990",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T12:46:00.904613+00:00",
+      "characters": 5106,
+      "sha256": "ee1ade9351fa7b419b03c28301c4b4b89174b32d7365b736bdefdf9d4c3d84a4"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T12:46:17.236192+00:00",
+      "characters": 4759,
+      "sha256": "aeed5c9b8afa8fe6cc8c588d7af87d44fc5d36aee9520ea308da7e1a6de16fa8"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T12:46:29.259356+00:00",
+      "characters": 3017,
+      "sha256": "55a692cc2147db4e7bf6af1840ac704659de04e8028a24b186d0d06ff99ceb86"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T12:46:49.597512+00:00",
+      "characters": 2861,
+      "sha256": "0ef95f5c5d4be788004b531cc6b75f0c7e713d543a41c578c209e403bb5b3eb1"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T12:47:02.670936+00:00",
+      "characters": 2696,
+      "sha256": "1ff2b8778f9085127b480c020783a33916a289a88144e3268381c5d94b172dba"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T12:47:16.869440+00:00",
+      "characters": 3159,
+      "sha256": "0955165c4fe54db989b8318b396955ee0d8a7f5026ea62c400913af8e55a976a"
+    }
+  ]
+}
