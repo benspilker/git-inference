@@ -3,3 +3,4 @@ Treat the source site as authoritative only for details Duck.ai can cite from pa
 In the audit, clearly separate observed facts from inferred audience and design opinions.
 Use the source domain for business facts; cite other domains only for design-template licensing.
 If source pages provide conflicting business hours, include an Hours & availability section that asks visitors to call to confirm and flag the conflict as unknown; do not state unsupported times.
+Keep all CTA button labels free of arrow symbols and directional icons.

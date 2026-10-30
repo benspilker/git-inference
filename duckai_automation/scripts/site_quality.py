@@ -32,6 +32,7 @@ VOID_ELEMENTS = {
     "area", "base", "br", "col", "embed", "hr", "img", "input", "link",
     "meta", "param", "source", "track", "wbr",
 }
+CTA_ARROW_GLYPHS = re.compile(r"[←↑→↓↗↘↙↖↩↪➔➜➝➞➟➠➡➢➤›»]")
 
 
 def _has_alias(value, aliases):
@@ -439,6 +440,8 @@ class _PageInventory(HTMLParser):
         self._in_footer = 0
         self._buttons = []
         self._button_stack = []
+        self.cta_arrow_issues = []
+        self._cta_stack = []
         self.forms = 0
         self.hero_image_present = False
         self.hero_image_urls = []
@@ -451,6 +454,24 @@ class _PageInventory(HTMLParser):
         tag = tag.lower()
         self.tags.add(tag)
         values = dict(attrs)
+        class_names = (values.get("class") or "").lower()
+        is_cta = tag == "button" or (
+            tag == "a"
+            and (
+                (values.get("role") or "").lower() == "button"
+                or values.get("href", "").lower().startswith(("tel:", "mailto:"))
+                or re.search(r"(?:^|[\s_-])(?:button|btn|cta|call[-_]?to[-_]?action)(?:$|[\s_-])", class_names)
+            )
+        )
+        if is_cta:
+            label = " ".join((values.get("aria-label") or "", values.get("title") or "")).strip()
+            self._cta_stack.append({"tag": tag, "text": [label] if label else [], "arrow_icon": False})
+        icon_marker = re.search(r"(?:arrow|chevron)", " ".join(
+            values.get(key, "") for key in ("class", "data-icon", "data-lucide", "aria-label")
+        ), re.IGNORECASE)
+        if icon_marker and tag in {"svg", "i", "span", "use"}:
+            for cta in self._cta_stack:
+                cta["arrow_icon"] = True
         if tag in {"head", "script", "style", "template"}:
             self._hidden_elements.append(tag)
         if tag == "button":
@@ -577,6 +598,13 @@ class _PageInventory(HTMLParser):
         tag = tag.lower()
         if tag == "button" and self._button_stack:
             self._buttons.append(self._button_stack.pop())
+        for index in range(len(self._cta_stack) - 1, -1, -1):
+            if self._cta_stack[index]["tag"] == tag:
+                cta = self._cta_stack.pop(index)
+                label = " ".join(cta["text"])
+                if CTA_ARROW_GLYPHS.search(label) or cta["arrow_icon"]:
+                    self.cta_arrow_issues.append(label or "CTA contains an arrow icon")
+                break
         if tag in self._hidden_elements:
             index = len(self._hidden_elements) - 1 - self._hidden_elements[::-1].index(tag)
             del self._hidden_elements[index]
@@ -599,6 +627,8 @@ class _PageInventory(HTMLParser):
             self.visible_text.append(clean)
             for control in self._button_stack:
                 control["text"].append(clean)
+            for cta in self._cta_stack:
+                cta["text"].append(clean)
             if self._in_footer:
                 self.footer_text.append(clean)
         if self._heading is not None:
@@ -709,6 +739,7 @@ def assess_website(prompt, session_dir):
     checks = {
         "html_file_present": bool(html),
         "no_visible_template_credit": not template_credit_visible,
+        "cta_buttons_no_arrows": not parser.cta_arrow_issues,
         "accessible_mobile_hamburger": parser.has_accessible_mobile_hamburger(),
         "css_file_present": bool(css),
         "document_has_main": "main" in parser.tags,
@@ -823,6 +854,8 @@ def assess_website(prompt, session_dir):
         missing_sections.append("a substantive footer with at least two useful links")
     if template_credit_visible:
         missing_sections.append("no visible template credit in page text or links")
+    if parser.cta_arrow_issues:
+        missing_sections.append("CTA buttons without arrow glyphs or arrow icons")
     if not checks["accessible_mobile_hamburger"]:
         missing_sections.append("accessible three-bar mobile navigation button")
     if visual_design_review_status != "pass":
@@ -883,6 +916,7 @@ def assess_website(prompt, session_dir):
         "css_bytes": len(css.encode("utf-8")),
         "footer_text": " ".join(parser.footer_text),
         "footer_links": parser.footer_links,
+        "cta_arrow_issues": parser.cta_arrow_issues,
         "complete": bool(html and css and all(checks.values())),
         "final_success": bool(
             automated_success and checks["visual_design_review_passed"]
