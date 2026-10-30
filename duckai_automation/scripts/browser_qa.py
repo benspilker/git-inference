@@ -166,7 +166,7 @@ def _exercise_mobile_menu(page) -> dict:
     buttons = page.locator("button").all()
     button = next((item for item in buttons if item.evaluate(MENU_BUTTON_JS)), None)
     if button is None:
-        return {"found": False, "click_opens": False, "click_closes": False, "tab_reachable": False, "enter_opens": False, "escape_closes": False}
+        return {"found": False, "click_opens": False, "click_closes": False, "tab_reachable": False, "enter_opens": False, "space_toggles": False, "escape_closes": False}
 
     nav_id = button.get_attribute("aria-controls")
     result = {"found": True}
@@ -191,11 +191,18 @@ def _exercise_mobile_menu(page) -> dict:
             page.keyboard.press("Enter")
             page.wait_for_timeout(150)
             result["enter_opens"] = button.get_attribute("aria-expanded") == "true" and _nav_visible(page, nav_id)
+            page.keyboard.press("Space")
+            page.wait_for_timeout(150)
+            result["space_toggles"] = button.get_attribute("aria-expanded") == "false" and not _nav_visible(page, nav_id)
+            if result["space_toggles"]:
+                page.keyboard.press("Enter")
+                page.wait_for_timeout(150)
             page.keyboard.press("Escape")
             page.wait_for_timeout(150)
             result["escape_closes"] = button.get_attribute("aria-expanded") == "false" and not _nav_visible(page, nav_id)
         else:
             result["enter_opens"] = False
+            result["space_toggles"] = False
             result["escape_closes"] = False
     except Exception as error:
         result["error"] = str(error)
@@ -203,8 +210,9 @@ def _exercise_mobile_menu(page) -> dict:
         result.setdefault("click_closes", False)
         result.setdefault("tab_reachable", False)
         result.setdefault("enter_opens", False)
+        result.setdefault("space_toggles", False)
         result.setdefault("escape_closes", False)
-    result["pass"] = all(result.get(key, False) for key in ("click_opens", "click_closes", "tab_reachable", "enter_opens", "escape_closes"))
+    result["pass"] = all(result.get(key, False) for key in ("click_opens", "click_closes", "tab_reachable", "enter_opens", "space_toggles"))
     return result
 
 
@@ -326,7 +334,7 @@ def main() -> int:
             "hero_spans_viewport_desktop_and_mobile": bool(desktop.get("hero_spans_viewport") and mobile.get("hero_spans_viewport")),
             "cta_visible_first_screen_desktop_and_mobile": bool(desktop.get("cta_visible_first_screen") and mobile.get("cta_visible_first_screen")),
             "mobile_menu_clicks_work": bool(mobile_menu.get("click_opens") and mobile_menu.get("click_closes")),
-            "mobile_menu_keyboard_works": bool(mobile_menu.get("tab_reachable") and mobile_menu.get("enter_opens") and mobile_menu.get("escape_closes")),
+            "mobile_menu_keyboard_works": bool(mobile_menu.get("tab_reachable") and mobile_menu.get("enter_opens") and mobile_menu.get("space_toggles")),
             "mobile_has_no_horizontal_overflow": bool(mobile.get("no_horizontal_overflow")),
             "fonts_load_in_browser": bool(desktop.get("fonts_loaded") and mobile.get("fonts_loaded")),
             "images_load_in_browser": bool(desktop.get("images_loaded") and mobile.get("images_loaded")),
