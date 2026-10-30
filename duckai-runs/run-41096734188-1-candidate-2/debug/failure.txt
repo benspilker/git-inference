@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 652, in <module>
+    run()
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 567, in run
+    enable_web_search(page)
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 243, in enable_web_search
+    fail("Could not verify that Duck.ai Web Search is enabled.")
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 46, in fail
+    raise RuntimeError(message)
+RuntimeError: Could not verify that Duck.ai Web Search is enabled.
