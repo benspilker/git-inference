@@ -36,7 +36,7 @@ INLINE_SCRIPT = ROOT / "scripts" / "inline_css.py"
 BROWSER_QA_SCRIPT = ROOT / "scripts" / "browser_qa.py"
 CHECK_SCRIPT = ROOT / "scripts" / "check_website.py"
 
-BASE_CONTRACT = """Follow the supplied facts and design brief. Build a polished, responsive, organization-specific website. Use exactly three CSS responses followed by exactly three HTML responses, one complete code block per response. CSS responses use a css fence; HTML responses use a text fence containing raw HTML. Each response must state its exact part label. The first nonblank line inside its code block must be exactly `/* CSS PART n OF 3 */` or `<!-- HTML PART n OF 3 -->` for that part. Keep the CSS and HTML coherent and link styles.css. Use CSS variables for core colors, typography, spacing, and container width. Include at least three distinct image files, represented by at least three unique image URLs and at least three HTML `<img>` elements with accurate alt text. Do not reuse the same photo with different crop parameters to meet the count. Use varied compositions and meaningful, relevant imagery. Do not invent organization facts, metrics, reviews, credentials, contact details, or hours.
+BASE_CONTRACT = """Follow the supplied facts and design brief. Build a polished, responsive, organization-specific website. Use exactly three CSS responses followed by exactly three HTML responses, one complete code block per response. CSS responses use a css fence; HTML responses use a text fence containing raw HTML. Each response must state its exact part label. The first nonblank line inside its code block must be exactly `/* CSS PART n OF 3 */` or `<!-- HTML PART n OF 3 -->` for that part. Keep the CSS and HTML coherent and link styles.css exactly once from the HTML document head. HTML PART 1 must be the beginning of a complete page: after its required marker, include `<!doctype html>`, `<html>`, a complete `<head>` with charset, viewport, title, and the styles.css link, then `<body>`, site header/navigation, and the full hero section with its primary CTA. Do not begin with a middle-page section. HTML PART 2 must continue the body with new sections only; HTML PART 3 must continue with the remaining sections, footer, any required script, then close with `</body></html>`. Never repeat the document shell or hero in later parts. Use CSS variables for core colors, typography, spacing, and container width. Include at least three distinct image files, represented by at least three unique image URLs and at least three HTML `<img>` elements with accurate alt text. Do not reuse the same photo with different crop parameters to meet the count. Use varied compositions and meaningful, relevant imagery. Do not invent organization facts, metrics, reviews, credentials, contact details, or hours.
 
 The hero photo must be edge-to-edge across the full hero region, cover-cropped behind readable overlay copy on desktop and mobile. Keep the primary CTA visible in the first viewport on desktop and mobile; use the source-appropriate primary action; use click-to-call only when calling is appropriate and the phone number is verified. Include every requested section. If hours are requested but the source is unclear or conflicting, include an "Hours & availability" section that asks visitors to contact the organization to confirm, without stating unsupported times. Include a complete, visibly designed semantic footer after main content, with the organization or brand name, at least two useful links, accurate available contact/location information, and copyright. On mobile, use a keyboard-accessible three-bar hamburger with a programmatic name and state; do not show a Menu text label. Keep CTA buttons and button-style links free of arrow glyphs and arrow icons, including chevrons; use action-oriented text only. If the design brief names an HTML5 UP template, adapt its structure into an original organization-specific design, preserve its name/source/CC BY 3.0 attribution in an HTML comment, and keep template credits out of visible page content. The final HTML response must close with </body></html>.
 
@@ -577,10 +577,22 @@ def build_initial_prompt(
 
 def build_next_prompt(kind: str, part: int) -> str:
     label = f"{kind.upper()} PART {part} OF 3"
+    part_guidance = ""
+    if kind == "html" and part == 1:
+        part_guidance = (
+            " This is the start of the complete document: after the required marker, include the doctype, html element, "
+            "complete head with charset, viewport, title, and exactly one link to styles.css, then body, site header/navigation, "
+            "and the complete image-led hero with its primary CTA. Do not start with a middle-page section."
+        )
+    elif kind == "html" and part == 2:
+        part_guidance = " Continue inside the existing body with new, non-duplicated content sections; do not repeat the head, header, or hero."
+    elif kind == "html" and part == 3:
+        part_guidance = " Continue inside the existing body with remaining sections and footer, then close with </body></html>; do not repeat prior sections."
     return (
         f"Continue the same website and conversation. Return {label} only, with exactly one complete "
         f"{'css' if kind == 'css' else 'text'} fenced code block and the required in-code marker. "
         "Preserve compatibility with the previous parts and do not repeat earlier chunks."
+        f"{part_guidance}"
     )
 
 
