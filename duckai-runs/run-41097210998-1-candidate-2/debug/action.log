@@ -1,0 +1,4 @@
+Duck.ai automation failed during candidate attempt 2: Locator.get_attribute: Timeout 15000ms exceeded.
+Call log:
+  - waiting for get_by_role("menuitemradio", name=re.compile(r"web\s*search", re.IGNORECASE)).last
+
