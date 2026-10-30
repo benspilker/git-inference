@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -652,6 +653,11 @@ if __name__ == "__main__":
     except Exception as error:
         message = f"Duck.ai automation failed during candidate attempt {CANDIDATE_INDEX}: {error}"
         print(message, file=sys.stderr)
+        if RUN_DIR.exists():
+            (RUN_DIR / "debug").mkdir(parents=True, exist_ok=True)
+            (RUN_DIR / "debug" / "failure.txt").write_text(
+                traceback.format_exc(), encoding="utf-8"
+            )
         summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
         if summary_path:
             with Path(summary_path).open("a", encoding="utf-8") as handle:

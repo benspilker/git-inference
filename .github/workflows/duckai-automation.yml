@@ -78,8 +78,23 @@ jobs:
           while [[ "$successful" -lt "$target" && "$attempt" -lt "$max_attempts" ]]; do
             attempt=$((attempt + 1))
             echo "Starting website candidate attempt ${attempt}; automated successes so far: ${successful}/${target}."
-            CANDIDATE_INDEX="$attempt" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
             run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-${attempt}"
+            action_log="${RUNNER_TEMP}/duckai-candidate-${attempt}.log"
+            set +e
+            CANDIDATE_INDEX="$attempt" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py 2>&1 | tee "$action_log"
+            candidate_exit=${PIPESTATUS[0]}
+            set -e
+            if [[ -d "$run_dir" ]]; then
+              mkdir -p "$run_dir/debug"
+              cp "$action_log" "$run_dir/debug/action.log"
+            fi
+            if [[ "$candidate_exit" -ne 0 ]]; then
+              echo "Candidate attempt ${attempt} exited with code ${candidate_exit}; preserving its debug evidence and continuing."
+              if [[ ! -f "$run_dir/run_notes.json" && -d "$run_dir" ]]; then
+                printf '{"candidate_index":%s,"automated_success":false,"status":"generation_failed"}\n' "$attempt" > "$run_dir/run_notes.json"
+              fi
+              continue
+            fi
             if python -c 'import json,sys; print(str(json.load(open(sys.argv[1], encoding="utf-8")).get("automated_success", False)).lower())' "$run_dir/run_notes.json" | grep -qx true; then
               successful=$((successful + 1))
               echo "Candidate attempt ${attempt} passed all automated checks (${successful}/${target})."
