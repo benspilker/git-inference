@@ -7,6 +7,7 @@ import json
 import os
 import re
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,6 +23,7 @@ RUN_ID = os.environ.get("GITHUB_RUN_ID", "local")
 RUN_ATTEMPT = os.environ.get("GITHUB_RUN_ATTEMPT", "1")
 RUN_DIR = REPO / "duckai-runs" / f"smoke-run-{RUN_ID}-{RUN_ATTEMPT}"
 CONFIG = ROOT / "smoke_test.json"
+NETWORK_EVENTS: list[str] = []
 
 
 def fail(message: str) -> None:
@@ -47,6 +49,27 @@ def write_failure_summary(error: Exception, page) -> None:
         summary.write(f"- Page URL: `{current_url}`\n\n")
         summary.write("Visible page text tail (truncated to 1,500 characters):\n\n")
         summary.write("```text\n" + body[-1500:].replace("```", "'''\u200b") + "\n```\n")
+        if NETWORK_EVENTS:
+            summary.write("\nRelevant network events:\n\n")
+            summary.write("```text\n" + "\n".join(NETWORK_EVENTS[-30:]) + "\n```\n")
+
+
+def attach_network_diagnostics(page) -> None:
+    def request_failed(request) -> None:
+        parsed = urlparse(request.url)
+        if parsed.hostname and ("duck.ai" in parsed.hostname or "duckduckgo.com" in parsed.hostname):
+            detail = f"{request.method} {parsed.hostname}{parsed.path} failed: {request.failure}"
+            NETWORK_EVENTS.append(detail[:500])
+
+    def response_received(response) -> None:
+        parsed = urlparse(response.url)
+        relevant = parsed.hostname and ("duck.ai" in parsed.hostname or "duckduckgo.com" in parsed.hostname)
+        if relevant and (response.status >= 400 or any(part in parsed.path.lower() for part in ("api", "chat", "backend"))):
+            NETWORK_EVENTS.append(f"{response.status} {response.request.method} {parsed.hostname}{parsed.path}"[:500])
+
+    page.on("requestfailed", request_failed)
+    page.on("response", response_received)
+    page.on("pageerror", lambda error: NETWORK_EVENTS.append(f"Page error: {str(error)[:400]}"))
 
 
 def main_area(page):
@@ -171,10 +194,11 @@ def send_and_capture(page, turn: dict) -> str:
     visible_tail = main_area(page).inner_text(timeout=3000)[-1000:].replace("\n", " ")
     marker_count = count_marker(page, marker)
     extracted = extract_latest_marked_message(page, marker)
+    network_tail = "; ".join(NETWORK_EVENTS[-10:])
     fail(
         f"Timed out waiting for a stable answer marked {marker}; "
         f"marker appearances={marker_count}; extracted response={extracted!r}; "
-        f"visible chat tail={visible_tail!r}"
+        f"visible chat tail={visible_tail!r}; network events={network_tail!r}"
     )
 
 
@@ -185,36 +209,41 @@ def main() -> None:
         fail("smoke_test.json must contain exactly two turns.")
     RUN_DIR.mkdir(parents=True, exist_ok=False)
 
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
-        context = browser.new_context(viewport={"width": 1440, "height": 900})
-        page = context.new_page()
-        page.set_default_timeout(15000)
-        results = []
-        chat_url = ""
-        try:
-            page.goto("https://duck.ai/", wait_until="domcontentloaded", timeout=60000)
-            wait_for_guest_chat(page)
-            for turn in turns:
-                response = send_and_capture(page, turn)
-                if not chat_url:
-                    chat_url = page.url
-                elif page.url != chat_url:
-                    fail("Duck.ai conversation URL changed between turns; refusing to combine chats.")
-                results.append(
-                    {
-                        "turn_id": turn["id"],
-                        "prompt": turn["prompt"],
-                        "assistant_response": response,
-                        "captured_at_utc": datetime.now(timezone.utc).isoformat(),
-                    }
-                )
-        except Exception as error:
-            write_failure_summary(error, page)
-            raise
-        finally:
-            context.close()
-            browser.close()
+    results = []
+    chat_url = ""
+    with tempfile.TemporaryDirectory(prefix="duckai-smoke-profile-") as profile_dir:
+        with sync_playwright() as playwright:
+            context = playwright.chromium.launch_persistent_context(
+                user_data_dir=profile_dir,
+                headless=False,
+                args=["--disable-blink-features=AutomationControlled"],
+                viewport={"width": 1440, "height": 900},
+            )
+            page = context.pages[0] if context.pages else context.new_page()
+            page.set_default_timeout(15000)
+            attach_network_diagnostics(page)
+            try:
+                page.goto("https://duck.ai/", wait_until="domcontentloaded", timeout=60000)
+                wait_for_guest_chat(page)
+                for turn in turns:
+                    response = send_and_capture(page, turn)
+                    if not chat_url:
+                        chat_url = page.url
+                    elif page.url != chat_url:
+                        fail("Duck.ai conversation URL changed between turns; refusing to combine chats.")
+                    results.append(
+                        {
+                            "turn_id": turn["id"],
+                            "prompt": turn["prompt"],
+                            "assistant_response": response,
+                            "captured_at_utc": datetime.now(timezone.utc).isoformat(),
+                        }
+                    )
+            except Exception as error:
+                write_failure_summary(error, page)
+                raise
+            finally:
+                context.close()
 
     conversation = {
         "status": "captured",
