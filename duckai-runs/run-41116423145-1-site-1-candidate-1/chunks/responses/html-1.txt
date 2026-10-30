@@ -1,0 +1,56 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Josh Brooks Construction | Kitchen &amp; Bath Remodeling</title>
+  <meta name="description" content="Kitchen and bathroom remodeling by Josh Brooks Construction and Renovation Inc. Contact the team to discuss your project.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Josh Brooks Construction home">
+        <span class="brand-mark" aria-hidden="true">JB</span>
+        <span>Josh Brooks Construction<br>and Renovation Inc.</span>
+      </a>
+
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#remodeling">Remodeling</a>
+        <a href="#work">Project work</a>
+        <a href="#about">About</a>
+        <a class="nav-cta" href="#contact">Request an estimate</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <img
+        class="hero-image"
+        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+        alt="Residential interior with warm natural finishes"
+        fetchpriority="high">
+      <div class="container hero-content">
+        <p class="eyebrow">Licensed. Local. Not a storm chaser.</p>
+        <h1 id="hero-title">Make room for a home that works better.</h1>
+        <p class="hero-copy">Kitchen and bathroom remodeling from a local construction team serving Longmont and Northern Colorado.</p>
+        <div class="hero-actions">
+          <a class="button" href="#contact">Request an estimate</a>
+          <a class="button button-secondary" href="#work">Explore project work</a>
+        </div>
+      </div>
+    </section>
+```

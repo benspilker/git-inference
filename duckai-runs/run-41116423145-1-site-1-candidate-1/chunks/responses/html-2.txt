@@ -1,0 +1,75 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section intro-section" id="about" aria-labelledby="about-title">
+      <div class="container intro-layout">
+        <div>
+          <p class="section-kicker">The people behind the work</p>
+          <h2 class="section-heading" id="about-title">One team for the details that make a home feel right.</h2>
+          <p class="intro-copy">Josh Brooks Construction and Renovation Inc. describes its work as residential construction and remodeling, serving Longmont and the wider Northern Colorado and Front Range area.</p>
+        </div>
+        <aside class="intro-note">
+          <p>“Licensed. Local. Not a storm chaser.”</p>
+        </aside>
+      </div>
+    </section>
+
+
+    <section class="section work-section" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="work-heading-row">
+          <div>
+            <p class="section-kicker">Kitchen &amp; bath</p>
+            <h2 class="section-heading" id="work-title">Spaces shaped around everyday life.</h2>
+          </div>
+          <p class="section-intro">Explore the remodeling service, then get in touch to discuss the needs and scope of your own project.</p>
+        </div>
+
+
+        <article class="project-feature">
+          <img
+            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+            alt="Kitchen interior with a bright island and simple cabinetry"
+            loading="lazy">
+          <div class="project-copy">
+            <p class="section-kicker">Kitchen remodeling</p>
+            <h3>A more considered heart of the home.</h3>
+            <p>Plan a kitchen renovation around how you cook, gather, and move through the space. Share your goals with the team to start a conversation about scope and next steps.</p>
+            <a class="button" href="#contact">Discuss a kitchen project</a>
+          </div>
+        </article>
+
+
+        <article class="project-secondary">
+          <div class="project-copy">
+            <p class="section-kicker">Bathroom remodeling</p>
+            <h3>Make daily routines feel easier.</h3>
+            <p>The company also offers bathroom remodeling, with service details and project information on its website.</p>
+            <a class="button" href="#contact">Discuss a bathroom project</a>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+            alt="Bathroom interior with a walk-in shower and tile finishes"
+            loading="lazy">
+        </article>
+      </div>
+    </section>
+
+
+    <section class="section services-section" id="remodeling" aria-labelledby="services-title">
+      <div class="container service-layout">
+        <div class="service-copy">
+          <p class="section-kicker">More ways to improve your home</p>
+          <h2 class="section-heading" id="services-title">Residential work beyond the kitchen and bath.</h2>
+          <p class="section-intro">The source website lists several additional construction and home-improvement services.</p>
+        </div>
+        <ul class="service-list">
+          <li>Roofing and storm-damage work</li>
+          <li>Siding</li>
+          <li>Basement finishing</li>
+          <li>Decks and additions</li>
+          <li>Windows and doors</li>
+        </ul>
+      </div>
+    </section>
+```

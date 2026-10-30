@@ -1,0 +1,213 @@
+/* CSS PART 3 OF 3 */
+@media (max-width: 820px) {
+  :root {
+    --space-8: 5rem;
+  }
+
+
+  .header-inner {
+    min-height: 76px;
+  }
+
+
+  .menu-toggle {
+    display: grid;
+    position: relative;
+    z-index: 12;
+  }
+
+
+  .primary-nav {
+    position: absolute;
+    top: 76px;
+    right: var(--gutter);
+    left: var(--gutter);
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #26332c;
+    box-shadow: var(--shadow-soft);
+  }
+
+
+  .primary-nav.is-open {
+    display: flex;
+  }
+
+
+  .primary-nav a {
+    padding: 0.85rem 0.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+
+  .primary-nav a:last-child {
+    border-bottom: 0;
+  }
+
+
+  .primary-nav .nav-cta {
+    margin: 0.55rem 0 0.3rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 0;
+  }
+
+
+  .intro-layout,
+  .service-layout,
+  .trust-layout,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .intro-note {
+    max-width: 620px;
+  }
+
+
+  .service-copy {
+    position: static;
+  }
+
+
+  .trust-image {
+    max-height: 460px;
+  }
+}
+
+
+@media (max-width: 620px) {
+  :root {
+    --space-8: 4rem;
+    --gutter: 1.2rem;
+  }
+
+
+  body {
+    font-size: 0.97rem;
+  }
+
+
+  .brand {
+    max-width: 210px;
+    font-size: 0.88rem;
+  }
+
+
+  .hero {
+    min-height: 760px;
+    min-height: min(820px, 100svh);
+    align-items: end;
+  }
+
+
+  .hero::before {
+    background: linear-gradient(
+      0deg,
+      rgba(20, 29, 24, 0.82) 0%,
+      rgba(20, 29, 24, 0.48) 60%,
+      rgba(20, 29, 24, 0.25) 100%
+    );
+  }
+
+
+  .hero-image {
+    object-position: 56% center;
+  }
+
+
+  .hero-content {
+    padding-block: 9rem 3rem;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(3rem, 13vw, 4.4rem);
+  }
+
+
+  .hero-copy {
+    margin-block: 1.1rem 1.5rem;
+  }
+
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+
+  .section-heading {
+    font-size: clamp(2.4rem, 10vw, 3.4rem);
+  }
+
+
+  .work-heading-row {
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: var(--space-4);
+  }
+
+
+  .project-feature,
+  .project-secondary {
+    grid-template-columns: 1fr;
+  }
+
+
+  .project-feature img,
+  .project-secondary img {
+    min-height: 250px;
+    max-height: 360px;
+  }
+
+
+  .project-secondary .project-copy {
+    order: initial;
+  }
+
+
+  .project-copy {
+    padding: 1.5rem;
+  }
+
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+
+  .contact-panel {
+    padding: 1.25rem;
+  }
+
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+
+  .footer-links {
+    gap: 0.65rem 1rem;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

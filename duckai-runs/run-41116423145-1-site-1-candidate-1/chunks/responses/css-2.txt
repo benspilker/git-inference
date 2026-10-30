@@ -1,0 +1,350 @@
+CSS PART 2 OF 3
+```css
+/* CSS PART 2 OF 3 */
+.section {
+  padding-block: var(--space-8);
+}
+
+
+.section-heading {
+  max-width: 760px;
+  font-size: clamp(2.45rem, 5vw, 4.4rem);
+}
+
+
+.section-intro {
+  max-width: 650px;
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+  font-size: 1.08rem;
+}
+
+
+.section-kicker {
+  margin: 0 0 var(--space-2);
+  color: var(--color-accent);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+
+.intro-section {
+  background: var(--color-paper);
+}
+
+
+.intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.8fr);
+  align-items: center;
+  gap: clamp(2.5rem, 8vw, 7rem);
+}
+
+
+.intro-copy {
+  max-width: 590px;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+
+.intro-note {
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+
+.intro-note p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.35;
+}
+
+
+.work-section {
+  background: var(--color-surface);
+}
+
+
+.work-heading-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+
+.work-heading-row .section-intro {
+  max-width: 430px;
+}
+
+
+.project-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  min-height: 430px;
+  background: var(--color-paper);
+}
+
+
+.project-feature img,
+.project-secondary img {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+}
+
+
+.project-copy {
+  align-self: center;
+  padding: clamp(1.7rem, 5vw, 4rem);
+}
+
+
+.project-copy h3,
+.service-copy h3,
+.contact-panel h3 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+
+.project-copy p,
+.service-copy p,
+.contact-panel p {
+  color: var(--color-muted);
+}
+
+
+.project-secondary {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+  margin-top: var(--space-4);
+  background: #e9e7df;
+}
+
+
+.project-secondary .project-copy {
+  order: 2;
+}
+
+
+.services-section {
+  background: #e9e7df;
+}
+
+
+.service-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1.15fr);
+  align-items: start;
+  gap: clamp(2rem, 7vw, 6rem);
+}
+
+
+.service-copy {
+  position: sticky;
+  top: 2rem;
+}
+
+
+.service-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #c9cdc5;
+}
+
+
+.service-list li {
+  padding: 1.05rem 0;
+  border-bottom: 1px solid #c9cdc5;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+
+.trust-section {
+  background: var(--color-paper);
+}
+
+
+.trust-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.72fr);
+  gap: clamp(2rem, 8vw, 7rem);
+  align-items: center;
+}
+
+
+.trust-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+
+.trust-points {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.trust-points li {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-muted);
+}
+
+
+.contact-section {
+  background: #26332c;
+  color: #fff;
+}
+
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  gap: clamp(2rem, 7vw, 6rem);
+  align-items: start;
+}
+
+
+.contact-section .section-heading {
+  max-width: 540px;
+}
+
+
+.contact-section .section-intro,
+.contact-section .contact-panel p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+
+.contact-details {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: var(--space-5);
+}
+
+
+.contact-details a {
+  width: fit-content;
+  color: #f0b39a;
+  text-underline-offset: 0.2em;
+}
+
+
+.contact-panel {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: var(--space-4);
+}
+
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+
+.contact-form label {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--color-ink);
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.72rem 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-small);
+  background: #fff;
+  color: var(--color-ink);
+}
+
+
+.contact-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+
+.contact-form .button {
+  justify-self: start;
+  cursor: pointer;
+}
+
+
+.site-footer {
+  padding-block: 2rem;
+  background: #1c2721;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+
+.footer-brand {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+
+.footer-links a {
+  color: inherit;
+  font-size: 0.9rem;
+  text-underline-offset: 0.18em;
+}
+
+
+.footer-copy {
+  margin: 0;
+  font-size: 0.82rem;
+}
+```

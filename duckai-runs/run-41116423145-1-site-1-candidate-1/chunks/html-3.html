@@ -1,0 +1,127 @@
+<!-- HTML PART 3 OF 3 -->
+    <section class="section trust-section" aria-labelledby="trust-title">
+      <div class="container trust-layout">
+        <div>
+          <p class="section-kicker">Local construction team</p>
+          <h2 class="section-heading" id="trust-title">A clear starting point for your project.</h2>
+          <p class="section-intro">The company says it was founded by Josh Brooks in 2014 and serves Longmont and the Northern Colorado and Front Range area.</p>
+          <ul class="trust-points">
+            <li>The website lists contractor licenses in Boulder, Jefferson, and Douglas counties.</li>
+            <li>Service information and remodeling project examples are available on the company website.</li>
+            <li>Call, text, or email to discuss a project and confirm current details.</li>
+          </ul>
+        </div>
+        <img
+          class="trust-image"
+          src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+          alt="Finished residential interior with natural materials and soft daylight"
+          loading="lazy">
+      </div>
+    </section>
+
+
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div>
+          <p class="section-kicker">Start a conversation</p>
+          <h2 class="section-heading" id="contact-title">Tell the team what you have in mind.</h2>
+          <p class="section-intro">Call, text, or email Josh Brooks Construction to talk about a remodeling or construction project.</p>
+
+
+          <div class="contact-details">
+            <a href="tel:+17208287997">Call 720-828-7997</a>
+            <a href="sms:+17204535095">Text 720-453-5095</a>
+            <a href="mailto:joshbrooksconstruction@gmail.com">joshbrooksconstruction@gmail.com</a>
+            <span>Longmont, Colorado</span>
+          </div>
+        </div>
+
+
+        <div class="contact-panel">
+          <p class="section-kicker">Estimate request</p>
+          <h3>Share a few project details</h3>
+          <p>This form layout is a design preview and is not connected to a submission service. Contact the team directly using the details provided.</p>
+          <form class="contact-form">
+            <div class="form-row">
+              <label>
+                Name
+                <input type="text" name="name" autocomplete="name">
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" autocomplete="email">
+              </label>
+            </div>
+            <label>
+              Phone
+              <input type="tel" name="phone" autocomplete="tel">
+            </label>
+            <label>
+              What kind of project are you considering?
+              <select name="project-type">
+                <option value="">Choose a project type</option>
+                <option>Kitchen remodeling</option>
+                <option>Bathroom remodeling</option>
+                <option>Other construction work</option>
+              </select>
+            </label>
+            <label>
+              Project details
+              <textarea name="message" rows="5"></textarea>
+            </label>
+            <button class="button" type="button" disabled>Form not connected</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section contact-section" aria-labelledby="availability-title">
+      <div class="container">
+        <p class="section-kicker">Hours &amp; availability</p>
+        <h2 class="section-heading" id="availability-title">Please confirm availability directly.</h2>
+        <p class="section-intro">The website’s displayed hours are not consistent across pages. Call, text, or email to confirm current availability.</p>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">Josh Brooks Construction and Renovation Inc.</div>
+        <p class="footer-copy">Longmont, Colorado</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#remodeling">Remodeling</a>
+        <a href="#work">Project work</a>
+        <a href="#contact">Contact</a>
+        <a href="tel:+17208287997">720-828-7997</a>
+      </nav>
+      <p class="footer-copy">© <span id="current-year">2026</span> Josh Brooks Construction</p>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
+      primaryNav.classList.toggle("is-open", !isOpen);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        primaryNav.classList.remove("is-open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation");
+      }
+    });
+  </script>
+</body></html>

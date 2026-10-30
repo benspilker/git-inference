@@ -1,0 +1,309 @@
+/* CSS PART 1 OF 3 */
+:root {
+  color-scheme: light;
+  --color-ink: #202923;
+  --color-paper: #f5f3ed;
+  --color-surface: #fffefa;
+  --color-muted: #68736b;
+  --color-line: #d9ddd5;
+  --color-accent: #a94f35;
+  --color-accent-dark: #873c29;
+  --color-hero-overlay: rgba(20, 29, 24, 0.62);
+
+
+  --font-body: "DM Sans", "Helvetica Neue", sans-serif;
+  --font-display: "Manrope", "Helvetica Neue", sans-serif;
+
+
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+  --space-8: 6.5rem;
+
+
+  --container: 1160px;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --radius-small: 0.35rem;
+  --shadow-soft: 0 18px 50px rgba(32, 41, 35, 0.1);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+:focus-visible {
+  outline: 3px solid #d58c6e;
+  outline-offset: 4px;
+}
+
+
+.container {
+  width: min(var(--container), calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+}
+
+
+.site-header {
+  position: absolute;
+  z-index: 10;
+  inset: 0 0 auto;
+  color: #fff;
+}
+
+
+.header-inner {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: inherit;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 0.96rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+
+
+.brand-mark {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  color: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+}
+
+
+.primary-nav a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: opacity 160ms ease;
+}
+
+
+.primary-nav a:hover {
+  opacity: 0.76;
+}
+
+
+.nav-cta,
+.button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.72rem 1.3rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  background: var(--color-accent);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+
+.nav-cta:hover,
+.button:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-1px);
+}
+
+
+.menu-toggle {
+  width: 46px;
+  height: 46px;
+  display: none;
+  place-items: center;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-small);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+.menu-toggle span {
+  width: 21px;
+  height: 2px;
+  display: block;
+  margin: 2px 0;
+  background: currentColor;
+}
+
+
+.hero {
+  min-height: min(820px, 100svh);
+  min-height: min(820px, 100vh);
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #303a33;
+  color: #fff;
+}
+
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-hero-overlay) 0%,
+    rgba(20, 29, 24, 0.42) 55%,
+    rgba(20, 29, 24, 0.12) 100%
+  );
+}
+
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 54%;
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  padding-block: 10rem 5rem;
+}
+
+
+.eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--color-accent);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+
+.hero .eyebrow {
+  color: #f0b39a;
+}
+
+
+.hero h1,
+.section-heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+}
+
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(3.15rem, 7.2vw, 6.4rem);
+}
+
+
+.hero-copy {
+  max-width: 570px;
+  margin: var(--space-4) 0 var(--space-5);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+
+.button-secondary {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: transparent;
+  color: #fff;
+}
+
+
+.button-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}

@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=5c3dbe2c-5c43-490e-a4ae-ed19f50f1fba",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T19:36:40.705738+00:00",
+      "characters": 4840,
+      "sha256": "a4f37b5b04d5dc3b1df4e7d16f94a955b82b791e1d3291f3aca4c2fedc0adec5"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T19:37:00.652285+00:00",
+      "characters": 5211,
+      "sha256": "71790ab5fbb2cda0f4f490c5a0d7b000d5951a269725ed23d9963f226a35a415"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T19:37:14.050998+00:00",
+      "characters": 2810,
+      "sha256": "c75216b65d78204445559621c31cbc4a7f54517670f002e028f0bd5a271049ce"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T19:37:41.163223+00:00",
+      "characters": 2139,
+      "sha256": "87668a2d0f3fe04978cbf2d26523e0600483a769314f33c6944354d47d7f405e"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T19:37:56.674345+00:00",
+      "characters": 3429,
+      "sha256": "58cecb99919f971df77286b871c3d10da5babe7b227cbcd33f5e5083031d5572"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T19:38:17.705960+00:00",
+      "characters": 5287,
+      "sha256": "a393c33087555c4aca834bfde0b1c4a19019c2f7e2f0dc9ea99573f4fa26bc8d"
+    }
+  ]
+}
