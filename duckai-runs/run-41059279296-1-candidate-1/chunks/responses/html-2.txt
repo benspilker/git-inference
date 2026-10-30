@@ -1,0 +1,73 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+  </section>
+
+
+  <section class="section services-section" id="services" aria-labelledby="services-title">
+    <div class="section-inner">
+      <div class="services-heading">
+        <div>
+          <p class="section-kicker">What we can look at</p>
+          <h2 class="section-title" id="services-title">Small fixes.<br>Better feel.</h2>
+        </div>
+        <p class="services-lead">Describe what’s happening with your board. We’ll help you figure out whether it needs a tune-up, a part replacement, or a closer inspection.</p>
+      </div>
+
+
+      <div class="service-list">
+        <article class="service-item">
+          <span class="service-number">01</span>
+          <h3>Wheels &amp; bearings</h3>
+          <p>Wheel swaps, bearing cleaning or replacement, and checks for drag, grit, or uneven wear that can affect how your board rolls.</p>
+        </article>
+        <article class="service-item">
+          <span class="service-number">02</span>
+          <h3>Trucks &amp; hardware</h3>
+          <p>Truck adjustments, kingpin and bushing checks, and help with loose, stripped, or mismatched mounting hardware.</p>
+        </article>
+        <article class="service-item">
+          <span class="service-number">03</span>
+          <h3>Grip &amp; setup</h3>
+          <p>Grip tape replacement and setup checks, including a look at deck condition, hardware fit, and how your parts work together.</p>
+        </article>
+        <article class="service-item">
+          <span class="service-number">04</span>
+          <h3>Deck assessment</h3>
+          <p>Inspection for cracks, delamination, and worn edges. We’ll explain what appears repairable and when a replacement deck may make more sense.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section process-section" id="process" aria-labelledby="process-title">
+    <div class="section-inner process-layout">
+      <figure class="process-image-wrap">
+        <img class="process-image" src="https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Skateboarder riding on a paved surface">
+        <figcaption class="image-caption">Look closely. Make a plan.</figcaption>
+      </figure>
+      <div class="process-copy">
+        <p class="section-kicker">A simple place to start</p>
+        <h2 class="section-title" id="process-title">Bring the board. Bring the story.</h2>
+        <p class="process-description">A clear description helps us understand the problem. Tell us what feels different, which part is affected, and whether you’ve noticed any damage. If you can, include a photo of the area you’re concerned about.</p>
+        <ol class="process-steps">
+          <li>Tell us what’s going on</li>
+          <li>We’ll discuss what to inspect</li>
+          <li>Review repair options before proceeding</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="detail-section" aria-label="Skateboard detail">
+    <div class="detail-layout">
+      <img class="detail-image" src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Skateboarder and skateboard outdoors">
+      <div class="detail-note">
+        <blockquote>“A good setup feels like yours.”</blockquote>
+        <p>Repairs are a chance to understand your board, not just swap a part. Ask about a fix and get a practical explanation of the next step.</p>
+      </div>
+    </div>
+  </section>
+```

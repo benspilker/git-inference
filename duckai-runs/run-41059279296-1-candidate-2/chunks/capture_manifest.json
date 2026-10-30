@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=06fb1ebc-15db-4849-bb3b-533aa86d7705",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T13:00:13.926609+00:00",
+      "characters": 5990,
+      "sha256": "6958f93fea555d397eb2c6536d876e33055a39205740041710a7685b70939fee"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T13:00:31.238515+00:00",
+      "characters": 5353,
+      "sha256": "67a898b16916f049a6fae98ef39970821d710882eeb0291dd9370f57e9e7e1a8"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T13:00:42.092853+00:00",
+      "characters": 2407,
+      "sha256": "5bf2897c0acd8017e8881e0997e0943fcab5ae70cdcc87e478242ea7736eb6ca"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T13:01:12.031869+00:00",
+      "characters": 4311,
+      "sha256": "1c092f8dddefbc1b5d444971373abd2a132f153c76b8f01ec1dbd0f6b85f4fd6"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T13:01:26.214280+00:00",
+      "characters": 3771,
+      "sha256": "c6bbd93405b1189c000263671ce0472ef9b27da36880d70c97354feede58d8ef"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T13:01:38.102897+00:00",
+      "characters": 2117,
+      "sha256": "7eda1ee5970964168533904e7e1d94534034bbe6578eae291003cdb4081997af"
+    }
+  ]
+}

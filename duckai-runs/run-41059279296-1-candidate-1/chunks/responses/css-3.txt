@@ -1,0 +1,132 @@
+CSS PART 3 OF 3
+```css
+/* CSS PART 3 OF 3 */
+.site-footer {
+  padding: 3.5rem 0 1.5rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+
+.footer-inner {
+  width: min(100% - (var(--page-gutter) * 2), var(--container-width));
+  margin-inline: auto;
+}
+
+
+.footer-main {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1.2fr) minmax(10rem, 0.7fr) minmax(12rem, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  padding-bottom: var(--space-5);
+}
+
+
+.footer-brand .brand {
+  margin-bottom: 1rem;
+}
+
+
+.footer-brand p,
+.footer-location p {
+  max-width: 19rem;
+  margin: 0;
+  color: var(--color-fog);
+  font-size: 0.9rem;
+}
+
+
+.footer-heading {
+  margin: 0 0 0.9rem;
+  color: var(--color-orange);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+
+.footer-links {
+  display: grid;
+  justify-items: start;
+  gap: 0.55rem;
+}
+
+
+.footer-links a,
+.footer-location a {
+  color: var(--color-paper);
+  font-size: 0.9rem;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+
+.footer-links a:hover,
+.footer-location a:hover {
+  color: var(--color-orange);
+}
+
+
+.footer-location p + p {
+  margin-top: 0.5rem;
+}
+
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(243 240 232 / 25%);
+  color: var(--color-fog);
+  font-size: 0.72rem;
+}
+
+
+.footer-bottom p {
+  margin: 0;
+}
+
+
+@media (max-width: 720px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4) var(--space-3);
+  }
+
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+  }
+
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .hero-actions .button {
+    width: 100%;
+  }
+}
+```

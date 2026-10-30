@@ -1,0 +1,325 @@
+/* CSS PART 3 OF 3 */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.75fr);
+  gap: clamp(2.5rem, 8vw, 8rem);
+  align-items: start;
+  background: var(--color-orange);
+}
+
+
+.contact-copy .eyebrow {
+  color: rgba(23, 25, 23, 0.72);
+}
+
+
+.contact-copy h2 {
+  max-width: 9ch;
+}
+
+
+.contact-copy p {
+  max-width: 31rem;
+  margin: 1.5rem 0 0;
+}
+
+
+.contact-panel {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid rgba(23, 25, 23, 0.38);
+  background: var(--color-paper);
+}
+
+
+.contact-panel h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+
+.contact-panel p {
+  margin: 0.85rem 0 1.5rem;
+  color: var(--color-muted);
+}
+
+
+.contact-panel .button {
+  width: 100%;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+
+.contact-panel .button:hover {
+  background: var(--color-orange);
+  color: var(--color-ink);
+}
+
+
+.site-footer {
+  padding: 3rem 0 1.5rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: start;
+  padding-bottom: 2.5rem;
+}
+
+
+.footer-brand .brand {
+  margin-bottom: 1rem;
+}
+
+
+.footer-brand p {
+  max-width: 20rem;
+  margin: 0;
+  color: rgba(243, 240, 233, 0.68);
+  font-size: 0.9rem;
+}
+
+
+.footer-group h2 {
+  margin: 0 0 0.9rem;
+  color: var(--color-orange);
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+
+.footer-links {
+  display: grid;
+  gap: 0.55rem;
+}
+
+
+.footer-links a {
+  width: fit-content;
+  color: rgba(243, 240, 233, 0.84);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+
+.footer-links a:hover {
+  color: var(--color-orange);
+}
+
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(243, 240, 233, 0.22);
+  color: rgba(243, 240, 233, 0.58);
+  font-size: 0.74rem;
+}
+
+
+@media (max-width: 760px) {
+  :root {
+    --gutter: 1.25rem;
+  }
+
+
+  .header-inner {
+    min-height: 4.75rem;
+  }
+
+
+  .desktop-nav,
+  .header-cta {
+    display: none;
+  }
+
+
+  .menu-toggle {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    align-content: center;
+    justify-items: center;
+    gap: 0.32rem;
+    padding: 0.5rem;
+    border: 1px solid rgba(243, 240, 233, 0.6);
+    background: transparent;
+    color: var(--color-paper);
+    cursor: pointer;
+  }
+
+
+  .menu-toggle span {
+    display: block;
+    width: 1.15rem;
+    height: 2px;
+    background: currentColor;
+  }
+
+
+  .mobile-nav {
+    display: none;
+    padding: 0.5rem var(--gutter) 1rem;
+    border-bottom: 1px solid rgba(243, 240, 233, 0.3);
+    background: var(--color-ink);
+  }
+
+
+  .mobile-nav.is-open {
+    display: grid;
+    gap: 0;
+  }
+
+
+  .mobile-nav a {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(243, 240, 233, 0.16);
+    color: var(--color-paper);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+
+  .hero {
+    min-height: 43rem;
+    min-height: 92svh;
+  }
+
+
+  .hero-image {
+    object-position: 58% center;
+  }
+
+
+  .hero::after {
+    background: linear-gradient(
+      0deg,
+      rgba(13, 16, 15, 0.8) 0%,
+      rgba(13, 16, 15, 0.38) 65%,
+      rgba(13, 16, 15, 0.16) 100%
+    );
+  }
+
+
+  .hero-content {
+    padding-top: 8rem;
+    padding-bottom: 4.25rem;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(4.1rem, 19vw, 7rem);
+  }
+
+
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+
+  .service-row {
+    grid-template-columns: 2.25rem 1fr;
+    gap: 0.5rem 1rem;
+  }
+
+
+  .service-row p {
+    grid-column: 2;
+  }
+
+
+  .story {
+    grid-template-columns: 1fr;
+  }
+
+
+  .story-image-wrap {
+    min-height: 21rem;
+  }
+
+
+  .story-copy {
+    padding: 3rem var(--gutter) 3.5rem;
+  }
+
+
+  .repair-detail {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+
+  .contact {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+
+@media (max-width: 430px) {
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+
+  .button {
+    width: 100%;
+  }
+
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

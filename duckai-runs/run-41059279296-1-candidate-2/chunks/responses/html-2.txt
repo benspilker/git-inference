@@ -1,0 +1,85 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section repair-section" id="process" aria-labelledby="process-title">
+      <div class="container repair-grid">
+        <div class="repair-copy">
+          <p class="eyebrow">A straightforward check-in</p>
+          <h2 class="section-heading" id="process-title">First, we find the fix.</h2>
+          <p>Describe what is happening and, if you can, include a clear photo of the board or the part that needs attention. We’ll start with what you’ve noticed and help narrow down the next step.</p>
+          <ol class="repair-steps">
+            <li><span>01</span><strong>Tell us what feels wrong or looks damaged.</strong></li>
+            <li><span>02</span><strong>Share a photo if it helps show the issue.</strong></li>
+            <li><span>03</span><strong>Get a reply about possible repair options.</strong></li>
+          </ol>
+        </div>
+
+
+        <figure class="repair-photo-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+            alt="Skateboarder standing with a skateboard outdoors"
+            loading="lazy"
+          >
+          <figcaption>Take a closer look at what your setup needs.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+
+    <section class="section gallery-section" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="gallery-heading">
+          <div>
+            <p class="eyebrow">Boards, parts, pavement</p>
+            <h2 class="section-heading" id="gallery-title">Made for the ride.</h2>
+          </div>
+          <p>Skateboarding is hard on gear. Regular checks can help catch loose, worn, or damaged parts before the next session.</p>
+        </div>
+
+
+        <div class="image-strip">
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+              alt="Skateboarder riding on pavement"
+              loading="lazy"
+            >
+            <figcaption>Keep your setup ready to roll.</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&amp;fit=crop&amp;w=900&amp;q=85"
+              alt="Skateboard beside a rider outdoors"
+              loading="lazy"
+            >
+            <figcaption>Check the board, not just the grip.</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?auto=format&amp;fit=crop&amp;w=1100&amp;q=85"
+              alt="Skateboard on a concrete surface"
+              loading="lazy"
+            >
+            <figcaption>Wear and damage are easier to spot up close.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="inquiry-section" id="contact" aria-labelledby="contact-title">
+      <div class="container inquiry-grid">
+        <div>
+          <p class="eyebrow">Have a board question?</p>
+          <h2 class="section-heading" id="contact-title">Let’s talk repairs.</h2>
+          <p class="inquiry-copy">Send a note describing the issue and the parts involved. This concept page has no live contact details, so it doesn’t collect or send inquiries.</p>
+        </div>
+        <div class="inquiry-aside">
+          <p>Include what happened, what you’ve already checked, and a photo if it helps explain the repair.</p>
+          <a class="button" href="mailto:?subject=Skateboard%20repair%20question&amp;body=Describe%20the%20issue%20with%20your%20board%20here.">Prepare an inquiry email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+```

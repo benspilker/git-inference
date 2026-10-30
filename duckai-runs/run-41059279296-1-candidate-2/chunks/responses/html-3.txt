@@ -1,0 +1,68 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#home" aria-label="Fogline Skate Repair home">
+            <span class="brand-mark" aria-hidden="true">F</span>
+            <span class="brand-name">Fogline<br>Skate Repair</span>
+          </a>
+          <p>An independent skateboard repair shop concept in San Francisco, California.</p>
+        </div>
+
+
+        <nav aria-label="Footer links">
+          <p class="footer-title">Explore</p>
+          <div class="footer-links">
+            <a href="#services">Repair services</a>
+            <a href="#process">How it works</a>
+            <a href="#contact">Ask about a repair</a>
+          </div>
+        </nav>
+
+
+        <div class="footer-location">
+          <p class="footer-title">Location</p>
+          <p>San Francisco, California</p>
+          <p>This concept page does not list a street address or phone number.</p>
+        </div>
+      </div>
+
+
+      <div class="footer-bottom">
+        <p>© <span id="copyright-year">2026</span> Fogline Skate Repair</p>
+        <p>Fictional business concept.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const siteNav = document.querySelector("#site-nav");
+
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      siteNav.classList.toggle("is-open", !isOpen);
+    });
+
+
+    siteNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        siteNav.classList.remove("is-open");
+      }
+    });
+
+
+    document.querySelector("#copyright-year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```

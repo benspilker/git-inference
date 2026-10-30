@@ -1,0 +1,384 @@
+/* CSS PART 1 OF 3 */
+:root {
+  --color-paper: #f4f0e8;
+  --color-fog: #d9d9d3;
+  --color-ink: #171816;
+  --color-muted: #666761;
+  --color-orange: #ef5b2a;
+  --color-white: #fffdf8;
+
+
+  --font-display: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-body: "Arial", "Helvetica Neue", sans-serif;
+
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 5rem;
+  --space-7: 7rem;
+
+
+  --container: 78rem;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button {
+  font: inherit;
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 4px;
+}
+
+
+.container {
+  width: min(100% - var(--gutter) * 2, var(--container));
+  margin-inline: auto;
+}
+
+
+.site-header {
+  position: absolute;
+  z-index: 5;
+  inset: 0 0 auto;
+  color: var(--color-white);
+}
+
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - var(--gutter) * 2, var(--container));
+  min-height: 5.5rem;
+  margin-inline: auto;
+  border-bottom: 1px solid rgb(255 253 248 / 35%);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+
+.brand-mark {
+  display: grid;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  place-items: center;
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1;
+  transform: rotate(-5deg);
+}
+
+
+.brand-name {
+  max-width: 9rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+}
+
+
+.site-nav a {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--color-orange);
+}
+
+
+.menu-toggle {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.6rem;
+  border: 1px solid rgb(255 253 248 / 55%);
+  background: transparent;
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-block: 0.28rem;
+  background: currentColor;
+}
+
+
+.hero {
+  position: relative;
+  display: grid;
+  min-height: min(52rem, 100svh);
+  align-items: end;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.hero-image {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgb(15 17 16 / 78%) 0%,
+    rgb(15 17 16 / 48%) 48%,
+    rgb(15 17 16 / 12%) 100%
+  );
+  content: "";
+}
+
+
+.hero-content {
+  width: min(100% - var(--gutter) * 2, var(--container));
+  margin: 0 auto;
+  padding-block: 10rem clamp(3rem, 8vw, 7rem);
+}
+
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
+  color: var(--color-orange);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+
+.hero h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 12vw, 10.5rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+
+.hero-copy {
+  max-width: 32rem;
+  margin: var(--space-4) 0 0;
+  color: rgb(255 253 248 / 88%);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: var(--space-4);
+}
+
+
+.button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.25rem;
+  border: 2px solid transparent;
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+
+.button:hover {
+  background: var(--color-white);
+}
+
+
+.button--outline {
+  border-color: rgb(255 253 248 / 75%);
+  background: transparent;
+  color: var(--color-white);
+}
+
+
+.button--outline:hover {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+@media (max-width: 700px) {
+  .header-inner {
+    min-height: 4.75rem;
+  }
+
+
+  .menu-toggle {
+    display: block;
+  }
+
+
+  .site-nav {
+    position: absolute;
+    top: calc(100% - 1px);
+    right: var(--gutter);
+    left: var(--gutter);
+    display: none;
+    align-items: stretch;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(255 253 248 / 35%);
+    background: var(--color-ink);
+  }
+
+
+  .site-nav.is-open {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+
+  .site-nav a {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgb(255 253 248 / 16%);
+  }
+
+
+  .site-nav a:last-child {
+    border-bottom: 0;
+  }
+
+
+  .hero {
+    min-height: 43rem;
+    min-height: 92svh;
+  }
+
+
+  .hero-image {
+    object-position: 58% center;
+  }
+
+
+  .hero::after {
+    background: linear-gradient(
+      0deg,
+      rgb(15 17 16 / 78%) 0%,
+      rgb(15 17 16 / 42%) 55%,
+      rgb(15 17 16 / 18%) 100%
+    );
+  }
+
+
+  .hero-content {
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(4.25rem, 19vw, 7rem);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

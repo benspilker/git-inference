@@ -1,0 +1,171 @@
+/* CSS PART 3 OF 3 */
+.inquiry-section {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 9vw, 8rem);
+  background: var(--color-orange);
+  color: var(--color-ink);
+}
+
+
+.inquiry-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.65fr);
+  align-items: end;
+  gap: 3rem;
+}
+
+
+.inquiry-section .eyebrow {
+  color: var(--color-ink);
+}
+
+
+.inquiry-section .section-heading {
+  max-width: 11ch;
+}
+
+
+.inquiry-copy {
+  max-width: 27rem;
+  margin: 1.25rem 0 0;
+}
+
+
+.inquiry-aside {
+  justify-self: end;
+  max-width: 22rem;
+}
+
+
+.inquiry-aside p {
+  margin: 0 0 1.25rem;
+}
+
+
+.inquiry-section .button {
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+
+.inquiry-section .button:hover {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+.site-footer {
+  padding-block: 3rem 1.5rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+
+.footer-main {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) minmax(12rem, 0.7fr) minmax(12rem, 0.7fr);
+  gap: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+
+.footer-brand .brand {
+  margin-bottom: 1rem;
+}
+
+
+.footer-brand p,
+.footer-location p {
+  max-width: 20rem;
+  margin: 0;
+  color: rgb(244 240 232 / 66%);
+  font-size: 0.9rem;
+}
+
+
+.footer-title {
+  margin: 0 0 0.9rem;
+  color: var(--color-orange);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+
+.footer-links {
+  display: grid;
+  justify-items: start;
+  gap: 0.55rem;
+}
+
+
+.footer-links a {
+  font-size: 0.9rem;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+
+.footer-links a:hover {
+  color: var(--color-orange);
+}
+
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgb(244 240 232 / 24%);
+  color: rgb(244 240 232 / 58%);
+  font-size: 0.75rem;
+}
+
+
+.footer-bottom p {
+  margin: 0;
+}
+
+
+@media (max-width: 760px) {
+  .inquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+
+  .inquiry-aside {
+    justify-self: start;
+  }
+
+
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}

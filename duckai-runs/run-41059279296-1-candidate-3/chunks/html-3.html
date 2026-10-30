@@ -1,0 +1,66 @@
+<!-- HTML PART 3 OF 3 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="Fogline Skate Repair home">
+            <span class="brand-mark" aria-hidden="true">F</span>
+            <span class="brand-name">Fogline<br>Skate Repair</span>
+          </a>
+          <p>An independent skateboard repair shop concept in San Francisco, California.</p>
+        </div>
+
+
+        <nav class="footer-group" aria-label="Repair links">
+          <h2>On this page</h2>
+          <div class="footer-links">
+            <a href="#services">Repair services</a>
+            <a href="#approach">Our approach</a>
+            <a href="#contact">Ask about a repair</a>
+          </div>
+        </nav>
+
+
+        <div class="footer-group">
+          <h2>Location</h2>
+          <div class="footer-links">
+            <span>San Francisco, California</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="footer-bottom">
+        <span>© 2026 Fogline Skate Repair</span>
+        <a href="#top">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const mobileNavigation = document.querySelector("#mobile-navigation");
+
+
+    menuButton.addEventListener("click", () => {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isExpanded));
+      menuButton.setAttribute(
+        "aria-label",
+        isExpanded ? "Open navigation menu" : "Close navigation menu"
+      );
+      mobileNavigation.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    mobileNavigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        mobileNavigation.classList.remove("is-open");
+      });
+    });
+  </script>
+</body>
+</html>

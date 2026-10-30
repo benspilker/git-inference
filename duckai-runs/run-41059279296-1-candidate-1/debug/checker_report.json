@@ -1,0 +1,82 @@
+{
+  "session_folder": "run-41059279296-1-candidate-1",
+  "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41059279296-1-candidate-1",
+  "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41059279296-1-candidate-1/files/index.html",
+  "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41059279296-1-candidate-1/files/styles.css",
+  "score": 86,
+  "checks_passed": 18,
+  "checks_total": 21,
+  "checks": {
+    "html_file_present": true,
+    "no_visible_template_credit": true,
+    "accessible_mobile_hamburger": true,
+    "css_file_present": true,
+    "document_has_main": true,
+    "document_has_h1": true,
+    "document_closed": true,
+    "styles_css_linked": true,
+    "css_braces_balanced": true,
+    "footer_has_substance": true,
+    "section_about": false,
+    "section_contact": true,
+    "section_footer": true,
+    "section_hero": true,
+    "section_services": true,
+    "hero_has_image": true,
+    "hero_images_load_ok": true,
+    "all_images_load_ok": true,
+    "image_alt_text_present": true,
+    "image_coverage": false,
+    "visual_design_review_passed": false
+  },
+  "required_sections": [
+    "about",
+    "contact",
+    "footer",
+    "hero",
+    "services"
+  ],
+  "missing_sections": [
+    "about",
+    "at least 3 distinct image assets",
+    "screenshot-backed desktop/mobile visual design review"
+  ],
+  "hero_image_present": true,
+  "hero_images_load_ok": true,
+  "hero_image_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2200&q=85"
+  ],
+  "image_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=1200&q=85"
+  ],
+  "failed_image_urls": [],
+  "minimum_image_count": 3,
+  "visual_relevance_review_required": true,
+  "visual_review_status": "pending",
+  "visual_review_missing_urls": [
+    "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=1200&q=85"
+  ],
+  "visual_review_issues": [],
+  "visual_design_review_status": "pending",
+  "visual_design_review_missing": [
+    "debug/visual_review.json is missing"
+  ],
+  "visual_design_review_issues": [],
+  "source_image_urls_available": [],
+  "source_image_urls_used": [],
+  "parse_diagnostic": null,
+  "html_bytes": 10406,
+  "css_bytes": 15692,
+  "footer_text": "F Fogline Skate Repair Independent board care for skaters in San Francisco. On this page Repair services How it works Ask about a repair Location San Francisco, California Fictional shop concept. No public address or contact number. © 2026 Fogline Skate Repair Made for the ride ahead.",
+  "footer_links": [
+    "#home",
+    "#services",
+    "#process",
+    "#contact"
+  ],
+  "complete": false,
+  "final_success": false,
+  "checker_exit_code": 2
+}
