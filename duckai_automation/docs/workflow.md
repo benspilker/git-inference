@@ -4,15 +4,15 @@ This guide describes the current GitHub Actions flow for the `duckai` branch. It
 
 ## Run inputs
 
-The **Duck.ai Website Automation** workflow starts either when `website_request.txt`, `design_brief.txt`, or `source_url.txt` changes on `duckai`, or when a user manually dispatches the workflow on that branch. A manual dispatch accepts the website request, design brief, and optional source URL. For a push-triggered run, those values come from the files in `duckai_automation/`.
+The **Duck.ai Website Automation** workflow starts on a push to `duckai` only when `duckai_automation/source_url.txt` changes, or when a user manually dispatches it on that branch. Changes to `website_request.txt` and `design_brief.txt` alone do not start a run. A manual dispatch accepts the website request, design brief, and optional source URL; a supplied URL overrides `source_url.txt`, while a blank URL falls back to that file. For a push-triggered run, the runner reads all three values from the checked-in files.
 
-The website request describes the intended site and conversion goal. The design brief supplies compact visual and layout direction. It should not duplicate a source-site fact audit. When there is a source URL, Duck.ai performs that audit itself in the candidate's chat.
+The checked-in website request and design brief are reusable instructions, not site-specific copy. The request asks Duck.ai to identify the organization from the source, assess its pages, use supported facts, and reuse suitable brand assets. The brief asks it to derive the audience, conversion goal, and visual direction from that assessment. Replace the URL in `source_url.txt` to choose a different target; this file contains a URL, not a company name. When a source URL is present, Duck.ai performs the audit itself in the candidate's chat.
 
 ## End-to-end flow
 
 ```mermaid
 flowchart TD
-    A[Input files pushed or workflow manually dispatched on duckai] --> B[GitHub Actions: Ubuntu and pinned Playwright Python container]
+    A[Source URL changed and pushed, or workflow manually dispatched on duckai] --> B[GitHub Actions: Ubuntu and pinned Playwright Python container]
     B --> C[Start headed Chromium under Xvfb; create fresh logged-out Duck.ai chat]
     C --> D{Source URL provided?}
     D -- Yes --> E[Enable Duck.ai Web Search and request source audit]

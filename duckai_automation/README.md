@@ -4,11 +4,13 @@ This branch runs a multi-turn Duck.ai website-generation workflow from GitHub Ac
 
 ## Run it
 
-On branch `duckai`, open **Actions → Duck.ai Website Automation → Run workflow** and provide a website request, a short design brief, and an optional source URL. Alternatively, edit one or more of these files and push to `duckai`:
+On branch `duckai`, change `source_url.txt` to the public HTTP or HTTPS site you want redesigned and push that change. That file is the only input-file push trigger; changes to the reusable request or design brief do not start a generation run. The current URL in the file is an example target and can be replaced with another publicly accessible site that Duck.ai can inspect.
 
-- [`website_request.txt`](website_request.txt): site, audience, content, and conversion requirements.
-- [`design_brief.txt`](design_brief.txt): visual direction and implementation priorities.
-- [`source_url.txt`](source_url.txt): optional public site for the in-chat source audit.
+You can also open **Actions → Duck.ai Website Automation → Run workflow** and provide a website request, design brief, and source URL manually. The source URL input overrides the checked-in URL; if left blank, the runner uses `source_url.txt`. The checked-in request and brief are generic defaults for push-triggered runs.
+
+- [`website_request.txt`](website_request.txt): reusable content, sourcing, asset, and output requirements.
+- [`design_brief.txt`](design_brief.txt): reusable guidance for deriving a brand-specific visual direction from the source.
+- [`source_url.txt`](source_url.txt): the per-run public site URL for the in-chat source audit.
 
 The workflow uses Ubuntu, a pinned Playwright Python container, and headed Chromium under Xvfb for Duck.ai. It asks for CSS parts 1–3, sends `acknowledged` as a separate user turn, and then asks for HTML parts 1–3 in the same chat. It verifies and assembles those captured parts, creates an inlined-CSS version, and renders the result for browser QA. The documented end-to-end sequence and output layout are in [`docs/workflow.md`](docs/workflow.md).
 
