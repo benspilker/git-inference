@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 675, in <module>
+    run()
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 603, in run
+    validate_source_assessment(assessment, source_url)
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 383, in validate_source_assessment
+    fail("The proposed HTML5 UP design reference did not provide the expected CC BY 3.0 license URL.")
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 46, in fail
+    raise RuntimeError(message)
+RuntimeError: The proposed HTML5 UP design reference did not provide the expected CC BY 3.0 license URL.

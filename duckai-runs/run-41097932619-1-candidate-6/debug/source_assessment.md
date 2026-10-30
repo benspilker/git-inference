@@ -1,0 +1,94 @@
+SOURCE SITE AUDIT
+
+json
+```json
+{
+  "access_status": "accessed",
+  "pages_reviewed": [
+    {
+      "url": "https://www.paulstrailer.com/",
+      "page_title": "Trailer Repairs | Indianapolis, Indiana | Paul's Trailer Service Inc.",
+      "visible_content": "Introduces a family-operated trailer service business, its history, repair and parts offerings, operating hours, and contact details."
+    },
+    {
+      "url": "https://www.paulstrailer.com/services",
+      "page_title": "Trailer Alignment | Indianapolis, Indiana | Paul's Trailer Service ...",
+      "visible_content": "Lists repair services, trailer types, labor rates, minimum billing, and estimate terms."
+    },
+    {
+      "url": "https://www.paulstrailer.com/parts",
+      "page_title": "Trailer Parts | Indianapolis, Indiana | Paul's Trailer Service Inc.",
+      "visible_content": "Describes OEM and aftermarket parts, installation, availability, and a long list of manufacturer/brand sections."
+    },
+    {
+      "url": "https://www.paulstrailer.com/storage-leasing",
+      "page_title": "Trailer Storage and Leasing | Indianapolis, Indiana | Paul's Trailer ...",
+      "visible_content": "Describes short- and long-term parking for trailers, tractors, and other equipment, with posted rates and access hours."
+    },
+    {
+      "url": "https://www.paulstrailer.com/find-us",
+      "page_title": "Trailer Inspections | Indianapolis, Indiana | Paul's Trailer Service ...",
+      "visible_content": "Provides the business address, phone and fax numbers, email, and map/directions links."
+    }
+  ],
+  "business_facts": [
+    "The business identifies itself as Paul's Trailer Service, Inc., founded in 1978 and serving the greater Indianapolis area.",
+    "The site lists trailer repairs, inspections, parts, and equipment parking among its offerings.",
+    "Listed repair work includes brakes, suspension, electrical systems, welding, structural repairs, ABS diagnostics, and trailer alignment.",
+    "The site says it services a broad range of trailer types, while excluding reefer units and tires from service.",
+    "The parts page describes OEM and aftermarket parts, with some items available in stock or within one to two days.",
+    "The listed address is 1245 Harding Court, Indianapolis, IN 46217. The site lists 317-781-9212 and 800-792-3451 as phone numbers.",
+    "The homepage lists weekday hours as 8 AM to midnight."
+  ],
+  "audience_and_goals": {
+    "evidence": [
+      "The site addresses trailer repair, parts, inspections, and parking, and lists both local and toll-free phone numbers.",
+      "Service and parts pages include operational terms, rates, and availability information."
+    ],
+    "inference": [
+      "Likely audiences include commercial fleet operators, owner-operators, and other trailer owners needing repair, parts, or parking.",
+      "The primary conversion path appears to be calling the business; email and map/directions links provide additional contact routes."
+    ]
+  },
+  "brand_and_visual_observations": [
+    "The visible site is information-dense, with long text and lists, separate service and parts pages, and repeated contact details.",
+    "The pages include payment-method graphics and manufacturer/parts-brand imagery; image descriptions in the retrieved content are limited.",
+    "The site presents itself as an established local, family-operated service business."
+  ],
+  "content_structure": [
+    "Business identity, history, location, and hours",
+    "Prominent phone and email contact information",
+    "Repair services and trailer types served",
+    "Labor rates, minimum billing, and estimate conditions",
+    "Parts availability and represented brands",
+    "Parking rates, access schedule, and restrictions",
+    "Address, map, and directions"
+  ],
+  "unknown_or_verify": [
+    "Confirm current operating hours, rates, estimate fee and refund terms, parking prices, and access restrictions before publishing.",
+    "The homepage says reefer units and tires are not serviced, while the services page lists refrigeration among trailer types; clarify the distinction.",
+    "Confirm which parts brands and stock/lead-time claims remain current.",
+    "Confirm contact details and whether email or another inquiry method should be promoted.",
+    "The retrieved material does not establish whether the site has a separate about page or a dedicated contact form."
+  ],
+  "design_reference": {
+    "name": "Striped",
+    "url": "https://html5up.net/uploads/demos/striped/",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "Clear separation between primary content and supporting information",
+      "Readable treatment of lists and tables",
+      "Responsive layout with an adaptable sidebar/content structure"
+    ]
+  },
+  "sources": [
+    "https://www.paulstrailer.com/",
+    "https://www.paulstrailer.com/services",
+    "https://www.paulstrailer.com/parts",
+    "https://www.paulstrailer.com/storage-leasing",
+    "https://www.paulstrailer.com/find-us",
+    "https://html5up.net/uploads/demos/striped/",
+    "https://html5up.net/license"
+  ]
+}
+```
