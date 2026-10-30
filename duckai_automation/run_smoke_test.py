@@ -126,14 +126,26 @@ def send_and_capture(page, turn: dict) -> str:
     before_count = count_marker(page, marker)
     composer = wait_for_guest_chat(page)
     composer.fill(prompt, timeout=15000)
-    send = page.get_by_role("button", name=re.compile(r"^send$", re.IGNORECASE)).last
-    if send.count() == 0:
-        send = page.locator("button[data-testid*='send']").last
-    try:
-        send.wait_for(state="visible", timeout=10000)
-        send.click(timeout=10000)
-    except PlaywrightTimeoutError:
-        fail("Duck.ai Send control was not available.")
+    send_candidates = (
+        page.get_by_role("button", name=re.compile(r"send", re.IGNORECASE)),
+        page.locator("button[aria-label*='send' i]"),
+        page.locator("button[data-testid*='send' i]"),
+        main_area(page).locator("button[type='submit']"),
+    )
+    sent = False
+    for candidate in send_candidates:
+        try:
+            if candidate.count() and candidate.last.is_visible() and candidate.last.is_enabled():
+                candidate.last.click(timeout=5000)
+                sent = True
+                break
+        except PlaywrightTimeoutError:
+            continue
+    if not sent:
+        try:
+            composer.press("Enter", timeout=5000)
+        except PlaywrightTimeoutError:
+            fail("Duck.ai composer was found, but neither a Send control nor Enter could submit the prompt.")
 
     deadline = time.monotonic() + 180
     previous = ""
