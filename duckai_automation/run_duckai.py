@@ -235,6 +235,27 @@ def enable_web_search(page) -> None:
     if not (checked or pressed):
         search_option.click(timeout=5000)
     page.wait_for_timeout(300)
+        if not search_option.count() or not search_option.is_visible():
+            # Selecting a tool closes the popover in the current Duck.ai UI.
+            tools_button.click(timeout=5000)
+            search_option = page.get_by_role(
+                "menuitemradio", name=re.compile(r"web\s*search", re.IGNORECASE)
+            ).last
+            if not search_option.count():
+                search_option = page.get_by_role(
+                    "menuitemcheckbox", name=re.compile(r"web\s*search", re.IGNORECASE)
+                ).last
+            if not search_option.count():
+                search_option = page.get_by_role(
+                    "checkbox", name=re.compile(r"web\s*search", re.IGNORECASE)
+                ).last
+            if not search_option.count():
+                search_option = page.get_by_role(
+                    "switch", name=re.compile(r"web\s*search", re.IGNORECASE)
+                ).last
+            if not search_option.count() or not search_option.is_visible():
+                fail("Duck.ai closed its Tools menu after selection and did not reopen Web Search.")
+            page.wait_for_timeout(200)
     checked = (search_option.get_attribute("aria-checked") or "").lower() == "true"
     pressed = (search_option.get_attribute("aria-pressed") or "").lower() == "true"
     if not (checked or pressed):
