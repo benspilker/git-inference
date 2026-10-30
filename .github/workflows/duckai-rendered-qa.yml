@@ -1,0 +1,114 @@
+name: Duck.ai Rendered Website QA
+
+on:
+  push:
+    branches:
+      - duckai
+    paths:
+      - "duckai_automation/scripts/browser_qa.py"
+      - "duckai_automation/scripts/site_quality.py"
+      - "duckai_automation/scripts/recheck_batch.py"
+      - ".github/workflows/duckai-rendered-qa.yml"
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Saved candidate batch run ID; blank selects the newest batch"
+        required: false
+        type: string
+      attempt:
+        description: "GitHub Actions run attempt number"
+        required: false
+        default: "1"
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: duckai-rendered-qa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.58.0-noble
+      options: --user root --shm-size=1gb
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.workspace }}
+
+    steps:
+      - name: Require the duckai branch
+        if: github.ref_name != 'duckai'
+        run: |
+          echo "Run this workflow on the duckai branch; selected branch was '${{ github.ref_name }}'."
+          exit 1
+
+      - name: Check out selected branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Playwright dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install -r .github/workflows/requirements-playwright.txt
+
+      - name: Recheck saved candidate batch
+        id: qa
+        env:
+          TARGET_RUN_ID: ${{ inputs.run_id }}
+          TARGET_ATTEMPT: ${{ inputs.attempt || '1' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$TARGET_RUN_ID" ]]; then
+            python duckai_automation/scripts/recheck_batch.py --run-id "$TARGET_RUN_ID" --attempt "$TARGET_ATTEMPT"
+          else
+            python duckai_automation/scripts/recheck_batch.py
+          fi
+
+      - name: Commit refreshed QA evidence
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+          TARGET_RUN_ID: ${{ steps.qa.outputs.run_id }}
+          TARGET_ATTEMPT: ${{ steps.qa.outputs.attempt }}
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for run_dir in duckai-runs/run-${TARGET_RUN_ID}-${TARGET_ATTEMPT}-candidate-*; do
+            [[ -d "$run_dir" ]] || continue
+            git add -- "$run_dir/debug" "$run_dir/run_notes.json"
+          done
+          if ! git diff --cached --quiet; then
+            git commit -m "duckai: refresh rendered QA for run ${TARGET_RUN_ID} [skip ci]"
+            for push_attempt in 1 2 3; do
+              if git push origin "HEAD:refs/heads/${TARGET_BRANCH}"; then
+                echo "Updated QA evidence for run ${TARGET_RUN_ID}."
+                exit 0
+              fi
+              git fetch origin "$TARGET_BRANCH"
+              git rebase "origin/$TARGET_BRANCH"
+              sleep 2
+            done
+            echo "Could not push refreshed QA evidence after three attempts."
+            exit 1
+          fi
+          echo "QA evidence did not change."
+
+      - name: Require three automated successes
+        env:
+          SUCCESSFUL_COUNT: ${{ steps.qa.outputs.successful_count }}
+          TARGET_RUN_ID: ${{ steps.qa.outputs.run_id }}
+        run: |
+          set -euo pipefail
+          if [[ "$SUCCESSFUL_COUNT" -lt 3 ]]; then
+            echo "Run ${TARGET_RUN_ID} has only ${SUCCESSFUL_COUNT} automated successes; three are required."
+            exit 1
+          fi
+          echo "Three candidates passed structural checks and Playwright QA. Human visual and image-relevance review remains pending."

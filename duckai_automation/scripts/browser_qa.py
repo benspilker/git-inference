@@ -134,7 +134,8 @@ VIEWPORT_CHECKS_JS = r"""() => {
 MENU_BUTTON_JS = r"""button => {
   const controls = button.getAttribute('aria-controls');
   const nav = controls && document.getElementById(controls);
-  return Boolean(controls && nav && button.getAttribute('aria-expanded') !== null && button.querySelectorAll('span').length === 3);
+  const bars = Array.from(button.querySelectorAll('span')).filter(span => !span.querySelector('span'));
+  return Boolean(controls && nav && button.getAttribute('aria-expanded') !== null && bars.length === 3);
 }"""
 
 

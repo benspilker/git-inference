@@ -8,7 +8,6 @@ on:
       - "duckai_automation/website_request.txt"
       - "duckai_automation/design_brief.txt"
       - "duckai_automation/run_duckai.py"
-      - "duckai_automation/scripts/**"
       - "duckai_automation/SKILL.md"
       - "duckai_automation/README.md"
       - ".github/workflows/duckai-automation.yml"

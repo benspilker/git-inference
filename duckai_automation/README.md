@@ -16,6 +16,8 @@ All attempted run folders are committed, including candidates that failed automa
 
 The Playwright QA report checks that required sections render visibly at desktop and mobile sizes, the hero spans each viewport, a CTA fits on the first screen, the mobile menu opens and closes by click and keyboard, mobile content does not overflow horizontally, and browser fonts and images load. These are objective checks and use no AI inference. They do not assess whether the imagery is relevant or the design is attractive.
 
+The separate `Duck.ai Rendered Website QA` workflow can recheck the newest saved candidate batch after browser or checker changes, without starting new Duck.ai chats. It refreshes each candidate's browser report, screenshots, checker report, and `run_notes.json`; a manual run can target a specific run ID.
+
 The screenshot and image relevance review remains a human gate. `automated_success` in `run_notes.json` means the structural and browser checks passed; it does not approve visual design or image relevance. The action does not manufacture a passing visual review: `run_notes.json` will show visual review as pending until a reviewer inspects the exact rendered screenshots and image subjects.
 
 If Duck.ai blocks guest access, asks for sign-in, or displays a human-verification or usage gate, the run stops without attempting to bypass it. Branch protection or repository rules may also prevent the workflow token from pushing; in that case, allow GitHub Actions to write to the branch or use a pull-request based output flow.
