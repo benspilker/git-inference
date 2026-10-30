@@ -26,4 +26,4 @@ The separate **Duck.ai Multi-turn Smoke Test** workflow sends two related, harml
 
 ## Runtime
 
-The workflow uses the same Playwright Python container/version as the repo's existing inference workflow (`mcr.microsoft.com/playwright/python:v1.58.0-noble` and `playwright==1.58.0`). Chromium runs headless; Xvfb is not needed for the normal run.
+The workflows use the same Playwright Python container/version as the repo's existing inference workflow (`mcr.microsoft.com/playwright/python:v1.58.0-noble` and `playwright==1.58.0`). The multi-turn smoke test runs Chromium headed under `xvfb-run`, matching the existing inference workflow's browser setup.

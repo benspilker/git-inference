@@ -6,6 +6,8 @@ on:
       - duckai
     paths:
       - "duckai_automation/smoke_test.json"
+      - "duckai_automation/run_smoke_test.py"
+      - ".github/workflows/duckai-smoke-test.yml"
   workflow_dispatch:
 
 permissions:
@@ -44,7 +46,7 @@ jobs:
         run: pip install -r .github/workflows/requirements-playwright.txt
 
       - name: Capture two turns from one Duck.ai chat
-        run: python duckai_automation/run_smoke_test.py
+        run: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_smoke_test.py
 
       - name: Commit conversation transcript to duckai
         env:

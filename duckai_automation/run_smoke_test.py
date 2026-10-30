@@ -179,7 +179,7 @@ def main() -> None:
     RUN_DIR.mkdir(parents=True, exist_ok=False)
 
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True)
+        browser = playwright.chromium.launch(headless=False)
         context = browser.new_context(viewport={"width": 1440, "height": 900})
         page = context.new_page()
         page.set_default_timeout(15000)
