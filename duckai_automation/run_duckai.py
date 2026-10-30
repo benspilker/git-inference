@@ -152,6 +152,9 @@ def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]
     before_text = main_text(page)
     before_label_count = len(label_pattern.findall(before_text))
     before_blocks = preformatted_blocks(page).count()
+    started_at = time.monotonic()
+    last_heartbeat = 0
+    print(f"Submitting prompt for {label}; existing code blocks: {before_blocks}.", flush=True)
 
     composer.fill(prompt, timeout=15000)
     send_candidates = (
@@ -174,8 +177,9 @@ def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]
             composer.press("Enter", timeout=5000)
         except PlaywrightTimeoutError:
             fail("Duck.ai's composer was found, but neither a Send control nor Enter could submit the prompt.")
+    print(f"Prompt submitted for {label}; waiting for one labeled code block.", flush=True)
 
-    deadline = time.monotonic() + 240
+    deadline = started_at + 240
     last_code = ""
     stable_samples = 0
     while time.monotonic() < deadline:
@@ -183,6 +187,26 @@ def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]
         current_text = main_text(page)
         label_count = len(label_pattern.findall(current_text))
         block_count = blocks.count()
+        elapsed = int(time.monotonic() - started_at)
+        if elapsed - last_heartbeat >= 20:
+            last_heartbeat = elapsed
+            new_block_chars = 0
+            if block_count > before_blocks:
+                try:
+                    new_block_chars = len(blocks.nth(block_count - 1).inner_text())
+                except Exception:
+                    pass
+            stop_button = page.get_by_role("button", name=re.compile(r"stop", re.IGNORECASE)).last
+            try:
+                generation_active = stop_button.count() > 0 and stop_button.is_visible()
+            except Exception:
+                generation_active = False
+            print(
+                f"Waiting for {label}: {elapsed}s elapsed; new labels={label_count - before_label_count}; "
+                f"new code blocks={block_count - before_blocks}; newest block characters={new_block_chars}; "
+                f"generation active={generation_active}.",
+                flush=True,
+            )
         if label_count > before_label_count and block_count == before_blocks + 1:
             code = blocks.nth(block_count - 1).inner_text().strip("\r\n")
             has_marker = bool(re.search(rf"^\s*{re.escape('/* CSS PART ' + str(part) + ' OF 3 */' if kind == 'css' else '<!-- HTML PART ' + str(part) + ' OF 3 -->')}\s*$", code, re.IGNORECASE | re.MULTILINE))
@@ -213,7 +237,19 @@ def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]
         elif block_count > before_blocks + 1:
             fail(f"Duck.ai returned multiple new code blocks for {label}; refusing ambiguous capture.")
         page.wait_for_timeout(1000)
-    fail(f"Timed out waiting for a complete, stable {label} response with exactly one code block.")
+    elapsed = int(time.monotonic() - started_at)
+    newest_block_chars = 0
+    try:
+        current_blocks = preformatted_blocks(page)
+        if current_blocks.count() > before_blocks:
+            newest_block_chars = len(current_blocks.nth(current_blocks.count() - 1).inner_text())
+    except Exception:
+        pass
+    fail(
+        f"Timed out after {elapsed}s waiting for a complete, stable {label} response with exactly one code block; "
+        f"new labels={label_count - before_label_count}, new code blocks={block_count - before_blocks}, "
+        f"newest block characters={newest_block_chars}."
+    )
 
 
 def enable_web_search(page) -> None:

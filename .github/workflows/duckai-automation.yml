@@ -101,7 +101,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r .github/workflows/requirements-playwright.txt
 
-      - name: Generate candidates until three pass automated checks
+      - name: Generate website candidates and run automated checks
         id: generate
         env:
           SOURCE_URL: ${{ matrix.target.source_url }}
@@ -110,6 +110,7 @@ jobs:
           LOCATION: ${{ matrix.target.location }}
           SITE_INDEX: ${{ matrix.target.site_index }}
           RUN_MODE: ${{ inputs.run_mode }}
+          PYTHONUNBUFFERED: "1"
         run: |
           set -euo pipefail
           successful=0
@@ -127,7 +128,7 @@ jobs:
             run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-site-${SITE_INDEX}-candidate-${attempt}"
             action_log="${RUNNER_TEMP}/duckai-site-${SITE_INDEX}-candidate-${attempt}.log"
             set +e
-            CANDIDATE_INDEX="$attempt" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py 2>&1 | tee "$action_log"
+            CANDIDATE_INDEX="$attempt" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python -u duckai_automation/run_duckai.py 2>&1 | tee "$action_log"
             candidate_exit=${PIPESTATUS[0]}
             set -e
             if [[ -d "$run_dir" ]]; then
