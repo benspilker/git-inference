@@ -1,0 +1,328 @@
+{
+  "session_folder": "run-41098588936-1-candidate-6",
+  "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-6",
+  "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-6/files/index.html",
+  "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-6/files/styles.css",
+  "score": 76,
+  "checks_passed": 22,
+  "checks_total": 29,
+  "checks": {
+    "html_file_present": true,
+    "no_visible_template_credit": true,
+    "accessible_mobile_hamburger": true,
+    "css_file_present": true,
+    "document_has_main": true,
+    "document_has_h1": true,
+    "document_closed": true,
+    "styles_css_linked": true,
+    "css_braces_balanced": true,
+    "footer_has_substance": true,
+    "section_contact": true,
+    "section_footer": true,
+    "section_hero": true,
+    "section_hours": false,
+    "section_services": true,
+    "hero_has_image": true,
+    "hero_images_load_ok": false,
+    "all_images_load_ok": false,
+    "image_alt_text_present": true,
+    "image_coverage": true,
+    "visual_design_review_passed": false,
+    "browser_rendered_sections_visible_desktop_and_mobile": false,
+    "browser_hero_spans_viewport_desktop_and_mobile": true,
+    "browser_cta_visible_first_screen_desktop_and_mobile": false,
+    "browser_mobile_menu_clicks_work": true,
+    "browser_mobile_menu_keyboard_works": true,
+    "browser_mobile_has_no_horizontal_overflow": true,
+    "browser_fonts_load_in_browser": true,
+    "browser_images_load_in_browser": false
+  },
+  "automated_success": false,
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "hours",
+    "services"
+  ],
+  "missing_sections": [
+    "hours",
+    "hero image loads",
+    "all image assets load",
+    "screenshot-backed desktop/mobile visual design review",
+    "automated rendered-page browser checks",
+    "required sections visibly render on desktop and mobile",
+    "CTA appears on the first screen at desktop and mobile sizes",
+    "browser images load successfully"
+  ],
+  "hero_image_present": true,
+  "hero_images_load_ok": false,
+  "hero_image_urls": [
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+  ],
+  "image_urls": [
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82",
+    "https://images.unsplash.com/photo-1591768793355-74d04bb6608f?auto=format&fit=crop&w=1300&q=82",
+    "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1200&q=82"
+  ],
+  "failed_image_urls": [
+    "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+  ],
+  "minimum_image_count": 1,
+  "visual_relevance_review_required": true,
+  "visual_review_status": "pending",
+  "visual_review_missing_urls": [
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82",
+    "https://images.unsplash.com/photo-1591768793355-74d04bb6608f?auto=format&fit=crop&w=1300&q=82",
+    "https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&fit=crop&w=1200&q=82"
+  ],
+  "visual_review_issues": [],
+  "visual_design_review_status": "pending",
+  "visual_design_review_missing": [
+    "debug/visual_review.json is missing"
+  ],
+  "visual_design_review_issues": [],
+  "browser_qa_status": "fail",
+  "browser_qa": {
+    "status": "fail",
+    "tested_file": "files/inlined/index.html",
+    "required_sections": [
+      "contact",
+      "footer",
+      "hero",
+      "hours",
+      "services"
+    ],
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "div.contact-actions",
+            "width": 502,
+            "height": 52
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 1440,
+            "height": 204
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section#top.hero",
+            "width": 1440,
+            "height": 930
+          },
+          "hours": {
+            "visible": false,
+            "selector_hint": null,
+            "width": 0,
+            "height": 0
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "h2#services-title.section-heading",
+            "width": 343,
+            "height": 276
+          }
+        },
+        "all_required_sections_visible": false,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 1440,
+          "width": 1440,
+          "height": 930,
+          "viewport_width": 1440,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "Contact",
+          "bottom": 52
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 1440,
+          "viewport_width": 1440,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 4,
+          "loaded_images": 3,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 6,
+          "failed_faces": 0
+        },
+        "images_loaded": false,
+        "fonts": {
+          "image_count": 4,
+          "loaded_images": 3,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 6,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [
+          {
+            "type": "image",
+            "error": "net::ERR_BLOCKED_BY_ORB",
+            "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+          }
+        ],
+        "screenshot": "screenshots/desktop.png"
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "div.contact-item",
+            "width": 351,
+            "height": 70
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 390,
+            "height": 252
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section#top.hero",
+            "width": 390,
+            "height": 720
+          },
+          "hours": {
+            "visible": false,
+            "selector_hint": null,
+            "width": 0,
+            "height": 0
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "h2#services-title.section-heading",
+            "width": 300,
+            "height": 78
+          }
+        },
+        "all_required_sections_visible": false,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "height": 720,
+          "viewport_width": 390,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": false,
+          "text": "",
+          "bottom": null
+        },
+        "cta_visible_first_screen": false,
+        "horizontal_overflow": {
+          "scroll_width": 390,
+          "viewport_width": 390,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 4,
+          "loaded_images": 3,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 6,
+          "failed_faces": 0
+        },
+        "images_loaded": false,
+        "fonts": {
+          "image_count": 4,
+          "loaded_images": 3,
+          "failed_images": [
+            "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+          ],
+          "font_status": "loaded",
+          "loaded_faces": 6,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [
+          {
+            "type": "image",
+            "error": "net::ERR_BLOCKED_BY_ORB",
+            "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+          }
+        ],
+        "screenshot": "screenshots/mobile.png"
+      }
+    },
+    "mobile_menu": {
+      "found": true,
+      "click_opens": true,
+      "click_closes": true,
+      "tab_reachable": true,
+      "enter_opens": true,
+      "space_toggles": true,
+      "escape_closes": false,
+      "pass": true
+    },
+    "checks": {
+      "rendered_sections_visible_desktop_and_mobile": false,
+      "hero_spans_viewport_desktop_and_mobile": true,
+      "cta_visible_first_screen_desktop_and_mobile": false,
+      "mobile_menu_clicks_work": true,
+      "mobile_menu_keyboard_works": true,
+      "mobile_has_no_horizontal_overflow": true,
+      "fonts_load_in_browser": true,
+      "images_load_in_browser": false
+    },
+    "resource_errors": [
+      {
+        "type": "image",
+        "error": "net::ERR_BLOCKED_BY_ORB",
+        "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+      },
+      {
+        "type": "image",
+        "error": "net::ERR_BLOCKED_BY_ORB",
+        "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+      }
+    ]
+  },
+  "source_image_urls_available": [],
+  "source_image_urls_used": [],
+  "parse_diagnostic": null,
+  "html_bytes": 10137,
+  "css_bytes": 13328,
+  "footer_text": "Paul's Trailer Service, Inc. 1245 Harding Court, Indianapolis, IN 46217 Services Parts Contact & directions © 2026 Paul's Trailer Service, Inc.",
+  "footer_links": [
+    "https://www.paulstrailer.com/services",
+    "https://www.paulstrailer.com/parts",
+    "https://www.paulstrailer.com/find-us"
+  ],
+  "complete": false,
+  "final_success": false,
+  "checker_exit_code": 2
+}

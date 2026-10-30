@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=f9a87357-3be8-4b55-8340-f3a897ec71b9",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T17:28:23.927794+00:00",
+      "characters": 5046,
+      "sha256": "3609fd3725b567e1b869b605618185300528a8597a1117afe3e7ce4cc364b63a"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T17:28:38.059234+00:00",
+      "characters": 4143,
+      "sha256": "03f4329e532a13b6cf8c6a68ca2a7c09521297cb0aeeb6df460ceeca3bcf8e53"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T17:28:53.187564+00:00",
+      "characters": 4137,
+      "sha256": "fcdfe6d7fc21c44de1971fc21eab74cf9a8db9fe923ef10452d108012be1389b"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T17:29:23.896655+00:00",
+      "characters": 3861,
+      "sha256": "783714ad341bf8212afca42db1447431112e43794c7010a44279a6e5fdb7e1d7"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T17:29:36.875360+00:00",
+      "characters": 4168,
+      "sha256": "e3d4eded3f89db2af96f0ee5cd1f7a5a29f72624475e2d79862a28e7dd4092fc"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T17:29:46.640966+00:00",
+      "characters": 2103,
+      "sha256": "adda423c466589554290c87f46a09b09afcb18dd53dc3ecc075e5826528a9e57"
+    }
+  ]
+}

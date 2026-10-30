@@ -1,0 +1,23 @@
+{
+  "candidate_index": 6,
+  "automated_success": false,
+  "status": "automated_checks_failed",
+  "chat_url": "https://duck.ai/?chatID=f9a87357-3be8-4b55-8340-f3a897ec71b9",
+  "source_url": "https://www.paulstrailer.com/",
+  "source_assessment_status": "pass",
+  "design_reference": {
+    "name": "Spectral",
+    "url": "https://html5up.net/uploads/demos/spectral/",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "Responsive, clearly separated content sections.",
+      "Strong opening area with a direct call to action.",
+      "Feature blocks to organize services and business offerings.",
+      "Visible footer contact and navigation."
+    ]
+  },
+  "final_success": false,
+  "browser_qa_status": "fail",
+  "visual_review_status": "pending",
+  "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved."
+}

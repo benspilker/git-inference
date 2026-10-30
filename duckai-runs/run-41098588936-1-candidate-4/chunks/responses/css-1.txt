@@ -1,0 +1,139 @@
+CSS PART 1 OF 3
+```css
+/* CSS PART 1 OF 3 */
+:root {
+  --color-navy: #142635;
+  --color-navy-deep: #0b1924;
+  --color-paper: #f5f1e8;
+  --color-white: #fffdf8;
+  --color-orange: #e87532;
+  --color-ink: #1b2a34;
+  --color-muted: #66727a;
+  --color-line: rgba(20, 38, 53, 0.18);
+
+
+  --font-display: "Roboto Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Inter", Arial, sans-serif;
+
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --space-7: 7rem;
+
+
+  --container-width: 74rem;
+  --page-gutter: clamp(1.25rem, 5vw, 4rem);
+  --radius-small: 0.25rem;
+  --shadow-soft: 0 1.25rem 3rem rgba(11, 25, 36, 0.12);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button {
+  font: inherit;
+}
+
+
+::selection {
+  background: var(--color-orange);
+  color: var(--color-navy-deep);
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 4px;
+}
+
+
+.container {
+  width: min(var(--container-width), calc(100% - var(--page-gutter) * 2));
+  margin-inline: auto;
+}
+
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 var(--space-2);
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+
+.eyebrow::before {
+  width: 1.6rem;
+  height: 2px;
+  background: currentColor;
+  content: "";
+}
+
+
+.section-title {
+  max-width: 13ch;
+  margin: 0;
+  color: var(--color-navy);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.2vw, 4.75rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+
+.section-intro {
+  max-width: 40rem;
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+}
+```

@@ -1,0 +1,23 @@
+{
+  "candidate_index": 4,
+  "automated_success": false,
+  "status": "automated_checks_failed",
+  "chat_url": "https://duck.ai/?chatID=23ea26bb-91a8-4d75-b5c5-f12ef4071897",
+  "source_url": "https://www.paulstrailer.com/",
+  "source_assessment_status": "pass",
+  "design_reference": {
+    "name": "Escape Velocity",
+    "url": "https://html5up.net/uploads/demos/escape-velocity/",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "A clear introductory area that quickly states the business offering.",
+      "Distinct, scannable content sections for services and other key information.",
+      "A direct contact area with phone and email details.",
+      "Responsive layout patterns."
+    ]
+  },
+  "final_success": false,
+  "browser_qa_status": "fail",
+  "visual_review_status": "pending",
+  "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved."
+}

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 680, in <module>
+    run()
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 595, in run
+    enable_web_search(page)
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 231, in enable_web_search
+    fail("Duck.ai's Tools menu did not expose Web Search; cannot verify source-site access.")
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 46, in fail
+    raise RuntimeError(message)
+RuntimeError: Duck.ai's Tools menu did not expose Web Search; cannot verify source-site access.

@@ -1,0 +1,297 @@
+CSS PART 3 OF 3
+```css
+/* CSS PART 3 OF 3 */
+.site-footer {
+  padding-block: 2.6rem;
+  background: #0d1c29;
+  color: var(--white);
+}
+
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.5rem 3rem;
+}
+
+
+.footer-business {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+
+.footer-meta {
+  margin: 0.35rem 0 0;
+  color: rgb(255 255 255 / 65%);
+  font-size: 0.9rem;
+}
+
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.7rem 1.25rem;
+}
+
+
+.footer-nav a {
+  color: rgb(255 255 255 / 86%);
+  font-size: 0.9rem;
+  text-underline-offset: 0.25em;
+}
+
+
+.footer-copyright {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(255 255 255 / 17%);
+  color: rgb(255 255 255 / 55%);
+  font-size: 0.82rem;
+}
+
+
+@media (max-width: 760px) {
+  :root {
+    --space-7: 4.5rem;
+  }
+
+
+  .header-inner {
+    position: relative;
+    min-height: 4.5rem;
+  }
+
+
+  .brand-name {
+    max-width: 11rem;
+    font-size: 0.88rem;
+  }
+
+
+  .nav-toggle {
+    display: grid;
+    width: 2.85rem;
+    height: 2.85rem;
+    flex: 0 0 auto;
+    place-content: center;
+    gap: 5px;
+    border: 1px solid rgb(255 255 255 / 62%);
+    border-radius: var(--radius);
+    background: rgb(10 23 35 / 35%);
+    color: var(--white);
+    cursor: pointer;
+  }
+
+
+  .nav-toggle span {
+    display: block;
+    width: 1.2rem;
+    height: 2px;
+    background: currentColor;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+
+
+  .nav-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+
+  .nav-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+
+  .primary-nav {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    left: 0;
+    display: none;
+    padding: 0.6rem 1rem;
+    border: 1px solid rgb(255 255 255 / 22%);
+    background: var(--ink);
+    box-shadow: var(--shadow);
+  }
+
+
+  .primary-nav.is-open {
+    display: block;
+  }
+
+
+  .primary-nav ul {
+    display: grid;
+    gap: 0;
+  }
+
+
+  .primary-nav li + li {
+    border-top: 1px solid rgb(255 255 255 / 15%);
+  }
+
+
+  .primary-nav a {
+    display: block;
+    padding: 0.8rem 0;
+  }
+
+
+  .header-call {
+    display: none;
+  }
+
+
+  .hero {
+    min-height: min(45rem, 100svh);
+    align-items: end;
+  }
+
+
+  .hero-media {
+    object-position: 61% center;
+  }
+
+
+  .hero::after {
+    background:
+      linear-gradient(0deg, rgb(10 23 35 / 88%) 0%, rgb(10 23 35 / 48%) 58%, rgb(10 23 35 / 19%) 100%);
+  }
+
+
+  .hero-content {
+    padding-top: 8rem;
+    padding-bottom: 3.5rem;
+  }
+
+
+  .hero h1 {
+    max-width: 9ch;
+    font-size: clamp(3.2rem, 15vw, 5.5rem);
+  }
+
+
+  .hero-copy {
+    max-width: 31rem;
+  }
+
+
+  .intro-layout,
+  .services-layout,
+  .trailer-section,
+  .parts-layout,
+  .contact-section {
+    grid-template-columns: 1fr;
+  }
+
+
+  .intro-layout,
+  .parts-layout {
+    gap: 2.2rem;
+  }
+
+
+  .intro-layout .image-frame {
+    min-height: 17rem;
+  }
+
+
+  .services-lead {
+    position: static;
+  }
+
+
+  .services-layout {
+    gap: 2rem;
+  }
+
+
+  .trailer-section {
+    gap: 1.5rem;
+  }
+
+
+  .trailer-section .image-frame {
+    min-height: 17rem;
+  }
+
+
+  .parts-image {
+    min-height: 16rem;
+  }
+
+
+  .contact-section {
+    gap: 2rem;
+  }
+
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+
+  .footer-nav {
+    justify-content: flex-start;
+  }
+
+
+  .footer-copyright {
+    grid-column: auto;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .hero-actions,
+  .contact-actions {
+    display: grid;
+  }
+
+
+  .hero-actions .button,
+  .contact-actions .button {
+    width: 100%;
+  }
+
+
+  .service-list li {
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0.75rem;
+  }
+
+
+  .image-frame--offset {
+    margin-left: 0.8rem;
+  }
+
+
+  .image-frame--offset::before {
+    top: -0.8rem;
+    left: -0.8rem;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```

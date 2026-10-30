@@ -1,0 +1,349 @@
+CSS PART 2 OF 3
+```css
+/* CSS PART 2 OF 3 */
+.site-header {
+  position: absolute;
+  z-index: 10;
+  inset: 0 0 auto;
+  color: var(--color-white);
+}
+
+
+.header-inner {
+  display: flex;
+  min-height: 5.5rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 253, 248, 0.28);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  line-height: 1.05;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.brand-mark {
+  display: grid;
+  width: 2.6rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 253, 248, 0.65);
+  color: var(--color-orange);
+  font-size: 1.35rem;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+
+.primary-nav a {
+  color: rgba(255, 253, 248, 0.9);
+  font-size: 0.83rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+.primary-nav a:hover {
+  color: var(--color-orange);
+}
+
+
+.header-call {
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255, 253, 248, 0.55);
+  color: var(--color-white) !important;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+
+.menu-toggle {
+  display: none;
+}
+
+
+.hero {
+  position: relative;
+  display: grid;
+  min-height: min(54rem, 100svh);
+  align-items: end;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-navy-deep);
+  color: var(--color-white);
+}
+
+
+.hero-media {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 56%;
+}
+
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 20, 29, 0.88) 0%,
+    rgba(8, 20, 29, 0.67) 43%,
+    rgba(8, 20, 29, 0.12) 100%
+  );
+  content: "";
+}
+
+
+.hero-content {
+  width: min(var(--container-width), calc(100% - var(--page-gutter) * 2));
+  margin: 0 auto;
+  padding-top: 10rem;
+  padding-bottom: clamp(4rem, 10vh, 8rem);
+}
+
+
+.hero .eyebrow {
+  color: #ff9a5a;
+}
+
+
+.hero h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.6rem, 9.5vw, 8.4rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+
+.hero-copy {
+  max-width: 34rem;
+  margin: var(--space-3) 0 0;
+  color: rgba(255, 253, 248, 0.88);
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: var(--space-4);
+}
+
+
+.button {
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+
+.button-primary {
+  background: var(--color-orange);
+  color: var(--color-navy-deep);
+}
+
+
+.button-primary:hover {
+  background: #ff9557;
+}
+
+
+.button-secondary {
+  border-color: rgba(255, 253, 248, 0.58);
+  color: var(--color-white);
+}
+
+
+.button-secondary:hover {
+  border-color: var(--color-white);
+  background: rgba(255, 253, 248, 0.1);
+}
+
+
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: var(--space-5);
+  color: rgba(255, 253, 248, 0.78);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+
+.hero-note::before {
+  width: 2.2rem;
+  height: 1px;
+  background: var(--color-orange);
+  content: "";
+}
+
+
+.history-section,
+.services-section,
+.parts-section,
+.contact-section {
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+}
+
+
+.history-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(18rem, 0.8fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+
+.history-copy p {
+  max-width: 42rem;
+  color: var(--color-muted);
+}
+
+
+.history-image-wrap {
+  position: relative;
+  min-height: 24rem;
+}
+
+
+.history-image-wrap::before {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  width: 42%;
+  height: 42%;
+  border-top: 2px solid var(--color-orange);
+  border-right: 2px solid var(--color-orange);
+  content: "";
+}
+
+
+.history-image {
+  width: 100%;
+  height: 100%;
+  min-height: 24rem;
+  object-fit: cover;
+}
+
+
+.services-section {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+
+.services-section .section-title {
+  color: var(--color-white);
+}
+
+
+.services-section .section-intro {
+  color: rgba(255, 253, 248, 0.72);
+}
+
+
+.services-layout {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 253, 248, 0.25);
+  list-style: none;
+}
+
+
+.service-list li {
+  padding: 1.1rem 1rem 1.1rem 0;
+  border-bottom: 1px solid rgba(255, 253, 248, 0.25);
+  color: rgba(255, 253, 248, 0.88);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+
+.service-list li::before {
+  display: inline-block;
+  width: 0.42rem;
+  height: 0.42rem;
+  margin: 0 0.7rem 0.13rem 0;
+  background: var(--color-orange);
+  content: "";
+}
+
+
+.service-photo {
+  width: 100%;
+  aspect-ratio: 1.55;
+  margin-top: var(--space-4);
+  object-fit: cover;
+}
+
+
+.trailer-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: var(--space-3);
+}
+
+
+.trailer-type {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 253, 248, 0.32);
+  color: rgba(255, 253, 248, 0.86);
+  font-size: 0.82rem;
+}
+```

@@ -1,0 +1,70 @@
+<!-- HTML PART 3 OF 3 -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand footer-brand" href="#home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>Paul's Trailer<br>Service Inc.</span>
+      </a>
+
+
+      <nav aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="#services">Repair services</a></li>
+          <li><a href="#parts">Parts support</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+
+      <p class="footer-contact">
+        <a href="tel:+13177819212">317-781-9212</a><br>
+        1245 Harding Court, Indianapolis, IN 46217
+      </p>
+
+
+      <p class="footer-copyright">© 2026 Paul's Trailer Service Inc.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    (() => {
+      const toggle = document.querySelector(".menu-toggle");
+      const nav = document.querySelector("#primary-nav");
+
+
+      if (!toggle || !nav) return;
+
+
+      const setMenuState = (isOpen) => {
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+        nav.classList.toggle("is-open", isOpen);
+      };
+
+
+      toggle.addEventListener("click", () => {
+        setMenuState(toggle.getAttribute("aria-expanded") !== "true");
+      });
+
+
+      nav.addEventListener("click", (event) => {
+        if (event.target.closest("a")) setMenuState(false);
+      });
+
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+          setMenuState(false);
+          toggle.focus();
+        }
+      });
+
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 760) setMenuState(false);
+      });
+    })();
+  </script>
+</body>
+</html>

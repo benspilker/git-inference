@@ -1,0 +1,92 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section section--navy" id="services" aria-labelledby="services-title">
+      <div class="container services-layout">
+        <div class="services-lead">
+          <p class="section-kicker">Repair &amp; maintenance</p>
+          <h2 class="section-heading" id="services-title">Work that gets to the problem.</h2>
+          <p class="section-intro">The shop lists a range of trailer repair and inspection services. Contact the team to discuss your equipment and what it needs.</p>
+        </div>
+
+
+        <ul class="service-list">
+          <li>
+            <span class="service-number" aria-hidden="true">01</span>
+            <div>
+              <h3>Electrical &amp; diagnostics</h3>
+              <p>Electrical repairs and ABS diagnostics.</p>
+            </div>
+          </li>
+          <li>
+            <span class="service-number" aria-hidden="true">02</span>
+            <div>
+              <h3>Brakes &amp; suspension</h3>
+              <p>Brake and suspension service for trailers.</p>
+            </div>
+          </li>
+          <li>
+            <span class="service-number" aria-hidden="true">03</span>
+            <div>
+              <h3>Structure &amp; welding</h3>
+              <p>Structural repairs and welding work.</p>
+            </div>
+          </li>
+          <li>
+            <span class="service-number" aria-hidden="true">04</span>
+            <div>
+              <h3>Inspection &amp; alignment</h3>
+              <p>DOT inspections and trailer alignment.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section class="section trailer-section" id="trailers" aria-labelledby="trailers-title">
+      <div class="container trailer-copy">
+        <p class="section-kicker">Equipment support</p>
+        <h2 class="section-heading" id="trailers-title">Support for a range of trailer equipment.</h2>
+        <p>Paul's Trailer Service works on a variety of trailer types. The business states that it does not service reefer units or tires; get in touch to confirm whether your specific trailer is a fit.</p>
+        <a class="text-link" href="https://www.paulstrailer.com/services">Review service information</a>
+      </div>
+      <figure class="image-frame">
+        <img
+          src="https://images.unsplash.com/photo-1591768793355-74d04bb6608f?auto=format&amp;fit=crop&amp;w=1300&amp;q=82"
+          alt="Large commercial trailer viewed from the side"
+          loading="lazy">
+      </figure>
+    </section>
+
+
+    <section class="section section--navy" id="parts" aria-labelledby="parts-title">
+      <div class="container parts-layout">
+        <div class="parts-copy">
+          <p class="section-kicker">Parts support</p>
+          <h2 class="section-heading" id="parts-title">Find the part. Get it installed.</h2>
+          <p>The parts department offers OEM and aftermarket options, including hard-to-find parts, with installation available. Ask the shop about availability for your equipment.</p>
+          <a class="button" href="https://www.paulstrailer.com/parts">Ask about parts</a>
+        </div>
+        <figure class="parts-image">
+          <img
+            src="https://images.unsplash.com/photo-1580901368919-7738efb0f87e?auto=format&amp;fit=crop&amp;w=1200&amp;q=82"
+            alt="Close-up of mechanical components"
+            loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+
+    <section class="section section--white" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-section">
+        <div>
+          <p class="section-kicker">Get in touch</p>
+          <h2 class="section-heading" id="contact-title">Talk with the shop about your trailer.</h2>
+          <p class="section-intro">Call or email Paul's Trailer Service to discuss repair needs, parts, or whether your equipment can be serviced.</p>
+          <div class="contact-actions">
+            <a class="button" href="https://www.paulstrailer.com/find-us">Call the shop</a>
+            <a class="button button--light" href="https://www.paulstrailer.com/find-us">Contact details &amp; directions</a>
+          </div>
+        </div>
+```

@@ -1,0 +1,45 @@
+{
+  "chat_url": "https://duck.ai/?chatID=f9a87357-3be8-4b55-8340-f3a897ec71b9",
+  "turns": [
+    {
+      "type": "source_site_assessment",
+      "source_url": "https://www.paulstrailer.com/",
+      "assistant_response_completed": true
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "css",
+      "part": 1
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "css",
+      "part": 2
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "css",
+      "part": 3
+    },
+    {
+      "type": "user_acknowledgment",
+      "text": "acknowledged",
+      "assistant_response_completed": true
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "html",
+      "part": 1
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "html",
+      "part": 2
+    },
+    {
+      "type": "captured_chunk",
+      "kind": "html",
+      "part": 3
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+<!-- HTML PART 3 OF 3 -->
+        <div class="contact-details">
+          <div class="contact-item">
+            <h3>Visit</h3>
+            <address>1245 Harding Court<br>Indianapolis, IN 46217</address>
+          </div>
+          <div class="contact-item">
+            <h3>Phone &amp; email</h3>
+            <p><a href="https://www.paulstrailer.com/find-us">View current phone and email details</a></p>
+          </div>
+          <div class="contact-item">
+            <h3>Directions</h3>
+            <p><a href="https://www.paulstrailer.com/find-us">Find the shop and plan your visit</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-business">Paul's Trailer Service, Inc.</p>
+        <p class="footer-meta">1245 Harding Court, Indianapolis, IN 46217</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="https://www.paulstrailer.com/services">Services</a>
+        <a href="https://www.paulstrailer.com/parts">Parts</a>
+        <a href="https://www.paulstrailer.com/find-us">Contact &amp; directions</a>
+      </nav>
+      <p class="footer-copyright">© 2026 Paul's Trailer Service, Inc.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    navToggle.addEventListener("click", () => {
+      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isExpanded));
+      navToggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      primaryNav.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation");
+        primaryNav.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+{
+  "status": "fail",
+  "tested_file": "files/inlined/index.html",
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "hours",
+    "services"
+  ],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact-actions",
+          "width": 502,
+          "height": 52
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 1440,
+          "height": 204
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section#top.hero",
+          "width": 1440,
+          "height": 930
+        },
+        "hours": {
+          "visible": false,
+          "selector_hint": null,
+          "width": 0,
+          "height": 0
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "h2#services-title.section-heading",
+          "width": 343,
+          "height": 276
+        }
+      },
+      "all_required_sections_visible": false,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "height": 930,
+        "viewport_width": 1440,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "Contact",
+        "bottom": 52
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 4,
+        "loaded_images": 3,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 6,
+        "failed_faces": 0
+      },
+      "images_loaded": false,
+      "fonts": {
+        "image_count": 4,
+        "loaded_images": 3,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 6,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [
+        {
+          "type": "image",
+          "error": "net::ERR_BLOCKED_BY_ORB",
+          "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+        }
+      ],
+      "screenshot": "screenshots/desktop.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact-item",
+          "width": 351,
+          "height": 70
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 390,
+          "height": 252
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section#top.hero",
+          "width": 390,
+          "height": 720
+        },
+        "hours": {
+          "visible": false,
+          "selector_hint": null,
+          "width": 0,
+          "height": 0
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "h2#services-title.section-heading",
+          "width": 300,
+          "height": 78
+        }
+      },
+      "all_required_sections_visible": false,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "height": 720,
+        "viewport_width": 390,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": false,
+        "text": "",
+        "bottom": null
+      },
+      "cta_visible_first_screen": false,
+      "horizontal_overflow": {
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 4,
+        "loaded_images": 3,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 6,
+        "failed_faces": 0
+      },
+      "images_loaded": false,
+      "fonts": {
+        "image_count": 4,
+        "loaded_images": 3,
+        "failed_images": [
+          "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+        ],
+        "font_status": "loaded",
+        "loaded_faces": 6,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [
+        {
+          "type": "image",
+          "error": "net::ERR_BLOCKED_BY_ORB",
+          "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+        }
+      ],
+      "screenshot": "screenshots/mobile.png"
+    }
+  },
+  "mobile_menu": {
+    "found": true,
+    "click_opens": true,
+    "click_closes": true,
+    "tab_reachable": true,
+    "enter_opens": true,
+    "space_toggles": true,
+    "escape_closes": false,
+    "pass": true
+  },
+  "checks": {
+    "rendered_sections_visible_desktop_and_mobile": false,
+    "hero_spans_viewport_desktop_and_mobile": true,
+    "cta_visible_first_screen_desktop_and_mobile": false,
+    "mobile_menu_clicks_work": true,
+    "mobile_menu_keyboard_works": true,
+    "mobile_has_no_horizontal_overflow": true,
+    "fonts_load_in_browser": true,
+    "images_load_in_browser": false
+  },
+  "resource_errors": [
+    {
+      "type": "image",
+      "error": "net::ERR_BLOCKED_BY_ORB",
+      "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+    },
+    {
+      "type": "image",
+      "error": "net::ERR_BLOCKED_BY_ORB",
+      "url": "https://images.unsplash.com/photo-1586191582151-f73872dfd5e3?auto=format&fit=crop&w=1200&q=82"
+    }
+  ]
+}
