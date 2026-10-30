@@ -16,6 +16,8 @@ The workflow requests CSS parts 1–3, sends `acknowledged` as its own user turn
 
 After assembly, the workflow saves desktop/mobile screenshots and runs the structural checker. Screenshot generation is not a visual audit. The workflow commits generated files and evidence under `duckai-runs/run-<run-id>-<attempt>/`; it does not claim image relevance or visual review passed. Complete those human gates before describing a candidate as successful.
 
+After generation and checking, the GitHub Action also writes `files/inlined/index.html`, which embeds the assembled `styles.css` into the assembled HTML. Keep the original `files/index.html` and `files/styles.css` for source review and checker compatibility. This inlined output embeds CSS only; externally referenced fonts and images still need network access.
+
 Use this skill when the user asks Hermes to create or iterate on a website with Duck.ai. The provider is Duck.ai (`https://duck.ai/`).
 
 ## Run a website request
@@ -82,6 +84,8 @@ Keep the assembled working copy in a run folder with this structure:
   files/
     index.html
     styles.css
+    inlined/
+      index.html
   debug/
 ```
 

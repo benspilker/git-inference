@@ -69,6 +69,15 @@ jobs:
           DESIGN_BRIEF: ${{ inputs.design_brief }}
         run: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
 
+      - name: Inline CSS into a standalone HTML file
+        run: |
+          set -euo pipefail
+          run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          python duckai_automation/scripts/inline_css.py \
+            "$run_dir/files/index.html" \
+            "$run_dir/files/styles.css" \
+            "$run_dir/files/inlined/index.html"
+
       - name: Commit generated website run to selected branch
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
@@ -80,6 +89,7 @@ jobs:
           run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           test -f "$run_dir/files/index.html"
           test -f "$run_dir/files/styles.css"
+          test -f "$run_dir/files/inlined/index.html"
           git add -- "$run_dir"
           if git diff --cached --quiet; then
             echo "No generated run files to commit."
