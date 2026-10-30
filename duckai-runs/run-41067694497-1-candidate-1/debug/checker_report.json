@@ -3,8 +3,8 @@
   "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-1",
   "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-1/files/index.html",
   "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41067694497-1-candidate-1/files/styles.css",
-  "score": 86,
-  "checks_passed": 24,
+  "score": 93,
+  "checks_passed": 26,
   "checks_total": 28,
   "checks": {
     "html_file_present": true,
@@ -30,8 +30,8 @@
     "browser_rendered_sections_visible_desktop_and_mobile": true,
     "browser_hero_spans_viewport_desktop_and_mobile": true,
     "browser_cta_visible_first_screen_desktop_and_mobile": true,
-    "browser_mobile_menu_clicks_work": false,
-    "browser_mobile_menu_keyboard_works": false,
+    "browser_mobile_menu_clicks_work": true,
+    "browser_mobile_menu_keyboard_works": true,
     "browser_mobile_has_no_horizontal_overflow": true,
     "browser_fonts_load_in_browser": true,
     "browser_images_load_in_browser": true
@@ -45,10 +45,7 @@
   ],
   "missing_sections": [
     "at least 3 distinct image assets",
-    "screenshot-backed desktop/mobile visual design review",
-    "automated rendered-page browser checks",
-    "mobile menu opens and closes by click",
-    "mobile menu works with keyboard controls"
+    "screenshot-backed desktop/mobile visual design review"
   ],
   "hero_image_present": true,
   "hero_images_load_ok": true,
@@ -71,9 +68,9 @@
     "debug/visual_review.json is missing"
   ],
   "visual_design_review_issues": [],
-  "browser_qa_status": "fail",
+  "browser_qa_status": "pass",
   "browser_qa": {
-    "status": "fail",
+    "status": "pass",
     "tested_file": "files/inlined/index.html",
     "required_sections": [
       "contact",
@@ -232,20 +229,21 @@
       }
     },
     "mobile_menu": {
-      "found": false,
-      "click_opens": false,
-      "click_closes": false,
-      "tab_reachable": false,
-      "enter_opens": false,
-      "space_toggles": false,
-      "escape_closes": false
+      "found": true,
+      "click_opens": true,
+      "click_closes": true,
+      "tab_reachable": true,
+      "enter_opens": true,
+      "space_toggles": true,
+      "escape_closes": false,
+      "pass": true
     },
     "checks": {
       "rendered_sections_visible_desktop_and_mobile": true,
       "hero_spans_viewport_desktop_and_mobile": true,
       "cta_visible_first_screen_desktop_and_mobile": true,
-      "mobile_menu_clicks_work": false,
-      "mobile_menu_keyboard_works": false,
+      "mobile_menu_clicks_work": true,
+      "mobile_menu_keyboard_works": true,
       "mobile_has_no_horizontal_overflow": true,
       "fonts_load_in_browser": true,
       "images_load_in_browser": true

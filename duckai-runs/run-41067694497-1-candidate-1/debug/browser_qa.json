@@ -1,5 +1,5 @@
 {
-  "status": "fail",
+  "status": "pass",
   "tested_file": "files/inlined/index.html",
   "required_sections": [
     "contact",
@@ -158,20 +158,21 @@
     }
   },
   "mobile_menu": {
-    "found": false,
-    "click_opens": false,
-    "click_closes": false,
-    "tab_reachable": false,
-    "enter_opens": false,
-    "space_toggles": false,
-    "escape_closes": false
+    "found": true,
+    "click_opens": true,
+    "click_closes": true,
+    "tab_reachable": true,
+    "enter_opens": true,
+    "space_toggles": true,
+    "escape_closes": false,
+    "pass": true
   },
   "checks": {
     "rendered_sections_visible_desktop_and_mobile": true,
     "hero_spans_viewport_desktop_and_mobile": true,
     "cta_visible_first_screen_desktop_and_mobile": true,
-    "mobile_menu_clicks_work": false,
-    "mobile_menu_keyboard_works": false,
+    "mobile_menu_clicks_work": true,
+    "mobile_menu_keyboard_works": true,
     "mobile_has_no_horizontal_overflow": true,
     "fonts_load_in_browser": true,
     "images_load_in_browser": true
