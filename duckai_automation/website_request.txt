@@ -2,3 +2,4 @@ Redesign the public website for Paul's Trailer Service Inc. as an original, poli
 Treat the source site as authoritative only for details Duck.ai can cite from pages on that domain; leave other details unknown.
 In the audit, clearly separate observed facts from inferred audience and design opinions.
 Use the source domain for business facts; cite other domains only for design-template licensing.
+If source pages provide conflicting business hours, omit hours from the design and flag the conflict as unknown.

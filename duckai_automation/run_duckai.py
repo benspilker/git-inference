@@ -379,8 +379,13 @@ def validate_source_assessment(assessment: dict, source_url: str) -> None:
     license_url = urlparse(reference["license_url"])
     if (template_url.hostname or "").lower() not in {"html5up.net", "www.html5up.net"}:
         fail("The proposed design reference is not hosted on the official HTML5 UP domain.")
-    if "creativecommons.org" not in (license_url.hostname or "").lower() or "/licenses/by/3.0" not in license_url.path:
-        fail("The proposed HTML5 UP design reference did not provide the expected CC BY 3.0 license URL.")
+    license_host = (license_url.hostname or "").lower()
+    is_html5up_license = license_host in {"html5up.net", "www.html5up.net"} and license_url.path.rstrip("/") == "/license"
+    is_creative_commons_license = (
+        license_host == "creativecommons.org" and "/licenses/by/3.0" in license_url.path
+    )
+    if not (is_html5up_license or is_creative_commons_license):
+        fail("The proposed design reference did not provide an official HTML5 UP or CC BY 3.0 license URL.")
 
 
 def send_acknowledgment_and_wait(page, expected_chat_url: str) -> None:
