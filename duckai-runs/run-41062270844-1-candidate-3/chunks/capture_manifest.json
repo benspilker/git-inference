@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=6f1777b0-b410-4078-9971-495db0b04e29",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T13:24:09.996581+00:00",
+      "characters": 5651,
+      "sha256": "86f44833e90bdeb77ed698849156b69ef06151725adcfd2ea73a51664b8ce071"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T13:24:26.071457+00:00",
+      "characters": 4437,
+      "sha256": "aad8596a480c86bd945d51a1d01f4a0332bf3fbd449340c4179d72ca6f0dcfc9"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T13:24:41.219129+00:00",
+      "characters": 4595,
+      "sha256": "a9d7b6fc8d3bcafc62563e4c3b562f427ee675c32893e69499a0a604c2bbd321"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T13:25:01.593343+00:00",
+      "characters": 3160,
+      "sha256": "b5559e92a9fed9a03b422bfd2cd469a074b5f7152edd7a1ff701d8c53003de2c"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T13:25:14.534537+00:00",
+      "characters": 2809,
+      "sha256": "317b7173e07f3a456f67017afdfdb7a4d7a0cbb7557160841a16a91e2536732b"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T13:25:29.453512+00:00",
+      "characters": 3200,
+      "sha256": "05ac06c8ba7f9ef8c8d66df01255cc282ab07929d45bc5f041695b840b8acf5b"
+    }
+  ]
+}

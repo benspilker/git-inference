@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=54a0d621-94f1-429a-9f81-08f4bc4be28b",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T13:22:23.038288+00:00",
+      "characters": 6421,
+      "sha256": "9a77c3885b9767f995982a559d39426c067e01535b2fbc9d31284f7da627b5d0"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T13:22:39.241095+00:00",
+      "characters": 4777,
+      "sha256": "8778f40005412c35512f87424d84b3ecedfce8b75daecb6a38d527b0e90d1ac2"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T13:22:50.193844+00:00",
+      "characters": 2712,
+      "sha256": "ea03b0066144c7267711d90e4c822cbeb87ce50ebcb1619620c294b5c7ec9c5f"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T13:23:15.505371+00:00",
+      "characters": 2651,
+      "sha256": "ca629a7c022b91a82b4d4bfa88556bef0da77a91327ba08acb203a4649d7f2ef"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T13:23:30.725952+00:00",
+      "characters": 4385,
+      "sha256": "fcfdf3b8c8ee7c72b3ccf79926135d2967f927c9b68044ae8eeb2b98587eb037"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T13:23:44.617632+00:00",
+      "characters": 2961,
+      "sha256": "6bde87226a05178b1e438d390dc3ab79f819938027efc0b0d3b628533b0be4ab"
+    }
+  ]
+}

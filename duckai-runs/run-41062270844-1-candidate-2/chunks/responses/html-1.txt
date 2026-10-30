@@ -1,0 +1,66 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171a19">
+  <meta name="description" content="Fogline Skate Repair is a fictional independent skateboard repair shop concept in San Francisco, California.">
+  <title>Fogline Skate Repair — San Francisco</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Fogline Skate Repair home">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span>Fogline<br>Skate Repair</span>
+      </a>
+
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+
+      <nav class="site-nav" id="site-navigation" aria-label="Main navigation">
+        <ul>
+          <li><a href="#services">Repairs</a></li>
+          <li><a href="#shop-notes">Shop notes</a></li>
+          <li><a href="#contact">Ask about a repair</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <section class="hero" id="home" aria-labelledby="hero-title">
+    <img
+      class="hero-image"
+      src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+      alt="Skateboarder riding through an outdoor concrete skate area"
+      fetchpriority="high"
+    >
+    <div class="hero-content">
+      <p class="eyebrow">Independent board care · San Francisco, California</p>
+      <h1 id="hero-title">Keep your board rolling.</h1>
+      <p class="hero-copy">Thoughtful skateboard repairs, practical tune-ups, and straight answers for the setup you already love.</p>
+      <a class="button" href="#contact">Ask about a repair</a>
+    </div>
+    <p class="hero-note">Small fixes. Longer sessions.<br>Made for the city’s changing ground.</p>
+  </section>
+
+
+  <main>
+    <section class="container intro-section" aria-labelledby="intro-title">
+      <div>
+        <p class="section-kicker">A little care goes a long way</p>
+        <h2 class="section-title" id="intro-title">Built to be ridden. Worth repairing.</h2>
+      </div>
+      <p class="intro-copy">A loose truck, rattling hardware, or worn-out wheel can change the whole feel of a setup. Fogline is a fictional San Francisco skate-repair shop concept focused on careful checks and clear repair options—so you can decide what makes sense for your board.</p>
+    </section>
+```

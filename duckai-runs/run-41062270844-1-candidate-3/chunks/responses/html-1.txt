@@ -1,0 +1,79 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171918">
+  <meta name="description" content="Fogline Skate Repair is an independent skateboard repair shop concept in San Francisco, California.">
+  <title>Fogline Skate Repair — San Francisco</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Fogline Skate Repair, home">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span>Fogline<br>Skate Repair</span>
+      </a>
+
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#repairs">Repairs</a>
+        <a href="#shop">The shop</a>
+        <a href="#contact">Ask about a repair</a>
+      </nav>
+
+
+      <a class="header-cta" href="#contact">Ask about a repair</a>
+
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <img class="hero-image" src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=2200&amp;q=85" alt="Skateboarder riding through an urban outdoor skate spot">
+      <div class="hero-content">
+        <p class="eyebrow">Independent skateboard repair · San Francisco, California</p>
+        <h1 id="hero-title">Keep your<br><span>roll.</span></h1>
+        <p class="hero-copy">A loose truck, tired bearings, or a deck that needs a second look? Get your board checked out and back to feeling right.</p>
+        <div class="hero-actions">
+          <a class="button" href="#contact">Ask about a repair</a>
+          <a class="button button-secondary" href="#repairs">Explore repairs</a>
+        </div>
+      </div>
+      <p class="hero-note">Board care for the streets, parks, and hills of San Francisco.</p>
+    </section>
+
+
+    <section class="section services-section" id="repairs" aria-labelledby="repairs-title">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Small fixes. Better sessions.</p>
+            <h2 id="repairs-title">What needs<br>a tune-up?</h2>
+          </div>
+          <p>Tell us what your board is doing. We can take a look at the setup, explain what needs attention, and talk through a repair before you commit.</p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number">01</span>
+            <h3>Truck &amp; hardware</h3>
+            <p>Check for loose or worn hardware, adjust truck tightness, and inspect the mounting points. Bring the board as-is so we can see how it rides.</p>
+            <span class="service-tag">Setup check</span>
+          </article>
+```

@@ -1,0 +1,105 @@
+<!-- HTML PART 3 OF 3 -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="section-inner contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">Repair inquiry</p>
+          <h2 id="contact-title">What’s up with your board?</h2>
+          <p>Share what you’re noticing and which repair you have in mind. This fictional shop concept has no published contact details; use the form to describe the inquiry.</p>
+          <figure class="intro-photo">
+            <img
+              src="https://images.unsplash.com/photo-1547448415-e9f5b28e570d?auto=format&fit=crop&w=1000&q=80"
+              alt="Skateboard resting on a concrete surface"
+              loading="lazy"
+            >
+            <figcaption class="photo-caption">Tell us what needs attention.</figcaption>
+          </figure>
+        </div>
+
+
+        <form class="contact-form" action="#" method="get">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Name">
+
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+
+
+          <label for="repair">What needs a look?</label>
+          <textarea id="repair" name="repair" rows="5" placeholder="Describe what you’ve noticed on your board"></textarea>
+
+
+          <button class="button" type="submit">Send repair inquiry</button>
+          <p class="form-note">Add a few details so the repair question is clear.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="Fogline Skate Repair home">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span class="brand-name">Fogline<br>Skate Repair</span>
+        </a>
+        <p>An independent skateboard repair shop concept in San Francisco, California.</p>
+      </div>
+
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <p class="footer-label">Explore</p>
+        <a href="#services">Repair services</a>
+        <a href="#approach">Our approach</a>
+        <a href="#contact">Ask about a repair</a>
+      </nav>
+
+
+      <div class="footer-location">
+        <p class="footer-label">Location</p>
+        <p>San Francisco, California</p>
+      </div>
+    </div>
+
+
+    <div class="footer-bottom">
+      <span>© 2026 Fogline Skate Repair</span>
+      <a href="#top">Back to top</a>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#primary-nav");
+
+
+    menuButton.addEventListener("click", () => {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isExpanded));
+      menuButton.setAttribute("aria-label", isExpanded ? "Open navigation menu" : "Close navigation menu");
+      navigation.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        navigation.classList.remove("is-open");
+      }
+    });
+
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        navigation.classList.remove("is-open");
+        menuButton.focus();
+      }
+    });
+  </script>
+</body>
+</html>

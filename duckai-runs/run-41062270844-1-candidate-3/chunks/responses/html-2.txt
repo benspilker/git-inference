@@ -1,0 +1,54 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+          <article class="service-item">
+            <span class="service-number">02</span>
+            <h3>Wheels &amp; bearings</h3>
+            <p>We can check for wheel wobble, worn bearings, and dirt that keeps wheels from spinning freely. A clean, properly fitted setup can make a noticeable difference.</p>
+            <span class="service-tag">Roll check</span>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number">03</span>
+            <h3>Deck &amp; grip</h3>
+            <p>Get a second opinion on chips, cracks, worn grip, or other deck damage. We’ll help you assess the board’s condition and discuss sensible next steps.</p>
+            <span class="service-tag">Deck assessment</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="story-section" id="shop" aria-labelledby="shop-title">
+      <div class="story-image-wrap">
+        <img class="story-image" src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Skateboard resting on concrete at an outdoor skate spot">
+      </div>
+      <div class="story-copy">
+        <p class="eyebrow">A little attention goes a long way</p>
+        <h2 id="shop-title">Know your board. Ride it longer.</h2>
+        <p>Good repair starts with a careful look. Whether the issue is a rattling truck or a wheel that won’t spin, the goal is to help you understand what’s going on with your setup.</p>
+        <p>Share what you’ve noticed, how the board feels, and any parts you’re concerned about. We’ll start with the details and take it from there.</p>
+        <span class="story-stamp">Independent skate repair · San Francisco</span>
+      </div>
+    </section>
+
+
+    <section class="section details-section" aria-labelledby="details-title">
+      <div class="container details-grid">
+        <div class="details-copy">
+          <p class="eyebrow">Before you reach out</p>
+          <h2 id="details-title">Tell us what’s up.</h2>
+          <p>Include the part that needs attention, what you’ve already noticed, and whether anything changed recently. A clear description helps us understand what to check first.</p>
+          <p>If you’re not sure what the problem is called, no worries—describe what you hear or feel when you ride.</p>
+        </div>
+        <div class="details-image-wrap">
+          <img class="details-image" src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Skateboarder riding at an outdoor skate spot">
+          <div class="image-caption">
+            <span>Check the setup</span>
+            <span>Talk through the fix</span>
+          </div>
+        </div>
+      </div>
+    </section>
+```

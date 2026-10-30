@@ -1,0 +1,79 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section services" id="services" aria-labelledby="services-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Repair menu</p>
+            <h2 id="services-title">Back to<br>good grip.</h2>
+          </div>
+          <p>Tell us what feels off and we can help narrow down the fix. Work depends on the board’s condition and the parts it needs.</p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <h3>Hardware &amp; setup check</h3>
+            <p>We check truck and deck hardware for looseness, worn or mismatched parts, and fit. A setup check can include tightening and basic adjustments where appropriate.</p>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <h3>Wheels &amp; bearings</h3>
+            <p>For rough-spinning wheels or a rattly ride, we inspect the wheels and bearings, clean serviceable parts, and discuss replacement when cleaning will not do the job.</p>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <h3>Grip tape refresh</h3>
+            <p>Old, peeling, or damaged grip can be removed and replaced. We’ll check the deck surface first and talk through whether a fresh sheet is a sensible fit.</p>
+          </article>
+
+
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">04</span>
+            <h3>Deck &amp; truck assessment</h3>
+            <p>Cracks, chips, wheel bite, or steering that feels uneven deserve a closer look. We’ll explain what we find and whether adjustment, a part swap, or a new deck makes sense.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section statement" aria-labelledby="statement-title">
+      <div class="section-inner statement-inner">
+        <div>
+          <p class="eyebrow">Keep it rolling</p>
+          <h2 id="statement-title">A little care goes a <span>long way.</span></h2>
+        </div>
+        <p>Good repairs start with a clear look at the board. Share what you’re noticing, and we’ll help you figure out the next step.</p>
+      </div>
+    </section>
+
+
+    <section class="section repair-detail" aria-labelledby="detail-title">
+      <figure>
+        <img
+          src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?auto=format&fit=crop&w=1400&q=80"
+          alt="Skateboarder riding on a concrete urban surface"
+          loading="lazy"
+        >
+        <figcaption class="photo-caption">A closer look before the next ride.</figcaption>
+      </figure>
+      <div class="repair-detail-copy">
+        <p class="eyebrow">What to tell us</p>
+        <h2 id="detail-title">Start with what you’ve noticed.</h2>
+        <p>A few useful details help us understand the problem and suggest a sensible inspection.</p>
+        <ul>
+          <li>What feels different when you ride?</li>
+          <li>Which part of the board seems affected?</li>
+          <li>Has anything been changed or replaced recently?</li>
+          <li>Include a photo if it helps show the issue.</li>
+        </ul>
+      </div>
+    </section>
+```

@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=376eb596-42ad-4e6a-87bb-ba49d9219f40",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T13:20:19.572674+00:00",
+      "characters": 3569,
+      "sha256": "b11364c168810c9d150f62d3b578e381a6bbbdfe2259df0cd72059534a2a9d44"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T13:20:36.656031+00:00",
+      "characters": 5499,
+      "sha256": "5f5bed36bc725240b47d5ecd025b79a893d5a02357d465a50f8fba8433de3c58"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T13:20:56.366811+00:00",
+      "characters": 6321,
+      "sha256": "b900b6ab7895cd84842e71ba3b0471ad9f8a7ab2fec5f3718af24d89b6baacd6"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T13:21:24.188132+00:00",
+      "characters": 3353,
+      "sha256": "1e0d0d77202de257526e257e117dbc935bec146f47d4474e02e5cc663068cb5f"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T13:21:37.271398+00:00",
+      "characters": 3428,
+      "sha256": "e228e9f4817d146523e9ff00b91b0e3f5bbb1d8dce225ae0002d467069db4b83"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T13:21:55.424658+00:00",
+      "characters": 3802,
+      "sha256": "948435776600a8fdd04c4a8adb0189bc18a2d118793002cbecb24562855326ab"
+    }
+  ]
+}

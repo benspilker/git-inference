@@ -1,0 +1,89 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-inner">
+        <div>
+          <p class="section-kicker">Start with a question</p>
+          <h2 class="section-title" id="contact-title">What’s your board doing?</h2>
+          <p class="contact-copy">Share what feels off and a little about your setup. This is a fictional shop concept, so this page doesn’t send messages or collect form submissions.</p>
+        </div>
+        <div class="contact-action">
+          <p>Use the repair menu to identify the issue you’ve noticed, then bring your question to the shop concept.</p>
+          <a class="button" href="#services">Review repair options</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="brand" href="#home" aria-label="Fogline Skate Repair home">
+            <span class="brand-mark" aria-hidden="true">F</span>
+            <span>Fogline<br>Skate Repair</span>
+          </a>
+          <p>A fictional independent skateboard repair shop concept, made for San Francisco board riders.</p>
+        </div>
+
+
+        <nav aria-label="Footer navigation">
+          <h2 class="footer-heading">Explore</h2>
+          <ul class="footer-links">
+            <li><a href="#services">Repair options</a></li>
+            <li><a href="#shop-notes">Shop notes</a></li>
+            <li><a href="#contact">Ask about a repair</a></li>
+          </ul>
+        </nav>
+
+
+        <div>
+          <h2 class="footer-heading">Location</h2>
+          <div class="footer-location">
+            <p>San Francisco, California</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="footer-bottom">
+        <p>© <span id="copyright-year">2026</span> Fogline Skate Repair</p>
+        <p>Fictional business concept.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const siteNavigation = document.querySelector("#site-navigation");
+
+
+    menuButton.addEventListener("click", () => {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isExpanded));
+      menuButton.setAttribute(
+        "aria-label",
+        isExpanded ? "Open navigation menu" : "Close navigation menu"
+      );
+      siteNavigation.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    siteNavigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        siteNavigation.classList.remove("is-open");
+      }
+    });
+
+
+    document.querySelector("#copyright-year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
