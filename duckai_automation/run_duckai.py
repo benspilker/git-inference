@@ -33,9 +33,9 @@ INLINE_SCRIPT = ROOT / "scripts" / "inline_css.py"
 BROWSER_QA_SCRIPT = ROOT / "scripts" / "browser_qa.py"
 CHECK_SCRIPT = ROOT / "scripts" / "check_website.py"
 
-BASE_CONTRACT = """Follow the supplied facts and design brief. Build a polished, responsive, business-specific website. Use exactly three CSS responses followed by exactly three HTML responses, one complete code block per response. CSS responses use a css fence; HTML responses use a text fence containing raw HTML. Each response must state its exact part label. The first nonblank line inside its code block must be exactly `/* CSS PART n OF 3 */` or `<!-- HTML PART n OF 3 -->` for that part. Keep the CSS and HTML coherent and link styles.css. Use CSS variables for core colors, typography, spacing, and container width. Include at least three distinct image files, represented by at least three unique image URLs and at least three HTML `<img>` elements with accurate alt text. Do not reuse the same photo with different crop parameters to meet the count. Use varied compositions and meaningful, relevant imagery. Do not invent real business facts, metrics, reviews, credentials, contact details, or hours.
+BASE_CONTRACT = """Follow the supplied facts and design brief. Build a polished, responsive, organization-specific website. Use exactly three CSS responses followed by exactly three HTML responses, one complete code block per response. CSS responses use a css fence; HTML responses use a text fence containing raw HTML. Each response must state its exact part label. The first nonblank line inside its code block must be exactly `/* CSS PART n OF 3 */` or `<!-- HTML PART n OF 3 -->` for that part. Keep the CSS and HTML coherent and link styles.css. Use CSS variables for core colors, typography, spacing, and container width. Include at least three distinct image files, represented by at least three unique image URLs and at least three HTML `<img>` elements with accurate alt text. Do not reuse the same photo with different crop parameters to meet the count. Use varied compositions and meaningful, relevant imagery. Do not invent organization facts, metrics, reviews, credentials, contact details, or hours.
 
-The hero photo must be edge-to-edge across the full hero region, cover-cropped behind readable overlay copy on desktop and mobile. Keep the primary CTA visible in the first viewport on desktop and mobile; use a click-to-call link when a verified phone number is available, otherwise provide a safe contact action. Include every requested section. If hours are requested but the source is unclear or conflicting, include an "Hours & availability" section that asks visitors to call to confirm, without stating unsupported times. Include a complete, visibly designed semantic footer after main content, with the business name, at least two useful links, accurate available contact/location information, and copyright. On mobile, use a keyboard-accessible three-bar hamburger with a programmatic name and state; do not show a Menu text label. Keep CTA buttons and button-style links free of arrow glyphs and arrow icons, including chevrons; use action-oriented text only. If the design brief names an HTML5 UP template, adapt its structure into an original business-specific design, preserve its name/source/CC BY 3.0 attribution in an HTML comment, and keep template credits out of visible page content. The final HTML response must close with </body></html>.
+The hero photo must be edge-to-edge across the full hero region, cover-cropped behind readable overlay copy on desktop and mobile. Keep the primary CTA visible in the first viewport on desktop and mobile; use the source-appropriate primary action; use click-to-call only when calling is appropriate and the phone number is verified. Include every requested section. If hours are requested but the source is unclear or conflicting, include an "Hours & availability" section that asks visitors to contact the organization to confirm, without stating unsupported times. Include a complete, visibly designed semantic footer after main content, with the organization or brand name, at least two useful links, accurate available contact/location information, and copyright. On mobile, use a keyboard-accessible three-bar hamburger with a programmatic name and state; do not show a Menu text label. Keep CTA buttons and button-style links free of arrow glyphs and arrow icons, including chevrons; use action-oriented text only. If the design brief names an HTML5 UP template, adapt its structure into an original organization-specific design, preserve its name/source/CC BY 3.0 attribution in an HTML comment, and keep template credits out of visible page content. The final HTML response must close with </body></html>.
 
 If the source website has a contact form, preserve its purpose and relevant fields. Ask for image choices that match the real business and section; do not invent alt-text claims. Avoid repeated generic card grids, decorative gradients/blobs without purpose, filler copy, and unsupported testimonials, statistics, awards, or credentials.
 
@@ -275,18 +275,19 @@ def send_source_assessment(page, source_url: str) -> tuple[str, str, dict]:
     label_pattern = re.compile(r"\bSOURCE\s+SITE\s+AUDIT\b", re.IGNORECASE)
     prompt = f"""Inspect the public website at {source_url} using Web Search. This is a source assessment only; do not write redesign code yet.
 
-Review the homepage and relevant pages linked from its navigation, especially services, products/parts, about, and contact pages when present. Return one JSON object in exactly one `json` code block, preceded by the exact label `{label}`. Include:
+Review the homepage and relevant pages linked from its navigation, such as about, services, products, solutions, portfolio/work, locations, support, and contact pages when present. Return one JSON object in exactly one `json` code block, preceded by the exact label `{label}`. Include:
 - `access_status`: `accessed` only if you actually retrieved and reviewed the requested website; otherwise `unavailable`.
 - `pages_reviewed`: an array of objects with `url`, `page_title`, and a short description of visible content.
-- `business_facts`: concise, neutral facts visible on those pages; do not copy paragraphs verbatim.
+- `organization_facts`: concise, neutral facts visible on those pages; do not copy paragraphs verbatim.
 - `audience_and_goals`: likely audience and primary contact/conversion path, separating evidence from inference.
-- `brand_and_visual_observations`: observations about the existing design and imagery, not instructions to copy them.
+- `brand_and_visual_observations`: visible brand colors, typography, layout, tone, and image subjects; distinguish observations from design opinions.
+- `source_assets`: an array of publicly displayed logo/photo/brand asset URLs, each with its type and where it appears; use an empty array if none can be identified.
 - `content_structure`: the important sections/pages a redesign should retain.
-- `unknown_or_verify`: details that are unclear, inconsistent, or should be confirmed with the business.
-- `design_reference`: recommend one specific HTML5 UP template only if you can inspect its official demo; include `name`, `url`, `license_url`, and `patterns_to_adapt`. If you cannot verify a suitable template and its license, use `null`.
+- `unknown_or_verify`: details that are unclear, inconsistent, or should be confirmed with the organization.
+- `design_reference`: recommend one specific HTML5 UP template only if it genuinely fits and you can inspect its official demo; include `name`, `url`, `license_url`, and `patterns_to_adapt`. If none fits or you cannot verify its demo and license, use `null`.
 - `sources`: exact source URLs you actually reviewed, including the requested domain.
 
-Do not invent facts, claim a page was reviewed when it was not, reproduce source copy, or reuse protected brand assets. Preserve observed facts separately from design opinions. Keep the audit concise enough to guide a one-page redesign."""
+Do not invent facts or claim a page was reviewed when it was not. Do not reproduce source copy or existing page layouts wholesale. Identify the organization's own publicly displayed assets for potential reuse; do not make claims about asset ownership or licensing that you cannot verify. Preserve observed facts separately from design opinions. Keep the audit concise enough to guide a one-page redesign."""
 
     composer = wait_for_guest_composer(page)
     before_text = main_text(page)
@@ -373,8 +374,10 @@ def validate_source_assessment(assessment: dict, source_url: str) -> None:
     if not assessment.get("pages_reviewed"):
         fail("Duck.ai's source assessment did not list any reviewed pages.")
     reference = assessment.get("design_reference")
+    if reference is None:
+        return
     if not isinstance(reference, dict) or not all(reference.get(key) for key in ("name", "url", "license_url")):
-        fail("Duck.ai did not provide a verifiable named design reference and license; stopping before code generation.")
+        fail("Duck.ai returned an incomplete design reference; stopping before code generation.")
     if not reference.get("patterns_to_adapt"):
         fail("Duck.ai's design reference did not identify any template patterns to adapt.")
     template_url = urlparse(reference["url"])
@@ -476,8 +479,8 @@ def build_initial_prompt(
     source_context = (
         f"The source website {source_url} was assessed earlier in this same conversation. "
         "Use that captured assessment as your factual reference; do not ask the user to repeat it. "
-        "Preserve verified content and the original business's conversion goals, but write original copy. "
-        "Do not reuse the source site's copy, logo, or photos; use appropriately licensed, relevant imagery.\n\n"
+        "Preserve verified content and the source organization's conversion goals while writing original copy. "
+        "Reuse the organization's publicly displayed logo, photos, and brand assets from the source site when accessible and suitable; do not copy its text or reproduce its existing layout wholesale.\n\n"
         if source_url
         else ""
     )
@@ -486,7 +489,7 @@ def build_initial_prompt(
         template_context = (
             "Use this verified HTML5 UP design reference selected after the source assessment: "
             f"{design_reference['name']} ({design_reference['url']}); license: {design_reference['license_url']}. "
-            f"Adapt these patterns to the business: {json.dumps(design_reference['patterns_to_adapt'], ensure_ascii=False)}. "
+            f"Adapt these patterns to the source organization: {json.dumps(design_reference['patterns_to_adapt'], ensure_ascii=False)}. "
             "Do not copy template branding or unrelated template copy. Include the template name, source URL, "
             "CC BY 3.0 license URL, and adaptation note in a non-rendering HTML source comment.\n\n"
         )

@@ -6,7 +6,7 @@ This guide describes the current GitHub Actions flow for the `duckai` branch. It
 
 The **Duck.ai Website Automation** workflow starts on a push to `duckai` only when `duckai_automation/source_url.txt` changes, or when a user manually dispatches it on that branch. Changes to `website_request.txt` and `design_brief.txt` alone do not start a run. A manual dispatch accepts the website request, design brief, and optional source URL; a supplied URL overrides `source_url.txt`, while a blank URL falls back to that file. For a push-triggered run, the runner reads all three values from the checked-in files.
 
-The checked-in website request and design brief are reusable instructions, not site-specific copy. The request asks Duck.ai to identify the organization from the source, assess its pages, use supported facts, and reuse suitable brand assets. The brief asks it to derive the audience, conversion goal, and visual direction from that assessment. Replace the URL in `source_url.txt` to choose a different target; this file contains a URL, not a company name. When a source URL is present, Duck.ai performs the audit itself in the candidate's chat.
+The checked-in website request and design brief are reusable instructions, not site-specific copy. Keep them separate: the request defines scope, factual sourcing, content, assets, and output requirements; the design brief guides visual decisions. The runner combines both in the same generation prompt, so the separation does not add another Duck.ai turn. Replace the URL in `source_url.txt` to choose a different target; this file contains a URL, not a company name. When a source URL is present, Duck.ai performs the audit itself in the candidate's chat.
 
 ## End-to-end flow
 
@@ -16,7 +16,7 @@ flowchart TD
     B --> C[Start headed Chromium under Xvfb; create fresh logged-out Duck.ai chat]
     C --> D{Source URL provided?}
     D -- Yes --> E[Enable Duck.ai Web Search and request source audit]
-    E --> F[Capture audit and validate source domain, named HTML5 UP demo, and license]
+    E --> F[Capture audit; validate source domain and any selected design reference]
     F --> G{Audit validation passes?}
     D -- No --> H[Use request and compact design brief]
     G -- Yes --> I[Use the audit and design brief in the same chat]
@@ -44,7 +44,7 @@ The generation action runs up to six attempts, stopping early once it has three 
 
 ### Source assessment
 
-When a source URL is set, the runner enables Duck.ai Web Search and requests an assessment before requesting code. It asks Duck.ai to cite pages it reviewed on the requested domain, separate observed facts from inferences and unknowns, and recommend a named HTML5 UP design reference with its official demo and CC BY 3.0 license. The runner checks the assessment for the requested source domain and design-reference/license details. If validation fails, that candidate stops before code generation.
+When a source URL is set, the runner enables Duck.ai Web Search and requests an assessment before requesting code. It asks Duck.ai to cite pages it reviewed on the requested domain, separate observed facts from inferences and unknowns, describe visible brand colors and design elements, and identify source-site logo and photo assets. It may recommend a named HTML5 UP design reference with its official demo and CC BY 3.0 license when one genuinely fits; a template is optional. The runner checks that source pages match the requested domain and validates a template's details if one is selected. If source validation fails, that candidate stops before code generation.
 
 The later generation prompt refers to the source assessment already in that chat. The runner saves the captured assessment as `debug/source_assessment.json` and `debug/source_assessment.md`, and saves effective request inputs as `debug/inputs.json`. Template credit belongs in a non-rendering HTML comment and internal notes, not visible site content. A source audit is not independent verification by a human: it is Duck.ai's cited assessment.
 

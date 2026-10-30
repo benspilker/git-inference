@@ -12,6 +12,8 @@ You can also open **Actions → Duck.ai Website Automation → Run workflow** an
 - [`design_brief.txt`](design_brief.txt): reusable guidance for deriving a brand-specific visual direction from the source.
 - [`source_url.txt`](source_url.txt): the per-run public site URL for the in-chat source audit.
 
+Keep the request and brief separate: the request defines what to learn and build; the brief translates the source site's brand into a design, using industry cues as a secondary guide rather than assuming a preset palette. The runner combines them in the same prompt, so this separation does not add a chat turn.
+
 The workflow uses Ubuntu, a pinned Playwright Python container, and headed Chromium under Xvfb for Duck.ai. It asks for CSS parts 1–3, sends `acknowledged` as a separate user turn, and then asks for HTML parts 1–3 in the same chat. It verifies and assembles those captured parts, creates an inlined-CSS version, and renders the result for browser QA. The documented end-to-end sequence and output layout are in [`docs/workflow.md`](docs/workflow.md).
 
 The action attempts up to six candidates and requires three to pass its automated checks. Every attempted candidate is saved to `duckai-runs/` and committed to `duckai`, including failures, so reports can be inspected. Generated-output commits use `[skip ci]` and do not start another generation run. The separate **Duck.ai Rendered Website QA** action reruns browser and structural checks on an already saved batch without opening new Duck.ai chats.
