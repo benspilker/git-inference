@@ -8,6 +8,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -132,19 +133,26 @@ def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]
     before_blocks = preformatted_blocks(page).count()
 
     composer.fill(prompt, timeout=15000)
-    send_button = page.get_by_role("button", name=re.compile(r"^send$", re.IGNORECASE)).last
-    if send_button.count() == 0:
-        send_button = page.locator("button[data-testid*='send']").last
-    try:
-        send_button.wait_for(state="visible", timeout=10000)
-        if not send_button.is_enabled():
-            page.wait_for_function(
-                "() => Array.from(document.querySelectorAll('button')).some(b => /send/i.test(b.getAttribute('aria-label') || b.innerText) && !b.disabled)",
-                timeout=10000,
-            )
-        send_button.click(timeout=10000)
-    except PlaywrightTimeoutError:
-        fail("Duck.ai's Send control did not become available. No response was captured.")
+    send_candidates = (
+        page.get_by_role("button", name=re.compile(r"send", re.IGNORECASE)),
+        page.locator("button[aria-label*='send' i]"),
+        page.locator("button[data-testid*='send' i]"),
+        page.locator("form button[type='submit']"),
+    )
+    sent = False
+    for candidate in send_candidates:
+        try:
+            if candidate.count() and candidate.last.is_visible() and candidate.last.is_enabled():
+                candidate.last.click(timeout=5000)
+                sent = True
+                break
+        except PlaywrightTimeoutError:
+            continue
+    if not sent:
+        try:
+            composer.press("Enter", timeout=5000)
+        except PlaywrightTimeoutError:
+            fail("Duck.ai's composer was found, but neither a Send control nor Enter could submit the prompt.")
 
     deadline = time.monotonic() + 240
     last_code = ""
@@ -185,6 +193,61 @@ def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]
             fail(f"Duck.ai returned multiple new code blocks for {label}; refusing ambiguous capture.")
         page.wait_for_timeout(1000)
     fail(f"Timed out waiting for a complete, stable {label} response with exactly one code block.")
+
+
+def send_acknowledgment_and_wait(page, expected_chat_url: str) -> None:
+    """Send the required human-style handoff turn and wait for Duck.ai to finish it."""
+    acknowledgment = "acknowledged"
+    before_text = main_text(page)
+    before_ack_count = len(re.findall(r"\backnowledged\b", before_text, re.IGNORECASE))
+    before_assistant_count = len(re.findall(r"Duck\.ai said", before_text, re.IGNORECASE))
+    composer = wait_for_guest_composer(page)
+    composer.fill(acknowledgment, timeout=15000)
+    send_candidates = (
+        page.get_by_role("button", name=re.compile(r"send", re.IGNORECASE)),
+        page.locator("button[aria-label*='send' i]"),
+        page.locator("button[data-testid*='send' i]"),
+        page.locator("form button[type='submit']"),
+    )
+    sent = False
+    for candidate in send_candidates:
+        try:
+            if candidate.count() and candidate.last.is_visible() and candidate.last.is_enabled():
+                candidate.last.click(timeout=5000)
+                sent = True
+                break
+        except PlaywrightTimeoutError:
+            continue
+    if not sent:
+        try:
+            composer.press("Enter", timeout=5000)
+        except PlaywrightTimeoutError:
+            fail("Could not submit the standalone acknowledged turn.")
+
+    deadline = time.monotonic() + 180
+    previous_text = ""
+    stable_samples = 0
+    while time.monotonic() < deadline:
+        text = main_text(page)
+        ack_count = len(re.findall(r"\backnowledged\b", text, re.IGNORECASE))
+        assistant_count = len(re.findall(r"Duck\.ai said", text, re.IGNORECASE))
+        stop = page.get_by_role("button", name=re.compile(r"stop", re.IGNORECASE)).last
+        try:
+            stop_visible = stop.count() > 0 and stop.is_visible()
+        except Exception:
+            stop_visible = False
+        if ack_count > before_ack_count and assistant_count > before_assistant_count and text == previous_text and not stop_visible:
+            stable_samples += 1
+        else:
+            stable_samples = 0
+        previous_text = text
+        if stable_samples >= 3:
+            if page.url != expected_chat_url:
+                fail("Duck.ai conversation URL changed after the acknowledged turn.")
+            print("Sent acknowledged as a standalone Duck.ai turn and waited for its response.")
+            return
+        page.wait_for_timeout(1000)
+    fail("Timed out waiting for Duck.ai to finish the standalone acknowledged turn.")
 
 
 def capture_chunk(kind: str, part: int, chat_url: str, response: str) -> None:
@@ -278,26 +341,36 @@ def run() -> None:
 
     RUN_DIR.mkdir(parents=True, exist_ok=False)
     (RUN_DIR / "debug").mkdir(parents=True)
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True)
-        context = browser.new_context(viewport={"width": 1440, "height": 900})
-        page = context.new_page()
-        page.set_default_timeout(15000)
-        chat_url = ""
-        try:
-            page.goto("https://duck.ai/", wait_until="domcontentloaded", timeout=60000)
-            wait_for_guest_composer(page)
-            for kind, part in [("css", 1), ("css", 2), ("css", 3), ("html", 1), ("html", 2), ("html", 3)]:
-                prompt = build_initial_prompt(website_request, design_brief) if not chat_url else build_next_prompt(kind, part)
-                response, current_url = send_and_capture(page, prompt, kind, part)
-                if chat_url and current_url != chat_url:
-                    fail("Duck.ai conversation URL changed during capture; refusing to mix chats.")
-                chat_url = current_url
-                capture_chunk(kind, part, chat_url, response)
-                print(f"Captured {kind.upper()} PART {part} OF 3")
-        finally:
-            context.close()
-            browser.close()
+    turn_log = {"chat_url": "", "turns": []}
+    with tempfile.TemporaryDirectory(prefix="duckai-website-profile-") as profile_dir:
+        with sync_playwright() as playwright:
+            context = playwright.chromium.launch_persistent_context(
+                user_data_dir=profile_dir,
+                headless=False,
+                args=["--disable-blink-features=AutomationControlled"],
+                viewport={"width": 1440, "height": 900},
+            )
+            page = context.pages[0] if context.pages else context.new_page()
+            page.set_default_timeout(15000)
+            chat_url = ""
+            try:
+                page.goto("https://duck.ai/", wait_until="domcontentloaded", timeout=60000)
+                wait_for_guest_composer(page)
+                for kind, part in [("css", 1), ("css", 2), ("css", 3), ("html", 1), ("html", 2), ("html", 3)]:
+                    if kind == "html" and part == 1:
+                        send_acknowledgment_and_wait(page, chat_url)
+                        turn_log["turns"].append({"type": "user_acknowledgment", "text": "acknowledged", "assistant_response_completed": True})
+                    prompt = build_initial_prompt(website_request, design_brief) if not chat_url else build_next_prompt(kind, part)
+                    response, current_url = send_and_capture(page, prompt, kind, part)
+                    if chat_url and current_url != chat_url:
+                        fail("Duck.ai conversation URL changed during capture; refusing to mix chats.")
+                    chat_url = current_url
+                    turn_log["chat_url"] = chat_url
+                    capture_chunk(kind, part, chat_url, response)
+                    turn_log["turns"].append({"type": "captured_chunk", "kind": kind, "part": part})
+                    print(f"Captured {kind.upper()} PART {part} OF 3")
+            finally:
+                context.close()
 
     subprocess.run([sys.executable, str(ASSEMBLE_SCRIPT), str(RUN_DIR)], check=True, cwd=REPO)
     capture_previews()
@@ -310,6 +383,7 @@ def run() -> None:
         "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved.",
     }
     (RUN_DIR / "run_notes.json").write_text(json.dumps(notes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (RUN_DIR / "conversation_turns.json").write_text(json.dumps(turn_log, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     summary = Path(os.environ.get("GITHUB_STEP_SUMMARY", ""))
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with summary.open("a", encoding="utf-8") as handle:

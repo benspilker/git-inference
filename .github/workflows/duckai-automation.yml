@@ -7,6 +7,11 @@ on:
     paths:
       - "duckai_automation/website_request.txt"
       - "duckai_automation/design_brief.txt"
+      - "duckai_automation/run_duckai.py"
+      - "duckai_automation/scripts/**"
+      - "duckai_automation/SKILL.md"
+      - "duckai_automation/README.md"
+      - ".github/workflows/duckai-automation.yml"
   workflow_dispatch:
     inputs:
       website_request:
@@ -62,7 +67,7 @@ jobs:
         env:
           WEBSITE_REQUEST: ${{ inputs.website_request }}
           DESIGN_BRIEF: ${{ inputs.design_brief }}
-        run: python duckai_automation/run_duckai.py
+        run: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
 
       - name: Commit generated website run to selected branch
         env:

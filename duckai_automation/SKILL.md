@@ -8,11 +8,11 @@ category: productivity
 
 ## GitHub Actions runtime
 
-Run the `Duck.ai Website Automation` workflow manually on the `duckai` branch. It uses the repository's pinned Playwright Python container (`mcr.microsoft.com/playwright/python:v1.58.0-noble`, matching `playwright==1.58.0`). Chromium runs headless; Xvfb is not needed for normal Playwright work.
+Run the `Duck.ai Website Automation` workflow manually on the `duckai` branch. It uses the repository's pinned Playwright Python container (`mcr.microsoft.com/playwright/python:v1.58.0-noble`, matching `playwright==1.58.0`). For Duck.ai inference, Chromium runs headed under Xvfb to match the repository's existing inference workflow.
 
 The workflow creates a fresh, non-persistent browser context for each candidate. It must stay logged out. If Duck.ai blocks guest chat, requires sign-in, or presents a human-verification/usage gate, stop and report it; do not evade the gate.
 
-The workflow captures the newest rendered assistant message's single newly added code block and visible part label. Duck.ai's UI renders Markdown without its original backticks, so the runner wraps that message-scoped visible code block in the expected fence for validation. It never reads prior chat messages as the current response. Accepted chunks and hashes are saved in the run folder.
+The workflow requests CSS parts 1–3, sends `acknowledged` as its own user turn and waits for Duck.ai to complete its response, then requests HTML parts 1–3 in that same conversation. It captures the newest rendered assistant message's single newly added code block and visible part label. Duck.ai's UI renders Markdown without its original backticks, so the runner wraps that message-scoped visible code block in the expected fence for validation. It never reads prior chat messages as the current response. Accepted chunks, hashes, and the captured turn order are saved in the run folder.
 
 After assembly, the workflow saves desktop/mobile screenshots and runs the structural checker. Screenshot generation is not a visual audit. The workflow commits generated files and evidence under `duckai-runs/run-<run-id>-<attempt>/`; it does not claim image relevance or visual review passed. Complete those human gates before describing a candidate as successful.
 

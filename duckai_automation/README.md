@@ -10,9 +10,9 @@ The manual workflow inputs use the same fields:
 - **Website request**
 - **Design brief**
 
-The workflow opens a fresh, non-persistent Chromium context at `https://duck.ai/`, checks that guest chat is available, and requests exactly three CSS chunks followed by three HTML chunks in the same conversation. It captures only each newly rendered code block, validates its part label and first-line marker, records hashes in the manifest, assembles the files, renders desktop/mobile screenshots, and runs the structural checker.
+The workflow opens a fresh, logged-out Chromium context at `https://duck.ai/`, checks that guest chat is available, and requests exactly three CSS chunks in one conversation. After capturing and validating all CSS, the runner submits `acknowledged` as its own user turn and waits for Duck.ai to finish responding. It then requests exactly three HTML chunks in that same conversation. The runner captures only each newly rendered code block, validates its part label and first-line marker, records hashes in the manifest, assembles the files, renders desktop/mobile screenshots, and runs the structural checker.
 
-On success, the generated run is committed and pushed to `duckai-runs/run-<run-id>-<attempt>/`. The folder contains `files/index.html`, `files/styles.css`, captured chunks and manifest, screenshots, and checker notes. The workflow does not commit the website request or design brief.
+On success, the generated run is committed and pushed to `duckai-runs/run-<run-id>-<attempt>/`. The folder contains `files/index.html`, `files/styles.css`, captured chunks and manifest, `conversation_turns.json` (showing CSS 1–3, the standalone acknowledgment, then HTML 1–3 in one chat), screenshots, and checker notes. The workflow does not commit the website request or design brief.
 
 The screenshot and image relevance review remains a human gate. The action does not manufacture a passing visual review: `run_notes.json` will show visual review as pending until a reviewer inspects the exact rendered screenshots and image subjects. A generated candidate is saved even while that review is pending.
 
