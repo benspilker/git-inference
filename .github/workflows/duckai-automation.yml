@@ -63,26 +63,44 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r .github/workflows/requirements-playwright.txt
 
-      - name: Generate, capture, assemble, and render three candidates
+      - name: Generate candidates until three pass automated checks
+        id: generate
         env:
           WEBSITE_REQUEST: ${{ inputs.website_request }}
           DESIGN_BRIEF: ${{ inputs.design_brief }}
         run: |
           set -euo pipefail
-          for candidate in 1 2 3; do
-            echo "Starting complete website candidate ${candidate} of 3."
-            CANDIDATE_INDEX="$candidate" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
+          successful=0
+          attempt=0
+          target=3
+          max_attempts=6
+          while [[ "$successful" -lt "$target" && "$attempt" -lt "$max_attempts" ]]; do
+            attempt=$((attempt + 1))
+            echo "Starting website candidate attempt ${attempt}; automated successes so far: ${successful}/${target}."
+            CANDIDATE_INDEX="$attempt" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
+            run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-${attempt}"
+            if python -c 'import json,sys; print(str(json.load(open(sys.argv[1], encoding="utf-8")).get("automated_success", False)).lower())' "$run_dir/run_notes.json" | grep -qx true; then
+              successful=$((successful + 1))
+              echo "Candidate attempt ${attempt} passed all automated checks (${successful}/${target})."
+            else
+              echo "Candidate attempt ${attempt} did not pass all automated checks. Its report will be retained."
+            fi
           done
+          echo "attempt_count=${attempt}" >> "$GITHUB_OUTPUT"
+          echo "successful_count=${successful}" >> "$GITHUB_OUTPUT"
+          echo "Automated successes: ${successful}/${target} after ${attempt} candidate attempts."
 
       - name: Commit generated website run to selected branch
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
+          ATTEMPT_COUNT: ${{ steps.generate.outputs.attempt_count }}
+          SUCCESSFUL_COUNT: ${{ steps.generate.outputs.successful_count }}
         run: |
           set -euo pipefail
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for candidate in 1 2 3; do
+          for ((candidate = 1; candidate <= ATTEMPT_COUNT; candidate++)); do
             run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-${candidate}"
             test -f "$run_dir/files/index.html"
             test -f "$run_dir/files/styles.css"
@@ -93,10 +111,10 @@ jobs:
             echo "No generated candidate files to commit."
             exit 1
           fi
-          git commit -m "duckai: save three generated website candidates ${GITHUB_RUN_ID} [skip ci]"
+          git commit -m "duckai: save ${SUCCESSFUL_COUNT} passing website candidates from ${ATTEMPT_COUNT} attempts ${GITHUB_RUN_ID} [skip ci]"
           for attempt in 1 2 3; do
             if git push origin "HEAD:refs/heads/${TARGET_BRANCH}"; then
-              echo "Pushed all three candidate folders to ${TARGET_BRANCH}."
+              echo "Pushed all ${ATTEMPT_COUNT} candidate folders to ${TARGET_BRANCH}; ${SUCCESSFUL_COUNT} passed automated checks."
               exit 0
             fi
             echo "Push attempt ${attempt} failed; rebasing on the selected branch."
@@ -106,3 +124,14 @@ jobs:
           done
           echo "Could not push the generated run after three attempts."
           exit 1
+
+      - name: Require three automated successes
+        env:
+          SUCCESSFUL_COUNT: ${{ steps.generate.outputs.successful_count }}
+        run: |
+          set -euo pipefail
+          if [[ "$SUCCESSFUL_COUNT" -lt 3 ]]; then
+            echo "Only ${SUCCESSFUL_COUNT} of 3 required automated successes were produced. Review the committed candidate reports."
+            exit 1
+          fi
+          echo "Three candidates passed the automated checker and Playwright browser QA. Human visual and image-relevance review remains pending."

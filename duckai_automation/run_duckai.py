@@ -23,8 +23,8 @@ REPO = ROOT.parent
 RUN_ID = os.environ.get("GITHUB_RUN_ID", "local")
 RUN_ATTEMPT = os.environ.get("GITHUB_RUN_ATTEMPT", "1")
 CANDIDATE_INDEX = os.environ.get("CANDIDATE_INDEX", "1")
-if not CANDIDATE_INDEX.isdigit() or int(CANDIDATE_INDEX) not in (1, 2, 3):
-    raise RuntimeError("CANDIDATE_INDEX must be 1, 2, or 3.")
+if not CANDIDATE_INDEX.isdigit() or not 1 <= int(CANDIDATE_INDEX) <= 6:
+    raise RuntimeError("CANDIDATE_INDEX must be between 1 and 6.")
 RUN_DIR = REPO / "duckai-runs" / f"run-{RUN_ID}-{RUN_ATTEMPT}-candidate-{CANDIDATE_INDEX}"
 CAPTURE_SCRIPT = ROOT / "scripts" / "capture_chunk.py"
 ASSEMBLE_SCRIPT = ROOT / "scripts" / "assemble_chunks.py"
@@ -32,7 +32,7 @@ INLINE_SCRIPT = ROOT / "scripts" / "inline_css.py"
 BROWSER_QA_SCRIPT = ROOT / "scripts" / "browser_qa.py"
 CHECK_SCRIPT = ROOT / "scripts" / "check_website.py"
 
-BASE_CONTRACT = """Follow the supplied facts and design brief. Build a polished, responsive, business-specific website. Use exactly three CSS responses followed by exactly three HTML responses, one complete code block per response. CSS responses use a css fence; HTML responses use a text fence containing raw HTML. Each response must state its exact part label. The first nonblank line inside its code block must be exactly `/* CSS PART n OF 3 */` or `<!-- HTML PART n OF 3 -->` for that part. Keep the CSS and HTML coherent and link styles.css. Use CSS variables for core colors, typography, spacing, and container width. Use varied compositions and meaningful, relevant imagery; include at least three distinct images. Do not invent real business facts, metrics, reviews, credentials, contact details, or hours.
+BASE_CONTRACT = """Follow the supplied facts and design brief. Build a polished, responsive, business-specific website. Use exactly three CSS responses followed by exactly three HTML responses, one complete code block per response. CSS responses use a css fence; HTML responses use a text fence containing raw HTML. Each response must state its exact part label. The first nonblank line inside its code block must be exactly `/* CSS PART n OF 3 */` or `<!-- HTML PART n OF 3 -->` for that part. Keep the CSS and HTML coherent and link styles.css. Use CSS variables for core colors, typography, spacing, and container width. Include at least three distinct image files, represented by at least three unique image URLs and at least three HTML `<img>` elements with accurate alt text. Do not reuse the same photo with different crop parameters to meet the count. Use varied compositions and meaningful, relevant imagery. Do not invent real business facts, metrics, reviews, credentials, contact details, or hours.
 
 The hero photo must be edge-to-edge across the full hero region, cover-cropped behind readable overlay copy on desktop and mobile. Include a complete, visibly designed semantic footer after main content, with the business name, at least two useful links, accurate available contact/location information, and copyright. On mobile, use a keyboard-accessible three-bar hamburger with a programmatic name and state; do not show a Menu text label. Do not use arrow glyphs in CTA buttons. If the design brief names an HTML5 UP template, adapt its structure into an original business-specific design, preserve its name/source/CC BY 3.0 attribution in an HTML comment, and keep template credits out of visible page content. The final HTML response must close with </body></html>.
 
@@ -393,9 +393,15 @@ def run() -> None:
     report = run_checker(website_request)
     notes = {
         "candidate_index": int(CANDIDATE_INDEX),
-        "status": "generated_pending_human_review",
+        "automated_success": bool(report.get("automated_success")),
+        "status": (
+            "automated_checks_passed_pending_human_review"
+            if report.get("automated_success")
+            else "automated_checks_failed"
+        ),
         "chat_url": chat_url,
         "final_success": bool(report.get("final_success")),
+        "browser_qa_status": report.get("browser_qa_status", "missing"),
         "visual_review_status": report.get("visual_review_status", "pending"),
         "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved.",
     }
@@ -404,11 +410,12 @@ def run() -> None:
     summary = Path(os.environ.get("GITHUB_STEP_SUMMARY", ""))
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with summary.open("a", encoding="utf-8") as handle:
-            handle.write(f"## Duck.ai website candidate {CANDIDATE_INDEX} of 3\n\n")
+            handle.write(f"## Duck.ai website candidate attempt {CANDIDATE_INDEX}\n\n")
             handle.write(f"- Output: `{RUN_DIR.relative_to(REPO).as_posix()}/`\n")
-            handle.write(f"- Structural/checker success: `{str(bool(report.get('final_success'))).lower()}`\n")
+            handle.write(f"- Automated checks passed: `{str(bool(report.get('automated_success'))).lower()}`\n")
+            handle.write(f"- Browser QA: `{report.get('browser_qa_status', 'missing')}`\n")
             handle.write("- Visual review: pending human screenshot and image relevance review.\n")
-            handle.write("- This candidate folder will be committed with the other completed candidates.\n")
+            handle.write("- This candidate folder will be committed with the candidate batch.\n")
     print(f"Run saved in {RUN_DIR}")
 
 

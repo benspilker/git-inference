@@ -1,6 +1,6 @@
 ---
 name: duckai-automation-github-actions
-description: Run three independent Duck.ai website candidates in logged-out Playwright browsers from GitHub Actions, capture and verify six CSS/HTML chunks per candidate, assemble and inline files, render screenshots, and save each run to the duckai branch.
+description: Generate Duck.ai website candidates in logged-out Playwright browsers from GitHub Actions until three pass automated checks, capture six CSS/HTML chunks per candidate, assemble and inline files, render screenshots, and save candidate runs to the duckai branch.
 category: productivity
 ---
 
@@ -14,7 +14,7 @@ The workflow creates a fresh, non-persistent browser context for each candidate.
 
 The workflow requests CSS parts 1–3, sends `acknowledged` as its own user turn and waits for Duck.ai to complete its response, then requests HTML parts 1–3 in that same conversation. It captures the newest rendered assistant message's single newly added code block and visible part label. Duck.ai's UI renders Markdown without its original backticks, so the runner wraps that message-scoped visible code block in the expected fence for validation. It never reads prior chat messages as the current response. Accepted chunks, hashes, and the captured turn order are saved in the run folder.
 
-The GitHub Action runs three independent candidates sequentially. Each uses a fresh Duck.ai chat and captures CSS parts 1–3, sends `acknowledged` as its own user turn, then captures HTML parts 1–3. After assembly, the runner inlines CSS into `files/inlined/index.html`, runs Playwright QA against that exact page at desktop and mobile viewports, saves screenshots, and runs the structural checker. The machine checks cover rendered section visibility, full-width hero, first-screen CTA, mobile menu click and keyboard behavior, horizontal overflow, and browser font/image loading. These checks are deterministic and require no AI inference. Screenshot generation is not a visual design audit. The workflow commits generated files and evidence under `duckai-runs/run-<run-id>-<attempt>-candidate-1/`, `-candidate-2/`, and `-candidate-3/`; it does not claim image relevance or visual review passed. Complete those human gates before describing a candidate as successful.
+The GitHub Action generates candidates sequentially until three pass the automated structural and Playwright checks, with at most six attempts. Each attempt uses a fresh Duck.ai chat and captures CSS parts 1–3, sends `acknowledged` as its own user turn, then captures HTML parts 1–3. After assembly, the runner inlines CSS into `files/inlined/index.html`, runs Playwright QA against that exact page at desktop and mobile viewports, saves screenshots, and runs the structural checker. The machine checks cover rendered section visibility, full-width hero, first-screen CTA, mobile menu click and keyboard behavior, horizontal overflow, and browser font/image loading. These checks are deterministic and require no AI inference. `automated_success` means those objective checks passed; human image relevance and design approval remain pending. Every attempted candidate is saved under `duckai-runs/run-<run-id>-<attempt>-candidate-<candidate-index>/` for review.
 
 The runner creates `files/inlined/index.html` before browser QA by embedding the assembled `styles.css` into the assembled HTML. It replaces the `styles.css` link or inserts CSS in `<head>` when Duck.ai omitted that link. Keep the original `files/index.html` and `files/styles.css` for source review and checker compatibility. This inlined output embeds CSS only; externally referenced fonts and images still need network access.
 
@@ -171,4 +171,4 @@ For every candidate, require the structural checks, verified relevant imagery, d
 
 ## Quality standard
 
-Report a candidate as successful only when the checker returns `final_success: true`, the footer is complete and responsive, and the rendered page has passed desktop/mobile review. A candidate that only has valid HTML/CSS or loadable image files is provisional. Keep the requested HTML5 UP template name and the quality-check result in the run notes.
+Report a candidate as fully approved only when the checker returns `final_success: true`, the footer is complete and responsive, and the rendered page has passed desktop/mobile review. `automated_success` means only that structural and browser checks passed; it remains provisional until the human image and design reviews pass. Keep the requested HTML5 UP template name and the quality-check result in the run notes.

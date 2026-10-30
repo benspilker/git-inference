@@ -783,7 +783,7 @@ def assess_website(prompt, session_dir):
         "images_load_in_browser",
     )
     for name in browser_check_names:
-        checks[f"browser_{name}"] = browser_qa_status == "pass" and browser_qa_checks.get(name) is True
+        checks[f"browser_{name}"] = browser_qa_status in {"pass", "fail"} and browser_qa_checks.get(name) is True
 
     source_image_urls = _source_image_urls_from_prompt(prompt)
     if source_image_urls:
@@ -806,6 +806,8 @@ def assess_website(prompt, session_dir):
 
     passed = sum(checks.values())
     total = len(checks)
+    automated_checks = {name: value for name, value in checks.items() if name != "visual_design_review_passed"}
+    automated_success = bool(html and css and all(automated_checks.values()))
     missing_sections = [name for name, present in section_results.items() if not present]
     if not hero_image_present:
         missing_sections.append("hero image")
@@ -856,6 +858,7 @@ def assess_website(prompt, session_dir):
         "checks_passed": passed,
         "checks_total": total,
         "checks": checks,
+        "automated_success": automated_success,
         "required_sections": required,
         "missing_sections": missing_sections,
         "hero_image_present": hero_image_present,
@@ -882,7 +885,7 @@ def assess_website(prompt, session_dir):
         "footer_links": parser.footer_links,
         "complete": bool(html and css and all(checks.values())),
         "final_success": bool(
-            html and css and all(checks.values())
+            automated_success and checks["visual_design_review_passed"]
             and (not visual_review_required or visual_review_status == "pass")
             and visual_design_review_status == "pass"
         ),
