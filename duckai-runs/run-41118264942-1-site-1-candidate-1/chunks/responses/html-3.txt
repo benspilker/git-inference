@@ -1,0 +1,119 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="section section-white" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div class="contact-details">
+          <p class="eyebrow">Start a conversation</p>
+          <h2 id="contact-title">Tell us what you’re planning.</h2>
+          <p>
+            The company website invites estimate requests and lists phone, text,
+            email, and an online contact form as ways to get in touch.
+          </p>
+
+
+          <div class="contact-method">
+            <h3>Service area</h3>
+            <address>Longmont and Northern Colorado</address>
+          </div>
+
+
+          <div class="contact-method">
+            <h3>Contact the company</h3>
+            <a href="https://joshbrooksconstructionllc.com/contact/">
+              Visit the company contact page
+            </a>
+          </div>
+
+
+          <p class="availability-note">
+            For current hours and availability, please confirm directly with the company.
+          </p>
+        </div>
+
+
+        <div>
+          <form class="contact-form" action="https://joshbrooksconstructionllc.com/contact/" method="get">
+            <div class="form-field">
+              <label for="contact-name">Your name</label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Name">
+            </div>
+            <div class="form-field">
+              <label for="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div class="form-field">
+              <label for="contact-phone">Phone</label>
+              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number">
+            </div>
+            <div class="form-field">
+              <label for="project-type">Project type</label>
+              <select id="project-type" name="project-type">
+                <option value="">Choose a project type</option>
+                <option value="kitchen-bath">Kitchen or bathroom</option>
+                <option value="roofing">Roofing or storm restoration</option>
+                <option value="exterior">Windows, doors, or siding</option>
+                <option value="other">Other listed service</option>
+              </select>
+            </div>
+            <div class="form-field form-field-wide">
+              <label for="project-message">A few details about your project</label>
+              <textarea id="project-message" name="message" placeholder="What would you like to discuss?"></textarea>
+            </div>
+            <p class="form-field-wide">
+              This redesign preview does not submit form entries. Use the company’s contact page to send an estimate request.
+            </p>
+            <a class="button form-field-wide" href="https://joshbrooksconstructionllc.com/contact/">
+              Continue to company contact page
+            </a>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a class="footer-brand" href="#top">Josh Brooks Construction &amp; Renovation</a>
+        <p class="footer-meta">Based in Longmont; serving Northern Colorado, as described on the company website.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#services">Services</a>
+        <a href="#work">Project inspiration</a>
+        <a href="https://joshbrooksconstructionllc.com/contact/">Company contact page</a>
+      </nav>
+      <p class="footer-copyright">© 2026 Josh Brooks Construction &amp; Renovation.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    (() => {
+      const toggle = document.querySelector(".nav-toggle");
+      const navigation = document.getElementById("primary-navigation");
+
+
+      if (!toggle || !navigation) return;
+
+
+      toggle.addEventListener("click", () => {
+        const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!isExpanded));
+        toggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+        navigation.classList.toggle("is-open", !isExpanded);
+      });
+
+
+      navigation.addEventListener("click", (event) => {
+        if (event.target.closest("a")) {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open navigation");
+          navigation.classList.remove("is-open");
+        }
+      });
+    })();
+  </script>
+</body></html>
+```

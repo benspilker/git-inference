@@ -1,0 +1,26 @@
+{
+  "candidate_index": 1,
+  "site_index": 1,
+  "business_name": "Kitchen & Bath Remodeling Longmont CO",
+  "industry_category": "Kitchen Remodelers",
+  "location": "Longmont, CO",
+  "automated_success": true,
+  "status": "automated_checks_passed_pending_human_review",
+  "chat_url": "https://duck.ai/?chatID=16bb826f-7e6d-4db3-8153-bfd310d5067f",
+  "source_url": "https://joshbrooksconstructionllc.com",
+  "source_assessment_status": "pass",
+  "design_reference": {
+    "name": "Dimension",
+    "url": "https://html5up.net/uploads/demos/dimension/",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "Responsive presentation",
+      "Clear, compact navigation among core sections",
+      "Distinct content panels for services, work examples, about information, and contact"
+    ]
+  },
+  "final_success": false,
+  "browser_qa_status": "pass",
+  "visual_review_status": "pending",
+  "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved."
+}

@@ -1,0 +1,1376 @@
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17382f">
+  <title>Josh Brooks Construction &amp; Renovation | Northern Colorado</title>
+  <style>
+/* CSS PART 1 OF 3 */
+:root {
+  color-scheme: light;
+  --color-ink: #202b2a;
+  --color-muted: #61706c;
+  --color-paper: #f7f5ef;
+  --color-white: #fffefa;
+  --color-forest: #234b40;
+  --color-forest-deep: #17382f;
+  --color-copper: #bd704c;
+  --color-line: #d9ded7;
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-body: "DM Sans", Arial, sans-serif;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --container: 1180px;
+  --header-height: 82px;
+  --radius: 3px;
+  --shadow-soft: 0 18px 50px rgb(20 39 33 / 12%);
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--color-copper);
+  outline-offset: 4px;
+}
+
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.65rem 1rem;
+  transform: translateY(-160%);
+  border-radius: var(--radius);
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+.container {
+  width: min(var(--container), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+
+.site-header {
+  position: relative;
+  z-index: 20;
+  min-height: var(--header-height);
+  background: var(--color-white);
+  border-bottom: 1px solid rgb(32 43 42 / 9%);
+}
+
+
+.header-inner {
+  width: min(var(--container), calc(100% - 3rem));
+  min-height: var(--header-height);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--color-forest-deep);
+  text-decoration: none;
+}
+
+
+.brand-mark {
+  display: grid;
+  width: 40px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--color-copper);
+  color: var(--color-copper);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+
+.brand-name {
+  max-width: 210px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.085em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.25rem);
+}
+
+
+.primary-nav a {
+  color: var(--color-ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+
+.primary-nav a:hover {
+  color: var(--color-copper);
+}
+
+
+.primary-nav .nav-cta {
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--color-forest);
+  color: var(--color-forest);
+}
+
+
+.primary-nav .nav-cta:hover {
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+
+.nav-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  padding: 11px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+}
+
+
+.nav-toggle span {
+  display: block;
+  width: 21px;
+  height: 2px;
+  margin: 4px auto;
+  background: var(--color-forest-deep);
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: min(760px, calc(100svh - var(--header-height)));
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-forest-deep);
+  color: var(--color-white);
+}
+
+
+.hero::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background-image: var(--hero-image);
+  background-position: center 54%;
+  background-size: cover;
+  content: "";
+}
+
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(15 35 29 / 83%) 0%, rgb(15 35 29 / 62%) 42%, rgb(15 35 29 / 14%) 100%),
+    linear-gradient(0deg, rgb(15 35 29 / 28%), transparent 42%);
+  content: "";
+}
+
+
+.hero-inner {
+  width: min(var(--container), calc(100% - 3rem));
+  margin-inline: auto;
+  padding-block: clamp(5rem, 12vw, 9rem);
+}
+
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.15rem;
+  color: var(--color-copper);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+
+.hero .eyebrow {
+  color: #f2b18c;
+}
+
+
+.eyebrow::before {
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+
+.hero h1,
+.section-heading h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+}
+
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(3.3rem, 8vw, 6.4rem);
+}
+
+
+.hero-copy {
+  max-width: 540px;
+  margin: 1.5rem 0 0;
+  color: rgb(255 254 250 / 87%);
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+
+.button {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: var(--color-copper);
+  color: var(--color-white);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+
+.button:hover {
+  background: #a65d3d;
+}
+
+
+.button-secondary {
+  border-color: rgb(255 254 250 / 68%);
+  background: transparent;
+  color: var(--color-white);
+}
+
+
+.button-secondary:hover {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-forest-deep);
+}
+
+
+.hero-note {
+  margin: 1.1rem 0 0;
+  color: rgb(255 254 250 / 76%);
+  font-size: 0.78rem;
+}
+
+
+@media (max-width: 760px) {
+  :root {
+    --header-height: 72px;
+  }
+
+
+  .container,
+  .header-inner,
+  .hero-inner {
+    width: min(100% - 2rem, var(--container));
+  }
+
+
+  .header-inner {
+    gap: 0.75rem;
+  }
+
+
+  .brand-mark {
+    width: 36px;
+  }
+
+
+  .brand-name {
+    max-width: 170px;
+    font-size: 0.72rem;
+  }
+
+
+  .nav-toggle {
+    display: block;
+    flex: 0 0 auto;
+  }
+
+
+  .primary-nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 1rem 1rem;
+    border-top: 1px solid var(--color-line);
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
+  }
+
+
+  .primary-nav.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .primary-nav a {
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+
+  .primary-nav .nav-cta {
+    margin-top: 0.75rem;
+    padding-inline: 1rem;
+    text-align: center;
+  }
+
+
+  .hero {
+    min-height: min(720px, calc(100svh - var(--header-height)));
+    align-items: flex-end;
+  }
+
+
+  .hero::before {
+    background-position: 60% center;
+  }
+
+
+  .hero::after {
+    background:
+      linear-gradient(0deg, rgb(13 31 26 / 88%) 0%, rgb(13 31 26 / 58%) 52%, rgb(13 31 26 / 14%) 100%),
+      linear-gradient(90deg, rgb(13 31 26 / 22%), transparent);
+  }
+
+
+  .hero-inner {
+    padding-block: 4.5rem 3.25rem;
+  }
+
+
+  .hero h1 {
+    max-width: 580px;
+    font-size: clamp(3.15rem, 13vw, 5rem);
+  }
+
+
+  .hero-copy {
+    max-width: 480px;
+    margin-top: 1.1rem;
+  }
+
+
+  .hero-actions {
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+
+  .hero-actions .button {
+    flex: 1 1 180px;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* CSS PART 2 OF 3 */
+.section {
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+}
+
+
+.section-paper {
+  background: var(--color-paper);
+}
+
+
+.section-white {
+  background: var(--color-white);
+}
+
+
+.section-forest {
+  background: var(--color-forest-deep);
+  color: var(--color-white);
+}
+
+
+.section-heading {
+  max-width: 720px;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+
+.section-heading h2 {
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+}
+
+
+.section-heading p:not(.eyebrow) {
+  max-width: 620px;
+  margin: 1rem 0 0;
+  color: var(--color-muted);
+}
+
+
+.section-forest .section-heading p:not(.eyebrow) {
+  color: rgb(255 254 250 / 74%);
+}
+
+
+.intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 6rem);
+}
+
+
+.intro-image-wrap {
+  position: relative;
+  min-height: 420px;
+}
+
+
+.intro-image-wrap::after {
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  z-index: 0;
+  width: 46%;
+  height: 46%;
+  border-right: 1px solid var(--color-copper);
+  border-bottom: 1px solid var(--color-copper);
+  content: "";
+}
+
+
+.intro-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+}
+
+
+.intro-copy h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+
+.intro-copy p {
+  max-width: 570px;
+  color: var(--color-muted);
+}
+
+
+.text-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--color-forest);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration-color: var(--color-copper);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35rem;
+}
+
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgb(255 254 250 / 25%);
+}
+
+
+.service-item {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 1.25rem;
+  padding: 1.7rem 1rem 1.7rem 0;
+  border-bottom: 1px solid rgb(255 254 250 / 25%);
+}
+
+
+.service-item:nth-child(odd) {
+  margin-right: 2rem;
+}
+
+
+.service-item:nth-child(even) {
+  padding-left: 2rem;
+  border-left: 1px solid rgb(255 254 250 / 25%);
+}
+
+
+.service-number {
+  padding-top: 0.25rem;
+  color: #e6a27e;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+
+.service-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+
+.service-item p {
+  margin: 0.5rem 0 0;
+  color: rgb(255 254 250 / 72%);
+  font-size: 0.92rem;
+}
+
+
+.work-intro {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+
+.work-intro .section-heading {
+  margin-bottom: 2.5rem;
+}
+
+
+.work-gallery {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-rows: repeat(2, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+
+.work-item {
+  position: relative;
+  min-height: 250px;
+  overflow: hidden;
+  background: #d8d8cf;
+}
+
+
+.work-item:first-child {
+  grid-row: 1 / span 2;
+  min-height: 520px;
+}
+
+
+.work-item img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  transition: transform 350ms ease;
+}
+
+
+.work-item:hover img {
+  transform: scale(1.025);
+}
+
+
+.work-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2.5rem 1.3rem 1.1rem;
+  background: linear-gradient(0deg, rgb(16 31 27 / 76%), transparent);
+  color: var(--color-white);
+}
+
+
+.work-caption h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+}
+
+
+.work-caption p {
+  margin: 0.15rem 0 0;
+  color: rgb(255 254 250 / 78%);
+  font-size: 0.8rem;
+}
+
+
+.about-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.75fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+
+.about-band h2 {
+  max-width: 650px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+
+.about-band p {
+  color: rgb(255 254 250 / 75%);
+}
+
+
+.about-image {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+}
+
+
+.contact-details {
+  display: grid;
+  align-content: start;
+  gap: 1.25rem;
+}
+
+
+.contact-details h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+
+.contact-details p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+
+.contact-method {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-line);
+}
+
+
+.contact-method h3 {
+  margin: 0 0 0.25rem;
+  color: var(--color-copper);
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+
+.contact-method a,
+.contact-method address {
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+}
+
+
+.form-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+
+.form-field-wide {
+  grid-column: 1 / -1;
+}
+
+
+.form-field label {
+  color: var(--color-ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid #cbd2cc;
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--color-ink);
+}
+
+
+.form-field textarea {
+  min-height: 145px;
+  resize: vertical;
+}
+
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #77817c;
+}
+
+
+.contact-form .button {
+  justify-self: start;
+}
+
+
+@media (max-width: 760px) {
+  .section {
+    padding-block: 4.25rem;
+  }
+
+
+  .intro-layout,
+  .contact-layout,
+  .about-band {
+    grid-template-columns: 1fr;
+  }
+
+
+  .intro-layout {
+    gap: 2.75rem;
+  }
+
+
+  .intro-image-wrap,
+  .intro-image {
+    min-height: 300px;
+  }
+
+
+  .intro-image-wrap {
+    margin-right: 0.75rem;
+  }
+
+
+  .service-list {
+    grid-template-columns: 1fr;
+  }
+
+
+  .service-item:nth-child(odd) {
+    margin-right: 0;
+  }
+
+
+  .service-item:nth-child(even) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+
+  .work-intro {
+    display: block;
+  }
+
+
+  .work-gallery {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 0.65rem;
+  }
+
+
+  .work-item,
+  .work-item:first-child {
+    grid-row: auto;
+    min-height: 230px;
+  }
+
+
+  .work-item:first-child {
+    grid-column: 1 / -1;
+    min-height: 320px;
+  }
+
+
+  .work-caption {
+    padding: 2rem 0.85rem 0.75rem;
+  }
+
+
+  .work-caption h3 {
+    font-size: 1.2rem;
+  }
+
+
+  .about-band {
+    gap: 1.5rem;
+  }
+
+
+  .about-image {
+    height: 300px;
+  }
+
+
+  .contact-layout {
+    gap: 2.5rem;
+  }
+
+
+  .contact-form {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    padding: 1.15rem;
+  }
+
+
+  .form-field-wide {
+    grid-column: auto;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .work-gallery {
+    grid-template-columns: 1fr;
+  }
+
+
+  .work-item,
+  .work-item:first-child {
+    grid-column: auto;
+    min-height: 265px;
+  }
+}
+
+/* CSS PART 3 OF 3 */
+.availability-note {
+  margin-top: 1.5rem;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid var(--color-copper);
+  background: rgb(189 112 76 / 8%);
+  color: var(--color-ink);
+  font-size: 0.9rem;
+}
+
+
+.site-footer {
+  padding: 2.5rem 0;
+  background: #122c25;
+  color: rgb(255 254 250 / 82%);
+}
+
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.5rem 2.5rem;
+}
+
+
+.footer-brand {
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+.footer-meta {
+  margin: 0.45rem 0 0;
+  color: rgb(255 254 250 / 62%);
+  font-size: 0.78rem;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem 1.5rem;
+}
+
+
+.footer-links a {
+  color: var(--color-white);
+  font-size: 0.8rem;
+  text-decoration-color: rgb(255 254 250 / 44%);
+}
+
+
+.footer-links a:hover {
+  color: #f2b18c;
+}
+
+
+.footer-copyright {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgb(255 254 250 / 18%);
+  color: rgb(255 254 250 / 56%);
+  font-size: 0.72rem;
+}
+
+
+@media (max-width: 600px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+
+  .footer-links {
+    justify-content: flex-start;
+    gap: 0.65rem 1.2rem;
+  }
+
+
+  .footer-copyright {
+    grid-column: auto;
+    margin-top: 0.4rem;
+  }
+}
+
+
+@media (max-width: 380px) {
+  .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+
+  .service-item {
+    grid-template-columns: 36px 1fr;
+    gap: 0.85rem;
+  }
+}
+</style>
+</head>
+<body>
+  <!-- Structural inspiration: HTML5 UP Dimension — https://html5up.net/uploads/demos/dimension/
+       License: CC BY 3.0 — https://html5up.net/license
+       Adaptation: responsive navigation and distinct service, project, about, and contact sections,
+       reworked as an original contractor website. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Josh Brooks Construction and Renovation home">
+        <span class="brand-mark" aria-hidden="true">JB</span>
+        <span class="brand-name">Josh Brooks Construction<br>&amp; Renovation</span>
+      </a>
+
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation"
+              aria-controls="primary-navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+
+      <nav class="primary-nav" id="primary-navigation" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#work">Project inspiration</a>
+        <a href="#about">About</a>
+        <a class="nav-cta" href="#contact">Request an estimate</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="main">
+    <section class="hero" id="top"
+      style="--hero-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=2200&amp;q=85')"
+      aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <p class="eyebrow">Josh Brooks Construction &amp; Renovation</p>
+        <h1 id="hero-title">Make room for what matters.</h1>
+        <p class="hero-copy">
+          Kitchens, bathrooms, roofing, additions, and more: explore construction
+          and remodeling services for homes across Northern Colorado.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#contact">Request an estimate</a>
+          <a class="button button-secondary" href="#services">Explore services</a>
+        </div>
+        <p class="hero-note">Based in Longmont and serving Northern Colorado, as described on the company website.</p>
+      </div>
+    </section>
+
+<!-- HTML PART 2 OF 3 -->
+    <section class="section section-white" id="about" aria-labelledby="about-title">
+      <div class="container intro-layout">
+        <div class="intro-image-wrap">
+          <img class="intro-image"
+               src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+               alt="Bright, updated home interior with natural materials">
+        </div>
+        <div class="intro-copy">
+          <p class="eyebrow">A local general contractor</p>
+          <h2 id="about-title">A range of projects, one place to start.</h2>
+          <p>
+            Josh Brooks Construction and Renovation describes itself as a general
+            contractor based in Longmont and serving Northern Colorado. The company
+            website names Josh Brooks as owner and says the business was founded in 2014.
+          </p>
+          <p>
+            Whether you’re considering a kitchen update or a larger home project,
+            start with a conversation about the work you have in mind.
+          </p>
+          <a class="text-link" href="#contact">Tell us about your project</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section-forest" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">What we do</p>
+          <h2 id="services-title">Home projects, from inside to out.</h2>
+          <p>
+            The company website lists remodeling, exterior improvements, and
+            storm-related work among its offerings.
+          </p>
+        </div>
+
+
+        <div class="service-list">
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">01</span>
+            <div>
+              <h3>Kitchens &amp; bathrooms</h3>
+              <p>Remodeling options for two of the home’s most-used spaces.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">02</span>
+            <div>
+              <h3>Roofing &amp; storm restoration</h3>
+              <p>Roofing services and storm-damage restoration are listed on the company site.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">03</span>
+            <div>
+              <h3>Windows, doors &amp; siding</h3>
+              <p>Exterior updates for openings and home siding.</p>
+            </div>
+          </article>
+          <article class="service-item">
+            <span class="service-number" aria-hidden="true">04</span>
+            <div>
+              <h3>More living space</h3>
+              <p>Decks, basement finishing, and home additions are also listed services.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section-paper" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="work-intro">
+          <div class="section-heading">
+            <p class="eyebrow">Project inspiration</p>
+            <h2 id="work-title">Picture the possibilities.</h2>
+            <p>
+              These interior images are visual inspiration, not represented as
+              completed projects by the company.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="work-gallery">
+          <figure class="work-item">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+                 alt="Contemporary home interior with warm wood and a dining area">
+            <figcaption class="work-caption">
+              <h3>Room to gather</h3>
+              <p>Interior inspiration</p>
+            </figcaption>
+          </figure>
+          <figure class="work-item">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&amp;fit=crop&amp;w=900&amp;q=85"
+                 alt="Light-filled residential interior with wood finishes">
+            <figcaption class="work-caption">
+              <h3>Thoughtful details</h3>
+              <p>Interior inspiration</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+<!-- HTML PART 3 OF 3 -->
+    <section class="section section-white" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div class="contact-details">
+          <p class="eyebrow">Start a conversation</p>
+          <h2 id="contact-title">Tell us what you’re planning.</h2>
+          <p>
+            The company website invites estimate requests and lists phone, text,
+            email, and an online contact form as ways to get in touch.
+          </p>
+
+
+          <div class="contact-method">
+            <h3>Service area</h3>
+            <address>Longmont and Northern Colorado</address>
+          </div>
+
+
+          <div class="contact-method">
+            <h3>Contact the company</h3>
+            <a href="https://joshbrooksconstructionllc.com/contact/">
+              Visit the company contact page
+            </a>
+          </div>
+
+
+          <p class="availability-note">
+            For current hours and availability, please confirm directly with the company.
+          </p>
+        </div>
+
+
+        <div>
+          <form class="contact-form" action="https://joshbrooksconstructionllc.com/contact/" method="get">
+            <div class="form-field">
+              <label for="contact-name">Your name</label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Name">
+            </div>
+            <div class="form-field">
+              <label for="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div class="form-field">
+              <label for="contact-phone">Phone</label>
+              <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number">
+            </div>
+            <div class="form-field">
+              <label for="project-type">Project type</label>
+              <select id="project-type" name="project-type">
+                <option value="">Choose a project type</option>
+                <option value="kitchen-bath">Kitchen or bathroom</option>
+                <option value="roofing">Roofing or storm restoration</option>
+                <option value="exterior">Windows, doors, or siding</option>
+                <option value="other">Other listed service</option>
+              </select>
+            </div>
+            <div class="form-field form-field-wide">
+              <label for="project-message">A few details about your project</label>
+              <textarea id="project-message" name="message" placeholder="What would you like to discuss?"></textarea>
+            </div>
+            <p class="form-field-wide">
+              This redesign preview does not submit form entries. Use the company’s contact page to send an estimate request.
+            </p>
+            <a class="button form-field-wide" href="https://joshbrooksconstructionllc.com/contact/">
+              Continue to company contact page
+            </a>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a class="footer-brand" href="#top">Josh Brooks Construction &amp; Renovation</a>
+        <p class="footer-meta">Based in Longmont; serving Northern Colorado, as described on the company website.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#services">Services</a>
+        <a href="#work">Project inspiration</a>
+        <a href="https://joshbrooksconstructionllc.com/contact/">Company contact page</a>
+      </nav>
+      <p class="footer-copyright">© 2026 Josh Brooks Construction &amp; Renovation.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    (() => {
+      const toggle = document.querySelector(".nav-toggle");
+      const navigation = document.getElementById("primary-navigation");
+
+
+      if (!toggle || !navigation) return;
+
+
+      toggle.addEventListener("click", () => {
+        const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!isExpanded));
+        toggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+        navigation.classList.toggle("is-open", !isExpanded);
+      });
+
+
+      navigation.addEventListener("click", (event) => {
+        if (event.target.closest("a")) {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open navigation");
+          navigation.classList.remove("is-open");
+        }
+      });
+    })();
+  </script>
+</body></html>

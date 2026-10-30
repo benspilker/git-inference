@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=16bb826f-7e6d-4db3-8153-bfd310d5067f",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T19:50:35.894112+00:00",
+      "characters": 7847,
+      "sha256": "0256ff57e0511823b81040a2ea772638ad4f37b9cc6aaef2facdc510144b9d62"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T19:51:06.717034+00:00",
+      "characters": 7169,
+      "sha256": "bbcd2f75c46d1a082a01abb383606822da2f132428bfe3bc0bbdf126b2aeed16"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T19:51:16.649923+00:00",
+      "characters": 1658,
+      "sha256": "9f088fa45e387fb48be9a0943f0881ef4d257663cc60f12ef84d0827fdb48825"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T19:51:45.574731+00:00",
+      "characters": 2496,
+      "sha256": "fe248331056c214a4eb7b662f6981227fa27155240168a9beba6476e850be8a6"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T19:52:02.408608+00:00",
+      "characters": 4367,
+      "sha256": "7a5e7111aa5c696e245139798d8a0ccd74cb47d7fb1a497915e44b1aaf31c3a8"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T19:52:21.086013+00:00",
+      "characters": 4656,
+      "sha256": "a3e3c29f3400c40505f963cef86d118e96a9b1cff27805091f33e33c2eb00de8"
+    }
+  ]
+}
