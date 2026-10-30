@@ -1,0 +1,76 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142534">
+  <meta name="description" content="Trailer repair and parts support from Paul's Trailer Service Inc. in Indianapolis. Contact the shop to discuss service or availability.">
+  <title>Paul's Trailer Service Inc. | Trailer Repair &amp; Parts</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Structural inspiration: Verti — https://html5up.net/uploads/demos/verti/
+       License: CC BY 3.0 — https://html5up.net/license
+       Adaptation: responsive sections, simple navigation, prominent contact access, and grouped practical information; original copy and styling. -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Paul's Trailer Service Inc., home">
+        <span class="brand-mark" aria-hidden="true">PTS</span>
+        <span>Paul's Trailer<br>Service Inc.</span>
+      </a>
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#trailer-types">Trailer types</a>
+        <a href="#parts">Parts</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="header-call" href="#contact">Contact the shop</a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <img
+        class="hero-image"
+        src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+        alt="Commercial truck and trailer traveling on a road"
+        fetchpriority="high"
+      >
+      <div class="hero-content">
+        <p class="eyebrow">Indianapolis trailer service</p>
+        <h1 id="hero-title">Built around keeping trailers moving.</h1>
+        <p class="hero-copy">Repair support and replacement parts for a wide range of trailer needs, from a long-established Indianapolis shop.</p>
+        <div class="hero-actions">
+          <a class="button-primary" href="#contact">Contact the shop</a>
+          <a class="hero-secondary-link" href="#services">Explore service capabilities</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="content-section" id="about" aria-labelledby="about-title">
+      <div class="container history-section">
+        <div class="history-copy">
+          <p class="eyebrow">Established in Indianapolis</p>
+          <h2 class="section-heading" id="about-title">Experience earned one repair at a time.</h2>
+          <p>Paul's Trailer Service Inc. says it was founded in 1978. The business describes itself as family-operated, serving customers in the greater Indianapolis area and across North America.</p>
+          <p>For repair support or a replacement part, contact the shop to discuss what your trailer requires.</p>
+        </div>
+        <div class="history-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?auto=format&amp;fit=crop&amp;w=1100&amp;q=85"
+            alt="Heavy-duty truck and trailer at a roadside stop"
+            loading="lazy"
+          >
+        </div>
+      </div>
+    </section>
+```

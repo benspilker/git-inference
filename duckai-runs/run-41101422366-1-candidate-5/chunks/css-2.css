@@ -1,0 +1,276 @@
+/* CSS PART 2 OF 3 */
+.story-section {
+  background: var(--white);
+}
+
+
+.story-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 6.5rem);
+}
+
+
+.story-image-wrap {
+  position: relative;
+  min-height: 430px;
+  background: #d8d4ca;
+}
+
+
+.story-image-wrap img {
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  object-fit: cover;
+}
+
+
+.story-image-wrap::after {
+  position: absolute;
+  right: -12px;
+  bottom: -12px;
+  z-index: -1;
+  width: 48%;
+  height: 42%;
+  border: 1px solid var(--orange);
+  content: "";
+}
+
+
+.story-copy p {
+  max-width: 40rem;
+  color: var(--muted);
+}
+
+
+.story-copy .section-heading {
+  margin-bottom: 1.4rem;
+}
+
+
+.fact-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+
+.fact-item {
+  padding: 1.1rem 1rem 0 0;
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+
+.fact-item + .fact-item {
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
+}
+
+
+.services-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--white);
+}
+
+
+.services-section::after {
+  position: absolute;
+  top: 3rem;
+  right: -3rem;
+  width: 18rem;
+  height: 18rem;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2rem rgb(255 255 255 / 3%), 0 0 0 4rem rgb(255 255 255 / 2%);
+  content: "";
+  pointer-events: none;
+}
+
+
+.services-section .section-heading {
+  color: var(--white);
+}
+
+
+.services-section .section-intro {
+  color: rgb(255 254 250 / 74%);
+}
+
+
+.services-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  align-items: start;
+}
+
+
+.services-photo {
+  margin-top: 2rem;
+  border: 1px solid rgb(255 255 255 / 18%);
+}
+
+
+.services-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+
+.service-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(255 255 255 / 25%);
+}
+
+
+.service-list li {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgb(255 255 255 / 20%);
+}
+
+
+.service-number {
+  color: var(--orange);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+
+.service-list h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+
+.service-list p {
+  margin: 0.35rem 0 0;
+  color: rgb(255 254 250 / 73%);
+  font-size: 0.98rem;
+}
+
+
+.types-section {
+  background: var(--paper);
+}
+
+
+.types-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+
+.types-photo img {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+}
+
+
+.type-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.8rem;
+}
+
+
+.type-tags span {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid #aab0ad;
+  color: var(--navy);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+
+.parts-section {
+  background: #e9e6dd;
+}
+
+
+.parts-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+
+.parts-copy p {
+  max-width: 40rem;
+  color: var(--muted);
+}
+
+
+.parts-image img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+
+.parts-note {
+  margin-top: 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--orange);
+  color: var(--navy);
+  font-size: 0.98rem;
+}
+
+
+.availability-section {
+  padding-block: var(--space-5);
+  background: var(--orange);
+  color: var(--navy-deep);
+}
+
+
+.availability-inner {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+
+.availability-inner h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.2vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+
+.availability-inner p {
+  margin: 0;
+  max-width: 42rem;
+  font-weight: 600;
+}

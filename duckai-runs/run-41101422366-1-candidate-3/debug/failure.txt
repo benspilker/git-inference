@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 682, in <module>
+    run()
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 628, in run
+    response, current_url = send_and_capture(page, prompt, kind, part)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 213, in send_and_capture
+    fail(f"Timed out waiting for a complete, stable {label} response with exactly one code block.")
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 46, in fail
+    raise RuntimeError(message)
+RuntimeError: Timed out waiting for a complete, stable HTML PART 1 OF 3 response with exactly one code block.

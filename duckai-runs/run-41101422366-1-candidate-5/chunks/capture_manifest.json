@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=a98a3af4-77a3-49a9-b223-76ac474e23fa",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T18:06:35.098702+00:00",
+      "characters": 4511,
+      "sha256": "1d829de1e09fc9aee2eb57751e1a305850e41a579e6477a2f9d0bcc519953e78"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T18:06:50.347754+00:00",
+      "characters": 4244,
+      "sha256": "f0f3f621fec7f50dcf0f56d3a9c4be2617afdeccfb90ea1c6bd3413469e70a7d"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T18:07:07.284794+00:00",
+      "characters": 5626,
+      "sha256": "bf99f86e00f30c6b874d6528313fe2f1044c612d2bfeaef1dbbc61c0e2bb8273"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T18:07:33.009987+00:00",
+      "characters": 2714,
+      "sha256": "bb160fdf61eb5c902e5aaa9ce0d3613618a6868edac167b24704141e95fa8edd"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T18:07:51.862332+00:00",
+      "characters": 5570,
+      "sha256": "b9a7b7c844d6db26240000cfe38698384c534cbc2ff8230514c24068cecc44ff"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T18:08:05.239877+00:00",
+      "characters": 3382,
+      "sha256": "96baac1ee36beb141d1b7c5fbac683256b46e545b8deb7912075b76b7f06276d"
+    }
+  ]
+}

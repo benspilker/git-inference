@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=96d61c04-af34-4e0c-b1df-a3b7605282ca",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T17:54:30.918326+00:00",
+      "characters": 3757,
+      "sha256": "dc138efcebfe6c4947d14914607f0e10be1f0e92d0fde5cc83009eea970494d2"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T17:54:45.240834+00:00",
+      "characters": 4395,
+      "sha256": "4903efb624a9d8d0f0da1c78ef40a9532dc8cd6c3ed1b1ad196eb279d80faa67"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T17:55:03.375944+00:00",
+      "characters": 6277,
+      "sha256": "3a63d10e5fa8b7f62852628f800ec40620f0ebad9a06751ebc5363b0bb02d2bb"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T17:55:32.890686+00:00",
+      "characters": 4614,
+      "sha256": "ac213c15ab6f64299377d2350941e28a013b1cabf74cb8bfba51ca4594bf5a22"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T17:55:45.100804+00:00",
+      "characters": 3135,
+      "sha256": "7ffa8e12237d17fa35e58a47ab3f4d75af424e17727610cad3ac18c7acdb4b9d"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T17:55:55.120593+00:00",
+      "characters": 2838,
+      "sha256": "c5a396ed6516ec371eaa15f562d3447bf543aae7b0772f2643025ce72e1cced6"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{"accepted": true, "part": "css 1/3", "characters": 3789, "sha256": "54930fe88c7e18983f953127dad424289bc8455a6ff6e4034cd1c307fd857710"}
+{"accepted": true, "part": "css 2/3", "characters": 5038, "sha256": "edee2caa111b0688323ce39b7abb931665567b103fbf1bdf1c3e191e34bd2a0a"}
+{"accepted": true, "part": "css 3/3", "characters": 4604, "sha256": "e60809258333d39ef9417afc578154897bb0059645330b175f78fb1ee66d0434"}
+{"accepted": true, "part": "html 1/3", "characters": 3531, "sha256": "1d0e5a7482543ffd23000de262128a2304b536dd9d68ef439adf097c61a0af08"}
+{"accepted": true, "part": "html 2/3", "characters": 2618, "sha256": "3af3752f093945fc13ad4bad94f487185d4403def4c4aeb8158dbde73d334870"}
+{"accepted": true, "part": "html 3/3", "characters": 3492, "sha256": "2c0ab62579b501d8dcffab908bd5c7b3003667c66aa55644f96f1800421d3bbd"}
+{"assembled": true, "chat_id": "https://duck.ai/?chatID=0cd4bae5-dc81-4948-b79d-aec8a2e99fa4", "css_parts": 3, "html_parts": 3, "index_html_bytes": 9648, "styles_css_bytes": 13433}
+Created /__w/git-inference/git-inference/duckai-runs/run-41101422366-1-candidate-2/files/inlined/index.html (23056 bytes)
+{
+  "status": "pass",
+  "tested_file": "files/inlined/index.html",
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "hours",
+    "services"
+  ],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact-item",
+          "width": 286,
+          "height": 95
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 1440,
+          "height": 197
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 1440,
+          "height": 810
+        },
+        "hours": {
+          "visible": true,
+          "selector_hint": "h2#hours-title.section-heading",
+          "width": 454,
+          "height": 133
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "p.service-note",
+          "width": 672,
+          "height": 24
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "height": 810,
+        "viewport_width": 1440,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "Contact",
+        "bottom": 53
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/desktop.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact-item",
+          "width": 358,
+          "height": 68
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 390,
+          "height": 317
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 390,
+          "height": 736
+        },
+        "hours": {
+          "visible": true,
+          "selector_hint": "h2#hours-title.section-heading",
+          "width": 358,
+          "height": 72
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "p.service-note",
+          "width": 358,
+          "height": 48
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "height": 736,
+        "viewport_width": 390,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "Contact the shop",
+        "bottom": 68
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 3,
+        "loaded_images": 3,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 0,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/mobile.png"
+    }
+  },
+  "mobile_menu": {
+    "found": true,
+    "click_opens": true,
+    "click_closes": true,
+    "tab_reachable": true,
+    "enter_opens": true,
+    "space_toggles": true,
+    "escape_closes": false,
+    "pass": true
+  },
+  "checks": {
+    "rendered_sections_visible_desktop_and_mobile": true,
+    "hero_spans_viewport_desktop_and_mobile": true,
+    "cta_visible_first_screen_desktop_and_mobile": true,
+    "mobile_menu_clicks_work": true,
+    "mobile_menu_keyboard_works": true,
+    "mobile_has_no_horizontal_overflow": true,
+    "fonts_load_in_browser": true,
+    "images_load_in_browser": true
+  },
+  "resource_errors": []
+}
+Enabled Duck.ai Web Search for the source-site assessment.
+Captured and validated Duck.ai's source assessment for https://www.paulstrailer.com/
+Captured CSS PART 1 OF 3
+Captured CSS PART 2 OF 3
+Captured CSS PART 3 OF 3
+Sent acknowledged as a standalone Duck.ai turn and waited for its response.
+Captured HTML PART 1 OF 3
+Captured HTML PART 2 OF 3
+Captured HTML PART 3 OF 3
+Run saved in /__w/git-inference/git-inference/duckai-runs/run-41101422366-1-candidate-2

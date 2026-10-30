@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=0cd4bae5-dc81-4948-b79d-aec8a2e99fa4",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T17:56:36.357745+00:00",
+      "characters": 3789,
+      "sha256": "54930fe88c7e18983f953127dad424289bc8455a6ff6e4034cd1c307fd857710"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T17:56:53.049863+00:00",
+      "characters": 5038,
+      "sha256": "edee2caa111b0688323ce39b7abb931665567b103fbf1bdf1c3e191e34bd2a0a"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T17:57:08.776308+00:00",
+      "characters": 4604,
+      "sha256": "e60809258333d39ef9417afc578154897bb0059645330b175f78fb1ee66d0434"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T17:57:40.135064+00:00",
+      "characters": 3531,
+      "sha256": "1d0e5a7482543ffd23000de262128a2304b536dd9d68ef439adf097c61a0af08"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T17:57:53.135545+00:00",
+      "characters": 2618,
+      "sha256": "3af3752f093945fc13ad4bad94f487185d4403def4c4aeb8158dbde73d334870"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T17:58:08.416766+00:00",
+      "characters": 3492,
+      "sha256": "2c0ab62579b501d8dcffab908bd5c7b3003667c66aa55644f96f1800421d3bbd"
+    }
+  ]
+}

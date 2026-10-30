@@ -1,0 +1,75 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section section--dark" id="services" aria-labelledby="services-title">
+      <div class="container split-section">
+        <div class="split-copy">
+          <p class="eyebrow">Repair & inspection</p>
+          <h2 class="section-heading" id="services-title">Practical service for the work trailers do.</h2>
+          <p>The shop lists a range of repair and inspection work. Call to discuss the issue and confirm whether your trailer and repair need are a fit.</p>
+          <ul class="service-list">
+            <li>Brake and suspension work</li>
+            <li>Electrical and ABS repairs</li>
+            <li>Structural repairs and welding</li>
+            <li>Trailer alignment</li>
+            <li>Tarp repairs</li>
+            <li>DOT inspections</li>
+          </ul>
+          <p class="parts-brands">The site says the shop does not service reefer units or tires. Confirm the scope of work when you call.</p>
+        </div>
+        <div class="split-media">
+          <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Mechanic working beneath a commercial vehicle in a repair shop">
+        </div>
+      </div>
+      <!-- Service facts and limitations summarized from https://www.paulstrailer.com/ and https://www.paulstrailer.com/services. -->
+    </section>
+
+
+    <section class="section section--mid" aria-labelledby="trailer-types-title">
+      <div class="container split-section split-section--reverse">
+        <div class="split-copy">
+          <p class="eyebrow">Trailer types</p>
+          <h2 class="section-heading" id="trailer-types-title">Ask about your trailer.</h2>
+          <p>The source site lists trailer types the shop handles, but the available assessment does not identify them individually. Call the shop to confirm service availability for your trailer.</p>
+        </div>
+        <div class="split-media">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Line of commercial freight trailers parked at a transport facility">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section--dark" id="parts" aria-labelledby="parts-title">
+      <div class="container">
+        <div class="split-copy">
+          <p class="eyebrow">Parts support</p>
+          <h2 class="section-heading" id="parts-title">Replacement parts, with installation available.</h2>
+          <p>The shop describes OEM and aftermarket replacement parts, with installation support. Availability depends on the part; call to discuss what you need.</p>
+        </div>
+        <div class="parts-band">
+          <div>
+            <h3>Parts for trailer repairs</h3>
+            <p>Ask the shop about sourcing and installing parts for your repair.</p>
+          </div>
+          <a class="button" href="tel:+13177819212">Call about parts</a>
+        </div>
+        <!-- Parts offering summarized from https://www.paulstrailer.com/parts. -->
+      </div>
+    </section>
+
+
+    <section class="section section--paper" id="about" aria-labelledby="about-title">
+      <div class="container intro-layout">
+        <div>
+          <p class="eyebrow">About the shop</p>
+          <h2 class="section-heading" id="about-title">Family-owned and serving since 1978.</h2>
+          <p class="section-lead">Founded in 1978, Paul's Trailer Service Inc. serves the greater Indianapolis area and customers across North America.</p>
+        </div>
+        <aside class="history-note">
+          <strong>Need to check fit or availability?</strong>
+          <p>Call the shop to discuss your trailer, repair needs, or parts request.</p>
+        </aside>
+      </div>
+      <!-- Company history and service-area facts summarized from https://www.paulstrailer.com/. -->
+    </section>
+```

@@ -1,0 +1,22 @@
+{
+  "candidate_index": 1,
+  "automated_success": false,
+  "status": "automated_checks_failed",
+  "chat_url": "https://duck.ai/?chatID=96d61c04-af34-4e0c-b1df-a3b7605282ca",
+  "source_url": "https://www.paulstrailer.com/",
+  "source_assessment_status": "pass",
+  "design_reference": {
+    "name": "Solid State",
+    "url": "https://html5up.net/solid-state",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "Strong opening section with a clear primary action",
+      "Distinct, scannable content bands for services and parts",
+      "Responsive navigation and prominent contact details"
+    ]
+  },
+  "final_success": false,
+  "browser_qa_status": "fail",
+  "visual_review_status": "pending",
+  "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved."
+}

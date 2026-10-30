@@ -1,0 +1,53 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142735">
+  <meta name="description" content="Paul's Trailer Service Inc. provides trailer repair and parts support in the Indianapolis area.">
+  <title>Paul's Trailer Service Inc. | Trailer Repair &amp; Parts</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@500;600;700;800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <!-- Structural inspiration: Halcyonic, https://html5up.net/uploads/demos/halcyonic/ | CC BY 3.0, https://html5up.net/license | Adaptation: clear introduction, scannable service groupings, straightforward responsive navigation and contact. Original business-specific copy and styling. -->
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Paul's Trailer Service Inc., home">
+        <span class="brand-mark" aria-hidden="true">PT</span>
+        <span class="brand-name">Paul's Trailer Service Inc.</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="primary-nav" id="primary-navigation" aria-label="Main navigation">
+        <a href="#story">About</a>
+        <a href="#services">Repair</a>
+        <a href="#parts">Parts</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-call" href="#contact">Contact the shop</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-image"
+           src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+           alt="Heavy-duty truck and trailer on the road"
+           fetchpriority="high">
+      <div class="container hero-inner">
+        <p class="eyebrow">Trailer repair and parts support · Indianapolis</p>
+        <h1 id="hero-title">Keep your trailer ready for the road.</h1>
+        <p class="hero-copy">Repair and parts support from an Indianapolis-area trailer service company established in 1978.</p>
+        <a class="button" href="#contact">Contact the shop</a>
+        <p class="hero-note">Call to confirm current hours and availability.</p>
+      </div>
+    </section>
+```

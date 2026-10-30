@@ -1,0 +1,22 @@
+{
+  "candidate_index": 5,
+  "automated_success": true,
+  "status": "automated_checks_passed_pending_human_review",
+  "chat_url": "https://duck.ai/?chatID=a98a3af4-77a3-49a9-b223-76ac474e23fa",
+  "source_url": "https://www.paulstrailer.com/",
+  "source_assessment_status": "pass",
+  "design_reference": {
+    "name": "Halcyonic",
+    "url": "https://html5up.net/uploads/demos/halcyonic/",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "Clear introductory area that quickly communicates the business and its main action.",
+      "Scannable grouping of service information and supporting details.",
+      "Responsive, straightforward navigation and contact area."
+    ]
+  },
+  "final_success": false,
+  "browser_qa_status": "pass",
+  "visual_review_status": "pending",
+  "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved."
+}

@@ -1,0 +1,88 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="hours-section" aria-labelledby="hours-title">
+      <div class="container hours-inner">
+        <div>
+          <p class="eyebrow">Before you visit</p>
+          <h2 class="section-heading" id="hours-title">Hours &amp; availability</h2>
+        </div>
+        <div class="hours-callout">
+          <p>Hours and availability should be confirmed directly with the shop before visiting. Contact the team to check current hours and discuss your trailer service needs.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="content-section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div>
+          <p class="eyebrow">Get in touch</p>
+          <h2 class="section-heading" id="contact-title">Start with a conversation.</h2>
+          <p class="section-intro">Ask about repair fit, parts availability, or when to visit. The shop is in Indianapolis, Indiana.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <h3>Location</h3>
+              <address>1245 Harding Court<br>Indianapolis, IN 46217</address>
+            </div>
+            <div class="contact-item">
+              <h3>Directions</h3>
+              <p><a href="https://www.google.com/maps/search/?api=1&amp;query=1245+Harding+Court%2C+Indianapolis%2C+IN+46217" target="_blank" rel="noopener noreferrer">View the shop location</a></p>
+            </div>
+          </div>
+        </div>
+        <aside class="contact-panel">
+          <h3>Need trailer service or parts?</h3>
+          <p>Reach out to the shop to talk through your trailer and what support may be available.</p>
+          <a class="button-primary" href="https://www.google.com/maps/search/?api=1&amp;query=1245+Harding+Court%2C+Indianapolis%2C+IN+46217" target="_blank" rel="noopener noreferrer">Find the shop</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a class="brand footer-brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">PTS</span>
+          <span>Paul's Trailer<br>Service Inc.</span>
+        </a>
+        <p class="footer-meta">Indianapolis, Indiana</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#parts">Parts support</a></li>
+          <li><a href="#contact">Location and directions</a></li>
+        </ul>
+      </nav>
+      <p class="footer-copyright">© 2026 Paul's Trailer Service Inc.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#primary-nav");
+
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        navigation.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>
+```

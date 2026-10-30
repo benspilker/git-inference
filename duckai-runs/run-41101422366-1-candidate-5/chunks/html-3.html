@@ -1,0 +1,81 @@
+<!-- HTML PART 3 OF 3 -->
+    <section class="availability-section" id="hours" aria-labelledby="availability-title">
+      <div class="container availability-inner">
+        <h2 id="availability-title">Hours &amp; availability</h2>
+        <p>The published pages give conflicting hours information. Please call the shop to confirm current opening hours, access, and availability before visiting.</p>
+      </div>
+    </section>
+
+
+    <!-- Contact details and location are listed at https://www.paulstrailer.com/find-us. -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-layout">
+          <div>
+            <p class="eyebrow">Get in touch</p>
+            <h2 class="section-heading" id="contact-title">Talk with the shop about your trailer.</h2>
+            <p class="section-intro">Ask about a repair, inspection, or part. Use the business contact page for current phone and email details, and confirm hours before you travel.</p>
+          </div>
+          <div class="contact-details">
+            <div class="contact-item">
+              <h3>Location</h3>
+              <address>1245 Harding Court<br>Indianapolis, IN 46217</address>
+            </div>
+            <div class="contact-item">
+              <h3>Phone and email</h3>
+              <p>Find the current phone numbers and email on the shop’s contact page.</p>
+            </div>
+            <div class="contact-item">
+              <h3>Hours &amp; availability</h3>
+              <p>Call to confirm current hours and whether the shop can take on your job.</p>
+            </div>
+            <div class="contact-action">
+              <a class="button" href="https://www.paulstrailer.com/find-us">View contact details</a>
+              <p class="contact-help">The shop’s contact page includes phone, email, and directions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-business">Paul's Trailer Service Inc.</p>
+        <p class="footer-meta">1245 Harding Court, Indianapolis, IN 46217</p>
+        <p class="footer-meta">© 2026 Paul's Trailer Service Inc.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#services">Trailer repair</a>
+        <a href="#parts">Parts support</a>
+        <a href="https://www.paulstrailer.com/find-us">Contact and directions</a>
+      </nav>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const primaryNav = document.querySelector("#primary-navigation");
+
+
+    navToggle.addEventListener("click", () => {
+      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isExpanded));
+      navToggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      primaryNav.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation");
+        primaryNav.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">Get in touch</p>
+          <h2 id="contact-title">Talk with the shop about your trailer.</h2>
+          <p>Call to discuss repair service, parts, or availability. Paul's Trailer Service serves the greater Indianapolis area.</p>
+          <div class="contact-actions">
+            <a class="button" href="tel:+13177819212">Call 317-781-9212</a>
+            <a class="button button--light" href="mailto:paulstrailers@sbcglobal.net">Email the shop</a>
+          </div>
+        </div>
+
+
+        <dl class="contact-details">
+          <div class="contact-detail">
+            <dt>Phone</dt>
+            <dd><a href="tel:+13177819212">317-781-9212</a></dd>
+          </div>
+          <div class="contact-detail">
+            <dt>Toll-free</dt>
+            <dd><a href="tel:+18007923451">800-792-3451</a></dd>
+          </div>
+          <div class="contact-detail">
+            <dt>Email</dt>
+            <dd><a href="mailto:paulstrailers@sbcglobal.net">paulstrailers@sbcglobal.net</a></dd>
+          </div>
+          <div class="contact-detail">
+            <dt>Service area</dt>
+            <dd>Greater Indianapolis area</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-title">Paul's Trailer Service Inc.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#services">Services</a>
+        <a href="#parts">Parts</a>
+        <a href="#contact">Contact</a>
+        <a href="tel:+13177819212">Call the shop</a>
+      </nav>
+      <p class="footer-copyright">© 2026 Paul's Trailer Service Inc.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#primary-navigation");
+
+
+    if (menuButton && navigation) {
+      menuButton.addEventListener("click", () => {
+        const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+        menuButton.setAttribute("aria-expanded", String(!isExpanded));
+        menuButton.setAttribute(
+          "aria-label",
+          isExpanded ? "Open navigation menu" : "Close navigation menu"
+        );
+        navigation.classList.toggle("is-open", !isExpanded);
+      });
+
+
+      navigation.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          menuButton.setAttribute("aria-expanded", "false");
+          menuButton.setAttribute("aria-label", "Open navigation menu");
+          navigation.classList.remove("is-open");
+        });
+      });
+    }
+  </script>
+</body>
+</html>
+```

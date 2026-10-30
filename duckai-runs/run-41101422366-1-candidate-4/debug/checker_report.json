@@ -1,0 +1,289 @@
+{
+  "session_folder": "run-41101422366-1-candidate-4",
+  "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41101422366-1-candidate-4",
+  "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41101422366-1-candidate-4/files/index.html",
+  "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41101422366-1-candidate-4/files/styles.css",
+  "score": 93,
+  "checks_passed": 28,
+  "checks_total": 30,
+  "checks": {
+    "html_file_present": true,
+    "no_visible_template_credit": true,
+    "cta_buttons_no_arrows": true,
+    "accessible_mobile_hamburger": true,
+    "css_file_present": true,
+    "document_has_main": true,
+    "document_has_h1": true,
+    "document_closed": true,
+    "styles_css_linked": true,
+    "css_braces_balanced": true,
+    "footer_has_substance": true,
+    "section_contact": true,
+    "section_footer": true,
+    "section_hero": true,
+    "section_hours": true,
+    "section_services": true,
+    "hero_has_image": true,
+    "hero_images_load_ok": true,
+    "all_images_load_ok": true,
+    "image_alt_text_present": true,
+    "image_coverage": true,
+    "visual_design_review_passed": false,
+    "browser_rendered_sections_visible_desktop_and_mobile": true,
+    "browser_hero_spans_viewport_desktop_and_mobile": true,
+    "browser_cta_visible_first_screen_desktop_and_mobile": false,
+    "browser_mobile_menu_clicks_work": true,
+    "browser_mobile_menu_keyboard_works": true,
+    "browser_mobile_has_no_horizontal_overflow": true,
+    "browser_fonts_load_in_browser": true,
+    "browser_images_load_in_browser": true
+  },
+  "automated_success": false,
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "hours",
+    "services"
+  ],
+  "missing_sections": [
+    "screenshot-backed desktop/mobile visual design review",
+    "automated rendered-page browser checks",
+    "CTA appears on the first screen at desktop and mobile sizes"
+  ],
+  "hero_image_present": true,
+  "hero_images_load_ok": true,
+  "hero_image_urls": [
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2200&q=85"
+  ],
+  "image_urls": [
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=85"
+  ],
+  "failed_image_urls": [],
+  "minimum_image_count": 1,
+  "visual_relevance_review_required": true,
+  "visual_review_status": "pending",
+  "visual_review_missing_urls": [
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=85"
+  ],
+  "visual_review_issues": [],
+  "visual_design_review_status": "pending",
+  "visual_design_review_missing": [
+    "debug/visual_review.json is missing"
+  ],
+  "visual_design_review_issues": [],
+  "browser_qa_status": "fail",
+  "browser_qa": {
+    "status": "fail",
+    "tested_file": "files/inlined/index.html",
+    "required_sections": [
+      "contact",
+      "footer",
+      "hero",
+      "hours",
+      "services"
+    ],
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "div.contact-item",
+            "width": 469,
+            "height": 103
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 1440,
+            "height": 92
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section#home.hero",
+            "width": 1440,
+            "height": 879
+          },
+          "hours": {
+            "visible": true,
+            "selector_hint": "div.contact-item",
+            "width": 469,
+            "height": 103
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "ul.service-list",
+            "width": 593,
+            "height": 184
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 1440,
+          "width": 1440,
+          "height": 879,
+          "viewport_width": 1440,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "Contact",
+          "bottom": 54
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 1440,
+          "viewport_width": 1440,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 4,
+          "failed_faces": 0
+        },
+        "images_loaded": true,
+        "fonts": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 4,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [],
+        "screenshot": "screenshots/desktop.png"
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "h2#contact-title.section-heading",
+            "width": 330,
+            "height": 84
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 390,
+            "height": 136
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section#home.hero",
+            "width": 390,
+            "height": 844
+          },
+          "hours": {
+            "visible": true,
+            "selector_hint": "div.contact-item",
+            "width": 350,
+            "height": 103
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "h2#services-title.section-heading",
+            "width": 330,
+            "height": 168
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "height": 844,
+          "viewport_width": 390,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": false,
+          "text": "",
+          "bottom": null
+        },
+        "cta_visible_first_screen": false,
+        "horizontal_overflow": {
+          "scroll_width": 390,
+          "viewport_width": 390,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 4,
+          "failed_faces": 0
+        },
+        "images_loaded": true,
+        "fonts": {
+          "image_count": 3,
+          "loaded_images": 3,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 4,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [],
+        "screenshot": "screenshots/mobile.png"
+      }
+    },
+    "mobile_menu": {
+      "found": true,
+      "click_opens": true,
+      "click_closes": true,
+      "tab_reachable": true,
+      "enter_opens": true,
+      "space_toggles": true,
+      "escape_closes": false,
+      "pass": true
+    },
+    "checks": {
+      "rendered_sections_visible_desktop_and_mobile": true,
+      "hero_spans_viewport_desktop_and_mobile": true,
+      "cta_visible_first_screen_desktop_and_mobile": false,
+      "mobile_menu_clicks_work": true,
+      "mobile_menu_keyboard_works": true,
+      "mobile_has_no_horizontal_overflow": true,
+      "fonts_load_in_browser": true,
+      "images_load_in_browser": true
+    },
+    "resource_errors": []
+  },
+  "source_image_urls_available": [],
+  "source_image_urls_used": [],
+  "parse_diagnostic": null,
+  "html_bytes": 10418,
+  "css_bytes": 13797,
+  "footer_text": "© 2026 Paul's Trailer Service Inc. · Indianapolis, Indiana Services Parts Call the shop",
+  "footer_links": [
+    "#services",
+    "#parts",
+    "tel:+13177819212"
+  ],
+  "cta_arrow_issues": [],
+  "complete": false,
+  "final_success": false,
+  "checker_exit_code": 2
+}

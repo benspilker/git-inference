@@ -1,0 +1,1086 @@
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111b27">
+  <meta name="description" content="Trailer repair and parts support from Paul's Trailer Service Inc. in Indianapolis, Indiana.">
+  <title>Paul's Trailer Service Inc. | Trailer Repair & Parts</title>
+  <style>
+/* CSS PART 1 OF 3 */
+:root {
+  color-scheme: dark;
+  --color-ink: #111b27;
+  --color-ink-soft: #1b2a39;
+  --color-paper: #f2efe8;
+  --color-paper-muted: #d5d1c8;
+  --color-orange: #ef762d;
+  --color-orange-dark: #c9571d;
+  --color-line: rgba(242, 239, 232, 0.2);
+  --font-display: "Roboto Condensed", "Arial Narrow", sans-serif;
+  --font-body: "Source Sans 3", Arial, sans-serif;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --container-width: 76rem;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --header-height: 5.25rem;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 4px;
+}
+
+
+.container {
+  width: min(100% - (var(--gutter) * 2), var(--container-width));
+  margin-inline: auto;
+}
+
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-180%);
+  padding: 0.75rem 1rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+.site-header {
+  position: absolute;
+  z-index: 20;
+  inset: 0 0 auto;
+  min-height: var(--header-height);
+  color: var(--color-paper);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+.header-inner {
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+
+.brand-mark {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-orange);
+  color: var(--color-orange);
+  font-size: 0.95rem;
+}
+
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 2.2vw, 2rem);
+}
+
+
+.desktop-nav a,
+.header-call {
+  color: var(--color-paper);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+.desktop-nav a {
+  transition: color 160ms ease;
+}
+
+
+.desktop-nav a:hover {
+  color: var(--color-orange);
+}
+
+
+.header-call {
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(242, 239, 232, 0.6);
+}
+
+
+.mobile-nav-toggle,
+.mobile-nav {
+  display: none;
+}
+
+
+.hero {
+  position: relative;
+  min-height: min(52rem, 100svh);
+  min-height: min(52rem, 100vh);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(10, 18, 27, 0.88) 0%, rgba(10, 18, 27, 0.62) 46%, rgba(10, 18, 27, 0.12) 100%),
+    linear-gradient(0deg, rgba(10, 18, 27, 0.45), transparent 45%);
+}
+
+
+.hero-image {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 52%;
+}
+
+
+.hero-content {
+  width: min(100% - (var(--gutter) * 2), var(--container-width));
+  margin: calc(var(--header-height) + 4rem) auto 5rem;
+  padding-block: var(--space-5);
+}
+
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1rem;
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+
+.eyebrow::before {
+  width: 1.8rem;
+  height: 2px;
+  background: currentColor;
+  content: "";
+}
+
+
+.hero h1,
+.section-heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+
+.hero h1 {
+  max-width: 12ch;
+  font-size: clamp(3.4rem, 8.5vw, 7.4rem);
+}
+
+
+.hero-intro {
+  max-width: 34rem;
+  margin: 1.5rem 0 0;
+  color: rgba(242, 239, 232, 0.9);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.55;
+}
+
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+
+.button {
+  min-height: 3.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.35rem;
+  border: 1px solid transparent;
+  background: var(--color-orange);
+  color: #171b1e;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+
+.button:hover {
+  background: #ff8a42;
+}
+
+
+.button--outline {
+  border-color: rgba(242, 239, 232, 0.6);
+  background: transparent;
+  color: var(--color-paper);
+}
+
+
+.button--outline:hover {
+  border-color: var(--color-paper);
+  background: rgba(242, 239, 232, 0.1);
+}
+
+/* CSS PART 2 OF 3 */
+.section {
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+
+
+.section--dark {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+
+.section--mid {
+  background: var(--color-ink-soft);
+  color: var(--color-paper);
+}
+
+
+.section-heading {
+  max-width: 15ch;
+  font-size: clamp(2.5rem, 5.7vw, 5rem);
+}
+
+
+.section-lead {
+  max-width: 43rem;
+  margin: 1.25rem 0 0;
+  color: #5c6265;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+}
+
+
+.section--dark .section-lead,
+.section--mid .section-lead {
+  color: var(--color-paper-muted);
+}
+
+
+.intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.72fr);
+  align-items: end;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+
+.history-note {
+  padding: 1.5rem 0 0 1.5rem;
+  border-left: 2px solid var(--color-orange);
+}
+
+
+.history-note p {
+  margin: 0;
+  color: #53595c;
+}
+
+
+.history-note strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+
+.split-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.88fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+
+.split-section--reverse .split-copy {
+  order: 2;
+}
+
+
+.split-section--reverse .split-media {
+  order: 1;
+}
+
+
+.split-media {
+  min-height: 23rem;
+  position: relative;
+  overflow: hidden;
+  background: #263646;
+}
+
+
+.split-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 23rem;
+  object-fit: cover;
+}
+
+
+.split-media::after {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  content: "";
+  pointer-events: none;
+}
+
+
+.split-copy > :last-child {
+  margin-bottom: 0;
+}
+
+
+.split-copy p {
+  color: var(--color-paper-muted);
+}
+
+
+.split-copy .section-heading {
+  margin-bottom: 1.35rem;
+}
+
+
+.section--paper .split-copy p {
+  color: #555c5f;
+}
+
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 2rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line);
+  list-style: none;
+}
+
+
+.service-list li {
+  padding: 1rem 1rem 1rem 0;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-paper);
+  font-weight: 650;
+}
+
+
+.service-list li::before {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin: 0 0.75rem 0.1rem 0;
+  background: var(--color-orange);
+  content: "";
+}
+
+
+.trailer-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.trailer-types li {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(242, 239, 232, 0.3);
+  color: var(--color-paper);
+  font-size: 0.92rem;
+}
+
+
+.parts-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-top: 1px solid rgba(242, 239, 232, 0.3);
+  border-bottom: 1px solid rgba(242, 239, 232, 0.3);
+}
+
+
+.parts-band h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3vw, 2.4rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+
+.parts-band p {
+  max-width: 43rem;
+  margin: 0.75rem 0 0;
+  color: var(--color-paper-muted);
+}
+
+
+.parts-brands {
+  margin-top: 1.5rem;
+  color: var(--color-paper-muted);
+  font-size: 0.94rem;
+}
+
+
+.hours-note {
+  max-width: 48rem;
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--color-orange);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-paper);
+}
+
+
+.hours-note p {
+  margin: 0;
+}
+
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.72fr);
+  gap: clamp(2rem, 7vw, 6rem);
+}
+
+
+.contact-details {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+
+.contact-item {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(242, 239, 232, 0.25);
+}
+
+
+.contact-item h3 {
+  margin: 0 0 0.4rem;
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+
+.contact-item p {
+  margin: 0;
+  color: var(--color-paper-muted);
+}
+
+
+.contact-item a {
+  color: var(--color-paper);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+
+.site-footer {
+  padding-block: 2rem;
+  background: #0b131c;
+  color: var(--color-paper);
+}
+
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+
+.footer-copy {
+  margin: 0;
+  color: #c7c8c4;
+  font-size: 0.9rem;
+}
+
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.footer-links a {
+  color: var(--color-paper);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+
+.footer-links a:hover {
+  color: var(--color-orange);
+}
+
+/* CSS PART 3 OF 3 */
+@media (max-width: 760px) {
+  :root {
+    --header-height: 4.5rem;
+    --gutter: 1.25rem;
+  }
+
+
+  .desktop-nav,
+  .header-call {
+    display: none;
+  }
+
+
+  .site-header {
+    background: rgba(13, 22, 32, 0.76);
+    backdrop-filter: blur(10px);
+  }
+
+
+  .header-inner {
+    position: relative;
+  }
+
+
+  .mobile-nav-toggle {
+    width: 2.8rem;
+    height: 2.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0.5rem;
+    border: 1px solid rgba(242, 239, 232, 0.55);
+    background: transparent;
+    color: var(--color-paper);
+    cursor: pointer;
+  }
+
+
+  .mobile-nav-toggle span {
+    width: 1.2rem;
+    height: 2px;
+    background: currentColor;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+
+
+  .mobile-nav-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+
+  .mobile-nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+
+  .mobile-nav-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+
+  .mobile-nav {
+    position: absolute;
+    inset: 100% 0 auto;
+    display: none;
+    padding: 0.5rem var(--gutter) 1rem;
+    border-top: 1px solid var(--color-line);
+    background: var(--color-ink);
+  }
+
+
+  .mobile-nav.is-open {
+    display: grid;
+  }
+
+
+  .mobile-nav a {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-paper);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+
+  .mobile-nav .mobile-nav-call {
+    margin-top: 0.85rem;
+    padding: 0.85rem 1rem;
+    border: 0;
+    background: var(--color-orange);
+    color: var(--color-ink);
+    text-align: center;
+  }
+
+
+  .hero {
+    min-height: 100svh;
+    align-items: flex-end;
+  }
+
+
+  .hero::after {
+    background:
+      linear-gradient(0deg, rgba(10, 18, 27, 0.92) 0%, rgba(10, 18, 27, 0.65) 48%, rgba(10, 18, 27, 0.3) 100%),
+      linear-gradient(90deg, rgba(10, 18, 27, 0.25), transparent);
+  }
+
+
+  .hero-image {
+    object-position: 58% center;
+  }
+
+
+  .hero-content {
+    margin-top: calc(var(--header-height) + 2rem);
+    margin-bottom: 2rem;
+    padding-block: 2rem;
+  }
+
+
+  .hero h1 {
+    max-width: 10ch;
+    font-size: clamp(3.3rem, 15vw, 5.8rem);
+  }
+
+
+  .hero-intro {
+    max-width: 31rem;
+    margin-top: 1.1rem;
+  }
+
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+
+  .hero-actions .button {
+    width: 100%;
+  }
+
+
+  .section {
+    padding-block: 4rem;
+  }
+
+
+  .intro-layout,
+  .split-section,
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+
+  .split-section--reverse .split-copy,
+  .split-section--reverse .split-media {
+    order: initial;
+  }
+
+
+  .split-media,
+  .split-media img {
+    min-height: 17rem;
+  }
+
+
+  .parts-band {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+
+  .parts-band .button {
+    width: 100%;
+  }
+
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+
+  .footer-links {
+    gap: 0.75rem 1.25rem;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .brand {
+    max-width: 13rem;
+    font-size: 0.98rem;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(3rem, 14vw, 4rem);
+  }
+
+
+  .service-list {
+    grid-template-columns: 1fr;
+  }
+
+
+  .service-list li {
+    padding-block: 0.8rem;
+  }
+
+
+  .section-heading {
+    font-size: clamp(2.35rem, 11vw, 3.3rem);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Design reference: Dimension — https://html5up.net/uploads/demos/dimension/ | CC BY 3.0 — https://html5up.net/license | Adaptation: responsive single-page organization and compact section navigation inspire the structure; styling, copy, and imagery are original. -->
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Paul's Trailer Service Inc. home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>Paul's Trailer<br>Service Inc.</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#parts">Parts</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="header-call" href="tel:+13177819212">Call the shop</a>
+      <button class="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation">
+        <a href="#services">Services</a>
+        <a href="#parts">Parts</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="mobile-nav-call" href="tel:+13177819212">Call the shop</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <img class="hero-image" src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&amp;fit=crop&amp;w=2200&amp;q=85" alt="Commercial truck hauling a trailer along a highway">
+      <div class="hero-content">
+        <p class="eyebrow">Indianapolis · Trailer service</p>
+        <h1 id="hero-title">Keep your trailer ready for the road.</h1>
+        <p class="hero-intro">Repair work and parts support for trailer owners and operators, from a family-owned Indianapolis-area business founded in 1978.</p>
+        <div class="hero-actions">
+          <a class="button" href="tel:+13177819212">Call 317-781-9212</a>
+          <a class="button button--outline" href="#services">Explore services</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section--paper" aria-labelledby="intro-title">
+      <div class="container intro-layout">
+        <div>
+          <p class="eyebrow">A working shop since 1978</p>
+          <h2 class="section-heading" id="intro-title">Experience built around trailer work.</h2>
+          <p class="section-lead">Paul's Trailer Service Inc. is a family-owned business serving the greater Indianapolis area and customers across North America.</p>
+        </div>
+        <aside class="history-note" aria-label="Service area">
+          <strong>Indianapolis roots. Wider reach.</strong>
+          <p>Local shop service with a customer base that extends beyond the region.</p>
+        </aside>
+      </div>
+    </section>
+
+<!-- HTML PART 2 OF 3 -->
+    <section class="section section--dark" id="services" aria-labelledby="services-title">
+      <div class="container split-section">
+        <div class="split-copy">
+          <p class="eyebrow">Repair & inspection</p>
+          <h2 class="section-heading" id="services-title">Practical service for the work trailers do.</h2>
+          <p>The shop lists a range of repair and inspection work. Call to discuss the issue and confirm whether your trailer and repair need are a fit.</p>
+          <ul class="service-list">
+            <li>Brake and suspension work</li>
+            <li>Electrical and ABS repairs</li>
+            <li>Structural repairs and welding</li>
+            <li>Trailer alignment</li>
+            <li>Tarp repairs</li>
+            <li>DOT inspections</li>
+          </ul>
+          <p class="parts-brands">The site says the shop does not service reefer units or tires. Confirm the scope of work when you call.</p>
+        </div>
+        <div class="split-media">
+          <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Mechanic working beneath a commercial vehicle in a repair shop">
+        </div>
+      </div>
+      <!-- Service facts and limitations summarized from https://www.paulstrailer.com/ and https://www.paulstrailer.com/services. -->
+    </section>
+
+
+    <section class="section section--mid" aria-labelledby="trailer-types-title">
+      <div class="container split-section split-section--reverse">
+        <div class="split-copy">
+          <p class="eyebrow">Trailer types</p>
+          <h2 class="section-heading" id="trailer-types-title">Ask about your trailer.</h2>
+          <p>The source site lists trailer types the shop handles, but the available assessment does not identify them individually. Call the shop to confirm service availability for your trailer.</p>
+        </div>
+        <div class="split-media">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Line of commercial freight trailers parked at a transport facility">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section--dark" id="parts" aria-labelledby="parts-title">
+      <div class="container">
+        <div class="split-copy">
+          <p class="eyebrow">Parts support</p>
+          <h2 class="section-heading" id="parts-title">Replacement parts, with installation available.</h2>
+          <p>The shop describes OEM and aftermarket replacement parts, with installation support. Availability depends on the part; call to discuss what you need.</p>
+        </div>
+        <div class="parts-band">
+          <div>
+            <h3>Parts for trailer repairs</h3>
+            <p>Ask the shop about sourcing and installing parts for your repair.</p>
+          </div>
+          <a class="button" href="tel:+13177819212">Call about parts</a>
+        </div>
+        <!-- Parts offering summarized from https://www.paulstrailer.com/parts. -->
+      </div>
+    </section>
+
+
+    <section class="section section--paper" id="about" aria-labelledby="about-title">
+      <div class="container intro-layout">
+        <div>
+          <p class="eyebrow">About the shop</p>
+          <h2 class="section-heading" id="about-title">Family-owned and serving since 1978.</h2>
+          <p class="section-lead">Founded in 1978, Paul's Trailer Service Inc. serves the greater Indianapolis area and customers across North America.</p>
+        </div>
+        <aside class="history-note">
+          <strong>Need to check fit or availability?</strong>
+          <p>Call the shop to discuss your trailer, repair needs, or parts request.</p>
+        </aside>
+      </div>
+      <!-- Company history and service-area facts summarized from https://www.paulstrailer.com/. -->
+    </section>
+
+<!-- HTML PART 3 OF 3 -->
+    <section class="section section--dark" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-layout">
+        <div>
+          <p class="eyebrow">Contact the shop</p>
+          <h2 class="section-heading" id="contact-title">Let’s talk about your trailer.</h2>
+          <p class="section-lead">Call to ask about repair service, trailer fit, parts, or availability.</p>
+          <div class="hero-actions">
+            <a class="button" href="tel:+13177819212">Call 317-781-9212</a>
+            <a class="button button--outline" href="tel:+18007923451">Call toll-free</a>
+          </div>
+        </div>
+
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <h3>Phone</h3>
+            <p><a href="tel:+13177819212">317-781-9212</a><br>
+              <a href="tel:+18007923451">800-792-3451</a></p>
+          </div>
+          <div class="contact-item">
+            <h3>Location</h3>
+            <p>1245 Harding Court<br>Indianapolis, IN 46217</p>
+          </div>
+          <div class="contact-item">
+            <h3>Hours & availability</h3>
+            <p>Call the shop to confirm current hours and service availability before visiting.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Contact details summarized from https://www.paulstrailer.com/find-us/. Hours are not stated here; confirm directly with the business. -->
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© 2026 Paul's Trailer Service Inc. · Indianapolis, Indiana</p>
+      <ul class="footer-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#parts">Parts</a></li>
+        <li><a href="tel:+13177819212">Call the shop</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.querySelector(".mobile-nav-toggle");
+    const mobileNav = document.querySelector("#mobile-navigation");
+
+
+    if (navToggle && mobileNav) {
+      navToggle.addEventListener("click", () => {
+        const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+        navToggle.setAttribute("aria-expanded", String(!isExpanded));
+        navToggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+        mobileNav.classList.toggle("is-open", !isExpanded);
+      });
+
+
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navToggle.setAttribute("aria-expanded", "false");
+          navToggle.setAttribute("aria-label", "Open navigation");
+          mobileNav.classList.remove("is-open");
+        });
+      });
+    }
+  </script>
+</body></html>

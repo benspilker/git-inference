@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=dbc9264e-1c59-43bf-aff5-59d841e5533b",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T18:04:30.271643+00:00",
+      "characters": 5271,
+      "sha256": "7573a5c27b22fb4ef10d8c97b3c310073f90055d0a245579d7a5af51492af68e"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T18:04:44.699967+00:00",
+      "characters": 4743,
+      "sha256": "ceaccc7516ddbf9b6b7f672c65f6f7d87c1e781d9d67da784979006e5a7b4345"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T18:04:58.045940+00:00",
+      "characters": 3781,
+      "sha256": "ed4d7de8b53703d5e178846721bc2e724ac0dae9c588d8201f866d92b23c3241"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T18:05:26.214167+00:00",
+      "characters": 3795,
+      "sha256": "ebf563a83d50c842c5c367380d2e90762798771ea2a047c9cc6182bc762a05a4"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T18:05:39.680231+00:00",
+      "characters": 3880,
+      "sha256": "038dd1166f431c86f4b5831058e2bd4b3d5844f42cbefcf84141f233a26bccef"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T18:05:51.784359+00:00",
+      "characters": 2732,
+      "sha256": "5f432328a9b8c81671fcc5a9103f24201b040d655d1dec73fadee1687e129655"
+    }
+  ]
+}
