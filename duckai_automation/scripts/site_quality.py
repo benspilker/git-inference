@@ -665,6 +665,40 @@ def _required_sections(prompt):
         request_text,
         flags=re.IGNORECASE,
     )
+    # Generic redesign briefs often mention optional sections and conditional
+    # policies (for example, "do not assume every organization has hours" or
+    # "if hours conflict, ask visitors to confirm"). Those mentions describe
+    # constraints; they do not make the section mandatory for every target.
+    request_text = re.sub(
+        r"\bdo\s+not\s+assume\b[^.!?\n]*[.!?]?",
+        " ",
+        request_text,
+        flags=re.IGNORECASE,
+    )
+    request_text = re.sub(
+        r"[^.!?\n]*\b(?:if|when)\b[^.!?\n]*[.!?]?",
+        " ",
+        request_text,
+        flags=re.IGNORECASE,
+    )
+    request_text = re.sub(
+        r"[^.!?\n]*\bonly\s+when\b[^.!?\n]*[.!?]?",
+        " ",
+        request_text,
+        flags=re.IGNORECASE,
+    )
+    request_text = re.sub(
+        r"\boptional\s+(?:business\s+)?(?:location|hours|business\s+hours|testimonials?|reviews?)\b",
+        " ",
+        request_text,
+        flags=re.IGNORECASE,
+    )
+    request_text = re.sub(
+        r"[^.!?\n]*\bwhen\s+present\b[^.!?\n]*[.!?]?",
+        " ",
+        request_text,
+        flags=re.IGNORECASE,
+    )
     text = request_text.lower()
     required = {"hero", "contact", "footer"}
     trigger_terms = {
@@ -832,7 +866,13 @@ def assess_website(prompt, session_dir):
             if (key := _url_key(url, base_url)) in source_keys
         )
 
-    if re.search(r"\b(?:form|booking form|contact form|request form)\b", prompt, re.IGNORECASE):
+    explicit_form_request = re.sub(
+        r"[^.!?\n]*\b(?:if|when)\b[^.!?\n]*[.!?]?",
+        " ",
+        request_text,
+        flags=re.IGNORECASE,
+    )
+    if re.search(r"\b(?:form|booking form|contact form|request form)\b", explicit_form_request, re.IGNORECASE):
         checks["requested_form_present"] = parser.forms > 0
 
     passed = sum(checks.values())
