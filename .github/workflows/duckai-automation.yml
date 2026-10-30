@@ -7,10 +7,7 @@ on:
     paths:
       - "duckai_automation/website_request.txt"
       - "duckai_automation/design_brief.txt"
-      - "duckai_automation/run_duckai.py"
-      - "duckai_automation/SKILL.md"
-      - "duckai_automation/README.md"
-      - ".github/workflows/duckai-automation.yml"
+      - "duckai_automation/source_url.txt"
   workflow_dispatch:
     inputs:
       website_request:
@@ -18,8 +15,12 @@ on:
         required: true
         type: string
       design_brief:
-        description: "Verified business facts and design brief; include template/source/license details when using HTML5 UP"
+        description: "Concise design guidance; when source_url is set, let Duck.ai assess the business facts in-chat"
         required: true
+        type: string
+      source_url:
+        description: "Optional live website URL for a Duck.ai source assessment in the same chat before redesign"
+        required: false
         type: string
 
 permissions:
@@ -67,6 +68,7 @@ jobs:
         env:
           WEBSITE_REQUEST: ${{ inputs.website_request }}
           DESIGN_BRIEF: ${{ inputs.design_brief }}
+          SOURCE_URL: ${{ inputs.source_url }}
         run: |
           set -euo pipefail
           successful=0
@@ -90,6 +92,7 @@ jobs:
           echo "Automated successes: ${successful}/${target} after ${attempt} candidate attempts."
 
       - name: Commit generated website run to selected branch
+        if: always()
         env:
           TARGET_BRANCH: ${{ github.ref_name }}
           ATTEMPT_COUNT: ${{ steps.generate.outputs.attempt_count }}
@@ -99,21 +102,19 @@ jobs:
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for ((candidate = 1; candidate <= ATTEMPT_COUNT; candidate++)); do
-            run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-${candidate}"
-            test -f "$run_dir/files/index.html"
-            test -f "$run_dir/files/styles.css"
-            test -f "$run_dir/files/inlined/index.html"
-            git add -- "$run_dir"
+          shopt -s nullglob
+          run_dirs=(duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-*)
+          for run_dir in "${run_dirs[@]}"; do
+            [[ -d "$run_dir" ]] && git add -- "$run_dir"
           done
           if git diff --cached --quiet; then
-            echo "No generated candidate files to commit."
-            exit 1
+            echo "No candidate evidence was produced for this workflow run."
+            exit 0
           fi
-          git commit -m "duckai: save ${SUCCESSFUL_COUNT} passing website candidates from ${ATTEMPT_COUNT} attempts ${GITHUB_RUN_ID} [skip ci]"
+          git commit -m "duckai: save candidate evidence from workflow run ${GITHUB_RUN_ID} [skip ci]"
           for attempt in 1 2 3; do
             if git push origin "HEAD:refs/heads/${TARGET_BRANCH}"; then
-              echo "Pushed all ${ATTEMPT_COUNT} candidate folders to ${TARGET_BRANCH}; ${SUCCESSFUL_COUNT} passed automated checks."
+              echo "Pushed candidate evidence for workflow run ${GITHUB_RUN_ID} to ${TARGET_BRANCH}."
               exit 0
             fi
             echo "Push attempt ${attempt} failed; rebasing on the selected branch."

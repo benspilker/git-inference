@@ -212,6 +212,153 @@ def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]
     fail(f"Timed out waiting for a complete, stable {label} response with exactly one code block.")
 
 
+def enable_web_search(page) -> None:
+    """Enable Duck.ai web search for the source assessment and verify the toggle."""
+    tools_button = page.get_by_role("button", name=re.compile(r"tools", re.IGNORECASE)).last
+    if not tools_button.count() or not tools_button.is_visible():
+        fail("Duck.ai's Tools control is unavailable; cannot assess the source website in-chat.")
+    tools_button.click(timeout=5000)
+
+    search_option = page.get_by_role("menuitemcheckbox", name=re.compile(r"web\s*search", re.IGNORECASE)).last
+    if not search_option.count():
+        search_option = page.get_by_role("checkbox", name=re.compile(r"web\s*search", re.IGNORECASE)).last
+    if not search_option.count():
+        search_option = page.get_by_text(re.compile(r"^web\s*search$", re.IGNORECASE)).last
+    if not search_option.count() or not search_option.is_visible():
+        fail("Duck.ai's Tools menu did not expose Web Search; cannot verify source-site access.")
+
+    checked = (search_option.get_attribute("aria-checked") or "").lower() == "true"
+    pressed = (search_option.get_attribute("aria-pressed") or "").lower() == "true"
+    if not (checked or pressed):
+        search_option.click(timeout=5000)
+    page.wait_for_timeout(300)
+    checked = (search_option.get_attribute("aria-checked") or "").lower() == "true"
+    pressed = (search_option.get_attribute("aria-pressed") or "").lower() == "true"
+    if not (checked or pressed):
+        # Some menu versions expose a checked child input rather than the state
+        # on the option itself. Require an observable selected state either way.
+        selected = search_option.locator("input[type='checkbox']")
+        if not selected.count() or not selected.last.is_checked():
+            fail("Could not verify that Duck.ai Web Search is enabled.")
+    print("Enabled Duck.ai Web Search for the source-site assessment.")
+
+
+def send_source_assessment(page, source_url: str) -> tuple[str, str, dict]:
+    """Ask Duck.ai to inspect the live site and capture a structured, sourced audit."""
+    label = "SOURCE SITE AUDIT"
+    label_pattern = re.compile(r"\bSOURCE\s+SITE\s+AUDIT\b", re.IGNORECASE)
+    prompt = f"""Inspect the public website at {source_url} using Web Search. This is a source assessment only; do not write redesign code yet.
+
+Review the homepage and relevant pages linked from its navigation, especially services, products/parts, about, and contact pages when present. Return one JSON object in exactly one `json` code block, preceded by the exact label `{label}`. Include:
+- `access_status`: `accessed` only if you actually retrieved and reviewed the requested website; otherwise `unavailable`.
+- `pages_reviewed`: an array of objects with `url`, `page_title`, and a short description of visible content.
+- `business_facts`: concise, neutral facts visible on those pages; do not copy paragraphs verbatim.
+- `audience_and_goals`: likely audience and primary contact/conversion path, separating evidence from inference.
+- `brand_and_visual_observations`: observations about the existing design and imagery, not instructions to copy them.
+- `content_structure`: the important sections/pages a redesign should retain.
+- `unknown_or_verify`: details that are unclear, inconsistent, or should be confirmed with the business.
+- `design_reference`: recommend one specific HTML5 UP template only if you can inspect its official demo; include `name`, `url`, `license_url`, and `patterns_to_adapt`. If you cannot verify a suitable template and its license, use `null`.
+- `sources`: exact source URLs you actually reviewed, including the requested domain.
+
+Do not invent facts, claim a page was reviewed when it was not, reproduce source copy, or reuse protected brand assets. Preserve observed facts separately from design opinions. Keep the audit concise enough to guide a one-page redesign."""
+
+    composer = wait_for_guest_composer(page)
+    before_text = main_text(page)
+    before_label_count = len(label_pattern.findall(before_text))
+    before_blocks = preformatted_blocks(page).count()
+    composer.fill(prompt, timeout=15000)
+    send_candidates = (
+        page.get_by_role("button", name=re.compile(r"send", re.IGNORECASE)),
+        page.locator("button[aria-label*='send' i]"),
+        page.locator("button[data-testid*='send' i]"),
+        page.locator("form button[type='submit']"),
+    )
+    sent = False
+    for candidate in send_candidates:
+        try:
+            if candidate.count() and candidate.last.is_visible() and candidate.last.is_enabled():
+                candidate.last.click(timeout=5000)
+                sent = True
+                break
+        except PlaywrightTimeoutError:
+            continue
+    if not sent:
+        composer.press("Enter", timeout=5000)
+
+    deadline = time.monotonic() + 240
+    last_code = ""
+    stable_samples = 0
+    while time.monotonic() < deadline:
+        blocks = preformatted_blocks(page)
+        current_text = main_text(page)
+        label_count = len(label_pattern.findall(current_text))
+        block_count = blocks.count()
+        if label_count > before_label_count and block_count == before_blocks + 1:
+            code = blocks.nth(block_count - 1).inner_text().strip("\r\n")
+            try:
+                json.loads(code)
+                valid_json = True
+            except json.JSONDecodeError:
+                valid_json = False
+            if code == last_code and valid_json:
+                stable_samples += 1
+            else:
+                stable_samples = 0
+            last_code = code
+            stop_button = page.get_by_role("button", name=re.compile(r"stop", re.IGNORECASE)).last
+            try:
+                stop_visible = stop_button.count() > 0 and stop_button.is_visible()
+            except Exception:
+                stop_visible = False
+            if stable_samples >= 3 and not stop_visible:
+                response_context = message_text_for_block(blocks.nth(block_count - 1), label, code)
+                if not response_context:
+                    fail("Could not scope the source assessment to the newest assistant response.")
+                response = f"{response_context}\n```json\n{code}\n```\n"
+                chat_url = page.url
+                if not chat_url or urlparse(chat_url).hostname != "duck.ai":
+                    fail(f"Unexpected Duck.ai conversation URL: {chat_url!r}")
+                assessment = json.loads(code)
+                return response, chat_url, assessment
+        elif block_count > before_blocks + 1:
+            fail("Duck.ai returned multiple new code blocks for the source assessment.")
+        page.wait_for_timeout(1000)
+    fail("Timed out waiting for a structured, stable source-site assessment.")
+
+
+def validate_source_assessment(assessment: dict, source_url: str) -> None:
+    if assessment.get("access_status") != "accessed":
+        fail("Duck.ai could not confirm it accessed the source site; stopping before code generation.")
+    requested = urlparse(source_url)
+    requested_host = (requested.hostname or "").lower().removeprefix("www.")
+    reviewed_hosts = {
+        (urlparse(str(item.get("url", ""))).hostname or "").lower().removeprefix("www.")
+        for item in assessment.get("pages_reviewed", [])
+        if isinstance(item, dict)
+    }
+    source_hosts = {
+        (urlparse(url).hostname or "").lower().removeprefix("www.")
+        for url in assessment.get("sources", [])
+        if isinstance(url, str)
+    }
+    all_hosts = reviewed_hosts | source_hosts
+    if not any(host == requested_host or host.endswith("." + requested_host) for host in all_hosts):
+        fail("Duck.ai's assessment did not cite or list a reviewed page on the requested source domain.")
+    if not assessment.get("pages_reviewed"):
+        fail("Duck.ai's source assessment did not list any reviewed pages.")
+    reference = assessment.get("design_reference")
+    if not isinstance(reference, dict) or not all(reference.get(key) for key in ("name", "url", "license_url")):
+        fail("Duck.ai did not provide a verifiable named design reference and license; stopping before code generation.")
+    if not reference.get("patterns_to_adapt"):
+        fail("Duck.ai's design reference did not identify any template patterns to adapt.")
+    template_url = urlparse(reference["url"])
+    license_url = urlparse(reference["license_url"])
+    if (template_url.hostname or "").lower() not in {"html5up.net", "www.html5up.net"}:
+        fail("The proposed design reference is not hosted on the official HTML5 UP domain.")
+    if "creativecommons.org" not in (license_url.hostname or "").lower() or "/licenses/by/3.0" not in license_url.path:
+        fail("The proposed HTML5 UP design reference did not provide the expected CC BY 3.0 license URL.")
+
+
 def send_acknowledgment_and_wait(page, expected_chat_url: str) -> None:
     """Send the required human-style handoff turn and wait for Duck.ai to finish it."""
     acknowledgment = "acknowledged"
@@ -289,10 +436,34 @@ def capture_chunk(kind: str, part: int, chat_url: str, response: str) -> None:
     )
 
 
-def build_initial_prompt(website_request: str, design_brief: str) -> str:
+def build_initial_prompt(
+    website_request: str,
+    design_brief: str,
+    source_url: str = "",
+    design_reference: dict | None = None,
+) -> str:
+    source_context = (
+        f"The source website {source_url} was assessed earlier in this same conversation. "
+        "Use that captured assessment as your factual reference; do not ask the user to repeat it. "
+        "Preserve verified content and the original business's conversion goals, but write original copy. "
+        "Do not reuse the source site's copy, logo, or photos; use appropriately licensed, relevant imagery.\n\n"
+        if source_url
+        else ""
+    )
+    template_context = ""
+    if design_reference:
+        template_context = (
+            "Use this verified HTML5 UP design reference selected after the source assessment: "
+            f"{design_reference['name']} ({design_reference['url']}); license: {design_reference['license_url']}. "
+            f"Adapt these patterns to the business: {json.dumps(design_reference['patterns_to_adapt'], ensure_ascii=False)}. "
+            "Do not copy template branding or unrelated template copy. Include the template name, source URL, "
+            "CC BY 3.0 license URL, and adaptation note in a non-rendering HTML source comment.\n\n"
+        )
     return (
         f"Website request:\n{website_request.strip()}\n\n"
-        f"Verified facts and design brief:\n{design_brief.strip()}\n\n"
+        f"Design guidance:\n{design_brief.strip()}\n\n"
+        f"{source_context}"
+        f"{template_context}"
         f"{BASE_CONTRACT}\n\n"
         "Begin with CSS PART 1 OF 3 only."
     )
@@ -346,17 +517,36 @@ def run_checker(website_request: str) -> dict:
 def run() -> None:
     website_request = os.environ.get("WEBSITE_REQUEST", "").strip()
     design_brief = os.environ.get("DESIGN_BRIEF", "").strip()
+    source_url = os.environ.get("SOURCE_URL", "").strip()
     if not website_request and (ROOT / "website_request.txt").is_file():
         website_request = (ROOT / "website_request.txt").read_text(encoding="utf-8").strip()
     if not design_brief and (ROOT / "design_brief.txt").is_file():
         design_brief = (ROOT / "design_brief.txt").read_text(encoding="utf-8").strip()
+    if not source_url and (ROOT / "source_url.txt").is_file():
+        source_url = (ROOT / "source_url.txt").read_text(encoding="utf-8").strip()
     if not website_request:
         fail("WEBSITE_REQUEST is required.")
     if not design_brief:
         fail("DESIGN_BRIEF is required. Include verified facts and the named template/source/license, if using HTML5 UP.")
+    if source_url:
+        parsed_source = urlparse(source_url)
+        if parsed_source.scheme not in {"http", "https"} or not parsed_source.hostname:
+            fail("SOURCE_URL must be an absolute http(s) URL.")
+    else:
+        match = re.search(r"https?://[^\s)]+", website_request)
+        if match:
+            source_url = match.group(0).rstrip(".,;]")
 
     RUN_DIR.mkdir(parents=True, exist_ok=False)
     (RUN_DIR / "debug").mkdir(parents=True)
+    (RUN_DIR / "debug" / "inputs.json").write_text(
+        json.dumps(
+            {"website_request": website_request, "design_brief": design_brief, "source_url": source_url},
+            indent=2,
+            ensure_ascii=False,
+        ) + "\n",
+        encoding="utf-8",
+    )
     turn_log = {"chat_url": "", "turns": []}
     with tempfile.TemporaryDirectory(prefix="duckai-website-profile-") as profile_dir:
         with sync_playwright() as playwright:
@@ -372,11 +562,38 @@ def run() -> None:
             try:
                 page.goto("https://duck.ai/", wait_until="domcontentloaded", timeout=60000)
                 wait_for_guest_composer(page)
+                if source_url:
+                    enable_web_search(page)
+                    response, current_url, assessment = send_source_assessment(page, source_url)
+                    if chat_url and current_url != chat_url:
+                        fail("Duck.ai conversation URL changed during source assessment.")
+                    chat_url = current_url
+                    (RUN_DIR / "debug" / "source_assessment.json").write_text(
+                        json.dumps(assessment, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+                    )
+                    (RUN_DIR / "debug" / "source_assessment.md").write_text(response, encoding="utf-8")
+                    turn_log["chat_url"] = chat_url
+                    turn_log["turns"].append(
+                        {"type": "source_site_assessment", "source_url": source_url, "assistant_response_completed": True}
+                    )
+                    validate_source_assessment(assessment, source_url)
+                    print(f"Captured and validated Duck.ai's source assessment for {source_url}")
                 for kind, part in [("css", 1), ("css", 2), ("css", 3), ("html", 1), ("html", 2), ("html", 3)]:
                     if kind == "html" and part == 1:
                         send_acknowledgment_and_wait(page, chat_url)
                         turn_log["turns"].append({"type": "user_acknowledgment", "text": "acknowledged", "assistant_response_completed": True})
-                    prompt = build_initial_prompt(website_request, design_brief) if not chat_url else build_next_prompt(kind, part)
+                    prompt = (
+                        build_initial_prompt(
+                            website_request,
+                            design_brief,
+                            source_url,
+                            json.loads((RUN_DIR / "debug" / "source_assessment.json").read_text(encoding="utf-8")).get("design_reference")
+                            if source_url
+                            else None,
+                        )
+                        if not turn_log["turns"] or turn_log["turns"][-1].get("type") == "source_site_assessment"
+                        else build_next_prompt(kind, part)
+                    )
                     response, current_url = send_and_capture(page, prompt, kind, part)
                     if chat_url and current_url != chat_url:
                         fail("Duck.ai conversation URL changed during capture; refusing to mix chats.")
@@ -400,6 +617,13 @@ def run() -> None:
             else "automated_checks_failed"
         ),
         "chat_url": chat_url,
+        "source_url": source_url or None,
+        "source_assessment_status": "pass" if source_url else "not_requested",
+        "design_reference": (
+            json.loads((RUN_DIR / "debug" / "source_assessment.json").read_text(encoding="utf-8")).get("design_reference")
+            if source_url
+            else None
+        ),
         "final_success": bool(report.get("final_success")),
         "browser_qa_status": report.get("browser_qa_status", "missing"),
         "visual_review_status": report.get("visual_review_status", "pending"),
@@ -414,6 +638,9 @@ def run() -> None:
             handle.write(f"- Output: `{RUN_DIR.relative_to(REPO).as_posix()}/`\n")
             handle.write(f"- Automated checks passed: `{str(bool(report.get('automated_success'))).lower()}`\n")
             handle.write(f"- Browser QA: `{report.get('browser_qa_status', 'missing')}`\n")
+            if source_url:
+                handle.write(f"- Source assessment: completed in this chat for `{source_url}`; evidence saved in `debug/source_assessment.json`.\n")
+                handle.write("- Design reference: recorded in the source assessment, with its license.\n")
             handle.write("- Visual review: pending human screenshot and image relevance review.\n")
             handle.write("- This candidate folder will be committed with the candidate batch.\n")
     print(f"Run saved in {RUN_DIR}")

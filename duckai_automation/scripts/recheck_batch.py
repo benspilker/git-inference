@@ -61,7 +61,6 @@ def main() -> int:
     if not run_id.isdigit() or not attempt.isdigit():
         raise RuntimeError("Run ID and attempt must be numeric.")
 
-    request = (ROOT / "website_request.txt").read_text(encoding="utf-8").strip()
     candidates = sorted(
         (path for path in RUNS_DIR.glob(f"run-{run_id}-{attempt}-candidate-*") if path.is_dir()),
         key=lambda path: int(BATCH_PATTERN.fullmatch(path.name).group(3)),
@@ -71,6 +70,11 @@ def main() -> int:
 
     successful = []
     for candidate in candidates:
+        inputs_path = candidate / "debug" / "inputs.json"
+        if inputs_path.is_file():
+            request = json.loads(inputs_path.read_text(encoding="utf-8")).get("website_request", "")
+        else:
+            request = (ROOT / "website_request.txt").read_text(encoding="utf-8").strip()
         if not (candidate / "files" / "inlined" / "index.html").is_file():
             print(f"Skipping incomplete folder {candidate.name}.")
             continue
