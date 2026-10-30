@@ -45,8 +45,8 @@ def write_failure_summary(error: Exception, page) -> None:
         summary.write(f"- Error: `{str(error).replace('`', '\\`')}`\n")
         summary.write(f"- Page title: `{title}`\n")
         summary.write(f"- Page URL: `{current_url}`\n\n")
-        summary.write("Visible page text (truncated to 1,500 characters):\n\n")
-        summary.write("```text\n" + body[:1500].replace("```", "'''\u200b") + "\n```\n")
+        summary.write("Visible page text tail (truncated to 1,500 characters):\n\n")
+        summary.write("```text\n" + body[-1500:].replace("```", "'''\u200b") + "\n```\n")
 
 
 def main_area(page):
@@ -168,7 +168,14 @@ def send_and_capture(page, turn: dict) -> str:
             if stable >= 3:
                 return response
         page.wait_for_timeout(1000)
-    fail(f"Timed out waiting for a stable answer marked {marker}.")
+    visible_tail = main_area(page).inner_text(timeout=3000)[-1000:].replace("\n", " ")
+    marker_count = count_marker(page, marker)
+    extracted = extract_latest_marked_message(page, marker)
+    fail(
+        f"Timed out waiting for a stable answer marked {marker}; "
+        f"marker appearances={marker_count}; extracted response={extracted!r}; "
+        f"visible chat tail={visible_tail!r}"
+    )
 
 
 def main() -> None:
