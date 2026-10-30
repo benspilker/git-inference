@@ -423,5 +423,10 @@ if __name__ == "__main__":
     try:
         run()
     except Exception as error:
-        print(f"Duck.ai automation failed: {error}", file=sys.stderr)
+        message = f"Duck.ai automation failed during candidate attempt {CANDIDATE_INDEX}: {error}"
+        print(message, file=sys.stderr)
+        summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+        if summary_path:
+            with Path(summary_path).open("a", encoding="utf-8") as handle:
+                handle.write(f"\n### Candidate attempt {CANDIDATE_INDEX} failed\n\n{message}\n")
         raise SystemExit(1)
