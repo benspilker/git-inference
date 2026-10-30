@@ -234,7 +234,7 @@ def enable_web_search(page) -> None:
     pressed = (search_option.get_attribute("aria-pressed") or "").lower() == "true"
     if not (checked or pressed):
         search_option.click(timeout=5000)
-    page.wait_for_timeout(300)
+        page.wait_for_timeout(300)
         if not search_option.count() or not search_option.is_visible():
             # Selecting a tool closes the popover in the current Duck.ai UI.
             tools_button.click(timeout=5000)
