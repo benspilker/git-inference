@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=60ed9b92-fc96-410a-a835-30433c6bc14b",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T17:37:30.632238+00:00",
+      "characters": 5113,
+      "sha256": "dfd17e002093d48be4316298567a30efd706ff077a9e748e54eec172847ec1c1"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T17:37:49.720471+00:00",
+      "characters": 5516,
+      "sha256": "fdea7fd2ff835e5fcb3906995a8fa7d0fdeb93cba26a54997c9a19e31cc65400"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T17:38:06.561555+00:00",
+      "characters": 4618,
+      "sha256": "7694e57ff921ae7caa32cb6fb6201aff51e05af97104ffad6d5cc6ed45662ce6"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T17:38:36.198518+00:00",
+      "characters": 3991,
+      "sha256": "b993782c28545b98f55e0158177e5c7f7c4caa5d0ea68654126f9b8afd5a0c6e"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T17:38:48.760655+00:00",
+      "characters": 3525,
+      "sha256": "039d123cba6619cff13caf6b7e76f3a2278527ae7d44f7f6618ec08889de3da4"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T17:39:00.061980+00:00",
+      "characters": 2339,
+      "sha256": "412d79e1e7bcd5db9fe379df615bccf08c859ae5b779327210582385fec394f0"
+    }
+  ]
+}

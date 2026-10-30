@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=881bd698-2a8b-469b-9589-ebf2dbe12bf6",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T17:35:09.472646+00:00",
+      "characters": 5884,
+      "sha256": "b8982a5e6d4cf5a221353225d79e4a7c82cb3b369882109c5ceb8b815f252093"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T17:35:25.215174+00:00",
+      "characters": 4339,
+      "sha256": "bab2304090166109ca671eace91ea00779d83b76f8d9dd372c6c2b4303bc5cdd"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T17:35:44.969847+00:00",
+      "characters": 6448,
+      "sha256": "82d388f1bf4f9cc0f8f9c1a9d87626064e8698fd3304058fe189f0b859ee43e3"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T17:36:21.271868+00:00",
+      "characters": 5218,
+      "sha256": "cd911661d7125ee6fd5e0e95ad5ab210530551cd361137518cb888d10ec6c316"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T17:36:32.452516+00:00",
+      "characters": 2341,
+      "sha256": "ab9ad4d1f622978746b6b5a0f1d99232e90c58f03f270ce7dcb19af82e0fa69f"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T17:36:44.853441+00:00",
+      "characters": 2999,
+      "sha256": "c0e69932866bbdfba7a836dfa1fe2f0d2b741d6108871ec970ca508035d921e5"
+    }
+  ]
+}

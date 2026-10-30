@@ -1,0 +1,194 @@
+{
+  "status": "fail",
+  "tested_file": "files/inlined/index.html",
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "hours",
+    "services"
+  ],
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact-actions",
+          "width": 605,
+          "height": 56
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 1440,
+          "height": 120
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 1440,
+          "height": 832
+        },
+        "hours": {
+          "visible": true,
+          "selector_hint": "div.availability-inner",
+          "width": 1216,
+          "height": 108
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "aside.service-aside",
+          "width": 469,
+          "height": 206
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 1440,
+        "width": 1440,
+        "height": 832,
+        "viewport_width": 1440,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "CONTACT",
+        "bottom": 56
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 1440,
+        "viewport_width": 1440,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 4,
+        "loaded_images": 4,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 5,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 4,
+        "loaded_images": 4,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 5,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/desktop.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "sections": {
+        "contact": {
+          "visible": true,
+          "selector_hint": "div.contact-actions",
+          "width": 350,
+          "height": 56
+        },
+        "footer": {
+          "visible": true,
+          "selector_hint": "footer.site-footer",
+          "width": 390,
+          "height": 201
+        },
+        "hero": {
+          "visible": true,
+          "selector_hint": "section.hero",
+          "width": 390,
+          "height": 743
+        },
+        "hours": {
+          "visible": true,
+          "selector_hint": "div.availability-inner",
+          "width": 350,
+          "height": 225
+        },
+        "services": {
+          "visible": true,
+          "selector_hint": "h2#services-title",
+          "width": 350,
+          "height": 85
+        }
+      },
+      "all_required_sections_visible": true,
+      "hero": {
+        "present": true,
+        "left": 0,
+        "right": 390,
+        "width": 390,
+        "height": 743,
+        "viewport_width": 390,
+        "spans_viewport": true,
+        "media_covers_hero": true
+      },
+      "hero_spans_viewport": true,
+      "cta": {
+        "visible_first_screen": true,
+        "text": "CONTACT THE SHOP",
+        "bottom": 687
+      },
+      "cta_visible_first_screen": true,
+      "horizontal_overflow": {
+        "scroll_width": 390,
+        "viewport_width": 390,
+        "overflow": false
+      },
+      "no_horizontal_overflow": true,
+      "images": {
+        "image_count": 4,
+        "loaded_images": 4,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 5,
+        "failed_faces": 0
+      },
+      "images_loaded": true,
+      "fonts": {
+        "image_count": 4,
+        "loaded_images": 4,
+        "failed_images": [],
+        "font_status": "loaded",
+        "loaded_faces": 5,
+        "failed_faces": 0
+      },
+      "fonts_loaded": true,
+      "resource_errors": [],
+      "screenshot": "screenshots/mobile.png"
+    }
+  },
+  "mobile_menu": {
+    "found": true,
+    "click_opens": true,
+    "click_closes": true,
+    "tab_reachable": true,
+    "enter_opens": true,
+    "space_toggles": false,
+    "escape_closes": true,
+    "pass": false
+  },
+  "checks": {
+    "rendered_sections_visible_desktop_and_mobile": true,
+    "hero_spans_viewport_desktop_and_mobile": true,
+    "cta_visible_first_screen_desktop_and_mobile": true,
+    "mobile_menu_clicks_work": true,
+    "mobile_menu_keyboard_works": false,
+    "mobile_has_no_horizontal_overflow": true,
+    "fonts_load_in_browser": true,
+    "images_load_in_browser": true
+  },
+  "resource_errors": []
+}

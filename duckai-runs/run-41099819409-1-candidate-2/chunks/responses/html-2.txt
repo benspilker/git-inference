@@ -1,0 +1,41 @@
+HTML PART 2 OF 3
+```text
+<!-- HTML PART 2 OF 3 -->
+    <section class="section section-paper" id="trailer-types" aria-labelledby="types-title">
+      <div class="trailer-types container">
+        <figure class="image-frame trailer-image">
+          <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Large trailer being transported on a highway">
+        </figure>
+        <div class="trailer-types-copy">
+          <p class="eyebrow">Trailer types</p>
+          <h2 class="display-title" id="types-title">Tell us what you’re bringing in.</h2>
+          <p>The source site lists rates for trailers, tractor/trucks, and camper trailers. Service suitability can depend on the vehicle and repair, so call the shop to confirm before making plans.</p>
+          <ul class="type-tags" aria-label="Vehicle categories mentioned on the source site">
+            <li>Trailers</li>
+            <li>Tractor/trucks</li>
+            <li>Camper trailers</li>
+          </ul>
+          <p class="notice">Reefer units and tires are listed as outside the shop’s service scope.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section-white" id="parts" aria-labelledby="parts-title">
+      <div class="parts-layout container">
+        <figure class="image-frame parts-image">
+          <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Hands working with tools on mechanical equipment">
+        </figure>
+        <div class="parts-copy">
+          <p class="eyebrow">Parts support</p>
+          <h2 id="parts-title">Replacement parts, with installation available.</h2>
+          <p>The business describes its parts offering as OEM and aftermarket replacement parts, with installation available. The source site also notes that availability varies: some parts may be in stock, while others may be obtained to order.</p>
+          <div class="parts-brands">
+            <h3>Ask about the part you need</h3>
+            <p>Call with your trailer details and the part you’re looking for. The shop can confirm current availability and whether installation is an option.</p>
+          </div>
+          <a class="button button-primary" href="tel:+13177819212">Call about parts</a>
+        </div>
+      </div>
+    </section>
+```

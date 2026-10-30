@@ -1,0 +1,288 @@
+CSS PART 2 OF 3
+```css
+/* CSS PART 2 OF 3 */
+.section {
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+
+
+.section-paper {
+  background: var(--color-paper);
+}
+
+
+.section-white {
+  background: var(--color-white);
+}
+
+
+.section-dark {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+
+.section-heading {
+  max-width: 46rem;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+
+.section-heading h2,
+.history-copy h2,
+.parts-copy h2,
+.contact-copy h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+
+.section-heading p:not(.eyebrow) {
+  max-width: 40rem;
+  margin: 1.25rem 0 0;
+  color: var(--color-muted);
+  font-size: 1.1rem;
+}
+
+
+.history-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 1.1fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+
+.history-copy {
+  max-width: 38rem;
+}
+
+
+.history-copy p:not(.eyebrow) {
+  margin: 1.4rem 0 0;
+  color: var(--color-muted);
+}
+
+
+.history-copy .history-detail {
+  padding-left: 1rem;
+  border-left: 3px solid var(--color-orange);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+
+.image-frame {
+  position: relative;
+  min-width: 0;
+  background: #d9d6cd;
+}
+
+
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.history-image {
+  min-height: 25rem;
+  aspect-ratio: 4 / 3;
+}
+
+
+.image-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  max-width: 18rem;
+  margin: 0;
+  padding: 0.7rem 1rem;
+  background: var(--color-navy);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+
+.service-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.7fr);
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+
+.service-intro .section-heading {
+  margin-bottom: 0;
+}
+
+
+.service-intro-note {
+  margin: 0;
+  padding: 1rem 0 0.2rem 1.25rem;
+  border-left: 2px solid var(--color-orange);
+  color: rgba(255, 254, 250, 0.76);
+}
+
+
+.services-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(17rem, 0.8fr);
+  gap: clamp(2rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+
+.service-list li {
+  padding: 1rem 1rem 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+  color: rgba(255, 254, 250, 0.9);
+  font-weight: 650;
+}
+
+
+.service-list li:nth-child(odd) {
+  margin-right: 1rem;
+}
+
+
+.service-aside {
+  padding: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+
+.service-aside h3,
+.parts-brands h3 {
+  margin: 0 0 0.75rem;
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.035em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+
+.service-aside p {
+  margin: 0;
+  color: rgba(255, 254, 250, 0.8);
+}
+
+
+.service-aside p + p {
+  margin-top: 0.8rem;
+}
+
+
+.trailer-types {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.8fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+
+.trailer-types-copy {
+  max-width: 38rem;
+}
+
+
+.trailer-types-copy p:not(.eyebrow) {
+  color: var(--color-muted);
+}
+
+
+.type-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.type-tags li {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+
+.trailer-image {
+  min-height: 21rem;
+  aspect-ratio: 5 / 4;
+}
+
+
+.parts-layout {
+  display: grid;
+  grid-template-columns: minmax(17rem, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 6.5rem);
+}
+
+
+.parts-image {
+  min-height: 25rem;
+  aspect-ratio: 4 / 3;
+}
+
+
+.parts-copy {
+  max-width: 42rem;
+}
+
+
+.parts-copy p:not(.eyebrow) {
+  color: var(--color-muted);
+}
+
+
+.parts-brands {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-line);
+}
+
+
+.parts-brands h3 {
+  color: var(--color-ink);
+}
+
+
+.parts-brands p {
+  margin-bottom: 0;
+}
+
+
+.notice {
+  margin-top: 1.5rem;
+  padding: 1rem 1.1rem;
+  border-left: 3px solid var(--color-orange);
+  background: rgba(232, 117, 50, 0.09);
+  color: var(--color-ink);
+  font-size: 0.95rem;
+}
+```

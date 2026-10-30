@@ -1,0 +1,290 @@
+{
+  "session_folder": "run-41099819409-1-candidate-3",
+  "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41099819409-1-candidate-3",
+  "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41099819409-1-candidate-3/files/index.html",
+  "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41099819409-1-candidate-3/files/styles.css",
+  "score": 93,
+  "checks_passed": 27,
+  "checks_total": 29,
+  "checks": {
+    "html_file_present": true,
+    "no_visible_template_credit": true,
+    "accessible_mobile_hamburger": true,
+    "css_file_present": true,
+    "document_has_main": true,
+    "document_has_h1": true,
+    "document_closed": true,
+    "styles_css_linked": true,
+    "css_braces_balanced": true,
+    "footer_has_substance": true,
+    "section_contact": true,
+    "section_footer": true,
+    "section_hero": true,
+    "section_hours": true,
+    "section_services": true,
+    "hero_has_image": true,
+    "hero_images_load_ok": true,
+    "all_images_load_ok": true,
+    "image_alt_text_present": true,
+    "image_coverage": true,
+    "visual_design_review_passed": false,
+    "browser_rendered_sections_visible_desktop_and_mobile": true,
+    "browser_hero_spans_viewport_desktop_and_mobile": true,
+    "browser_cta_visible_first_screen_desktop_and_mobile": true,
+    "browser_mobile_menu_clicks_work": true,
+    "browser_mobile_menu_keyboard_works": false,
+    "browser_mobile_has_no_horizontal_overflow": true,
+    "browser_fonts_load_in_browser": true,
+    "browser_images_load_in_browser": true
+  },
+  "automated_success": false,
+  "required_sections": [
+    "contact",
+    "footer",
+    "hero",
+    "hours",
+    "services"
+  ],
+  "missing_sections": [
+    "screenshot-backed desktop/mobile visual design review",
+    "automated rendered-page browser checks",
+    "mobile menu works with keyboard controls"
+  ],
+  "hero_image_present": true,
+  "hero_images_load_ok": true,
+  "hero_image_urls": [
+    "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=1200&q=85"
+  ],
+  "image_urls": [
+    "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?auto=format&fit=crop&w=1400&q=85",
+    "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85"
+  ],
+  "failed_image_urls": [],
+  "minimum_image_count": 1,
+  "visual_relevance_review_required": true,
+  "visual_review_status": "pending",
+  "visual_review_missing_urls": [
+    "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=2200&q=85",
+    "https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?auto=format&fit=crop&w=1400&q=85",
+    "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85"
+  ],
+  "visual_review_issues": [],
+  "visual_design_review_status": "pending",
+  "visual_design_review_missing": [
+    "debug/visual_review.json is missing"
+  ],
+  "visual_design_review_issues": [],
+  "browser_qa_status": "fail",
+  "browser_qa": {
+    "status": "fail",
+    "tested_file": "files/inlined/index.html",
+    "required_sections": [
+      "contact",
+      "footer",
+      "hero",
+      "hours",
+      "services"
+    ],
+    "viewports": {
+      "desktop": {
+        "width": 1440,
+        "height": 900,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "div.contact-actions",
+            "width": 605,
+            "height": 56
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 1440,
+            "height": 120
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section.hero",
+            "width": 1440,
+            "height": 832
+          },
+          "hours": {
+            "visible": true,
+            "selector_hint": "div.availability-inner",
+            "width": 1216,
+            "height": 108
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "aside.service-aside",
+            "width": 469,
+            "height": 206
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 1440,
+          "width": 1440,
+          "height": 832,
+          "viewport_width": 1440,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "CONTACT",
+          "bottom": 56
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 1440,
+          "viewport_width": 1440,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 4,
+          "loaded_images": 4,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 5,
+          "failed_faces": 0
+        },
+        "images_loaded": true,
+        "fonts": {
+          "image_count": 4,
+          "loaded_images": 4,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 5,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [],
+        "screenshot": "screenshots/desktop.png"
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "sections": {
+          "contact": {
+            "visible": true,
+            "selector_hint": "div.contact-actions",
+            "width": 350,
+            "height": 56
+          },
+          "footer": {
+            "visible": true,
+            "selector_hint": "footer.site-footer",
+            "width": 390,
+            "height": 201
+          },
+          "hero": {
+            "visible": true,
+            "selector_hint": "section.hero",
+            "width": 390,
+            "height": 743
+          },
+          "hours": {
+            "visible": true,
+            "selector_hint": "div.availability-inner",
+            "width": 350,
+            "height": 225
+          },
+          "services": {
+            "visible": true,
+            "selector_hint": "h2#services-title",
+            "width": 350,
+            "height": 85
+          }
+        },
+        "all_required_sections_visible": true,
+        "hero": {
+          "present": true,
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "height": 743,
+          "viewport_width": 390,
+          "spans_viewport": true,
+          "media_covers_hero": true
+        },
+        "hero_spans_viewport": true,
+        "cta": {
+          "visible_first_screen": true,
+          "text": "CONTACT THE SHOP",
+          "bottom": 687
+        },
+        "cta_visible_first_screen": true,
+        "horizontal_overflow": {
+          "scroll_width": 390,
+          "viewport_width": 390,
+          "overflow": false
+        },
+        "no_horizontal_overflow": true,
+        "images": {
+          "image_count": 4,
+          "loaded_images": 4,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 5,
+          "failed_faces": 0
+        },
+        "images_loaded": true,
+        "fonts": {
+          "image_count": 4,
+          "loaded_images": 4,
+          "failed_images": [],
+          "font_status": "loaded",
+          "loaded_faces": 5,
+          "failed_faces": 0
+        },
+        "fonts_loaded": true,
+        "resource_errors": [],
+        "screenshot": "screenshots/mobile.png"
+      }
+    },
+    "mobile_menu": {
+      "found": true,
+      "click_opens": true,
+      "click_closes": true,
+      "tab_reachable": true,
+      "enter_opens": true,
+      "space_toggles": false,
+      "escape_closes": true,
+      "pass": false
+    },
+    "checks": {
+      "rendered_sections_visible_desktop_and_mobile": true,
+      "hero_spans_viewport_desktop_and_mobile": true,
+      "cta_visible_first_screen_desktop_and_mobile": true,
+      "mobile_menu_clicks_work": true,
+      "mobile_menu_keyboard_works": false,
+      "mobile_has_no_horizontal_overflow": true,
+      "fonts_load_in_browser": true,
+      "images_load_in_browser": true
+    },
+    "resource_errors": []
+  },
+  "source_image_urls_available": [],
+  "source_image_urls_used": [],
+  "parse_diagnostic": null,
+  "html_bytes": 9859,
+  "css_bytes": 15249,
+  "footer_text": "Paul's Trailer Service Inc. Indianapolis, Indiana · © 2026 Paul's Trailer Service Inc. Repair services Parts support Contact and directions",
+  "footer_links": [
+    "#services",
+    "#parts",
+    "https://www.paulstrailer.com/find-us"
+  ],
+  "complete": false,
+  "final_success": false,
+  "checker_exit_code": 2
+}

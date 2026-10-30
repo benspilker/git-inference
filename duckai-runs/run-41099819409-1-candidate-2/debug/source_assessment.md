@@ -1,0 +1,108 @@
+SOURCE SITE AUDIT
+
+json
+```json
+{
+  "access_status": "accessed",
+  "pages_reviewed": [
+    {
+      "url": "https://www.paulstrailer.com/",
+      "page_title": "Trailer Repairs | Indianapolis, Indiana | Paul's Trailer Service Inc.",
+      "visible_content": "Homepage presents the business history, trailer repair focus, parts availability, service limitations, weekday hours, and contact prompts."
+    },
+    {
+      "url": "https://www.paulstrailer.com/services",
+      "page_title": "Trailer Alignment | Indianapolis, Indiana | Paul's Trailer Service ...",
+      "visible_content": "Lists repair services, trailer types, hourly labor rates, minimum billing, and estimate terms."
+    },
+    {
+      "url": "https://www.paulstrailer.com/parts",
+      "page_title": "Trailer Parts | Indianapolis, Indiana | Paul's Trailer Service Inc.",
+      "visible_content": "Describes OEM and aftermarket parts, availability and installation, and displays a long list of manufacturer/brand categories."
+    },
+    {
+      "url": "https://www.paulstrailer.com/find-us",
+      "page_title": "Trailer Inspections | Indianapolis, Indiana | Paul's Trailer Service ...",
+      "visible_content": "Provides the business address, phone numbers, fax, email, and map/directions controls."
+    },
+    {
+      "url": "https://www.paulstrailer.com/storage-leasing",
+      "page_title": "Trailer Storage and Leasing | Indianapolis, Indiana | Paul's Trailer ...",
+      "visible_content": "Describes paid parking for trailers, tractors, or other equipment, rates, access hours, and weekend/holiday restrictions."
+    },
+    {
+      "url": "https://html5up.net/massively",
+      "page_title": "Massively by HTML5 UP",
+      "visible_content": "Official template page with responsive demo viewing options."
+    },
+    {
+      "url": "https://html5up.net/license",
+      "page_title": "The Creative Commons Attribution 3.0 License | HTML5 UP",
+      "visible_content": "States the template licensing terms, including commercial use, modification, and attribution."
+    }
+  ],
+  "business_facts": [
+    "The homepage says Paul's Trailer Service was founded in Indianapolis in 1978 and serves the greater Indianapolis area, with a customer base spanning North America.",
+    "The site describes trailer repair and parts services, and says it does not service reefer units or tires.",
+    "The services page lists work including electrical, brake, suspension, ABS, welding, doors, roofs, floors, inspections, tarp repair, and trailer alignment.",
+    "The services page lists labor rates of $100/hour for trailers, $125/hour for tractor/trucks, and $175/hour for camper trailers, with a one-hour minimum per man-hour.",
+    "The parts page says it carries OEM and aftermarket replacement parts and offers installation; it describes many parts as in stock or obtainable in 1–2 days.",
+    "The listed address is 1245 Harding Court, Indianapolis, IN 46217. Listed phone numbers are (317) 781-9212 and (800) 792-3451; fax is (317) 781-8896.",
+    "The storage page lists parking at $75 per month or $15 per day per piece of equipment, and $150 for a tractor and trailer; stated gate access is weekdays, with no weekend access."
+  ],
+  "audience_and_goals": {
+    "evidence": [
+      "The site addresses trailer owners/operators needing repairs, inspections, replacement parts, or equipment parking.",
+      "It lists local contact details and a directions/map option, alongside weekday hours and rates/estimate information."
+    ],
+    "inference": [
+      "Likely audiences include commercial fleets and independent operators, as well as people with utility, recreational, or specialty trailers.",
+      "The primary conversion path appears to be calling the shop; email and map/directions are secondary contact routes."
+    ]
+  },
+  "brand_and_visual_observations": {
+    "observations": [
+      "The pages use a conventional multi-page business-site structure with prominent contact details and repeated footer information.",
+      "The parts page includes numerous supplier/manufacturer logos; image extraction also shows a generic trailer-repair image reference.",
+      "Text and service details are prominent, while the available extracted page content gives limited evidence about precise colors, typography, or layout."
+    ],
+    "scope": "These are observations of the existing site, not instructions to reuse its protected logos, photography, or other brand assets."
+  },
+  "content_structure": [
+    "Clear business identity, location, phone contact, and hours.",
+    "Short company background and service scope, including exclusions.",
+    "Repair services and trailer categories served.",
+    "Parts availability, installation option, and supplier/brand coverage.",
+    "Labor rates and estimate policy, with confirmation of current terms.",
+    "Contact details, map/directions, and any relevant forms.",
+    "Storage/parking offer and its rates/access limits if it remains active."
+  ],
+  "unknown_or_verify": [
+    "The homepage says open 8 AM to 12 AM Monday–Friday; confirm whether midnight is correct and whether hours are current.",
+    "Confirm all listed labor rates, one-hour minimum, estimate charge/refund policy, and parts lead-time claims before publishing.",
+    "Confirm whether the storage/parking service and quoted prices/access conditions are still current.",
+    "Confirm whether the long parts-brand list is complete and which brands or items are actively stocked.",
+    "The homepage biography includes the founder's name and dates; confirm how the business wants this information represented.",
+    "The site search results expose navigation/contact elements but do not clearly establish a distinct page titled About or a contact form; verify current navigation and forms directly before implementation."
+  ],
+  "design_reference": {
+    "name": "Massively",
+    "url": "https://html5up.net/massively",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "Responsive layout and clear typographic hierarchy.",
+      "A strong introductory hero followed by scannable content sections.",
+      "Prominent navigation and a distinct contact area."
+    ]
+  },
+  "sources": [
+    "https://www.paulstrailer.com/",
+    "https://www.paulstrailer.com/services",
+    "https://www.paulstrailer.com/parts",
+    "https://www.paulstrailer.com/find-us",
+    "https://www.paulstrailer.com/storage-leasing",
+    "https://html5up.net/massively",
+    "https://html5up.net/license"
+  ]
+}
+```

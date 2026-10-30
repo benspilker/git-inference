@@ -1,0 +1,65 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="section-inner contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">Get in touch</p>
+          <h2 id="contact-title">Talk through your trailer needs.</h2>
+          <p>Contact Paul's Trailer Service to ask about repair work, parts, or availability. The shop's contact page has its current phone and email details.</p>
+          <div class="contact-actions">
+            <a class="button button-primary" href="https://www.paulstrailer.com/find-us">View contact details</a>
+          </div>
+        </div>
+
+
+        <div class="contact-details">
+          <h3>Find the shop</h3>
+          <p>Paul's Trailer Service Inc.</p>
+          <p>1245 Harding Court<br>Indianapolis, IN 46217</p>
+          <p><a href="https://www.paulstrailer.com/find-us">Contact details and directions</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-business">Paul's Trailer Service Inc.</p>
+        <p class="footer-meta">Indianapolis, Indiana · © 2026 Paul's Trailer Service Inc.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#services">Repair services</a>
+        <a href="#parts">Parts support</a>
+        <a href="https://www.paulstrailer.com/find-us">Contact and directions</a>
+      </nav>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    navToggle.addEventListener("click", () => {
+      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isExpanded));
+      navToggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      primaryNav.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    primaryNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation");
+        primaryNav.classList.remove("is-open");
+      });
+    });
+  </script>
+</body>
+</html>
+```

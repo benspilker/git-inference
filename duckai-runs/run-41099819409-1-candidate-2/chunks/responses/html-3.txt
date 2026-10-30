@@ -1,0 +1,75 @@
+HTML PART 3 OF 3
+```text
+<!-- HTML PART 3 OF 3 -->
+    <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-layout container">
+        <div class="contact-copy">
+          <p class="eyebrow">Talk with the shop</p>
+          <h2 id="contact-title">Start with a call.</h2>
+          <p>Discuss your repair or parts question directly with Paul's Trailer Service Inc. Call to confirm service fit and current availability.</p>
+          <div class="contact-actions">
+            <a class="button button-primary" href="tel:+13177819212">Call (317) 781-9212</a>
+            <a class="button button-secondary" href="tel:+18007923451">Call toll-free (800) 792-3451</a>
+          </div>
+        </div>
+        <div class="contact-details">
+          <h3>Find the shop</h3>
+          <p>Paul's Trailer Service Inc.</p>
+          <p>1245 Harding Court<br>Indianapolis, IN 46217</p>
+          <p><a href="tel:+13177819212">(317) 781-9212</a></p>
+          <p><a href="tel:+18007923451">(800) 792-3451</a></p>
+          <p><a href="https://www.google.com/maps/search/?api=1&amp;query=1245+Harding+Court%2C+Indianapolis%2C+IN+46217">Open directions</a></p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="availability-section" aria-labelledby="availability-title">
+      <div class="availability-layout container">
+        <h2 id="availability-title">Hours &amp; availability</h2>
+        <p>The source site’s listed hours are unclear. Call the shop to confirm current business hours and availability before visiting.</p>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div>
+        <p class="footer-business">Paul's Trailer Service Inc.</p>
+        <p class="footer-meta">1245 Harding Court · Indianapolis, IN 46217</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#parts">Parts</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="tel:+13177819212">Call the shop</a></li>
+      </ul>
+      <small class="footer-copyright">© 2026 Paul's Trailer Service Inc.</small>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    navToggle.addEventListener("click", () => {
+      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isExpanded));
+      navToggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      primaryNav.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation");
+        primaryNav.classList.remove("is-open");
+      }
+    });
+  </script>
+</body></html>
+```

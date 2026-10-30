@@ -1,0 +1,107 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102536">
+  <title>Paul's Trailer Service Inc. | Trailer Repair &amp; Parts</title>
+  <meta name="description" content="Trailer repair and parts support from Paul's Trailer Service Inc. in Indianapolis, Indiana. Call the shop to discuss service.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Design reference: Massively, https://html5up.net/massively
+       License: CC BY 3.0, https://html5up.net/license
+       Adapted as original business-specific structure: responsive hierarchy,
+       image-led hero, scannable sections, prominent navigation, and contact area. -->
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="brand" href="#top" aria-label="Paul's Trailer Service Inc. home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span class="brand-name">Paul's Trailer Service Inc.</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#trailer-types">Trailer types</a>
+        <a href="#parts">Parts</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="header-call" href="tel:+13177819212">Call the shop</a>
+    </div>
+  </header>
+
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title" style="--hero-image: url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&amp;fit=crop&amp;w=2200&amp;q=85');">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Indianapolis · Trailer service &amp; parts</p>
+          <h1 id="hero-title">Keep your trailer moving.</h1>
+          <p class="hero-intro">Trailer repair work and parts support from an Indianapolis business serving customers since 1978.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="tel:+13177819212">Call (317) 781-9212</a>
+            <a class="button button-secondary" href="#services">Explore services</a>
+          </div>
+          <p class="hero-note">Call to discuss your trailer and confirm availability.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section-paper" id="about" aria-labelledby="history-title">
+      <div class="history-layout container">
+        <div class="history-copy">
+          <p class="eyebrow">Established in Indianapolis</p>
+          <h2 id="history-title">Built around trailer service.</h2>
+          <p>Paul's Trailer Service Inc. says it began in Indianapolis in 1978. The business describes its work as trailer repair and parts support for customers in the greater Indianapolis area and beyond.</p>
+          <p class="history-detail">Have a repair or parts question? Call the shop to talk through what you need.</p>
+        </div>
+        <figure class="image-frame history-image">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Commercial truck and trailer traveling on a roadway">
+          <figcaption class="image-caption">Trailer service based in Indianapolis, Indiana.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+
+    <section class="section section-dark" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="service-intro">
+          <div class="section-heading">
+            <p class="eyebrow">Repair services</p>
+            <h2 id="services-title">Practical help for trailer repairs.</h2>
+          </div>
+          <p class="service-intro-note">The business lists trailer repair and inspection work. Call to confirm whether your particular job can be accommodated.</p>
+        </div>
+        <div class="services-layout">
+          <ul class="service-list">
+            <li>Electrical</li>
+            <li>Brakes</li>
+            <li>Suspension</li>
+            <li>ABS</li>
+            <li>Welding</li>
+            <li>Doors</li>
+            <li>Roofs</li>
+            <li>Floors</li>
+            <li>Inspections</li>
+            <li>Tarp repair</li>
+            <li>Trailer alignment</li>
+          </ul>
+          <aside class="service-aside">
+            <h3>Before you visit</h3>
+            <p>Call the shop to discuss your trailer, the work needed, and current availability.</p>
+            <p>The source site says reefer units and tires are not serviced.</p>
+            <a class="button button-primary" href="tel:+13177819212">Call the shop</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+```

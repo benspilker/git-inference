@@ -1,0 +1,32 @@
+{
+  "chat_id": "https://duck.ai/?chatID=3a991043-d425-42fb-b493-3ad608be10bb",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T17:39:41.148326+00:00",
+      "characters": 3669,
+      "sha256": "ff030624b1b293d09d262c5e6a1230402ffe9ee23d42d066f0240308eb3f2724"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T17:39:57.821466+00:00",
+      "characters": 4983,
+      "sha256": "cf25a140dc1c067fab01db2dd0352a9319a1983aa8f56e4f09a76cdf3caa4742"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T17:40:14.962596+00:00",
+      "characters": 5207,
+      "sha256": "08883ca0589e749aca44d6ae09d385e2a79815dafcc801da5a2e150ed9c0842e"
+    }
+  ]
+}

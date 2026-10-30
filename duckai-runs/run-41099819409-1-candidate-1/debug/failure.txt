@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 682, in <module>
+    run()
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 610, in run
+    validate_source_assessment(assessment, source_url)
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 377, in validate_source_assessment
+    fail("Duck.ai did not provide a verifiable named design reference and license; stopping before code generation.")
+  File "/__w/git-inference/git-inference/duckai_automation/run_duckai.py", line 46, in fail
+    raise RuntimeError(message)
+RuntimeError: Duck.ai did not provide a verifiable named design reference and license; stopping before code generation.

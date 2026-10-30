@@ -1,0 +1,85 @@
+HTML PART 1 OF 3
+```text
+<!-- HTML PART 1 OF 3 -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142b3a">
+  <meta name="description" content="Paul's Trailer Service Inc. provides trailer repair and parts support in the greater Indianapolis area.">
+  <title>Paul's Trailer Service Inc. | Indianapolis Trailer Repair</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Structural inspiration: Dimension by HTML5 UP, https://html5up.net/uploads/demos/dimension/ ; CC BY 3.0, https://html5up.net/license . Adapted into an original one-page service-business layout with grouped navigation, compact content sections, and a dedicated contact area. -->
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="Paul's Trailer Service Inc. home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span class="brand-name">Paul's Trailer Service Inc.</span>
+      </a>
+
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-nav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#story">Our story</a>
+        <a href="#services">Repair services</a>
+        <a href="#parts">Parts</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main id="home">
+    <section class="hero" aria-labelledby="hero-title">
+      <img
+        class="hero-media"
+        src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&amp;fit=crop&amp;w=2200&amp;q=85"
+        alt="Commercial semi-truck and trailer on an open road"
+        fetchpriority="high">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Trailer service in Indianapolis</p>
+          <h1 id="hero-title">Ready for the miles ahead.</h1>
+          <p class="hero-description">Trailer repair and parts support from a locally established service shop serving the greater Indianapolis area.</p>
+          <a class="button button-primary" href="#contact">Contact the shop</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section intro-section" id="story" aria-labelledby="story-title">
+      <div class="section-inner intro-layout">
+        <img
+          class="intro-photo"
+          src="https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+          alt="Trailer in a vehicle service workshop"
+          loading="lazy">
+        <div class="intro-copy">
+          <p class="eyebrow">Established in 1978</p>
+          <h2 id="story-title">Experience built around trailers.</h2>
+          <p>Paul's Trailer Service Inc. has served the greater Indianapolis area since 1978. The business also reports serving customers across North America.</p>
+          <p>Its work centers on trailer service and replacement parts, with support for a range of trailer types.</p>
+          <p class="fact-line">Serving the greater Indianapolis area since 1978</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section services-section" id="services" aria-labelledby="services-title">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="eyebrow">Shop services</p>
+          <h2 id="services-title">Repair and inspection support.</h2>
+          <p>The shop lists a range of trailer repair and inspection services. Contact the business to discuss a specific need.</p>
+        </div>
+```

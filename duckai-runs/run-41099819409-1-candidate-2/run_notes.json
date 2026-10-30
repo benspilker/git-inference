@@ -1,0 +1,22 @@
+{
+  "candidate_index": 2,
+  "automated_success": false,
+  "status": "automated_checks_failed",
+  "chat_url": "https://duck.ai/?chatID=881bd698-2a8b-469b-9589-ebf2dbe12bf6",
+  "source_url": "https://www.paulstrailer.com/",
+  "source_assessment_status": "pass",
+  "design_reference": {
+    "name": "Massively",
+    "url": "https://html5up.net/massively",
+    "license_url": "https://html5up.net/license",
+    "patterns_to_adapt": [
+      "Responsive layout and clear typographic hierarchy.",
+      "A strong introductory hero followed by scannable content sections.",
+      "Prominent navigation and a distinct contact area."
+    ]
+  },
+  "final_success": false,
+  "browser_qa_status": "fail",
+  "visual_review_status": "pending",
+  "note": "Review the rendered images and desktop/mobile screenshots before treating this candidate as visually approved."
+}
