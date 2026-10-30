@@ -1,0 +1,59 @@
+{
+  "chat_id": "https://duck.ai/?chatID=a996e704-7ed7-4c2c-85a1-360eb6c189f6",
+  "parts": [
+    {
+      "kind": "css",
+      "part": 1,
+      "response_file": "chunks/responses/css-1.txt",
+      "chunk_file": "chunks/css-1.css",
+      "captured_at_utc": "2026-10-30T04:01:44.916434+00:00",
+      "characters": 4559,
+      "sha256": "56db8fde31e16605b6b170ec51ed7d5d022e05ad82acecd5ffb4777df5be992c"
+    },
+    {
+      "kind": "css",
+      "part": 2,
+      "response_file": "chunks/responses/css-2.txt",
+      "chunk_file": "chunks/css-2.css",
+      "captured_at_utc": "2026-10-30T04:01:56.897229+00:00",
+      "characters": 3367,
+      "sha256": "1795db769ee82fa1c97ecb6eb0659d7f72681506b437726684786be298c9786c"
+    },
+    {
+      "kind": "css",
+      "part": 3,
+      "response_file": "chunks/responses/css-3.txt",
+      "chunk_file": "chunks/css-3.css",
+      "captured_at_utc": "2026-10-30T04:02:12.362325+00:00",
+      "characters": 4920,
+      "sha256": "e35db61fa5f37820055b60874e72c815ee9ab7a7dc49772ecd993b8374943594"
+    },
+    {
+      "kind": "html",
+      "part": 1,
+      "response_file": "chunks/responses/html-1.txt",
+      "chunk_file": "chunks/html-1.html",
+      "captured_at_utc": "2026-10-30T04:02:41.072159+00:00",
+      "characters": 3692,
+      "sha256": "7b061649984649665d4e178060b03088cc46db2caf5c04943898f28cc33762c1"
+    },
+    {
+      "kind": "html",
+      "part": 2,
+      "response_file": "chunks/responses/html-2.txt",
+      "chunk_file": "chunks/html-2.html",
+      "captured_at_utc": "2026-10-30T04:02:53.050396+00:00",
+      "characters": 3253,
+      "sha256": "88e6206ea38b4b982de938d641fcced9ad9135cf4c7c689cfa41d520f7e0d361"
+    },
+    {
+      "kind": "html",
+      "part": 3,
+      "response_file": "chunks/responses/html-3.txt",
+      "chunk_file": "chunks/html-3.html",
+      "captured_at_utc": "2026-10-30T04:03:01.819438+00:00",
+      "characters": 1866,
+      "sha256": "25b956f531e99a838fe19641e60044275a4d7a5615d7f3fe7fd2485cb41f2318"
+    }
+  ]
+}

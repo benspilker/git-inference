@@ -1,0 +1,61 @@
+<!-- HTML PART 3 OF 3 -->
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">F</span>
+        <span>Fogline<br>Skate Repair</span>
+      </a>
+      <small>Independent skateboard repair concept</small>
+    </div>
+
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#services">Repairs</a>
+      <a href="#workshop">Our approach</a>
+      <a href="#contact">Repair inquiry</a>
+    </nav>
+
+
+    <div class="footer-meta">
+      <span class="footer-location">San Francisco, California</span>
+      <p class="copyright">© 2026 Fogline Skate Repair</p>
+    </div>
+  </footer>
+
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const siteNav = document.querySelector('#site-nav');
+
+
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+      menuToggle.setAttribute('aria-label', isExpanded ? 'Open navigation' : 'Close navigation');
+      siteNav.classList.toggle('is-open', !isExpanded);
+    });
+
+
+    siteNav.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation');
+        siteNav.classList.remove('is-open');
+      }
+    });
+
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation');
+        siteNav.classList.remove('is-open');
+        menuToggle.focus();
+      }
+    });
+  </script>
+</body>
+</html>
