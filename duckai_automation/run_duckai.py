@@ -220,11 +220,13 @@ def enable_web_search(page) -> None:
         fail("Duck.ai's Tools control is unavailable; cannot assess the source website in-chat.")
     tools_button.click(timeout=5000)
 
-    search_option = page.get_by_role("menuitemcheckbox", name=re.compile(r"web\s*search", re.IGNORECASE)).last
+    search_option = page.get_by_role("menuitemradio", name=re.compile(r"web\s*search", re.IGNORECASE)).last
+    if not search_option.count():
+        search_option = page.get_by_role("menuitemcheckbox", name=re.compile(r"web\s*search", re.IGNORECASE)).last
     if not search_option.count():
         search_option = page.get_by_role("checkbox", name=re.compile(r"web\s*search", re.IGNORECASE)).last
     if not search_option.count():
-        search_option = page.get_by_text(re.compile(r"^web\s*search$", re.IGNORECASE)).last
+        search_option = page.get_by_role("switch", name=re.compile(r"web\s*search", re.IGNORECASE)).last
     if not search_option.count() or not search_option.is_visible():
         fail("Duck.ai's Tools menu did not expose Web Search; cannot verify source-site access.")
 
