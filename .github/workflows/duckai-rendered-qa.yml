@@ -81,7 +81,7 @@ jobs:
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for run_dir in duckai-runs/run-${TARGET_RUN_ID}-${TARGET_ATTEMPT}-candidate-*; do
+          for run_dir in duckai-runs/run-${TARGET_RUN_ID}-${TARGET_ATTEMPT}-site-*-candidate-* duckai-runs/run-${TARGET_RUN_ID}-${TARGET_ATTEMPT}-candidate-*; do
             [[ -d "$run_dir" ]] || continue
             git add -- "$run_dir/debug" "$run_dir/run_notes.json"
           done
@@ -103,12 +103,12 @@ jobs:
 
       - name: Require three automated successes
         env:
-          SUCCESSFUL_COUNT: ${{ steps.qa.outputs.successful_count }}
+          ALL_SITES_PASSED: ${{ steps.qa.outputs.all_sites_passed }}
           TARGET_RUN_ID: ${{ steps.qa.outputs.run_id }}
         run: |
           set -euo pipefail
-          if [[ "$SUCCESSFUL_COUNT" -lt 3 ]]; then
-            echo "Run ${TARGET_RUN_ID} has only ${SUCCESSFUL_COUNT} automated successes; three are required."
+          if [[ "$ALL_SITES_PASSED" != "true" ]]; then
+            echo "Run ${TARGET_RUN_ID} has at least one website with fewer than three automated successes. Review the step summary and candidate reports."
             exit 1
           fi
-          echo "Three candidates passed structural checks and Playwright QA. Human visual and image-relevance review remains pending."
+          echo "Every website has three candidates passing structural checks and Playwright QA. Human visual and image-relevance review remains pending."

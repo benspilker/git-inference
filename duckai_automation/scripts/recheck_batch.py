@@ -17,15 +17,26 @@ REPO = ROOT.parent
 RUNS_DIR = REPO / "duckai-runs"
 BROWSER_QA_SCRIPT = ROOT / "scripts" / "browser_qa.py"
 CHECK_SCRIPT = ROOT / "scripts" / "check_website.py"
-BATCH_PATTERN = re.compile(r"^run-(\d+)-(\d+)-candidate-(\d+)$")
+BATCH_PATTERN = re.compile(r"^run-(\d+)-(\d+)-site-(\d+)-candidate-(\d+)$")
+LEGACY_BATCH_PATTERN = re.compile(r"^run-(\d+)-(\d+)-candidate-(\d+)$")
+
+
+def _match_batch(name: str):
+    match = BATCH_PATTERN.fullmatch(name)
+    if match:
+        return (int(match.group(1)), int(match.group(2))), int(match.group(3)), int(match.group(4))
+    match = LEGACY_BATCH_PATTERN.fullmatch(name)
+    if match:
+        return (int(match.group(1)), int(match.group(2))), 1, int(match.group(3))
+    return None
 
 
 def _latest_batch() -> tuple[str, str]:
     batches = set()
     for folder in RUNS_DIR.iterdir():
-        match = BATCH_PATTERN.fullmatch(folder.name)
+        match = _match_batch(folder.name)
         if folder.is_dir() and match:
-            batches.add((int(match.group(1)), int(match.group(2))))
+            batches.add(match[0])
     if not batches:
         raise RuntimeError("No committed Duck.ai candidate batches were found.")
     run_id, attempt = max(batches)
@@ -61,15 +72,22 @@ def main() -> int:
     if not run_id.isdigit() or not attempt.isdigit():
         raise RuntimeError("Run ID and attempt must be numeric.")
 
-    candidates = sorted(
-        (path for path in RUNS_DIR.glob(f"run-{run_id}-{attempt}-candidate-*") if path.is_dir()),
-        key=lambda path: int(BATCH_PATTERN.fullmatch(path.name).group(3)),
-    )
+    candidates = []
+    for path in RUNS_DIR.iterdir():
+        match = _match_batch(path.name)
+        if path.is_dir() and match and match[0] == (int(run_id), int(attempt)):
+            candidates.append((match[1], match[2], path))
+    candidates = [item[2] for item in sorted(candidates)]
     if not candidates:
         raise RuntimeError(f"No candidate folders found for run {run_id}, attempt {attempt}.")
 
     successful = []
+    site_successes: dict[str, int] = {}
+    site_candidate_counts: dict[str, int] = {}
     for candidate in candidates:
+        batch_match = _match_batch(candidate.name)
+        site_key = str(batch_match[1])
+        site_candidate_counts[site_key] = site_candidate_counts.get(site_key, 0) + 1
         inputs_path = candidate / "debug" / "inputs.json"
         if inputs_path.is_file():
             request = json.loads(inputs_path.read_text(encoding="utf-8")).get("website_request", "")
@@ -108,21 +126,45 @@ def main() -> int:
         notes_path.write_text(json.dumps(notes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         if auto_pass:
             successful.append(candidate.name)
+            site_successes[site_key] = site_successes.get(site_key, 0) + 1
         print(
             f"{candidate.name}: automated_success={str(auto_pass).lower()}, "
             f"browser_qa={browser_report.get('status', 'invalid')}"
         )
 
-    output = {"run_id": run_id, "attempt": attempt, "candidate_count": len(candidates), "successful_count": len(successful), "successful_candidates": successful}
+    all_sites_passed = bool(site_candidate_counts) and all(
+        site_successes.get(site, 0) >= 3 for site in site_candidate_counts
+    )
+    output = {
+        "run_id": run_id,
+        "attempt": attempt,
+        "candidate_count": len(candidates),
+        "successful_count": len(successful),
+        "successful_candidates": successful,
+        "site_candidate_counts": site_candidate_counts,
+        "site_success_counts": site_successes,
+        "all_sites_passed": all_sites_passed,
+    }
     print(json.dumps(output, ensure_ascii=False))
     github_output = os.environ.get("GITHUB_OUTPUT")
     if github_output:
         with Path(github_output).open("a", encoding="utf-8") as handle:
-            for key, value in (("run_id", run_id), ("attempt", attempt), ("successful_count", len(successful))):
+            for key, value in (
+                ("run_id", run_id),
+                ("attempt", attempt),
+                ("successful_count", len(successful)),
+                ("all_sites_passed", str(all_sites_passed).lower()),
+            ):
                 handle.write(f"{key}={value}\n")
         with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as handle:
             handle.write(f"## Rechecked Duck.ai batch {run_id}-{attempt}\n\n")
             handle.write(f"Automated passes: **{len(successful)} of {len(candidates)} candidates**.\n\n")
+            for site in sorted(site_candidate_counts, key=int):
+                handle.write(
+                    f"- Site {site}: {site_successes.get(site, 0)} of "
+                    f"{site_candidate_counts[site]} candidates passed (three required).\n"
+                )
+            handle.write("\n")
             handle.write("Human visual and image-relevance review remains pending.\n")
     return 0
 

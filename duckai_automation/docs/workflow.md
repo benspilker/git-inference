@@ -4,25 +4,38 @@ This guide describes the current GitHub Actions flow for the `duckai` branch. It
 
 ## Run inputs
 
-The **Duck.ai Website Automation** workflow starts on a push to `duckai` only when `duckai_automation/source_url.txt` changes, or when a user manually dispatches it on that branch. Changes to `website_request.txt` and `design_brief.txt` alone do not start a run. A manual dispatch accepts the website request, design brief, and optional source URL; a supplied URL overrides `source_url.txt`, while a blank URL falls back to that file. For a push-triggered run, the runner reads all three values from the checked-in files.
+The **Duck.ai Website Automation** workflow starts on a push to `duckai` when `duckai_automation/source_urls.csv` changes, or when a user manually dispatches it on that branch. Changes to `website_request.txt` and `design_brief.txt` alone do not start a run. The CSV requires one row per site with `business`, `category`, and `website` columns; `location` is optional. A changed CSV processes every valid row. Manual `full_batch` mode processes the CSV or accepts a single-site URL and metadata override. Manual `smoke_test` mode selects exactly one row from the CSV by `smoke_website`, or uses the first row when that input is blank.
 
-The checked-in website request and design brief are reusable instructions, not site-specific copy. Keep them separate: the request defines scope, factual sourcing, content, assets, and output requirements; the design brief guides visual decisions. The runner combines both in the same generation prompt, so the separation does not add another Duck.ai turn. Replace the URL in `source_url.txt` to choose a different target; this file contains a URL, not a company name. When a source URL is present, Duck.ai performs the audit itself in the candidate's chat.
+The target loader reads only these CSV columns:
+
+| Column | Required | Meaning |
+| --- | --- | --- |
+| `website` | Yes | Source website to inspect and redesign. |
+| `business` | Yes | Intended business name, sent as unverified identification context. |
+| `category` | Yes | Primary industry category, sent as unverified design context. |
+| `location` | No | Location clue sent as unverified context; use as a fact only if the website confirms it. |
+
+Any other CSV columns are ignored by the current loader. The checked-in CSV has 21 rows. The business name, category, and optional location help identify the target and guide design; Duck.ai must verify metadata against the site and use the source assessment as the authority for factual claims.
+
+Use `smoke_test` from **Actions → Duck.ai Website Automation → Run workflow** to exercise the CSV path without starting all site jobs. It runs one full candidate for one CSV row and requires one automated pass. It still performs the in-chat site assessment, CSS/`acknowledged`/HTML sequence, assembly, and Playwright QA. Select a row by entering its exact `website` value in `smoke_website`; blank selects the first CSV row. A failed one-candidate smoke run saves its evidence and marks the workflow failed for inspection.
+
+The checked-in website request and design brief are reusable instructions, not site-specific copy. Keep them separate: the request defines scope, factual sourcing, content, assets, and output requirements; the design brief guides visual decisions. The business, category, and location values are treated as data, not instructions. The preparation job validates the CSV and creates one matrix job per website. Those jobs run serially. Each site job loops through full candidate runs until it gets three automated passes or reaches six attempts. This is one workflow execution, not three workflow executions per site. With the current 21-row CSV, the workflow can make up to 126 candidate attempts.
 
 ## End-to-end flow
 
 ```mermaid
 flowchart TD
-    A[Source URL changed and pushed, or workflow manually dispatched on duckai] --> B[GitHub Actions: Ubuntu and pinned Playwright Python container]
-    B --> C[Start headed Chromium under Xvfb; create fresh logged-out Duck.ai chat]
-    C --> D{Source URL provided?}
-    D -- Yes --> E[Enable Duck.ai Web Search and request source audit]
+    A[CSV changed and pushed, or workflow manually dispatched on duckai] --> B[Validate CSV and create one job per target row]
+    B --> C[GitHub Actions: Ubuntu and pinned Playwright Python container, one website at a time]
+    C --> C1[Read business, industry category, optional location, and source URL from row]
+    C1 --> C2[Start headed Chromium under Xvfb; create fresh logged-out Duck.ai chat]
+    C2 --> D[Send business/category/location as unverified context]
+    D --> E[Enable Web Search and request source assessment for the website]
     E --> F[Capture audit; validate source domain and any selected design reference]
     F --> G{Audit validation passes?}
-    D -- No --> H[Use request and compact design brief]
-    G -- Yes --> I[Use the audit and design brief in the same chat]
+    G -- Yes --> I[Use the audit, metadata, and design brief in the same chat]
     G -- No --> R[Save failure evidence for candidate]
-    H --> J[Request CSS parts 1, 2, and 3]
-    I --> J
+    I --> J[Request CSS parts 1, 2, and 3]
     J --> K[Automation sends acknowledged as its own user turn]
     K --> L[Request HTML parts 1, 2, and 3 in the same chat]
     L --> M[Validate chunks; assemble HTML and CSS; create inlined index.html]
@@ -31,20 +44,20 @@ flowchart TD
     O --> P{automated_success?}
     P -- Yes --> Q[Record automated pass; human image and visual review remain pending]
     P -- No --> R
-    Q --> S{Three automated passes or six attempts?}
+    Q --> S{Three automated passes for this site or six attempts?}
     R --> S
-    S -- No --> C
-    S -- Yes --> T[Commit all candidate evidence to duckai]
-    T --> U{At least three automated passes?}
+    S -- No --> C2
+    S -- Yes --> T[Commit this site's candidate evidence to duckai]
+    T --> U{At least three automated passes for every site?}
     U -- Yes --> V[Workflow succeeds; visual approval is still a separate review]
     U -- No --> W[Workflow fails; inspect saved candidate reports]
 ```
 
-The generation action runs up to six attempts, stopping early once it has three `automated_success` candidates. Candidate attempts run sequentially, each in a fresh Duck.ai chat. It commits evidence for successful and failed attempts before the final step checks whether three automated passes were achieved.
+One workflow execution creates one matrix job for each website row. Each matrix job runs up to six complete candidate attempts for that website, stopping early once it has three `automated_success` candidates. Website jobs are serialized to limit inference load and avoid competing commits to the branch. Each candidate uses a fresh Duck.ai chat. The workflow commits evidence for successful and failed attempts before the final step checks that this website achieved three automated passes. A batch succeeds only when every website meets that target. For 21 rows, that is 21 site jobs and up to 126 candidate attempts in one workflow execution.
 
 ### Source assessment
 
-When a source URL is set, the runner enables Duck.ai Web Search and requests an assessment before requesting code. It asks Duck.ai to cite pages it reviewed on the requested domain, separate observed facts from inferences and unknowns, describe visible brand colors and design elements, and identify source-site logo and photo assets. It may recommend a named HTML5 UP design reference with its official demo and CC BY 3.0 license when one genuinely fits; a template is optional. The runner checks that source pages match the requested domain and validates a template's details if one is selected. If source validation fails, that candidate stops before code generation.
+For each CSV row, the runner sends the business name, industry category, and optional location to Duck.ai as unverified identification and design context, then enables Web Search and requests a source assessment before requesting code. It asks Duck.ai to cite pages it reviewed on the requested domain, separate observed facts from inferences and unknowns, describe visible brand colors and design elements, and identify source-site logo and photo assets. Location must be verified by the website before being stated as fact or used to imply regional identity. If metadata disagrees with the site, the site remains authoritative for facts and Duck.ai should report the discrepancy. It may recommend a named HTML5 UP design reference with its official demo and CC BY 3.0 license when one genuinely fits; a template is optional. The runner checks that source pages match the requested domain and validates a template's details if one is selected. If source validation fails, that candidate stops before code generation.
 
 The later generation prompt refers to the source assessment already in that chat. The runner saves the captured assessment as `debug/source_assessment.json` and `debug/source_assessment.md`, and saves effective request inputs as `debug/inputs.json`. Template credit belongs in a non-rendering HTML comment and internal notes, not visible site content. A source audit is not independent verification by a human: it is Duck.ai's cited assessment.
 
@@ -74,7 +87,7 @@ These are deterministic browser/markup checks and do not call an AI model. Passi
 Each candidate attempt is stored under:
 
 ```text
-duckai-runs/run-<run-id>-<attempt>-candidate-<candidate-index>/
+duckai-runs/run-<run-id>-<attempt>-site-<site-index>-candidate-<candidate-index>/
   files/
     index.html
     styles.css
