@@ -20,6 +20,10 @@ If Duck.ai blocks guest access, asks for sign-in, or displays a human-verificati
 
 The two input files are committed to the repository when using the `push` trigger. Keep them free of credentials and other information you do not want stored in Git history.
 
+## Multi-turn smoke test
+
+The separate **Duck.ai Multi-turn Smoke Test** workflow sends two related, harmless questions in one fresh guest chat. It checks that both assistant answers render, that the second turn stays in the same conversation, and then commits the captured prompts and answers as `conversation.json` and `conversation.md` under `duckai-runs/smoke-run-<run-id>-<attempt>/`. Changing `duckai_automation/smoke_test.json` on `duckai` starts the test; the file can be edited to change the prompts.
+
 ## Runtime
 
 The workflow uses the same Playwright Python container/version as the repo's existing inference workflow (`mcr.microsoft.com/playwright/python:v1.58.0-noble` and `playwright==1.58.0`). Chromium runs headless; Xvfb is not needed for the normal run.

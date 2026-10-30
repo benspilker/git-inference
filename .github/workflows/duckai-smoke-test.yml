@@ -1,0 +1,73 @@
+name: Duck.ai Multi-turn Smoke Test
+
+on:
+  push:
+    branches:
+      - duckai
+    paths:
+      - "duckai_automation/smoke_test.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: duckai-smoke-test-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.58.0-noble
+      options: --user root --shm-size=1gb
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.workspace }}
+    steps:
+      - name: Require the duckai branch
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          if [[ "$TARGET_BRANCH" != "duckai" ]]; then
+            echo "Run this workflow on the duckai branch; selected branch was '$TARGET_BRANCH'."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Playwright dependency
+        run: pip install -r .github/workflows/requirements-playwright.txt
+
+      - name: Capture two turns from one Duck.ai chat
+        run: python duckai_automation/run_smoke_test.py
+
+      - name: Commit conversation transcript to duckai
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          run_dir="duckai-runs/smoke-run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          test -f "$run_dir/conversation.json"
+          test -f "$run_dir/conversation.md"
+          git add -- "$run_dir"
+          git commit -m "duckai: save multi-turn smoke transcript ${GITHUB_RUN_ID} [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:refs/heads/${TARGET_BRANCH}"; then
+              echo "Pushed $run_dir to ${TARGET_BRANCH}."
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; rebasing on the selected branch."
+            git fetch origin "$TARGET_BRANCH"
+            git rebase "origin/$TARGET_BRANCH"
+            sleep 2
+          done
+          echo "Could not push the conversation transcript after three attempts."
+          exit 1
