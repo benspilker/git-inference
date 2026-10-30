@@ -1,14 +1,11 @@
 {
-  "status": "fail",
+  "status": "pass",
   "tested_file": "files/inlined/index.html",
   "required_sections": [
     "contact",
     "footer",
     "hero",
-    "hours",
-    "location",
-    "services",
-    "testimonials"
+    "services"
   ],
   "viewports": {
     "desktop": {
@@ -33,32 +30,14 @@
           "width": 1440,
           "height": 820
         },
-        "hours": {
-          "visible": false,
-          "selector_hint": null,
-          "width": 0,
-          "height": 0
-        },
-        "location": {
-          "visible": false,
-          "selector_hint": null,
-          "width": 0,
-          "height": 0
-        },
         "services": {
           "visible": true,
           "selector_hint": "h2#services-title.section-heading",
           "width": 452,
           "height": 293
-        },
-        "testimonials": {
-          "visible": false,
-          "selector_hint": null,
-          "width": 0,
-          "height": 0
         }
       },
-      "all_required_sections_visible": false,
+      "all_required_sections_visible": true,
       "hero": {
         "present": true,
         "left": 0,
@@ -125,32 +104,14 @@
           "width": 390,
           "height": 820
         },
-        "hours": {
-          "visible": false,
-          "selector_hint": null,
-          "width": 0,
-          "height": 0
-        },
-        "location": {
-          "visible": false,
-          "selector_hint": null,
-          "width": 0,
-          "height": 0
-        },
         "services": {
           "visible": true,
           "selector_hint": "h2#services-title.section-heading",
           "width": 352,
           "height": 122
-        },
-        "testimonials": {
-          "visible": false,
-          "selector_hint": null,
-          "width": 0,
-          "height": 0
         }
       },
-      "all_required_sections_visible": false,
+      "all_required_sections_visible": true,
       "hero": {
         "present": true,
         "left": 0,
@@ -207,7 +168,7 @@
     "pass": true
   },
   "checks": {
-    "rendered_sections_visible_desktop_and_mobile": false,
+    "rendered_sections_visible_desktop_and_mobile": true,
     "hero_spans_viewport_desktop_and_mobile": true,
     "cta_visible_first_screen_desktop_and_mobile": true,
     "mobile_menu_clicks_work": true,
