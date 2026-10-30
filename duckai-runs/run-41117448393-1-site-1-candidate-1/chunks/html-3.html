@@ -1,0 +1,102 @@
+<!-- HTML PART 3 OF 3 -->
+    <section class="section" aria-labelledby="credentials-title">
+      <div class="container">
+        <p class="eyebrow">Company information</p>
+        <h2 class="section-title" id="credentials-title">Local details, clearly stated.</h2>
+        <p class="section-intro">The company identifies Longmont, Colorado as its base and lists service across Front Range communities.</p>
+        <div class="credential-strip">
+          <p class="credential-strip__item"><strong>Listed license:</strong> Boulder County CON-24-0152</p>
+          <p class="credential-strip__item">Ask the team about your project and service area.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section section--white" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-grid">
+        <div>
+          <p class="eyebrow">Start a conversation</p>
+          <h2 class="section-title" id="contact-title">Tell us what you’re planning.</h2>
+          <p class="section-intro">The company’s contact page offers phone, text, email, and an estimate request form. Contact the team directly to discuss your project and confirm service details.</p>
+          <div class="contact-details">
+            <p class="contact-details__item">
+              <span class="contact-details__label">Location</span>
+              Longmont, Colorado; service-area information is listed for the Front Range.
+            </p>
+            <p class="contact-details__item">
+              <span class="contact-details__label">Contact options</span>
+              <a href="https://joshbrooksconstructionllc.com/contact/">View contact details and request an estimate</a>
+            </p>
+          </div>
+        </div>
+
+
+        <form class="contact-form" action="#" method="post" aria-describedby="form-note">
+          <div class="form-field">
+            <label for="contact-name">Name</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="contact-email">Email</label>
+            <input id="contact-email" name="email" type="email" autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label for="contact-phone">Phone</label>
+            <input id="contact-phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="form-field">
+            <label for="contact-project">Project type</label>
+            <select id="contact-project" name="project">
+              <option value="">Choose a project type</option>
+              <option value="kitchen">Kitchen remodeling</option>
+              <option value="bathroom">Bathroom remodeling</option>
+              <option value="other">Another home project</option>
+            </select>
+          </div>
+          <div class="form-field form-field--full">
+            <label for="contact-message">A little about your project</label>
+            <textarea id="contact-message" name="message" rows="5"></textarea>
+          </div>
+          <p class="contact-form__note" id="form-note">This preview form is not connected to a submission service. Use the contact page to reach the company.</p>
+          <a class="button" href="https://joshbrooksconstructionllc.com/contact/">Contact the team</a>
+        </form>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__brand">Josh Brooks Construction &amp; Renovation</p>
+      <nav class="site-footer__links" aria-label="Footer navigation">
+        <a href="#remodeling">Remodeling</a>
+        <a href="#work">Project gallery</a>
+        <a href="https://joshbrooksconstructionllc.com/contact/">Contact</a>
+      </nav>
+      <p class="site-footer__copyright">© 2026 Josh Brooks Construction &amp; Renovation</p>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const primaryNav = document.querySelector("#primary-nav");
+
+
+    navToggle.addEventListener("click", () => {
+      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isExpanded));
+      navToggle.setAttribute("aria-label", isExpanded ? "Open navigation" : "Close navigation");
+      primaryNav.classList.toggle("is-open", !isExpanded);
+    });
+
+
+    primaryNav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open navigation");
+        primaryNav.classList.remove("is-open");
+      }
+    });
+  </script>
+</body></html>

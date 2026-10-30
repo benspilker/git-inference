@@ -1,0 +1,358 @@
+/* CSS PART 1 OF 3 */
+:root {
+  color-scheme: light;
+  --ink: #202a2c;
+  --muted: #586467;
+  --paper: #f5f3ee;
+  --white: #fffefa;
+  --navy: #0f2240;
+  --copper: #b66b43;
+  --line: rgba(32, 42, 44, 0.16);
+
+
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 5rem;
+  --space-7: 7rem;
+
+
+  --content-width: 76rem;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --header-height: 5.25rem;
+  --focus-ring: 3px solid #e9a77b;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+a {
+  color: inherit;
+}
+
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+
+::selection {
+  background: var(--copper);
+  color: var(--white);
+}
+
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--content-width));
+  margin-inline: auto;
+}
+
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
+  color: var(--copper);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+
+.section-title {
+  max-width: 14ch;
+  margin: 0;
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 5vw, 4.6rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+
+.section-intro {
+  max-width: 38rem;
+  margin: var(--space-3) 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+}
+
+
+.button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: var(--copper);
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+
+.button:hover {
+  background: #965333;
+}
+
+
+.button--light {
+  border-color: rgba(255, 254, 250, 0.75);
+  background: transparent;
+  color: var(--white);
+}
+
+
+.button--light:hover {
+  border-color: var(--white);
+  background: var(--white);
+  color: var(--navy);
+}
+
+
+.site-header {
+  position: absolute;
+  z-index: 10;
+  inset: 0 0 auto;
+  min-height: var(--header-height);
+  color: var(--white);
+}
+
+
+.site-header__inner {
+  display: flex;
+  width: min(100% - 2 * var(--gutter), 90rem);
+  min-height: var(--header-height);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-inline: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.32);
+}
+
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+
+.brand__mark {
+  display: grid;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 2.4vw, 2.4rem);
+}
+
+
+.primary-nav a {
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+
+.primary-nav a:hover {
+  color: #e9b28f;
+}
+
+
+.nav-toggle {
+  display: none;
+  width: 2.8rem;
+  height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  position: relative;
+  display: block;
+  width: 1.15rem;
+  height: 2px;
+  background: currentColor;
+}
+
+
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  position: absolute;
+  left: 0;
+  content: "";
+}
+
+
+.nav-toggle__bars::before {
+  top: -6px;
+}
+
+
+.nav-toggle__bars::after {
+  top: 6px;
+}
+
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: min(54rem, 100svh);
+  align-items: end;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--white);
+}
+
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 22, 34, 0.78) 0%,
+    rgba(10, 22, 34, 0.48) 48%,
+    rgba(10, 22, 34, 0.12) 100%
+  );
+  content: "";
+}
+
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2 * var(--gutter), var(--content-width));
+  margin: 0 auto;
+  padding-top: calc(var(--header-height) + var(--space-6));
+  padding-bottom: clamp(4rem, 10vh, 8rem);
+}
+
+
+.hero__eyebrow {
+  color: #f0b48d;
+}
+
+
+.hero__title {
+  max-width: 11ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 8.5vw, 7.6rem);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+
+.hero__copy {
+  max-width: 35rem;
+  margin: var(--space-3) 0 var(--space-4);
+  color: rgba(255, 254, 250, 0.9);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.6;
+}
+
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
