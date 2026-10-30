@@ -115,13 +115,25 @@ def message_text_for_block(block, label: str, code: str) -> str:
         label,
     )
     if not visible_text:
+        # Duck.ai sometimes renders the required part name only in the code
+        # comment, outside any shared DOM wrapper with the code block. The
+        # caller has already confirmed this is the one newly added block and
+        # validated its exact first-line marker, so preserve that verified label.
+        marker = f"/* {label} */" if label.startswith("CSS") else f"<!-- {label} -->"
+        if re.search(rf"^\s*{re.escape(marker)}\s*$", code, re.IGNORECASE | re.MULTILINE):
+            return label
         return ""
     # Inner text includes rendered code, but the web UI does not retain Markdown
     # fences. Remove the one code block's visible text before rebuilding its fence.
     context_text = visible_text.replace(code, "", 1).strip()
-    if not re.search(rf"\b{re.escape(label)}\b", context_text, re.IGNORECASE):
-        return ""
-    return context_text
+    if re.search(rf"\b{re.escape(label)}\b", context_text, re.IGNORECASE):
+        return context_text
+    # The in-code marker is authoritative when Duck.ai's DOM places the part
+    # label inside the code block rather than in the surrounding message text.
+    marker = f"/* {label} */" if label.startswith("CSS") else f"<!-- {label} -->"
+    if re.search(rf"^\s*{re.escape(marker)}\s*$", code, re.IGNORECASE | re.MULTILINE):
+        return label
+    return ""
 
 
 def send_and_capture(page, prompt: str, kind: str, part: int) -> tuple[str, str]:
