@@ -1,0 +1,95 @@
+name: Duck.ai Website Automation
+
+on:
+  push:
+    branches:
+      - duckai
+    paths:
+      - "duckai_automation/website_request.txt"
+      - "duckai_automation/design_brief.txt"
+  workflow_dispatch:
+    inputs:
+      website_request:
+        description: "The website to generate"
+        required: true
+        type: string
+      design_brief:
+        description: "Verified business facts and design brief; include template/source/license details when using HTML5 UP"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: duckai-automation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.58.0-noble
+      options: --user root --shm-size=1gb
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.workspace }}
+
+    steps:
+      - name: Require the duckai branch
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          if [[ "$TARGET_BRANCH" != "duckai" ]]; then
+            echo "Run this workflow on the duckai branch; selected branch was '$TARGET_BRANCH'."
+            exit 1
+          fi
+
+      - name: Check out selected branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Playwright dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          pip install -r .github/workflows/requirements-playwright.txt
+
+      - name: Generate, capture, assemble, and render
+        env:
+          WEBSITE_REQUEST: ${{ inputs.website_request }}
+          DESIGN_BRIEF: ${{ inputs.design_brief }}
+        run: python duckai_automation/run_duckai.py
+
+      - name: Commit generated website run to selected branch
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          test -f "$run_dir/files/index.html"
+          test -f "$run_dir/files/styles.css"
+          git add -- "$run_dir"
+          if git diff --cached --quiet; then
+            echo "No generated run files to commit."
+            exit 1
+          fi
+          git commit -m "duckai: save generated website run ${GITHUB_RUN_ID} [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:refs/heads/${TARGET_BRANCH}"; then
+              echo "Pushed $run_dir to ${TARGET_BRANCH}."
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; rebasing on the selected branch."
+            git fetch origin "$TARGET_BRANCH"
+            git rebase "origin/$TARGET_BRANCH"
+            sleep 2
+          done
+          echo "Could not push the generated run after three attempts."
+          exit 1
