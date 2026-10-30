@@ -28,6 +28,27 @@ def fail(message: str) -> None:
     raise RuntimeError(message)
 
 
+def write_failure_summary(error: Exception, page) -> None:
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not summary_path:
+        return
+    try:
+        title = page.title()
+        current_url = page.url
+        body = page.locator("body").inner_text(timeout=3000)
+    except Exception as diagnostic_error:
+        title = "unavailable"
+        current_url = "unavailable"
+        body = f"Could not read page diagnostics: {diagnostic_error}"
+    with Path(summary_path).open("a", encoding="utf-8") as summary:
+        summary.write("## Duck.ai smoke test failed\n\n")
+        summary.write(f"- Error: `{str(error).replace('`', '\\`')}`\n")
+        summary.write(f"- Page title: `{title}`\n")
+        summary.write(f"- Page URL: `{current_url}`\n\n")
+        summary.write("Visible page text (truncated to 1,500 characters):\n\n")
+        summary.write("```text\n" + body[:1500].replace("```", "'''\u200b") + "\n```\n")
+
+
 def main_area(page):
     main = page.locator("main").first
     return main if main.count() else page.locator("body")
@@ -169,6 +190,9 @@ def main() -> None:
                         "captured_at_utc": datetime.now(timezone.utc).isoformat(),
                     }
                 )
+        except Exception as error:
+            write_failure_summary(error, page)
+            raise
         finally:
             context.close()
             browser.close()
@@ -215,5 +239,6 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as error:
+        print(f"::error title=Duck.ai smoke test::{error}")
         print(f"Duck.ai smoke test failed: {error}", file=sys.stderr)
         raise SystemExit(1)
