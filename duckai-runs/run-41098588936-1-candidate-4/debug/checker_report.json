@@ -3,12 +3,13 @@
   "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-4",
   "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-4/files/index.html",
   "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-4/files/styles.css",
-  "score": 86,
-  "checks_passed": 25,
-  "checks_total": 29,
+  "score": 87,
+  "checks_passed": 26,
+  "checks_total": 30,
   "checks": {
     "html_file_present": true,
     "no_visible_template_credit": true,
+    "cta_buttons_no_arrows": true,
     "accessible_mobile_hamburger": true,
     "css_file_present": true,
     "document_has_main": true,
@@ -287,6 +288,7 @@
     "#contact",
     "tel:+13177819212"
   ],
+  "cta_arrow_issues": [],
   "complete": false,
   "final_success": false,
   "checker_exit_code": 2

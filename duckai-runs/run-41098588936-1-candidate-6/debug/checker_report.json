@@ -3,12 +3,13 @@
   "session_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-6",
   "html_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-6/files/index.html",
   "css_path": "/__w/git-inference/git-inference/duckai-runs/run-41098588936-1-candidate-6/files/styles.css",
-  "score": 76,
-  "checks_passed": 22,
-  "checks_total": 29,
+  "score": 77,
+  "checks_passed": 23,
+  "checks_total": 30,
   "checks": {
     "html_file_present": true,
     "no_visible_template_credit": true,
+    "cta_buttons_no_arrows": true,
     "accessible_mobile_hamburger": true,
     "css_file_present": true,
     "document_has_main": true,
@@ -322,6 +323,7 @@
     "https://www.paulstrailer.com/parts",
     "https://www.paulstrailer.com/find-us"
   ],
+  "cta_arrow_issues": [],
   "complete": false,
   "final_success": false,
   "checker_exit_code": 2
