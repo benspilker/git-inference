@@ -1,0 +1,382 @@
+/* CSS PART 2 OF 3 */
+.section {
+  padding-block: clamp(4.25rem, 8vw, var(--space-8));
+}
+
+
+.section-heading {
+  max-width: 760px;
+  color: var(--color-forest-deep);
+  font-size: clamp(2.35rem, 5vw, 4.15rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+
+.section-intro {
+  max-width: 650px;
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+  font-size: 1.08rem;
+}
+
+
+.intro-section {
+  background: var(--color-surface);
+}
+
+
+.intro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(280px, 1.12fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+
+.intro-copy p {
+  max-width: 590px;
+  color: var(--color-muted);
+}
+
+
+.intro-image-wrap {
+  position: relative;
+  min-height: 360px;
+}
+
+
+.intro-image-wrap img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+}
+
+
+.image-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  max-width: 80%;
+  padding: 0.75rem 1rem;
+  background: var(--color-forest-deep);
+  color: var(--color-white);
+  font-size: 0.82rem;
+}
+
+
+.services-section {
+  background: var(--color-paper);
+}
+
+
+.services-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+
+.services-header .section-intro {
+  max-width: 430px;
+}
+
+
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--color-line);
+}
+
+
+.service-item {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: 1.6rem 1.5rem 1.6rem 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+
+.service-item:nth-child(odd) {
+  border-right: 1px solid var(--color-line);
+}
+
+
+.service-item:nth-child(even) {
+  padding-left: 1.5rem;
+}
+
+
+.service-number {
+  color: var(--color-clay);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+
+.service-item h3 {
+  margin: 0;
+  color: var(--color-forest-deep);
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+
+.service-item p {
+  margin: 0.55rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+
+.work-section {
+  background: var(--color-forest-deep);
+  color: var(--color-white);
+}
+
+
+.work-section .section-heading {
+  color: var(--color-white);
+}
+
+
+.work-section .eyebrow {
+  color: #f0b293;
+}
+
+
+.work-section .section-intro {
+  color: rgb(255 255 255 / 76%);
+}
+
+
+.work-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: var(--space-6);
+}
+
+
+.work-feature img,
+.work-detail img {
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.work-feature img {
+  aspect-ratio: 1.35;
+}
+
+
+.work-detail img {
+  aspect-ratio: 1.08;
+}
+
+
+.work-feature figcaption,
+.work-detail figcaption {
+  margin-top: 0.8rem;
+  color: rgb(255 255 255 / 76%);
+  font-size: 0.88rem;
+}
+
+
+.work-feature,
+.work-detail {
+  margin: 0;
+}
+
+
+.work-feature {
+  padding-right: clamp(0rem, 3vw, 2rem);
+}
+
+
+.work-detail {
+  border-left: 1px solid rgb(255 255 255 / 28%);
+  padding-left: clamp(1rem, 3vw, 2rem);
+}
+
+
+.proof-strip {
+  background: #e8ebe3;
+  border-block: 1px solid var(--color-line);
+}
+
+
+.proof-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.8fr);
+  align-items: center;
+  gap: var(--space-6);
+}
+
+
+.proof-copy p {
+  max-width: 620px;
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+}
+
+
+.proof-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--color-line);
+  border: 1px solid var(--color-line);
+}
+
+
+.proof-fact {
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.15rem;
+  background: var(--color-surface);
+}
+
+
+.proof-fact strong {
+  color: var(--color-forest);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+
+.proof-fact span {
+  margin-top: 0.45rem;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+
+.contact-section {
+  background: var(--color-surface);
+}
+
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(320px, 1.12fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+
+.contact-details {
+  margin-top: var(--space-5);
+  display: grid;
+  gap: 1.15rem;
+}
+
+
+.contact-detail {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-line);
+}
+
+
+.contact-detail h3 {
+  margin: 0;
+  color: var(--color-forest-deep);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+.contact-detail p,
+.contact-detail a {
+  margin: 0.3rem 0 0;
+  color: var(--color-muted);
+  overflow-wrap: anywhere;
+}
+
+
+.contact-form {
+  padding: clamp(1.35rem, 3vw, 2.4rem);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-soft);
+}
+
+
+.contact-form h3 {
+  margin: 0 0 1.3rem;
+  color: var(--color-forest-deep);
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+
+.form-field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+
+.form-field-full {
+  grid-column: 1 / -1;
+}
+
+
+.form-field label {
+  color: var(--color-ink);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #bfc7bd;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+
+.form-field textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+
+.form-note {
+  margin: 0.9rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+}
+
+
+.contact-form .button {
+  margin-top: 1.2rem;
+  cursor: pointer;
+}

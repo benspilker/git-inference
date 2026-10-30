@@ -1,0 +1,10 @@
+{"accepted": true, "part": "css 1/3", "characters": 6256, "sha256": "3928abc179dd64063dcba2b154b21b9963a65f5a53afc7803f16647b8558b5c0"}
+{"accepted": true, "part": "css 2/3", "characters": 5815, "sha256": "c1183f12d0990a4511c24bc5005ea6add5a9e5e326f3c9200c8eaef96fe8ba03"}
+{"accepted": true, "part": "css 3/3", "characters": 4822, "sha256": "864fc1b01d7f043de5a09cd433414d98ba051af41d1de54627749d4ae30231de"}
+Duck.ai automation failed for site 1, candidate attempt 1: Timed out waiting for a complete, stable HTML PART 1 OF 3 response with exactly one code block.
+Enabled Duck.ai Web Search for the source-site assessment.
+Captured and validated Duck.ai's source assessment for https://joshbrooksconstructionllc.com
+Captured CSS PART 1 OF 3
+Captured CSS PART 2 OF 3
+Captured CSS PART 3 OF 3
+Sent acknowledged as a standalone Duck.ai turn and waited for its response.
