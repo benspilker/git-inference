@@ -22,7 +22,10 @@ ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
 RUN_ID = os.environ.get("GITHUB_RUN_ID", "local")
 RUN_ATTEMPT = os.environ.get("GITHUB_RUN_ATTEMPT", "1")
-RUN_DIR = REPO / "duckai-runs" / f"run-{RUN_ID}-{RUN_ATTEMPT}"
+CANDIDATE_INDEX = os.environ.get("CANDIDATE_INDEX", "1")
+if not CANDIDATE_INDEX.isdigit() or int(CANDIDATE_INDEX) not in (1, 2, 3):
+    raise RuntimeError("CANDIDATE_INDEX must be 1, 2, or 3.")
+RUN_DIR = REPO / "duckai-runs" / f"run-{RUN_ID}-{RUN_ATTEMPT}-candidate-{CANDIDATE_INDEX}"
 CAPTURE_SCRIPT = ROOT / "scripts" / "capture_chunk.py"
 ASSEMBLE_SCRIPT = ROOT / "scripts" / "assemble_chunks.py"
 CHECK_SCRIPT = ROOT / "scripts" / "check_website.py"
@@ -388,6 +391,7 @@ def run() -> None:
     capture_previews()
     report = run_checker(website_request)
     notes = {
+        "candidate_index": int(CANDIDATE_INDEX),
         "status": "generated_pending_human_review",
         "chat_url": chat_url,
         "final_success": bool(report.get("final_success")),
@@ -399,11 +403,11 @@ def run() -> None:
     summary = Path(os.environ.get("GITHUB_STEP_SUMMARY", ""))
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with summary.open("a", encoding="utf-8") as handle:
-            handle.write("## Duck.ai website run\n\n")
+            handle.write(f"## Duck.ai website candidate {CANDIDATE_INDEX} of 3\n\n")
             handle.write(f"- Output: `{RUN_DIR.relative_to(REPO).as_posix()}/`\n")
             handle.write(f"- Structural/checker success: `{str(bool(report.get('final_success'))).lower()}`\n")
             handle.write("- Visual review: pending human screenshot and image relevance review.\n")
-            handle.write("- The run folder will be committed to the selected branch.\n")
+            handle.write("- This candidate folder will be committed with the other completed candidates.\n")
     print(f"Run saved in {RUN_DIR}")
 
 

@@ -63,20 +63,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r .github/workflows/requirements-playwright.txt
 
-      - name: Generate, capture, assemble, and render
+      - name: Generate, capture, assemble, and render three candidates
         env:
           WEBSITE_REQUEST: ${{ inputs.website_request }}
           DESIGN_BRIEF: ${{ inputs.design_brief }}
-        run: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
-
-      - name: Inline CSS into a standalone HTML file
         run: |
           set -euo pipefail
-          run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          python duckai_automation/scripts/inline_css.py \
-            "$run_dir/files/index.html" \
-            "$run_dir/files/styles.css" \
-            "$run_dir/files/inlined/index.html"
+          for candidate in 1 2 3; do
+            echo "Starting complete website candidate ${candidate} of 3."
+            CANDIDATE_INDEX="$candidate" xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python duckai_automation/run_duckai.py
+            run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-${candidate}"
+            python duckai_automation/scripts/inline_css.py \
+              "$run_dir/files/index.html" \
+              "$run_dir/files/styles.css" \
+              "$run_dir/files/inlined/index.html"
+          done
 
       - name: Commit generated website run to selected branch
         env:
@@ -86,19 +87,21 @@ jobs:
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          test -f "$run_dir/files/index.html"
-          test -f "$run_dir/files/styles.css"
-          test -f "$run_dir/files/inlined/index.html"
-          git add -- "$run_dir"
+          for candidate in 1 2 3; do
+            run_dir="duckai-runs/run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-candidate-${candidate}"
+            test -f "$run_dir/files/index.html"
+            test -f "$run_dir/files/styles.css"
+            test -f "$run_dir/files/inlined/index.html"
+            git add -- "$run_dir"
+          done
           if git diff --cached --quiet; then
-            echo "No generated run files to commit."
+            echo "No generated candidate files to commit."
             exit 1
           fi
-          git commit -m "duckai: save generated website run ${GITHUB_RUN_ID} [skip ci]"
+          git commit -m "duckai: save three generated website candidates ${GITHUB_RUN_ID} [skip ci]"
           for attempt in 1 2 3; do
             if git push origin "HEAD:refs/heads/${TARGET_BRANCH}"; then
-              echo "Pushed $run_dir to ${TARGET_BRANCH}."
+              echo "Pushed all three candidate folders to ${TARGET_BRANCH}."
               exit 0
             fi
             echo "Push attempt ${attempt} failed; rebasing on the selected branch."
