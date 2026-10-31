@@ -1,0 +1,54 @@
+name: Google Playwright Xvfb smoke test
+
+on:
+  push:
+    branches:
+      - codex/google-xvfb-smoke
+    paths:
+      - ".github/workflows/google-xvfb-smoke.yml"
+      - "tools/google_xvfb_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-xvfb-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out git-chatgpt
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Xvfb and Playwright Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes xvfb
+          python -m pip install --disable-pip-version-check "playwright==1.58.0"
+          python -m playwright install --with-deps chromium
+
+      - name: Search Google once under Xvfb
+        run: |
+          mkdir -p artifacts/google-xvfb-probe
+          xvfb-run --auto-servernum --server-args="-screen 0 1440x1000x24" \
+            python tools/google_xvfb_probe.py \
+              --query "hello world" \
+              --artifacts-dir artifacts/google-xvfb-probe
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-xvfb-probe-${{ github.run_id }}
+          path: artifacts/google-xvfb-probe/
+          if-no-files-found: warn
+          retention-days: 7
