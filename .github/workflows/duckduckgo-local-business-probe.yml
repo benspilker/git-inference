@@ -1,0 +1,62 @@
+name: DuckDuckGo local-business Xvfb probe
+
+on:
+  push:
+    branches:
+      - codex/google-xvfb-smoke
+    paths:
+      - ".github/workflows/duckduckgo-local-business-probe.yml"
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "DuckDuckGo query to try once under Xvfb"
+        required: true
+        default: "in-ground pool companies Indianapolis, IN"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: duckduckgo-local-business-probe-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out test branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Xvfb and Playwright Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes xvfb
+          python -m pip install --disable-pip-version-check "playwright==1.58.0"
+          python -m playwright install --with-deps chromium
+
+      - name: Search DuckDuckGo once under Xvfb
+        env:
+          SEARCH_QUERY: ${{ github.event.inputs.query || 'in-ground pool companies Indianapolis, IN' }}
+        run: |
+          mkdir -p artifacts/duckduckgo-local-business-probe
+          xvfb-run --auto-servernum --server-args="-screen 0 1440x1000x24" \
+            python tools/search_engine_xvfb_probe.py \
+              --engine duckduckgo \
+              --query "$SEARCH_QUERY" \
+              --artifacts-dir artifacts/duckduckgo-local-business-probe
+
+      - name: Upload search evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: duckduckgo-local-business-probe-${{ github.run_id }}
+          path: artifacts/duckduckgo-local-business-probe/
+          if-no-files-found: warn
+          retention-days: 7
