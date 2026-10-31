@@ -1,0 +1,69 @@
+name: Search engine Playwright Xvfb smoke test
+
+on:
+  push:
+    branches:
+      - codex/google-xvfb-smoke
+    paths:
+      - ".github/workflows/search-engine-xvfb-smoke.yml"
+      - "tools/search_engine_xvfb_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: search-engine-xvfb-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Check out git-chatgpt
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Xvfb and Playwright Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes xvfb
+          python -m pip install --disable-pip-version-check "playwright==1.58.0"
+          python -m playwright install --with-deps chromium
+
+      - name: Search Google and DuckDuckGo once each under Xvfb
+        run: |
+          mkdir -p artifacts/search-xvfb-probe
+          set +e
+          xvfb-run --auto-servernum --server-args="-screen 0 1440x1000x24" \
+            python tools/search_engine_xvfb_probe.py \
+              --engine google \
+              --query "hello world" \
+              --artifacts-dir artifacts/search-xvfb-probe
+          google_status=$?
+          xvfb-run --auto-servernum --server-args="-screen 0 1440x1000x24" \
+            python tools/search_engine_xvfb_probe.py \
+              --engine duckduckgo \
+              --query "hello world" \
+              --artifacts-dir artifacts/search-xvfb-probe
+          duckduckgo_status=$?
+          set -e
+          echo "Google probe exit: $google_status"
+          echo "DuckDuckGo probe exit: $duckduckgo_status"
+          if [ "$duckduckgo_status" -ne 0 ]; then
+            exit "$duckduckgo_status"
+          fi
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: search-engine-xvfb-probe-${{ github.run_id }}
+          path: artifacts/search-xvfb-probe/
+          if-no-files-found: warn
+          retention-days: 7
